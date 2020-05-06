@@ -5,15 +5,7 @@ Routes and views for the flask application.
 from flask import render_template, request
 from app import app
 from random import choice, shuffle
-from copy import deepcopy
-
-og_qns = {
-    "Fill in the blank: 423 x 1000 = ____ x 10": [42300, 423, 4230, 423000],
-    "Which of the following is closest to 1?": ["4/5", "1/2", "2/3", "3/4", ],
-    "Which of the following is the same as 2010 g?": ["2 kg 10 g", "2 kg 1 g", "20 kg 1 g", "20 kg 10 g"]
-}
-
-qns = deepcopy(og_qns)
+from app.questions import *
 
 @app.route('/')
 @app.route('/home')
