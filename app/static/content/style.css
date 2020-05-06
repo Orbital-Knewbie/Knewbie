@@ -627,8 +627,9 @@ input {
 
 .left {
   left: 0;
-  background: var(--LIGHTPURPLE);
-  background-size: cover;
+  /*background: var(--LIGHTPURPLE);*/
+  background: url('../resources/images/Student.svg') center center no-repeat;
+  background-size: 53vh;
   background-color: rgba(0, 0, 0, .7);
 }
 
@@ -643,8 +644,9 @@ input {
 
 .right {
   right: 0;
-  background: var(--GREY);
-  background-size: cover;
+  /*background: var(--GREY);*/
+  background: url('../resources/images/Teacher.svg') center center no-repeat;
+  background-size: 80vh;
 }
 
 .right::before {
