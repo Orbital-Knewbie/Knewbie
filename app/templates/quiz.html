@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <form action='/end' method='POST'>
+        <ol>
+            {% for i in q %}
+                <li>{{i}}</li>
+                {% for j in o[i] %}
+                    <input type='radio' value='{{j}}' name='{{i}}' />{{j}}
+                {% endfor %}
+            {% endfor %}
+        </ol>
+        <input type="submit" value="submit" />
+    </form>
+</body>
+</html>

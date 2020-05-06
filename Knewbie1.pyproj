@@ -6,7 +6,7 @@
     <ProjectGuid>f3fdae86-89e5-4afa-8ab8-73acaa169fc8</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <ProjectTypeGuids>{789894c7-04a9-4a11-a6b5-3f4435165112};{1b580a1a-fdb3-4b32-83e1-6407eb2722e6};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
-    <StartupFile>app.py</StartupFile>
+    <StartupFile>run.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -27,9 +27,35 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="app.py" />
+    <Compile Include="app\views.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\scripts\animation.gsap.min.js" />
+    <Content Include="app\static\scripts\jquery.min.js" />
+    <Content Include="app\static\scripts\mainscript.js" />
+    <Content Include="app\static\scripts\script.js" />
+    <Content Include="app\static\scripts\ScrollMagic.min.js" />
+    <Content Include="app\static\resources\fonts\Quicksand_Light.woff" />
+    <Content Include="app\static\resources\fonts\Raleway-Regular.woff" />
+    <Content Include="app\static\resources\fonts\roboto-regular.woff" />
+    <Content Include="app\static\resources\fonts\Simplifica.ttf" />
+    <Content Include="app\static\resources\illustrator\Character Design.ai" />
+    <Content Include="app\static\resources\illustrator\Knewbie BG.ai" />
+    <Content Include="app\static\resources\illustrator\Newbie Logo.ai" />
+    <Content Include="app\static\resources\illustrator\templates\2234581.ai" />
+    <Content Include="app\static\resources\illustrator\templates\3647050.ai" />
+    <Content Include="app\static\resources\images\BG.svg" />
+    <Content Include="app\static\resources\images\Logo.svg" />
+    <Content Include="app\static\resources\Knewbie Prototype v1.0.xd" />
+    <Content Include="app\static\content\style.css" />
+    <Content Include="app\templates\index.html" />
+    <Content Include="app\templates\quiz.html" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +68,18 @@
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
       <Architecture>X64</Architecture>
     </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app\" />
+    <Folder Include="app\static\" />
+    <Folder Include="app\static\scripts\" />
+    <Folder Include="app\static\resources\" />
+    <Folder Include="app\static\resources\fonts\" />
+    <Folder Include="app\static\resources\illustrator\" />
+    <Folder Include="app\static\resources\illustrator\templates\" />
+    <Folder Include="app\static\resources\images\" />
+    <Folder Include="app\static\content\" />
+    <Folder Include="app\templates\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 
