@@ -19,13 +19,19 @@ def quiz():
     sh_qns = og_qns.keys()
     shuffle(sh_qns)
     for k in qns.keys():
-        shuffle(qns[k])
+        shuffle(qns[k]['answers'])
     return render_template('quiz.html', q = sh_qns, o = qns)
 
 @app.route('/end', methods=['POST'])
 def end():
-    correct = len(filter(lambda x: request.form[x] == og_qns[x][0], qns.keys()))
-    return '<h1>Correct Answers: <u>' + str(correct) + '</u></h1>'
+    totalEasy = len(tuple(filter(lambda x: og_qns[x]['difficulty'] == 'Easy', qns.keys())))
+    totalHard = len(qns.keys()) - totalEasy
+    correct = tuple(filter(lambda x: request.form.get(x) == og_qns[x]['answers'][0], qns.keys()))
+    easyCorrect = len(tuple(filter(lambda x: og_qns[x]['difficulty'] == 'Easy', correct)))
+    hardCorrect = len(correct) - easyCorrect
+    #hardCorrect = tuple(filter(lambda x: og_qns[x]['difficulty'] == 'Easy', correct))
+    
+    return '<h1>Correct Answers: <u>Easy: ' + str(easyCorrect) + '/' + str(totalEasy) + ' Hard:' + str(hardCorrect) + '/' + str(totalHard) + '<u></h1>'
 
 @app.route('/test', methods=['GET','POST'])
 def test():

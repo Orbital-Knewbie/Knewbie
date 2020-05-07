@@ -6,21 +6,21 @@
     <title></title>
 </head>
 <body>
-    <!--<form action='/end' method='POST'>
+    <form action='/end' method='POST'>
         <ol>
             {% for i in q %}
                 <li>{{i}}</li>
-                {% for j in o[i] %}
+                {% for j in o[i]['answers'] %}
                     <input type='radio' value='{{j}}' name='{{i}}' />{{j}}
                 {% endfor %}
             {% endfor %}
         </ol>
         <input type="submit" value="submit" />
-    </form>-->
+    </form>
 
-    <div id="quiz"></div>
+    <!--<div id="quiz"></div>
     <button id="submit">Submit Quiz</button>
     <div id="results"></div>
-    <script src="../static/scripts/quiz.js"></script>
+    <script src="../static/scripts/quiz.js"></script>-->
 </body>
 </html>
