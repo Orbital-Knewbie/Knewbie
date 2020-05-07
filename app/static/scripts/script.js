@@ -45,29 +45,9 @@ $(document).ready(function () {
   gsap.fromTo('.logo', {x: -200, opacity: 0}, {duration: 1, delay: 0.5, x: 0, opacity: 1});
   gsap.fromTo('.menu', {opacity: 0}, {duration: 2, delay: 0.5, opacity: 1});
   gsap.fromTo('.gradient-textbox', {yPercent: 40, opacity: 0}, {duration: 1, delay: 0.8, yPercent: -50, opacity: 1});
-
-
-// SMOOTH SCROLL EFFECT
-//   const scroll = new SmoothScroll('.navbar a[href*="#"]', {
-//     speed: 1500
-//   });
-//
-// //RETURN TO TOP BUTTTON
-//   const backtotop = document.querySelector("#backtotop");
-//   backtotop.addEventListener("click", function () {
-//     $("html, body").animate({ scrollTop: 0 }, "slow");
-//   });
-//
-// // ANIMATIONS
-//   AOS.init({
-//     easing: 'ease',
-//     duration: 1800,
-//     once: true
-//   });
-
 });
 
-// MODAL FORM
+// MODAL FORM SIGNUP
 const EducatorButton = document.getElementById('Educator');
 const StudentButton = document.getElementById('Student');
 const container = document.getElementById('container');
@@ -78,9 +58,7 @@ EducatorButton.addEventListener('click', () => {
 
 StudentButton.addEventListener('click', () => {
   container.classList.remove("right-panel-active");
-});
-
-
+})
 
 document.getElementById('signupnow').addEventListener("click", function() {
 	document.querySelector('.modal-container').style.display = "inline";
@@ -92,4 +70,17 @@ document.querySelector('.close').addEventListener("click", function() {
 
 document.querySelector('.close1').addEventListener("click", function() {
 	document.querySelector('.modal-container').style.display = "none";
+});
+
+// MODAL FOR LOGIN
+document.getElementById('std-login').addEventListener("click", function () {
+   document.querySelector('.login-modal').style.display = "flex";
+});
+
+document.getElementById('tcr-login').addEventListener("click", function () {
+   document.querySelector('.login-modal').style.display = "flex";
+});
+
+document.querySelector('.loginclose').addEventListener("click", function () {
+   document.querySelector('.login-modal').style.display = "none";
 });
