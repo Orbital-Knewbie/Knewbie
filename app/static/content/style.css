@@ -79,7 +79,7 @@ header {
 /* HIGHLIGHTS */
 ::selection {
   background: var(--LIGHTPURPLE);
-  color: black;
+  color: var(--GREY);
 }
 
 
@@ -319,7 +319,7 @@ p {
 	font-weight: 100;
 	line-height: 20px;
 	letter-spacing: 0.5px;
-	margin: 20px 0 30px;
+	margin-top: 20px;
 }
 
 span {
@@ -393,12 +393,14 @@ form {
 	text-align: center;
 }
 
-input {
+.modal-content input,
+.form-container input {
 	background-color: var(--GREY);
 	border: none;
 	padding: 12px 15px;
 	margin: 8px 0;
 	width: 100%;
+  border-radius: 1rem;
 }
 
 .container {
@@ -710,10 +712,6 @@ input {
   border-radius: 1rem;
 }
 
-form input {
-  border-radius: 1rem;
-}
-
 .loginclose {
     position: absolute;
     top: 0;
@@ -758,6 +756,84 @@ form input {
   transition: all .5s;
 }
 
+/* UNIQUE ID QUERY */
+.query {
+  background-color: var(--GREY);
+  justify-content: space-around;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Lato', sans-serif;
+  padding: 10rem 0;
+}
+
+.query h1 {
+  margin-bottom: 5rem;
+  font-size: 4rem;
+}
+
+.query-form {
+  width: 50%;
+  position: relative;
+  height: 50px;
+  background-color: var(--GREY);
+  overflow: hidden;
+  text-transform: uppercase;
+}
+
+.query-form input {
+  width: 100%;
+  height: 100%;
+  color: var(--LIGHTPURPLE);
+  padding-top: 20px;
+  border: none;
+  outline: none;
+  background-color: var(--GREY);
+  font-size: 2.5rem;
+}
+
+.query-form label {
+  position: absolute;
+  bottom: 0px;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-bottom: 1px solid var(--DARKPURPLE);
+}
+
+.query-form label::after {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-bottom: 3px solid var(--LIGHTPURPLE);
+  bottom: -1px;
+  left: 0px;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.content-unique-id {
+  position: absolute;
+  font-size: 2.5rem;
+  bottom: 5px;
+  left: 0px;
+  transition: all 0.5s ease;
+}
+
+.query-form input:focus + .label-unique-id .content-unqiue-id,
+.query-form input:valid + .label-unique-id .content-unique-id {
+  transform: translateY(-150%);
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  color: var(--LIGHTPURPLE);
+}
+
+.query-form input:focus + .label-unique-id::after,
+.query-form input:valid + .label-unique-id::after {
+  transform: translateX(0%);
+}
 
 @keyframes rubberBand {
   from {
