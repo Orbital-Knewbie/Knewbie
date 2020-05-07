@@ -11,8 +11,8 @@
             {% for i in q %}
                 <li>{{i}}</li>
                 {% for j in o[i]['answers'] %}
-                    <input type='radio' value='{{j}}' name='{{i}}' />{{j}}
-                {% endfor %}
+                    <input type='radio' value='{{j}}' name='{{i}}' />{{j}} </br>
+                {% endfor %} </br>
             {% endfor %}
         </ol>
         <input type="submit" value="submit" />
