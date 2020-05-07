@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <script>
+        //function create() {
+            $.ajax({
+                url: "/test1", //the page containing python script
+                type: "POST", //request type,
+                //dataType: 'json',
+                data: { test1: 'test1', test2: 'test2' },
+                success: function (returned_data) { // Function to run if successful, with the function parameter being the output of the url script
+                    alert('Here is the output: ' + data.test1);
+                },
+                error: function () { // Function to run if unsuccessful
+                    alert('An error occured');
+                }
+            });
+        //}
+    </script>
+</body>
+</html>

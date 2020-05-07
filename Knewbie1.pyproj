@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\static\scripts\animation.gsap.min.js" />
+    <Content Include="app\static\scripts\quiz.js" />
     <Content Include="app\static\scripts\jquery.min.js" />
     <Content Include="app\static\scripts\mainscript.js" />
     <Content Include="app\static\scripts\script.js" />
@@ -59,6 +60,7 @@
     <Content Include="app\static\content\style.css" />
     <Content Include="app\templates\index.html" />
     <Content Include="app\templates\quiz.html" />
+    <Content Include="app\templates\test.html" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
