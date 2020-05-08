@@ -3,16 +3,19 @@ Routes and views for the flask application.
 """
 
 from flask import render_template, request, jsonify
+from flask_login import current_user, login_user
 from app import app
 from random import choice, shuffle
 from app.questions import *
+from app.forms import LoginForm
 import json
 
 @app.route('/')
 @app.route('/home')
 def home():
     """Renders the home page."""
-    return render_template('index.html')
+    form = LoginForm()
+    return render_template('index.html', form=form)
 
 @app.route('/quiz')
 def quiz():
@@ -32,6 +35,11 @@ def end():
     #hardCorrect = tuple(filter(lambda x: og_qns[x]['difficulty'] == 'Easy', correct))
     
     return '<h1>Correct Answers: <u>Easy: ' + str(easyCorrect) + '/' + str(totalEasy) + ' Hard:' + str(hardCorrect) + '/' + str(totalHard) + '<u></h1>'
+
+@app.route('/login', methods=['GET','POST'])
+def login():
+    pass
+
 
 @app.route('/test', methods=['GET','POST'])
 def test():

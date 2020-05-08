@@ -1,146 +1,148 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <title>Knewbie</title>
-    <meta name="viewport" content="width = device-width, initial-scale = 1, maximum-scale = 1, user-scalable = no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <link rel="shortcut icon" type="image/png" href="resources/images/favicon.png"> -->
-    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
-    <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"> -->
-    <link rel="stylesheet" href="../static/content/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Syncopate&display=swap" rel="stylesheet">
-  </head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Knewbie</title>
+        <meta name="viewport" content="width = device-width, initial-scale = 1, maximum-scale = 1, user-scalable = no">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- <link rel="shortcut icon" type="image/png" href="resources/images/favicon.png"> -->
+        <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
+        <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"> -->
+        <link rel="stylesheet" href="../static/content/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto|Syncopate&display=swap" rel="stylesheet">
+    </head>
 
-  <body>
-      <header>
-          <!-- NAV BAR -->
-          <!-- <div class="logo">
-          <a href="index.html">KNEWBIE</a>
+    <body>
+        <header>
+            <!-- NAV BAR -->
+            <!-- <div class="logo">
+            <a href="index.html">KNEWBIE</a>
         </div> -->
 
-          <div class="menu">
-              <div class="line half start"></div>
-              <div class="line"></div>
-              <div class="line half end"></div>
-          </div>
+            <div class="menu">
+                <div class="line half start"></div>
+                <div class="line"></div>
+                <div class="line half end"></div>
+            </div>
 
-          <nav class="navbar">
-              <ul class="list">
-                  <li class="navitem"><a href="#home-page" class="link">Home</a></li>
-                  <li class="navitem"><a href="#login-page" class="link">Login</a></li>
-                  <li class="navitem"><a href="#about" class="link">About Us</a></li>
-                  <li class="navitem"><a href="#contactform" class="link">Contact</a></li>
-              </ul>
-          </nav>
-      </header>
+            <nav class="navbar">
+                <ul class="list">
+                    <li class="navitem"><a href="#home-page" class="link">Home</a></li>
+                    <li class="navitem"><a href="#login-page" class="link">Login</a></li>
+                    <li class="navitem"><a href="#about" class="link">About Us</a></li>
+                    <li class="navitem"><a href="#contactform" class="link">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
 
-      <section class="gradient" id="home-page">
-          <div class="gradient-clipped">
-              <div class="gradient-textbox">
-                  <h1 class="text">Knewbie</h1>
-                  <h2 class="subtext">Knowledge is Power. Even if you are a Noobie.</h2>
-                  <a href="#" class="home-btn" id="signupnow">SIGN UP NOW!</a>
-              </div>
-          </div>
-      </section>
+        <section class="gradient" id="home-page">
+            <div class="gradient-clipped">
+                <div class="gradient-textbox">
+                    <h1 class="text">Knewbie</h1>
+                    <h2 class="subtext">Knowledge is Power. Even if you are a Noobie.</h2>
+                    <a href="#" class="home-btn" id="signupnow">SIGN UP NOW!</a>
+                </div>
+            </div>
+        </section>
 
-      <!-- MODAL FORM -->
-      <div class="modal-container">
-          <div class="container" id="container">
-              <div class="form-container sign-up-container">
-                  <form action="#">
-                      <div class="close1">+</div>
-                      <h1>Create An Educator Account</h1>
-                      <input type="text" placeholder="First Name" />
-                      <input type="text" placeholder="Last Name" />
-                      <input type="email" placeholder="Email" />
-                      <input type="password" placeholder="Password" />
-                      <input type="password" placeholder="Confirm Password" />
-                      <p>By clicking on the sign up button, you agree to our <a href="#">Terms & Conditions</a></p>
-                      <button class="signup">SIGN UP</button>
-                  </form>
-              </div>
-              <div class="form-container sign-in-container">
-                  <form action="#">
-                      <h1>Create A Student Account</h1>
-                      <input type="text" placeholder="First Name" />
-                      <input type="text" placeholder="Last Name" />
-                      <input type="email" placeholder="Email" />
-                      <input type="password" placeholder="Password" />
-                      <input type="password" placeholder="Confirm Password" />
-                      <p>By clicking on the sign up button, you agree to our <a href="#">Terms & Conditions</a></p>
-                      <button class="signup">SIGN UP</button>
-                  </form>
-              </div>
-              <div class="overlay-container">
-                  <div class="overlay">
-                      <div class="overlay-panel overlay-left">
-                          <h1>Are You A Student?</h1>
-                          <p>Click the button below to start your learning journey!</p>
-                          <button class="ghost" id="Student">CLICK HERE!</button>
-                      </div>
-                      <div class="overlay-panel overlay-right">
-                          <div class="close">+</div>
-                          <h1>Are You An Educator?</h1>
-                          <p>Click the button below to create an educator's account</p>
-                          <button class="ghost" id="Educator">CLICK HERE!</button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+        <!-- MODAL FORM -->
+        <div class="modal-container">
+            <div class="container" id="container">
+                <div class="form-container sign-up-container">
+                    <form action="#">
+                        <div class="close1">+</div>
+                        <h1>Create An Educator Account</h1>
+                        <input type="text" placeholder="First Name" />
+                        <input type="text" placeholder="Last Name" />
+                        <input type="email" placeholder="Email" />
+                        <input type="password" placeholder="Password" />
+                        <input type="password" placeholder="Confirm Password" />
+                        <p>By clicking on the sign up button, you agree to our <a href="#">Terms & Conditions</a></p>
+                        <button class="signup">SIGN UP</button>
+                    </form>
+                </div>
+                <div class="form-container sign-in-container">
+                    <form action="#">
+                        <h1>Create A Student Account</h1>
+                        <input type="text" placeholder="First Name" />
+                        <input type="text" placeholder="Last Name" />
+                        <input type="email" placeholder="Email" />
+                        <input type="password" placeholder="Password" />
+                        <input type="password" placeholder="Confirm Password" />
+                        <p>By clicking on the sign up button, you agree to our <a href="#">Terms & Conditions</a></p>
+                        <button class="signup">SIGN UP</button>
+                    </form>
+                </div>
+                <div class="overlay-container">
+                    <div class="overlay">
+                        <div class="overlay-panel overlay-left">
+                            <h1>Are You A Student?</h1>
+                            <p>Click the button below to start your learning journey!</p>
+                            <button class="ghost" id="Student">CLICK HERE!</button>
+                        </div>
+                        <div class="overlay-panel overlay-right">
+                            <div class="close">+</div>
+                            <h1>Are You An Educator?</h1>
+                            <p>Click the button below to create an educator's account</p>
+                            <button class="ghost" id="Educator">CLICK HERE!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-      <!-- DIVIDER ILLUSTRATION -->
-      <div class="background">
-          <!-- <div class="teacher"></div> -->
-          <div class="flat"></div>
-          <!-- <div class="student"></div> -->
-      </div>
+        <!-- DIVIDER ILLUSTRATION -->
+        <div class="background">
+            <!-- <div class="teacher"></div> -->
+            <div class="flat"></div>
+            <!-- <div class="student"></div> -->
+        </div>
 
-      <!-- SPLIT SCREEN -->
-      <div class="split-container" id="login-page">
-          <div class="split left">
-              <h1>Students</h1>
-              <a href="#" class="split-btn" id="std-login">Login</a>
-          </div>
+        <!-- SPLIT SCREEN -->
+        <div class="split-container" id="login-page">
+            <div class="split left">
+                <h1>Students</h1>
+                <a href="#" class="split-btn" id="std-login">Login</a>
+            </div>
 
-          <div class="split right">
-              <h1>Educators</h1>
-              <a href="#" class="split-btn" id="tcr-login">Login</a>
-          </div>
-      </div>
+            <div class="split right">
+                <h1>Educators</h1>
+                <a href="#" class="split-btn" id="tcr-login">Login</a>
+            </div>
+        </div>
 
-      <!-- MODAL POP UP FOR LOGIN -->
-      <div class="login-modal">
-          <div class="modal-content">
-              <div class="loginclose">+</div>
-              <form action="#">
-                  <input type="email" placeholder="E-Mail">
-                  <input type="password" placeholder="Password" />
-                  <a href="#" class="login-btn">LOGIN</a>
-              </form>
-          </div>
-      </div>
+        <!-- MODAL POP UP FOR LOGIN -->
+        <div class="login-modal">
+            <div class="modal-content">
+                <div class="loginclose">+</div>
+                <form action="#">
+                    <p> {{ form.username(size=32,placeholder="Username") }} </p>
+                    <p> {{ form.password(size=32,placeholder="Password") }} </p>
+                    <!--<p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>-->
+                    <p>{{ form.submit(class_="login-btn") }}</p>
+                    <!--<button href="#" class="login-btn" type="submit">LOGIN</button>-->
+                </form>
+            </div>
+        </div>
 
-      <!-- UNIQUE ID PROGRESS QUERY -->
-      <div class="query">
+        <!-- UNIQUE ID PROGRESS QUERY -->
+        <div class="query">
         <h1>ENTER YOUR UNIQUE ID TO GET YOUR PROGRESS REPORT!</h1>
         <div class="query-form">
-          <input type="text" name="unique-id" autocomplete="off" required />
-          <label for="unique-id" class="label-unique-id">
+            <input type="text" name="unique-id" autocomplete="off" required />
+            <label for="unique-id" class="label-unique-id">
             <span class="content-unique-id">Unique ID</span>
-          </label>
+            </label>
         </div>
         <a href="#" class="login-btn">SUBMIT</a>
-      </div>
+        </div>
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
-      <!-- <script src="https://unpkg.com/aos@next/dist/aos.js"></script> -->
-      <!-- <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js"></script> -->
-      <script src="../static/scripts/script.js"></script>
-      <script src="../static/scripts/jquery.min.js"></script>
-  </body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
+        <!-- <script src="https://unpkg.com/aos@next/dist/aos.js"></script> -->
+        <!-- <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js"></script> -->
+        <script src="../static/scripts/script.js"></script>
+        <script src="../static/scripts/jquery.min.js"></script>
+    </body>
 </html>
