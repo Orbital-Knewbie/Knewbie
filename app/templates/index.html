@@ -10,16 +10,13 @@
         <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
         <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"> -->
         <link rel="stylesheet" href="../static/content/style.css">
+        <link rel="stylesheet" href="../static/content/homepagestyle.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto|Syncopate&display=swap" rel="stylesheet">
     </head>
 
     <body>
         <header>
             <!-- NAV BAR -->
-            <!-- <div class="logo">
-            <a href="index.html">KNEWBIE</a>
-        </div> -->
-
             <div class="menu">
                 <div class="line half start"></div>
                 <div class="line"></div>
@@ -28,8 +25,8 @@
 
             <nav class="navbar">
                 <ul class="list">
-                    <li class="navitem"><a href="#home-page" class="link">Home</a></li>
-                    <li class="navitem"><a href="{{ url_for('login') }}" class="link">Login</a></li>
+                    <li class="navitem"><a href="index.html" class="link">Home</a></li>
+                    <li class="navitem"><a href="login.html" class="link">Login</a></li>
                     <li class="navitem"><a href="#about" class="link">About Us</a></li>
                     <li class="navitem"><a href="#contactform" class="link">Contact</a></li>
                 </ul>
@@ -115,14 +112,14 @@
 
         <!-- UNIQUE ID PROGRESS QUERY -->
         <div class="query">
-        <h1>ENTER YOUR UNIQUE ID TO GET YOUR PROGRESS REPORT!</h1>
-        <div class="query-form">
+          <h1>ENTER YOUR UNIQUE ID TO GET YOUR PROGRESS REPORT!</h1>
+          <div class="query-form">
             <input type="text" name="unique-id" autocomplete="off" required />
             <label for="unique-id" class="label-unique-id">
             <span class="content-unique-id">Unique ID</span>
             </label>
-        </div>
-        <a href="#" class="login-btn">SUBMIT</a>
+          </div>
+          <a href="#" class="submit-btn">SUBMIT</a>
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

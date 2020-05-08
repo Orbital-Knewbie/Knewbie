@@ -16,11 +16,6 @@
 
     <body>
         <header>
-             <!-- NAV BAR --> 
-             <!-- <div class="logo">
-            <a href="index.html">KNEWBIE</a>
-        </div> --> 
-
             <div class="menu">
                 <div class="line half start"></div>
                 <div class="line"></div>
@@ -29,7 +24,7 @@
 
             <nav class="navbar">
                 <ul class="list">
-                    <li class="navitem"><a href="#home-page" class="link">Home</a></li>
+                    <li class="navitem"><a href="index.html" class="link">Home</a></li>
                     <li class="navitem"><a href="login.html" class="link">Login</a></li>
                     <li class="navitem"><a href="#about" class="link">About Us</a></li>
                     <li class="navitem"><a href="#contactform" class="link">Contact</a></li>
@@ -37,24 +32,30 @@
             </nav>
         </header>
 
-        <!-- MODAL POP UP FOR LOGIN -->
-            <div class="login-form">
-                <form action="" method="post" novalidate>
-                    {{ form.hidden_tag() }}
-                    <p> {{ form.username(size=32,placeholder="Username") }} </p>
-                    {% for error in form.username.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                    <p> {{ form.password(size=32,placeholder="Password") }} </p>
-                    {% for error in form.password.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
+        <!-- LOGIN FORM -->
+        <div class="login-modal">
+          <div class="modal-content">
+            <form class ="login-form" action="" method="post" novalidate>
+                <!-- {{ form.hidden_tag() }}
+                <p> {{ form.username(size=32,placeholder="Username") }} </p>
+                {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                <p> {{ form.password(size=32,placeholder="Password") }} </p>
+                {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %} -->
 
-                    <!--<p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>-->
-                    <p>{{ form.submit(class_="login-btn") }}</p>
-                    <!--<button href="#" class="login-btn" type="submit">LOGIN</button>-->
-                </form>
-            </div>
+                <!--<p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>-->
+                <!-- <p>{{ form.submit(class_="login-btn") }}</p> -->
+                <!--<button href="#" class="login-btn" type="submit">LOGIN</button>-->
+                <input type="email" placeholder="E-Mail">
+                <input type="password" placeholder="Password" />
+                <a href="#" class="login-btn">LOGIN</a>
+            </form>
+          </div>
+        </div>
+
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
