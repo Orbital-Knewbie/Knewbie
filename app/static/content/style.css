@@ -93,7 +93,7 @@ header {
   position: fixed;
   right: -200vh;
   top: -100vh;
-  z-index: 1200;
+  z-index: 1;
   background-color: var(--OFFWHITE);
   border-bottom-left-radius: 900%;
   opacity: 0;
@@ -114,7 +114,7 @@ header {
   justify-content: space-around;
   align-items: center;
   box-shadow: -0.5rem 0 1rem rgba(0, 0, 0, 0.1);
-  z-index: 1100;
+  z-index: 1;
 }
 
 .link {
@@ -159,7 +159,7 @@ nav li:hover {
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
-  z-index: 1500;
+  z-index: 2;
   opacity: 1;
   transition: transform 650ms ease-in-out;
 }
@@ -698,6 +698,7 @@ form {
     display: none;
     justify-content: center;
     align-items: center;
+    z-index: 2;
 }
 
 .modal-content {
@@ -763,17 +764,19 @@ form {
   display: flex;
   align-items: center;
   flex-direction: column;
-  font-family: 'Lato', sans-serif;
+  /* font-family: 'Lato', sans-serif; */
   padding: 10rem 0;
 }
 
 .query h1 {
   margin-bottom: 5rem;
   font-size: 4rem;
+  color: var(--PURPLE);
+  font-family: 'Lato', sans-serif;
 }
 
 .query-form {
-  width: 50%;
+  width: 20%;
   position: relative;
   height: 50px;
   background-color: var(--GREY);
@@ -785,7 +788,8 @@ form {
   width: 100%;
   height: 100%;
   color: var(--LIGHTPURPLE);
-  padding-top: 20px;
+  padding: 20px auto 0 auto;
+  text-align: center;
   border: none;
   outline: none;
   background-color: var(--GREY);
@@ -820,6 +824,7 @@ form {
   bottom: 5px;
   left: 0px;
   transition: all 0.5s ease;
+  color: var(--LIGHTPURPLE);
 }
 
 .query-form input:focus + .label-unique-id .content-unqiue-id,

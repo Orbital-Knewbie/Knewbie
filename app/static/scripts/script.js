@@ -40,11 +40,39 @@ $(document).ready(function () {
     $('.navbar').removeClass('open');
   });
 
-  // GSAP ANIMATIONS
+  // GSAP ANIMATIONS LANDING PAGE
   gsap.fromTo('.gradient-clipped', {scaleX: 0}, {duration: 1, scaleX: 1});
   gsap.fromTo('.logo', {x: -200, opacity: 0}, {duration: 1, delay: 0.5, x: 0, opacity: 1});
   gsap.fromTo('.menu', {opacity: 0}, {duration: 2, delay: 0.5, opacity: 1});
   gsap.fromTo('.gradient-textbox', {yPercent: 40, opacity: 0}, {duration: 1, delay: 0.8, yPercent: -50, opacity: 1});
+
+  //ANIMATE ON SCROLL QUERY
+  //initialize
+  // AOS.init({
+  //   easing: 'ease',
+  //   duration: 1800,
+  //   once: true
+  // });
+
+
+});
+
+//SMOOTHSCROLL FOR NAVBAR
+// const scroll = new SmoothScroll('.navbar a[href*="#"]', {
+//   speed: 1500
+// });
+//
+$('.navbar a').on('click', function (e) {
+  if (this.hash !== '') {
+    e.preventDefault();
+
+    const hash = this.hash;
+
+    $('html, body')
+      .animate({
+        scrollTop: $(hash).offset().top
+      },1500);
+  }
 });
 
 // MODAL FORM SIGNUP
