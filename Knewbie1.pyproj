@@ -27,6 +27,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="config.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\models.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\questions.py">
       <SubType>Code</SubType>
     </Compile>

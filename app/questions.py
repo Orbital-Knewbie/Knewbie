@@ -37,7 +37,7 @@ og_qns = {
         ],
         "difficulty": "Easy"
     },
-    "The ratio of Rachel's age to Samy's age is 7 : 6./n     Rachel is 4 years older than Samy./n     What is Samy's age this year?": {
+    "The ratio of Rachel's age to Samy's age is 7 : 6.  Rachel is 4 years older than Samy. What is Samy's age this year?": {
         "answers": [
             "24",
             "10",
@@ -73,7 +73,7 @@ og_qns = {
         ],
         "difficulty": "Easy"
     },
-    "Sally has 100 marbles and her brother has 300 marbles./n     Express Sally's marbles as a percentage of the total number of marbles they have altogether.": {
+    "Sally has 100 marbles and her brother has 300 marbles. Express Sally's marbles as a percentage of the total number of marbles they have altogether.": {
         "answers": [
             "25%",
             "33 1/3 %",
@@ -82,7 +82,7 @@ og_qns = {
         ],
         "difficulty": "Easy"
     },
-    "Mr Tan has an equal number of pens and pencils. He puts the pens in bundles of 8 and the pencils in bundles of 12.     There are 15 bundles altogether. How many pens are there?": {
+    "Mr Tan has an equal number of pens and pencils. He puts the pens in bundles of 8 and the pencils in bundles of 12. There are 15 bundles altogether. How many pens are there?": {
         "answers": [
             "72",
             "24",
