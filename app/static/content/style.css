@@ -401,6 +401,12 @@ form {
 	margin: 8px 0;
 	width: 100%;
   border-radius: 1rem;
+  outline: none;
+  color: var(--LIGHTPURPLE);
+}
+
+.form-container h1 {
+  color: var(--PURPLE);
 }
 
 .container {
