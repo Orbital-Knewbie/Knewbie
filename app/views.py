@@ -8,6 +8,7 @@ from app import app
 from random import choice, shuffle
 from app.questions import *
 from app.forms import LoginForm
+from app.models import User
 import json
 
 @app.route('/')
@@ -43,7 +44,6 @@ def login():
         return redirect(url_for('quiz'))
     form = LoginForm()
     if form.validate_on_submit():
-        print('submit')
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
@@ -55,7 +55,7 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('home'))
 
 @app.route('/test', methods=['GET','POST'])
 def test():

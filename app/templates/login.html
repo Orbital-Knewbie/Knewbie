@@ -16,10 +16,10 @@
 
     <body>
         <header>
-            <!-- NAV BAR -->
-            <!-- <div class="logo">
+             <!-- NAV BAR --> 
+             <!-- <div class="logo">
             <a href="index.html">KNEWBIE</a>
-        </div> -->
+        </div> --> 
 
             <div class="menu">
                 <div class="line half start"></div>
@@ -41,6 +41,7 @@
             <div class="login-form">
                 <div class="loginclose">+</div>
                 <form action="" method="post" novalidate>
+                    {{ form.hidden_tag() }}
                     <p> {{ form.username(size=32,placeholder="Username") }} </p>
                     {% for error in form.username.errors %}
                     <span style="color: red;">[{{ error }}]</span>
