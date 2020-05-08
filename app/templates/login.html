@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
     <head>
@@ -40,9 +40,16 @@
         <!-- MODAL POP UP FOR LOGIN -->
             <div class="login-form">
                 <div class="loginclose">+</div>
-                <form action="#">
+                <form action="" method="post" novalidate>
                     <p> {{ form.username(size=32,placeholder="Username") }} </p>
+                    {% for error in form.username.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
                     <p> {{ form.password(size=32,placeholder="Password") }} </p>
+                    {% for error in form.password.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+
                     <!--<p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>-->
                     <p>{{ form.submit(class_="login-btn") }}</p>
                     <!--<button href="#" class="login-btn" type="submit">LOGIN</button>-->

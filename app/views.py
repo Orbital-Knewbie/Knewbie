@@ -2,8 +2,8 @@
 Routes and views for the flask application.
 """
 
-from flask import render_template, request, jsonify
-from flask_login import current_user, login_user
+from flask import render_template, request, jsonify, flash, redirect, url_for
+from flask_login import current_user, login_user, logout_user, login_required
 from app import app
 from random import choice, shuffle
 from app.questions import *
@@ -12,6 +12,7 @@ import json
 
 @app.route('/')
 @app.route('/home')
+#@login_required
 def home():
     """Renders the home page."""
     form = LoginForm()
@@ -38,8 +39,23 @@ def end():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-    pass
+    if current_user.is_authenticated:
+        return redirect(url_for('quiz'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        print('submit')
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user)
+        return redirect(url_for('quiz'))
+    return render_template('login.html', form=form)
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 @app.route('/test', methods=['GET','POST'])
 def test():
