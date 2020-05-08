@@ -4,20 +4,39 @@ Routes and views for the flask application.
 
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
-from app import app
+from app import app, db
 from random import choice, shuffle
 from app.questions import *
-from app.forms import LoginForm
+from app.forms import LoginForm, RegistrationForm
 from app.models import User
 import json
 
-@app.route('/')
-@app.route('/home')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 #@login_required
 def home():
     """Renders the home page."""
-    form = LoginForm()
-    return render_template('index.html', form=form)
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    # Forms for either student or educator
+    stuForm = RegistrationForm()
+    eduForm = RegistrationForm()
+    form = stuForm
+    urole = ''
+    if stuForm.validate_on_submit():
+        form = stuForm
+        urole = 'student'
+    elif eduForm.validate_on_submit():
+        form = eduForm
+        urole = 'educator'
+    if urole:
+        user = User(username=form.username.data, email=form.email.data, urole=urole)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Congratulations, you are now a registered user!')
+        return redirect(url_for('login'))
+    return render_template('index.html', stuForm=stuForm, eduForm=eduForm)
 
 @app.route('/quiz')
 def quiz():

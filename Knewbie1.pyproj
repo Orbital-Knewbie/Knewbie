@@ -48,7 +48,10 @@
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\content\homepagestyle.css" />
     <Content Include="app\static\content\loginstyle.css" />
+    <Content Include="app\static\resources\images\Student.svg" />
+    <Content Include="app\static\resources\images\Teacher.svg" />
     <Content Include="app\static\scripts\animation.gsap.min.js" />
     <Content Include="app\static\scripts\quiz.js" />
     <Content Include="app\static\scripts\jquery.min.js" />
@@ -72,6 +75,7 @@
     <Content Include="app\templates\login.html" />
     <Content Include="app\templates\quiz.html" />
     <Content Include="app\templates\test.html" />
+    <Content Include="app\templates\base.html" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>

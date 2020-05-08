@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Knewbie</title>
+    <meta name="viewport" content="width = device-width, initial-scale = 1, maximum-scale = 1, user-scalable = no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--<link rel="shortcut icon" type="image/png" href="resources/images/favicon.png">--> 
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"> -->
+    <link rel="stylesheet" href="../static/content/style.css">
+    {% block style %}{% endblock %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Syncopate&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- NAV BAR -->
+    <header>
+        <div class="menu">
+            <div class="line half start"></div>
+            <div class="line"></div>
+            <div class="line half end"></div>
+        </div>
+
+        <nav class="navbar">
+            <ul class="list">
+                <li class="navitem"><a href="{{ url_for('home') }}" class="link">Home</a></li>
+                <li class="navitem"><a href="{{ url_for('login') }}" class="link">Login</a></li>
+                <li class="navitem"><a href="#about" class="link">About Us</a></li>
+                <li class="navitem"><a href="#contactform" class="link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    {% block content %}{% endblock %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
+    <!-- <script src="https://unpkg.com/aos@next/dist/aos.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js"></script> -->
+    <script src="../static/scripts/script.js"></script>
+    <script src="../static/scripts/jquery.min.js"></script>
+</body>
+</html>
