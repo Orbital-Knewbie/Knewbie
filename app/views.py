@@ -8,7 +8,7 @@ from app import app, db
 from random import choice, shuffle
 from app.questions import *
 from app.forms import LoginForm, RegistrationForm
-from app.models import User
+from app.models import User, Question, Option, Answer
 import json
 
 @app.route('/', methods=['GET', 'POST'])

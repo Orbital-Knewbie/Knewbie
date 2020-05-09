@@ -1,6 +1,7 @@
 from copy import deepcopy
+from app.models import Question, Option, Answer
 
-og_qns = {
+org_qns = {
     "Fill in the blank: 423 x 1000 = ____ x 10": {
         "answers": [
             "42300",
@@ -111,4 +112,22 @@ og_qns = {
     }
 }
 
+#qns = deepcopy(og_qns)
+def get_qns():
+    d = {}
+    questions = Question.query.all()
+    for q in questions:
+        opt = Option.query.filter_by(qnId=q.id).all()
+        d[q.question] = {}
+        d[q.question]["answers"] = []
+        for o in opt:
+            #if (Answer.query.filter(optId=o.Id)):
+            #    d[q.question].insert(0, opt.option)
+            if d[q.question]["answers"]:
+                d[q.question]["answers"].append(o.option)
+            else:
+                d[q.question]["answers"].insert(0, o.option)
+    print(d)
+    return d
+og_qns = get_qns()
 qns = deepcopy(og_qns)
