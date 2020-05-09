@@ -4,14 +4,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    firststName = db.Column(db.String(64))
+    firstName = db.Column(db.String(64))
     lastName = db.Column(db.String(64))
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     urole = db.Column(db.String(80))
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return '<User {}>'.format(self.firstName)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

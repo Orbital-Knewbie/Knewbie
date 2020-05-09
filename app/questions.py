@@ -112,7 +112,6 @@ org_qns = {
     }
 }
 
-#qns = deepcopy(og_qns)
 def get_qns():
     d = {}
     questions = Question.query.all()
@@ -123,11 +122,8 @@ def get_qns():
         for o in opt:
             #if (Answer.query.filter(optId=o.Id)):
             #    d[q.question].insert(0, opt.option)
-            if d[q.question]["answers"]:
-                d[q.question]["answers"].append(o.option)
-            else:
-                d[q.question]["answers"].insert(0, o.option)
-    print(d)
+            d[q.question]["answers"].append(o.option)
+ 
     return d
 og_qns = get_qns()
 qns = deepcopy(og_qns)

@@ -53,6 +53,25 @@ def regedu():
         return redirect(url_for('login'))
     return render_template('register.html', stuForm=stuForm, eduForm=eduForm)
 
+@app.route('/login', methods=['GET','POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('quiz'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user)
+        return redirect(url_for('quiz'))
+    return render_template('login.html', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
 @app.route('/quiz')
 def quiz():
     sh_qns = og_qns.keys()
@@ -72,24 +91,6 @@ def end():
     
     return '<h1>Correct Answers: <u>Easy: ' + str(easyCorrect) + '/' + str(totalEasy) + ' Hard:' + str(hardCorrect) + '/' + str(totalHard) + '<u></h1>'
 
-@app.route('/login', methods=['GET','POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('quiz'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
-            return redirect(url_for('login'))
-        login_user(user)
-        return redirect(url_for('quiz'))
-    return render_template('login.html', form=form)
-
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('home'))
 
 @app.route('/test', methods=['GET','POST'])
 def test():

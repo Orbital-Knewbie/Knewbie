@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,8 +25,8 @@
             <ul class="list">
                 <li class="navitem"><a href="{{ url_for('home') }}" class="link">Home</a></li>
                 <li class="navitem"><a href="{{ url_for('login') }}" class="link">Sign In</a></li>
-                <li class="navitem"><a href="index.html#about" class="link">About Us</a></li>
-                <li class="navitem"><a href="index.html#contact" class="link">Contact</a></li>
+                <li class="navitem"><a href="{{ url_for('home') }}#about" class="link">About Us</a></li>
+                <li class="navitem"><a href="{{ url_for('home') }}#contact" class="link">Contact</a></li>
             </ul>
         </nav>
     </header>
