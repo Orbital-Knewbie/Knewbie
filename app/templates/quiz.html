@@ -1,26 +1,21 @@
-﻿<!DOCTYPE html>
+﻿{% extends "base.html" %}
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-    <form action='/end' method='POST'>
-        <ol>
-            {% for i in q %}
-                <li>{{i}}</li>
-                {% for j in o[i]['answers'] %}
-                    <input type='radio' value='{{j}}' name='{{i}}' />{{j}} </br>
-                {% endfor %} </br>
-            {% endfor %}
-        </ol>
-        <input type="submit" value="submit" />
-    </form>
+{% block content %}
+<form action='/end' method='POST'>
+    <ol>
+        {% for i in q %}
+        <li>{{i}}</li>
+        {% for j in o[i]['answers'] %}
+        <input type='radio' value='{{j}}' name='{{i}}' />
+        {{j}} </br>
+        {% endfor %} </br>
+        {% endfor %}
+    </ol>
+    <input type="submit" value="submit" />
+</form>
 
-    <!--<div id="quiz"></div>
-    <button id="submit">Submit Quiz</button>
-    <div id="results"></div>
-    <script src="../static/scripts/quiz.js"></script>-->
-</body>
-</html>
+<!--<div id="quiz"></div>
+<button id="submit">Submit Quiz</button>
+<div id="results"></div>
+<script src="../static/scripts/quiz.js"></script>-->
+{% endblock %}

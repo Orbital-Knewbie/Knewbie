@@ -4,14 +4,14 @@ This script runs the application using a development server.
 
 
 from app import app, db
-from app.models import User
+from app.models import *
 
 # Make the WSGI interface available at the top level so wfastcgi can get it.
 wsgi_app = app.wsgi_app
 
 @app.shell_context_processor
 def make_shell_context():
-    return {'db': db, 'User': User}
+    return {'db': db, 'User': User, 'Question' : Question, 'Answer': Answer, 'Option' : Option}
 
 if __name__ == '__main__':
     import os
