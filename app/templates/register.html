@@ -10,12 +10,12 @@
             <h1>Create An Educator Account</h1>
             {{ eduForm.hidden_tag() }}
             <div class="input-field">
-                {{ eduForm.username(placeholder="First Name", size=32) }}
-                {% for error in eduForm.username.errors %}
+                {{ eduForm.firstName(placeholder="First Name", size=32) }}
+                {% for error in eduForm.firstName.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
-                {{ eduForm.username(placeholder="Last Name", size=32) }}
-                {% for error in eduForm.username.errors %}
+                {{ eduForm.lastName(placeholder="Last Name", size=32) }}
+                {% for error in eduForm.lastName.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
                 {{ eduForm.email(placeholder="Email", size=64) }}
@@ -40,12 +40,12 @@
             <h1>Create A Student Account</h1>
             {{ stuForm.hidden_tag() }}
             <div class="input-field">
-                {{ stuForm.username(placeholder="First Name", size=32) }}
-                {% for error in stuForm.username.errors %}
+                {{ stuForm.firstName(placeholder="First Name", size=32) }}
+                {% for error in stuForm.firstName.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
-                {{ stuForm.username(placeholder="Last Name", size=32) }}
-                {% for error in stuForm.username.errors %}
+                {{ stuForm.lastName(placeholder="Last Name", size=32) }}
+                {% for error in stuForm.lastName.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
                 {{ stuForm.email(placeholder="Email", size=64) }}

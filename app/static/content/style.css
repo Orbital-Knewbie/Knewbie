@@ -55,7 +55,7 @@ header {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 5;
 }
 
 /* SCROLLBAR */
@@ -93,7 +93,7 @@ header {
   position: fixed;
   right: -200vh;
   top: -100vh;
-  z-index: 1;
+  z-index: 10;
   background-color: var(--OFFWHITE);
   border-bottom-left-radius: 900%;
   opacity: 0;
@@ -114,7 +114,7 @@ header {
   justify-content: space-around;
   align-items: center;
   box-shadow: -0.5rem 0 1rem rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  z-index: 10;
 }
 
 .link {
@@ -159,7 +159,7 @@ nav li:hover {
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
-  z-index: 2;
+  z-index: 10;
   opacity: 1;
   transition: transform 650ms ease-in-out;
 }

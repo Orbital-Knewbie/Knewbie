@@ -32,7 +32,7 @@ def regstu():
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
     if stuForm.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, urole='student')
+        user = User(firstName=form.firstName.data, lastName=form.lastName.data, email=form.email.data, urole='student')
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -45,7 +45,7 @@ def regedu():
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
     if eduForm.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, urole='educator')
+        user = User(firstName=form.firstName.data, lastName=form.lastName.data, email=form.email.data, urole='educator')
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -78,7 +78,7 @@ def login():
         return redirect(url_for('quiz'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
