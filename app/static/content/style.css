@@ -55,7 +55,7 @@ header {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 5;
+  z-index: 10;
 }
 
 /* SCROLLBAR */
@@ -93,7 +93,7 @@ header {
   position: fixed;
   right: -200vh;
   top: -100vh;
-  z-index: 10;
+  z-index: 20;
   background-color: var(--OFFWHITE);
   border-bottom-left-radius: 900%;
   opacity: 0;
@@ -159,7 +159,7 @@ nav li:hover {
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
-  z-index: 10;
+  z-index: 25;
   opacity: 1;
   transition: transform 650ms ease-in-out;
 }
