@@ -1,47 +1,35 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <title>Knewbie</title>
-        <meta name="viewport" content="width = device-width, initial-scale = 1, maximum-scale = 1, user-scalable = no">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <!-- <link rel="shortcut icon" type="image/png" href="resources/images/favicon.png"> -->
-        <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
-        <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"> -->
-        <link rel="stylesheet" href="../static/content/style.css">
-        <link rel="stylesheet" href="../static/content/loginstyle.css">
-        <link href="https://fonts.googleapis.com/css?family=Roboto|Syncopate&display=swap" rel="stylesheet">
-    </head>
-
-    <body>
-        <!-- LOGIN FORM -->
-        <form class="login-form" action="" method="post" novalidate>
-            {{ form.hidden_tag() }}
-            <h1>Sign In</h1>
-            <div class="input-field">
-                {{ form.username(size=32, placeholder="Email") }}
-                <p>{% for error in form.username.errors %}</p>
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </div>
-            <div class="input-field">
-                {{ form.password(size=32, placeholder="Password") }}
-                <p>{% for error in form.password.errors %}</p>
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </div>
-            <p class="rmb-me">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-            {{ form.submit(class_="login-btn") }}
-            <div class="bottom-text">
-                <p>Don't have an account? <a href="{{ url_for('reg') }}">Create one here!</a></p>
-                <p>Forgot your password? <a href="#">Click here!</a></p>
-            </div>
-        </form>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
-        <script src="../static/scripts/script.js"></script>
-        <script src="../static/scripts/jquery.min.js"></script>
+﻿{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="../static/content/loginstyle.css">
+{% endblock %}
+{% block content %}
+    <!-- LOGIN FORM -->
+    <form class="login-form" action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <h1>Sign In</h1>
+        <div class="input-field">
+            {{ form.username(size=32, placeholder="Email") }}
+            <p>{% for error in form.username.errors %}</p>
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div class="input-field">
+            {{ form.password(size=32, placeholder="Password") }}
+            <p>{% for error in form.password.errors %}</p>
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <p class="rmb-me">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        {{ form.submit(class_="login-btn") }}
+        <div class="bottom-text">
+            <p>Don't have an account? <a href="{{ url_for('reg') }}">Create one here!</a></p>
+            <p>Forgot your password? <a href="#">Click here!</a></p>
+        </div>
+    </form>
+{% endblock %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
+<script src="../static/scripts/script.js"></script>
+<script src="../static/scripts/jquery.min.js"></script>
     </body>
 </html>
