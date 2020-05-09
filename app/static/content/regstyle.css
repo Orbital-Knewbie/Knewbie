@@ -2,6 +2,16 @@
     background-color: var(--GREY);
 }
 
+/* NAVBAR COLOUR */
+.line {
+    /*background: linear-gradient(to right, var(--GREY), var(--LIGHTPURPLE);*/
+    background: black;
+    box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 4px;
+    border-radius: 1.5rem;
+}
+
 h1 {
     font-weight: bold;
     margin: 0;
@@ -69,6 +79,7 @@ button {
     border-radius: .4rem;
     box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
     position: relative;
+    cursor: pointer;
 }
 
 button.ghost::after {
