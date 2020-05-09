@@ -17,7 +17,7 @@
 <div class="modal-container">
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form action="" method="post">
+            <form action="{{ url_for('regedu') }}" method="post">
                 <div class="close1">+</div>
                 <h1>Create An Educator Account</h1>
                 <!--<input type="text" placeholder="First Name" />
@@ -57,7 +57,7 @@
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form action="" method="post">
+            <form action="{{ url_for('regstu') }}" method="post">
                 <h1>Create A Student Account</h1>
                 <!--<input type="text" placeholder="First Name" />
                 <input type="text" placeholder="Last Name" />

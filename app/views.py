@@ -18,19 +18,31 @@ def home():
     """Renders the home page."""
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-    # Forms for either student or educator
-    stuForm = RegistrationForm()
-    eduForm = RegistrationForm()
-    form = stuForm
-    urole = ''
+     #Forms for either student or educator
+    stuForm = RegistrationForm(prefix='stu')
+    eduForm = RegistrationForm(prefix='edu')
+
+    return render_template('index.html', stuForm=stuForm, eduForm=eduForm)
+
+@app.route('/registerstudent', methods=['POST'])
+def regstu():
+    stuForm = RegistrationForm(prefix='stu')
+    eduForm = RegistrationForm(prefix='edu')
     if stuForm.validate_on_submit():
-        form = stuForm
-        urole = 'student'
-    elif eduForm.validate_on_submit():
-        form = eduForm
-        urole = 'educator'
-    if urole:
-        user = User(username=form.username.data, email=form.email.data, urole=urole)
+        user = User(username=form.username.data, email=form.email.data, urole='student')
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Congratulations, you are now a registered user!')
+        return redirect(url_for('login'))
+    return render_template('index.html', stuForm=stuForm, eduForm=eduForm)
+
+@app.route('/registereducator', methods=['POST'])
+def regedu():
+    stuForm = RegistrationForm(prefix='stu')
+    eduForm = RegistrationForm(prefix='edu')
+    if eduForm.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data, urole='educator')
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
