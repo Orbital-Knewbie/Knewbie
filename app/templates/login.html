@@ -33,35 +33,33 @@
         </header>
 
         <!-- LOGIN FORM -->
-        <div class="login-modal">
-          <div class="modal-content">
-            <form class ="login-form" action="" method="post" novalidate>
-                <!-- {{ form.hidden_tag() }}
-                <p> {{ form.username(size=32,placeholder="Username") }} </p>
-                {% for error in form.username.errors %}
+        <form class="login-form" action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <h1>Sign In</h1>
+            <div class="input-field">
+                {{ form.username(size=32, placeholder="Email") }}
+                <p>{% for error in form.username.errors %}</p>
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
-                <p> {{ form.password(size=32,placeholder="Password") }} </p>
-                {% for error in form.password.errors %}
+            </div>
+            <div class="input-field">
+                {{ form.password(size=32, placeholder="Password") }}
+                <p>{% for error in form.password.errors %}</p>
                 <span style="color: red;">[{{ error }}]</span>
-                {% endfor %} -->
-
-                <!--<p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>-->
-                <!-- <p>{{ form.submit(class_="login-btn") }}</p> -->
-                <!--<button href="#" class="login-btn" type="submit">LOGIN</button>-->
-                <input type="email" placeholder="E-Mail">
-                <input type="password" placeholder="Password" />
-                <a href="#" class="login-btn">LOGIN</a>
-            </form>
-          </div>
-        </div>
+                {% endfor %}
+            </div>
+            <p class="rmb-me">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+            {{ form.submit(class_="login-btn") }}
+            <div class="bottom-text">
+                <p>Don't have an account? <a href="#">Create one here!</a></p>
+                <p>Forgot your password? <a href="#">Click here!</a></p>
+            </div>
+        </form>
 
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
-        <!-- <script src="https://unpkg.com/aos@next/dist/aos.js"></script> -->
-        <!-- <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js"></script> -->
         <script src="../static/scripts/script.js"></script>
         <script src="../static/scripts/jquery.min.js"></script>
     </body>

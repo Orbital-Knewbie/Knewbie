@@ -1,67 +1,94 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
 body {
-  background: var(--GREY);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.83), rgba(0, 0, 0, 0.83)), url(../resources/images/BG.svg);
+    background-size: cover;
+    font-family: Montserrat, sans-serif;
+    min-height: 100vh;
+    text-align: center;
+    font-size: 1.5rem;
 }
 
-/* LOGIN FORM */
-.modal-content {
-  height: 300px;
-  width: 500px;
-  text-align: center;
-  position: relative;
-  display: block;
-}
-.modal-content form {
-  background-color: var(--OFFWHITE);
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
+form .h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-top: 5rem;
+    display: block;
+    color: var(--GREY);
 }
 
-input {
-  padding: 2rem 2rem;
-  margin-bottom: 2rem;
-  text-align: center;
-  border-radius: 2rem;
-  outline: none;
-  color: var(--LIGHTPURPLE);
+.input-field {
+    color: var(--LIGHTPURPLE);
+    outline: none;
+    margin-top: 5rem;
 }
 
-form a {
-  text-align: center;
+.input-field input {
+    padding: 1rem;
+    text-align: center;
+    outline: none;
+    color: var(--LIGHTPURPLE);
+    border: none;
+    background: none;
+    border-bottom: 3px solid var(--LIGHTPURPLE);
+}
+
+.rmb-me {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--OFFWHITE)
+}
+
+form {
+    margin-top: 10rem;
+}
+
+login-form {
+    width: 360px;
+    height: 580px;
+    display: inline-block;
 }
 
 .login-btn {
-  display: inline-block;
-  font-size: 1.2rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-  text-decoration: none;
-  color: var(--OFFWHITE);
-  background-color: var(--LIGHTPURPLE);
-  padding: 1rem 4rem;
-  margin-top: 5rem;
-  border-radius: .4rem;
-  box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
-  position: relative;
-  z-index: 1;
-  width: 25%;
-  text-align: center;
+    margin-bottom: 1rem;
+    width: 15%;
+    padding: 1rem;
+    font-size: 2rem;
+    border: none;
+    border-radius: 1rem;
+    background-color: var(--LIGHTPURPLE);
+    color: var(--OFFWHITE);
+    outline: none;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
 }
 
-.login-btn::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: inherit;
-  border-radius: inherit;
-  z-index: -1;
+.login-btn:hover {
+    background-color: var(--PURPLE);
 }
 
-.login-btn:hover::after {
-  transform: scaleX(1.2) scaleY(1.4);
-  opacity: 0;
-  transition: all .5s;
+.login-btn:active {
+    transform: scale(0.95);
 }
+
+.bottom-text {
+    margin-top: 1rem;
+    color: var(--OFFWHITE);
+}
+
+.bottom-text a {
+    color: var(--LIGHTPURPLE);
+}
+
+.bottom-text a:hover {
+    color: var(--PURPLE);
+}
+
