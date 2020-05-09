@@ -16,13 +16,16 @@ import json
 #@login_required
 def home():
     """Renders the home page."""
+    return render_template('index.html')
+
+@app.route('/register')
+def reg():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('quiz'))
      #Forms for either student or educator
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
-
-    return render_template('index.html', stuForm=stuForm, eduForm=eduForm)
+    return render_template('register.html', stuForm=stuForm, eduForm=eduForm)
 
 @app.route('/registerstudent', methods=['POST'])
 def regstu():
@@ -35,7 +38,7 @@ def regstu():
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
-    return render_template('index.html', stuForm=stuForm, eduForm=eduForm)
+    return render_template('register.html', stuForm=stuForm, eduForm=eduForm)
 
 @app.route('/registereducator', methods=['POST'])
 def regedu():
@@ -48,7 +51,7 @@ def regedu():
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
-    return render_template('index.html', stuForm=stuForm, eduForm=eduForm)
+    return render_template('register.html', stuForm=stuForm, eduForm=eduForm)
 
 @app.route('/quiz')
 def quiz():

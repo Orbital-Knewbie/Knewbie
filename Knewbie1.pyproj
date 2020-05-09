@@ -76,6 +76,7 @@
     <Content Include="app\templates\quiz.html" />
     <Content Include="app\templates\test.html" />
     <Content Include="app\templates\base.html" />
+    <Content Include="app\templates\register.html" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>

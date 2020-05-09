@@ -1,0 +1,88 @@
+﻿{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="../static/content/homepagestyle.css">
+{% endblock %}
+{% block content %}
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form action="{{ url_for('regedu') }}" method="post" id="eduForm">
+            <div class="close1">+</div>
+            <h1>Create An Educator Account</h1>
+            {{ eduForm.hidden_tag() }}
+            <p>
+                {{ eduForm.username(placeholder="First Name", size=32) }}<br>
+                {% for error in eduForm.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ eduForm.email(placeholder="Email", size=64) }}<br>
+                {% for error in eduForm.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ eduForm.password(placeholder="Password", size=32) }}<br>
+                {% for error in eduForm.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ eduForm.password2(placeholder="Confirm Password", size=32) }}<br>
+                {% for error in eduForm.password2.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>By clicking on the sign up button, you agree to our <a href="#">Terms & Conditions</a></p>
+            <p>{{ eduForm.submit(class_="signup") }}</p>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form action="{{ url_for('regstu') }}" method="post" id="stuForm">
+            <h1>Create A Student Account</h1>
+            {{ stuForm.hidden_tag() }}
+            <p>
+                {{ stuForm.username(placeholder="First Name", size=32) }}<br>
+                {% for error in stuForm.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ stuForm.email(placeholder="Email", size=64) }}<br>
+                {% for error in stuForm.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ stuForm.password(placeholder="Password", size=32) }}<br>
+                {% for error in stuForm.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ stuForm.password2(placeholder="Confirm Password", size=32) }}<br>
+                {% for error in stuForm.password2.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>By clicking on the sign up button, you agree to our <a href="#">Terms & Conditions</a></p>
+            <p>{{ stuForm.submit(class_="signup") }}</p>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Are You A Student?</h1>
+                <p>Click the button below to start your learning journey!</p>
+                <button class="ghost" id="Student">CLICK HERE!</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <div class="close">+</div>
+                <h1>Are You An Educator?</h1>
+                <p>Click the button below to create an educator's account</p>
+                <button class="ghost" id="Educator">CLICK HERE!</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
