@@ -15,23 +15,6 @@
     </head>
 
     <body>
-        <header>
-            <div class="menu">
-                <div class="line half start"></div>
-                <div class="line"></div>
-                <div class="line half end"></div>
-            </div>
-
-            <nav class="navbar">
-                <ul class="list">
-                    <li class="navitem"><a href="index.html" class="link">Home</a></li>
-                    <li class="navitem"><a href="login.html" class="link">Login</a></li>
-                    <li class="navitem"><a href="#about" class="link">About Us</a></li>
-                    <li class="navitem"><a href="#contactform" class="link">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
-
         <!-- LOGIN FORM -->
         <form class="login-form" action="" method="post" novalidate>
             {{ form.hidden_tag() }}
@@ -51,12 +34,10 @@
             <p class="rmb-me">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
             {{ form.submit(class_="login-btn") }}
             <div class="bottom-text">
-                <p>Don't have an account? <a href="#">Create one here!</a></p>
+                <p>Don't have an account? <a href="{{ url_for('reg') }}">Create one here!</a></p>
                 <p>Forgot your password? <a href="#">Click here!</a></p>
             </div>
         </form>
-
-
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
