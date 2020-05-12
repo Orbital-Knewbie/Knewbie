@@ -1,6 +1,7 @@
-from copy import deepcopy
-from app.models import Question, Option, Answer
 from app import db
+from app.models import Question, Option, Answer
+from copy import deepcopy
+from random import choice, shuffle
 
 org_qns = {
     "Fill in the blank: 423 x 1000 = ____ x 10": {
@@ -155,4 +156,11 @@ def get_qns():
 
 og_qns = get_qns()
 qns = deepcopy(og_qns)
+
+def final_qns():
+    sh_qns = og_qns.keys()
+    shuffle(sh_qns)
+    for k in qns.keys():
+        shuffle(qns[k]['answers'])
+    return sh_qns, qns
 

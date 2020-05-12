@@ -5,16 +5,16 @@ Routes and views for the flask application.
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
-from random import choice, shuffle
-from app.questions import og_qns, qns
-from app.forms import LoginForm, RegistrationForm
 from app.models import User, Question, Option, Answer
-from app.token import generate_confirmation_token, confirm_token
-from app.email import send_conf_email
+from app.forms import LoginForm, RegistrationForm
+from app.questions import final_qns
+from app.email import register, resend_conf
+from app.token import confirm_token
+from app.decorator import check_confirmed
 import json, datetime
 
-@app.route('/', methods=['GET', 'POST'])
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/')
+@app.route('/home')
 #@login_required
 def home():
     """Renders the home page."""
@@ -24,7 +24,7 @@ def home():
 def reg():
     if current_user.is_authenticated:
         return redirect(url_for('quiz'))
-     #Forms for either student or educator
+    #Forms for either student or educator
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
     return render_template('register.html', stuForm=stuForm, eduForm=eduForm)
@@ -34,21 +34,7 @@ def regstu():
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
     if stuForm.validate_on_submit():
-        user = User(firstName=stuForm.firstName.data, lastName=stuForm.lastName.data, email=stuForm.email.data, urole='student', confirmed=False)
-        user.set_password(stuForm.password.data)
-        db.session.add(user)
-        db.session.commit()
-        token = generate_confirmation_token(user.email)
-        confirm_url = url_for('confirm_email', token=token, _external=True)
-        html = render_template('email/activate.html', confirm_url=confirm_url)
-        subject = "Please confirm your email"
-        send_conf_email(user, confirm_url)
-        
-        #login_user(user)
-
-        flash('A confirmation email has been sent via email.', 'success')
-        #flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('login'))
+        return register(stuForm, 'student')
     return render_template('register.html', stuForm=stuForm, eduForm=eduForm)
 
 @app.route('/registereducator', methods=['POST'])
@@ -56,21 +42,7 @@ def regedu():
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
     if eduForm.validate_on_submit():
-        user = User(firstName=eduForm.firstName.data, lastName=eduForm.lastName.data, email=eduForm.email.data, urole='educator', confirmed=False)
-        user.set_password(eduForm.password.data)
-        db.session.add(user)
-        db.session.commit()
-        token = generate_confirmation_token(user.email)
-        confirm_url = url_for('confirm_email', token=token, _external=True)
-        html = render_template('email/activate.html', confirm_url=confirm_url)
-        subject = "Please confirm your email"
-        send_conf_email(user, confirm_url)
-                
-        #login_user(user)
-
-        flash('A confirmation email has been sent via email.', 'success')
-        #flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('login'))
+        return register(stuForm, 'educator')
     return render_template('register.html', stuForm=stuForm, eduForm=eduForm)
 
 @app.route('/confirm/<token>')
@@ -80,6 +52,7 @@ def confirm_email(token):
         email = confirm_token(token)
     except:
         flash('The confirmation link is invalid or has expired.', 'danger')
+        return redirect(url_for('unconfirmed'))
     user = User.query.filter_by(email=email).first_or_404()
     if user.confirmed:
         flash('Account already confirmed. Please login.', 'success')
@@ -90,6 +63,20 @@ def confirm_email(token):
         db.session.commit()
         flash('You have confirmed your account. Thanks!', 'success')
     return redirect(url_for('home'))
+
+@app.route('/unconfirmed')
+@login_required
+def unconfirmed():
+    if current_user.confirmed:
+        return redirect(url_for('home'))
+    flash('Please confirm your account!', 'warning')
+    return render_template('unconfirmed.html')
+
+@app.route('/resend')
+@login_required
+def resend():
+    resend_conf(current_user)
+    return redirect(url_for('unconfirmed'))
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -111,11 +98,10 @@ def logout():
     return redirect(url_for('home'))
 
 @app.route('/quiz')
+@login_required
+@check_confirmed
 def quiz():
-    sh_qns = og_qns.keys()
-    shuffle(sh_qns)
-    for k in qns.keys():
-        shuffle(qns[k]['answers'])
+    sh_qns, qns = final_qns()
     return render_template('quiz.html', q = sh_qns, o = qns)
 
 @app.route('/end', methods=['POST'])
