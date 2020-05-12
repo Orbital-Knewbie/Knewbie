@@ -30,6 +30,12 @@
     <Compile Include="app\forms.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\email.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\token.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="config.py">
       <SubType>Code</SubType>
     </Compile>
@@ -46,12 +52,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="migrations\env.py" />
-    <Compile Include="migrations\versions\48ab5b87d2aa_question_answers_table.py" />
-    <Compile Include="migrations\versions\4a9ec06a650c_.py" />
-    <Compile Include="migrations\versions\92035e88cba4_.py" />
-    <Compile Include="migrations\versions\bbae3d7e3b5e_user_role.py" />
-    <Compile Include="migrations\versions\c026b747af64_users_table.py" />
-    <Compile Include="migrations\versions\cd63d7301e53_user_first_lastname.py" />
+    <Compile Include="migrations\versions\c49913c2f7b5_initial_db.py" />
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +80,8 @@
     <Content Include="app\static\resources\images\Logo.svg" />
     <Content Include="app\static\resources\Knewbie Prototype v1.0.xd" />
     <Content Include="app\static\content\style.css" />
+    <Content Include="app\templates\email\activate.txt" />
+    <Content Include="app\templates\email\activate.html" />
     <Content Include="app\templates\index.html" />
     <Content Include="app\templates\login.html" />
     <Content Include="app\templates\quiz.html" />
@@ -89,12 +92,7 @@
     <Content Include="migrations\env.pyc" />
     <Content Include="migrations\README" />
     <Content Include="migrations\script.py.mako" />
-    <Content Include="migrations\versions\48ab5b87d2aa_question_answers_table.pyc" />
-    <Content Include="migrations\versions\4a9ec06a650c_.pyc" />
-    <Content Include="migrations\versions\92035e88cba4_.pyc" />
-    <Content Include="migrations\versions\bbae3d7e3b5e_user_role.pyc" />
-    <Content Include="migrations\versions\c026b747af64_users_table.pyc" />
-    <Content Include="migrations\versions\cd63d7301e53_user_first_lastname.pyc" />
+    <Content Include="migrations\versions\c49913c2f7b5_initial_db.pyc" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +117,7 @@
     <Folder Include="app\static\resources\images\" />
     <Folder Include="app\static\content\" />
     <Folder Include="app\templates\" />
+    <Folder Include="app\templates\email\" />
     <Folder Include="migrations\" />
     <Folder Include="migrations\versions\" />
   </ItemGroup>

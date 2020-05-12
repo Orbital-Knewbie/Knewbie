@@ -6,10 +6,12 @@ from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
 from random import choice, shuffle
-from app.questions import *
+from app.questions import og_qns, qns
 from app.forms import LoginForm, RegistrationForm
 from app.models import User, Question, Option, Answer
-import json
+from app.token import generate_confirmation_token, confirm_token
+from app.email import send_conf_email
+import json, datetime
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
@@ -32,11 +34,20 @@ def regstu():
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
     if stuForm.validate_on_submit():
-        user = User(firstName=form.firstName.data, lastName=form.lastName.data, email=form.email.data, urole='student')
-        user.set_password(form.password.data)
+        user = User(firstName=stuForm.firstName.data, lastName=stuForm.lastName.data, email=stuForm.email.data, urole='student', confirmed=False)
+        user.set_password(stuForm.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Congratulations, you are now a registered user!')
+        token = generate_confirmation_token(user.email)
+        confirm_url = url_for('confirm_email', token=token, _external=True)
+        html = render_template('email/activate.html', confirm_url=confirm_url)
+        subject = "Please confirm your email"
+        send_conf_email(user, confirm_url)
+        
+        #login_user(user)
+
+        flash('A confirmation email has been sent via email.', 'success')
+        #flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', stuForm=stuForm, eduForm=eduForm)
 
@@ -45,13 +56,40 @@ def regedu():
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
     if eduForm.validate_on_submit():
-        user = User(firstName=form.firstName.data, lastName=form.lastName.data, email=form.email.data, urole='educator')
-        user.set_password(form.password.data)
+        user = User(firstName=eduForm.firstName.data, lastName=eduForm.lastName.data, email=eduForm.email.data, urole='educator', confirmed=False)
+        user.set_password(eduForm.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Congratulations, you are now a registered user!')
+        token = generate_confirmation_token(user.email)
+        confirm_url = url_for('confirm_email', token=token, _external=True)
+        html = render_template('email/activate.html', confirm_url=confirm_url)
+        subject = "Please confirm your email"
+        send_conf_email(user, confirm_url)
+                
+        #login_user(user)
+
+        flash('A confirmation email has been sent via email.', 'success')
+        #flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', stuForm=stuForm, eduForm=eduForm)
+
+@app.route('/confirm/<token>')
+@login_required
+def confirm_email(token):
+    try:
+        email = confirm_token(token)
+    except:
+        flash('The confirmation link is invalid or has expired.', 'danger')
+    user = User.query.filter_by(email=email).first_or_404()
+    if user.confirmed:
+        flash('Account already confirmed. Please login.', 'success')
+    else:
+        user.confirmed = True
+        user.confirmed_on = datetime.datetime.now()
+        db.session.add(user)
+        db.session.commit()
+        flash('You have confirmed your account. Thanks!', 'success')
+    return redirect(url_for('home'))
 
 @app.route('/login', methods=['GET','POST'])
 def login():

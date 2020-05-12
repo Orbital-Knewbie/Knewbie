@@ -9,6 +9,17 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     urole = db.Column(db.String(80))
+    confirmed = db.Column(db.Boolean, nullable=False, default=False)
+    confirmed_on = db.Column(db.DateTime, nullable=True)
+
+    def __init__(self, email,firstName, lastName, urole, confirmed=False, admin=False, confirmed_on=None ):
+        self.email = email
+        self.firstName = firstName
+        self.lastName = lastName
+        self.urole = urole
+        self.admin = admin
+        self.confirmed = confirmed
+        self.confirmed_on = confirmed_on
 
     def __repr__(self):
         return '<User {}>'.format(self.firstName)
@@ -29,12 +40,12 @@ class Question(db.Model):
 class Option(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     qnId = db.Column(db.Integer)
-    option = db.Column(db.String(255), index=True, unique=True)
+    option = db.Column(db.String(255))
 
 class Answer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     optId = db.Column(db.Integer)
-    answer = db.Column(db.String(255), index=True, unique=True)
+    userID = db.Column(db.Integer)
 
 @login.user_loader
 def load_user(id):

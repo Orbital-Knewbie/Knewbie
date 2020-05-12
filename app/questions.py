@@ -1,5 +1,6 @@
 from copy import deepcopy
 from app.models import Question, Option, Answer
+from app import db
 
 org_qns = {
     "Fill in the blank: 423 x 1000 = ____ x 10": {
@@ -112,6 +113,32 @@ org_qns = {
     }
 }
 
+def remove_qn():
+    for q in Question.query.all():
+        db.session.delete(q)
+        db.session.commit()
+    for q in Option.query.all():
+        db.session.delete(q)
+        db.session.commit()
+    for q in Answer.query.all():
+        db.session.delete(q)
+        db.session.commit()
+
+def add_qn():
+    #remove_qn()
+    if Question.query.all(): return
+    for q in org_qns.keys():
+        qn = Question(question=q)
+        db.session.add(qn)
+        db.session.commit()
+        qid = Question.query.filter_by(question=q).first().id
+        for o in org_qns[q]['answers']:
+            o=Option(qnId=qid,option=o)
+            db.session.add(o)
+            db.session.commit()
+
+add_qn()
+
 def get_qns():
     d = {}
     questions = Question.query.all()
@@ -125,5 +152,7 @@ def get_qns():
             d[q.question]["answers"].append(o.option)
  
     return d
+
 og_qns = get_qns()
 qns = deepcopy(og_qns)
+
