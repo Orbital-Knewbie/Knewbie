@@ -20,6 +20,11 @@ def home():
     """Renders the home page."""
     return render_template('index.html')
 
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    """Renders the contact page."""
+    return render_template('contact.html')
+
 @app.route('/register')
 def reg():
     if current_user.is_authenticated:
