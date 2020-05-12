@@ -24,6 +24,10 @@ form .h1 {
     color: var(--GREY);
 }
 
+form h1 {
+    font-size: 4rem;
+}
+
 .input-field {
     color: var(--LIGHTPURPLE);
     outline: none;
@@ -90,5 +94,11 @@ login-form {
 
 .bottom-text a:hover {
     color: var(--PURPLE);
+}
+
+input::placeholder {
+    color: var(--LIGHTPURPLE);
+    font-size: 1.8rem;
+    opacity: 0.7;
 }
 

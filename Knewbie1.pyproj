@@ -62,6 +62,7 @@
     <Content Include="app\static\content\homepagestyle.css" />
     <Content Include="app\static\content\loginstyle.css" />
     <Content Include="app\static\content\regstyle.css" />
+    <Content Include="app\static\content\contactstyle.css" />
     <Content Include="app\static\resources\images\Student.svg" />
     <Content Include="app\static\resources\images\Teacher.svg" />
     <Content Include="app\static\scripts\animation.gsap.min.js" />
@@ -92,6 +93,7 @@
     <Content Include="app\templates\base.html" />
     <Content Include="app\templates\register.html" />
     <Content Include="app\templates\unconfirmed.html" />
+    <Content Include="app\templates\contact.html" />
     <Content Include="migrations\alembic.ini" />
     <Content Include="migrations\env.pyc" />
     <Content Include="migrations\README" />

@@ -1,0 +1,36 @@
+﻿{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="../static/content/contactstyle.css">
+{% endblock %}
+{% block content %}
+<!-- Contact Us Form -->
+    <div class="contact-container">
+        <div class="contact-form">
+            <form action="#" method="post">
+                <h2>Get In Touch With Us!</h2>
+                <div class="contact-form-input">
+                    <input type="text" name="" required="required" />
+                    <span>Full Name</span>
+                </div>
+                <div class="contact-form-input">
+                    <input type="email" name="" required="required" />
+                    <span>Email</span>
+                </div>
+                <div class="contact-form-input">
+                    <input type="text" name="" required="required" />
+                    <span>Subject</span>
+                </div>
+                <div class="contact-form-input">
+                    <textarea required="required"></textarea>
+                    <span>Enter your message here</span>
+                </div>
+                <div class="contact-form-input">
+                    <input type="submit" value="Send" name="" />
+                </div>
+            </form>
+        </div>
+        <div class="contact-form-img">
+            <img src="../static/resources/images/Student.svg" alt="" />
+        </div>
+    </div>
+{% endblock %}

@@ -1,4 +1,6 @@
-﻿body {
+﻿@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+body {
     background-color: var(--GREY);
 }
 
@@ -48,21 +50,20 @@ span {
     font-size: 1.5rem;
     border: none;
     border-radius: 1rem;
-    background-color: var(--LIGHTPURPLE);
+    background: var(--LIGHTPURPLE);
     color: var(--OFFWHITE);
     outline: none;
     cursor: pointer;
-    transition: all .1s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
-register-btn:hover {
-    background-color: var(--PURPLE);
+.register-btn:hover {
+    background: var(--PURPLE);
 }
 
 .register-btn:active {
     transform: scale(0.95);
 }
-
 
 button {
     border: 1px solid var(--LIGHTPURPLE);
@@ -80,6 +81,13 @@ button {
     box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
     position: relative;
     cursor: pointer;
+    outline: none;
+}
+
+button.ghost {
+    background-color: var(--OFFWHITE);
+    border-color: var(--OFFWHITE);
+    color: var(--LIGHTPURPLE)
 }
 
 button.ghost::after {
@@ -100,36 +108,31 @@ button.ghost:hover::after {
     transition: all .5s;
 }
 
-button:focus {
-    outline: none;
-}
-
-button.ghost {
-    background-color: var(--OFFWHITE);
-    border-color: var(--OFFWHITE);
-    color: var(--LIGHTPURPLE)
-}
-
 form {
     background-color: var(--OFFWHITE);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    text-align: center;
     padding: 0 50px;
     height: 100%;
-    text-align: center;
 }
 
 .form-container .input-field input {
     background-color: var(--GREY);
-    border: none;
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
     border-radius: 1rem;
+    border: none;
     outline: none;
     color: var(--LIGHTPURPLE);
+}
+
+input::placeholder {
+    color: var(--LIGHTPURPLE);
+    font-family: Montserrat, sans-serif;
 }
 
 .form-container h1 {
