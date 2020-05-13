@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: var(--GREY);
+    background-color: var(--OFFWHITE);
     background-size: cover;
     font-family: Montserrat, sans-serif;
     min-height: 100vh;
@@ -16,16 +16,13 @@ body {
     font-size: 1.5rem;
 }
 
-form .h1 {
+form h1 {
+    font-size: 4rem;
     text-align: center;
     margin-bottom: 2rem;
     padding-top: 5rem;
     display: block;
-    color: var(--GREY);
-}
-
-form h1 {
-    font-size: 4rem;
+    color: var(--PURPLE);
 }
 
 .input-field {
