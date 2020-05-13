@@ -3,34 +3,57 @@
 <link rel="stylesheet" href="../static/content/contactstyle.css">
 {% endblock %}
 {% block content %}
+{% if success %}
+<h2 class="contact-form">Thank you for your message. We'll get back to you shortly.</h2>
+{% else %}
 <!-- Contact Us Form -->
-    <div class="contact-container">
-        <div class="contact-form">
-            <form action="#" method="post">
-                <h2>Get In Touch With Us!</h2>
-                <div class="contact-form-input">
-                    <input type="text" name="" required="required" />
-                    <span>Full Name</span>
-                </div>
-                <div class="contact-form-input">
-                    <input type="email" name="" required="required" />
-                    <span>Email</span>
-                </div>
-                <div class="contact-form-input">
-                    <input type="text" name="" required="required" />
-                    <span>Subject</span>
-                </div>
-                <div class="contact-form-input">
-                    <textarea required="required"></textarea>
-                    <span>Enter your message here</span>
-                </div>
-                <div class="contact-form-input">
-                    <input type="submit" value="Send" name="" />
-                </div>
-            </form>
-        </div>
-        <div class="contact-form-img">
-            <img src="../static/resources/images/Student.svg" alt="" />
-        </div>
+<div class="contact-container">
+    <div class="contact-form">
+        <form action="{{ url_for('contact') }}" method="post">
+            <h2>Get In Touch With Us!</h2>
+            {{ form.hidden_tag() }}
+
+            <div class="contact-form-input">
+                {{ form.name }}
+                <span>Full Name</span>
+            </div>
+            {% for message in form.name.errors %}
+            <span style="color: red;">[{{ message }}]</span>
+            {% endfor %}
+
+            <div class="contact-form-input">
+                {{ form.email }}
+                <span>Email</span>
+            </div>
+            {% for message in form.email.errors %}
+            <div class="flash">{{ message }}</div>
+            {% endfor %}
+
+            <div class="contact-form-input">
+                {{ form.subject }}
+                <span>Subject</span>
+            </div>
+            {% for message in form.subject.errors %}
+            <div class="flash">{{ message }}</div>
+            {% endfor %}
+
+            <div class="contact-form-input">
+                {{ form.message }}
+                <span>Enter your message here</span>
+            </div>
+            {% for message in form.message.errors %}
+            <div class="flash">{{ message }}</div>
+            {% endfor %}
+
+            <div class="contact-form-input">
+                {{ form.submit }}
+            </div>
+        </form>
     </div>
+{% endif %}
+    <div class="contact-form-img">
+        <img src="../static/resources/images/Student.svg" alt="" />
+    </div>
+</div>
+
 {% endblock %}
