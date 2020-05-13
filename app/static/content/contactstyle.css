@@ -155,3 +155,20 @@ body
     bottom: 0;
     max-height: 70%;
 }
+
+@media (max-width: 991px) {
+    .contact-container .contact-form {
+        width: 100%;
+        padding: 0 50px;
+    }
+
+    .contact-container .contact-form form {
+        width: 100%;
+        max-width: 500px;
+        padding: 0;
+    }
+
+    .contact-container .contact-form-img img {
+        display: none;
+    }
+}

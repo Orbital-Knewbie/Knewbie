@@ -3,6 +3,11 @@
     padding: 0;
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
 section {
     width: 100%;
     height: 100vh;
@@ -10,6 +15,8 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    top: 0;
 }
 
 section:before {
@@ -32,8 +39,15 @@ section:before {
     z-index: 2;
 }
 
+.faq-container h1 {
+    text-align: center;
+    padding-bottom: 4rem;
+    font-size: 3.2rem;
+    color: var(--OFFWHITE);
+}
+
 .accordion-item {
-    background-color: var(--DARKPURPLE);
+    background-color: var(--PURPLE);
     border-radius: 0.3rem;
     margin-bottom: 1rem;
     padding: 1rem;
@@ -48,7 +62,7 @@ section:before {
     color: var(--GREY);
     opacity: 0.7;
     text-decoration: none;
-    background-color: var(--DARKPURPLE);
+    background-color: var(--PURPLE);
     width: 100%;
     padding: 1rem 0;
 }
@@ -63,12 +77,12 @@ section:before {
     max-height: 0;
     overflow: hidden;
     position: relative;
-    background-color: #360335;
+    background-color: #4e034c;
     border-radius: 0.5rem;
     color: var(--OFFWHITE);
     font-size: 1.7rem;
     padding-left: 1.5rem;
-    transition: max-height 0.5s;
+    transition: max-height 0.3s;
 }
 
 .faq-ans::before {
