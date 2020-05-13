@@ -1,22 +1,27 @@
-*, *::after, *::before {
+*::after, *::before {
     margin: 0;
     padding: 0;
-    box-sizing: inherit;
-}
-
-html {
-   font-family: 'Lato', sans-serif;
-   font-size: 1rem;
-   box-sizing: border-box;
 }
 
 section {
     width: 100%;
     height: 100vh;
-    background-color: var(--OFFWHITE);
+    background-color: #360335;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+section:before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--OFFWHITE);
+    transform-origin: bottom;
+    transform: skewX(-25deg) translateX(50%);
 }
 
 .faq-container {
@@ -24,22 +29,24 @@ section {
     max-width: 80rem;
     margin: 0 auto;
     padding: 0 1.5rem;
+    z-index: 2;
 }
 
 .accordion-item {
     background-color: var(--DARKPURPLE);
-    border-radius: 0.8rem;
+    border-radius: 0.3rem;
     margin-bottom: 1rem;
     padding: 1rem;
-    box-shadow: 0.5rem 2px 1rem rgba(0, 0, 0, 1);
+    box-shadow: 0.5rem 2px 1rem rgba(0, 0, 0, 0.4);
 }
 
 .accordion-link {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 1.6rem;
-    color: var(--OFFWHITE);
+    font-size: 2rem;
+    color: var(--GREY);
+    opacity: 0.7;
     text-decoration: none;
     background-color: var(--DARKPURPLE);
     width: 100%;
@@ -47,47 +54,40 @@ section {
 }
 
 .accordion-link i {
-    color: var(--LIGHTPURPLE);
+    color: var(--GREY);
     padding: 0.5rem;
-}
-
-.accordion-link .ion-md-remove {
-    display: none;
+    opacity: 0.4;
 }
 
 .faq-ans {
     max-height: 0;
     overflow: hidden;
     position: relative;
-    color: var(--GREY);
+    background-color: #360335;
+    border-radius: 0.5rem;
+    color: var(--OFFWHITE);
+    font-size: 1.7rem;
+    padding-left: 1.5rem;
     transition: max-height 0.5s;
 }
 
 .faq-ans::before {
     content: "";
     position: absolute;
-    width: 0.6rem;
-    height: 90%;
+    width: 0.2rem;
+    height: 100%;
     background-color: var(--LIGHTPURPLE);
     top: 50%;
     left: 0;
     transform: translateY(-50%);
 }
 
-.faq-ans p {
-    opacity: 0.7;
-    font-size: 1.4rem;
-    padding: 2rem;
-}
-
 .accordion-item:target .faq-ans {
-    max-height: 20rem;
+    max-height: 25rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
-.accordion-item:target .accordion-link .ion-md-add {
+.accordion-item:target .accordion-link .fa-plus {
     display: none;
-}
-
-.accordion-item:target .accordion-link .ion-md-remove {
-    display: block;
 }
