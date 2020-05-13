@@ -59,6 +59,7 @@
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\content\faqstyle.css" />
     <Content Include="app\static\content\homepagestyle.css" />
     <Content Include="app\static\content\loginstyle.css" />
     <Content Include="app\static\content\regstyle.css" />
@@ -89,6 +90,7 @@
     <Content Include="app\templates\email\activate.html" />
     <Content Include="app\templates\email\contactmsg.txt" />
     <Content Include="app\templates\email\contactmsg.html" />
+    <Content Include="app\templates\faq.html" />
     <Content Include="app\templates\index.html" />
     <Content Include="app\templates\login.html" />
     <Content Include="app\templates\quiz.html" />

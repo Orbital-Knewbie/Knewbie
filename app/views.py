@@ -21,6 +21,11 @@ def home():
     """Renders the home page."""
     return render_template('index.html')
 
+@app.route('/faq')
+def faq():
+    """Renders the faq page."""
+    return render_template('faq.html')
+
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     """Renders the contact page."""
