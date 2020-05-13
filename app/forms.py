@@ -37,7 +37,7 @@ class ContactForm(FlaskForm):
 
 class ResetPasswordForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
-    submit = SubmitField('Request Password Reset')
+    submit = SubmitField('Reset Password')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
@@ -48,4 +48,4 @@ class NewPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Reset Password')
+    submit = SubmitField('Update Password')
