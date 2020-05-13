@@ -6,9 +6,9 @@ from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
 from app.models import User, Question, Option, Answer
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, ContactForm
 from app.questions import final_qns
-from app.email import register, resend_conf
+from app.email import register, resend_conf, send_contact_email
 from app.token import confirm_token
 from app.decorator import check_confirmed
 import json, datetime
@@ -23,7 +23,12 @@ def home():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     """Renders the contact page."""
-    return render_template('contact.html')
+    form = ContactForm()
+    # POST request
+    if request.method == 'POST' and form.validate_on_submit():
+        send_contact_email(form)
+        return render_template('contact.html', success=True)
+    return render_template('contact.html', form=form)
 
 @app.route('/register')
 def reg():
@@ -47,7 +52,7 @@ def regedu():
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
     if eduForm.validate_on_submit():
-        return register(stuForm, 'educator')
+        return register(eduForm, 'educator')
     return render_template('register.html', stuForm=stuForm, eduForm=eduForm)
 
 @app.route('/confirm/<token>')

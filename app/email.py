@@ -21,6 +21,14 @@ def send_conf_email(user, confirm_url):
                html_body=render_template('email/activate.html',
                                          name=user.firstName, confirm_url=confirm_url))
 
+def send_contact_email(form):
+    send_email('[Knewbie] Contact',
+               sender=app.config['ADMINS'][0],
+               recipients=app.config['ADMINS'],
+               text_body=render_template('email/contactmsg.txt', form=form),
+               html_body=render_template('email/contactmsg.html', form=form)
+    )
+
 def get_confirm_url(user):
     token = generate_confirmation_token(user.email)
     confirm_url = url_for('confirm_email', token=token, _external=True)

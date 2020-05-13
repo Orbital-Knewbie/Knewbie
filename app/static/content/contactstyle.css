@@ -50,11 +50,11 @@ body
 
 .contact-container .contact-form form .contact-form-input {
     position: relative;
-    margin-bottom: 40px;
+    margin-top: 40px;
 }
 
-.contact-container .contact-form form .contact-form-input:last-child {
-    margin-bottom: 0px;
+.contact-container .contact-form form .contact-form-input:first-child {
+    margin-top: 0px;
 }
 
 .contact-container .contact-form form .contact-form-input input,

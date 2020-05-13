@@ -86,6 +86,8 @@
     <Content Include="app\static\content\style.css" />
     <Content Include="app\templates\email\activate.txt" />
     <Content Include="app\templates\email\activate.html" />
+    <Content Include="app\templates\email\contactmsg.txt" />
+    <Content Include="app\templates\email\contactmsg.html" />
     <Content Include="app\templates\index.html" />
     <Content Include="app\templates\login.html" />
     <Content Include="app\templates\quiz.html" />
