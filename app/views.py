@@ -4,13 +4,14 @@ Routes and views for the flask application.
 
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
-from app import app, db
+from app import app, db, mail
 from app.models import User, Question, Option, Answer
-from app.forms import LoginForm, RegistrationForm, ContactForm
+from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm
 from app.questions import final_qns
 from app.email import register, resend_conf, send_contact_email
 from app.token import confirm_token
 from app.decorator import check_confirmed
+from flask_mail import Message
 import json, datetime
 
 @app.route('/')
@@ -144,3 +145,48 @@ def test1():
     test2 = request.form['test2']
     if test1 == "test1":
         return jsonify({"test1":"works"});
+
+def send_reset_email(user):
+    token = user.reset_token()
+    message = Message('Password Reset Request', sender='resetpassword@knewbie.com', recipients=[user.email])
+    message.body = """Dear {user.username}, 
+To reset your password, visit the following link by clicking on it or, copy and paste the link in your web browser's address bar.
+{url_for('reset_password', token = token, _external = True)}
+
+The link will expire in 10 minutes.
+
+If you did not make this request, simply ignore this email. Thank you.
+
+Take care and enjoy learning,
+Knewbie Support Team
+"""
+    mail.send(message)
+
+@app.route("/resetpassword", methods=['GET', 'POST'])
+def request_reset_password():
+     if current_user.is_authenticated:
+        return redirect(url_for('quiz'))
+     form = ResetPasswordForm()
+     if form.validate_on_submit():
+         user = User.query.filter_by(email = form.email.data).first()
+         send_reset_email(user)
+         flash('An email has been sent with instructions to rest your password.', 'info')
+         return redirect(url_for('login'))
+     return render_template('resetpassword.html', title='Reset Password', form=form)
+
+@app.route("/resetpassword/<token>", methods=['GET', 'POST'])
+def reset_password():
+    if current_user.is_authenticated:
+        return redirect(url_for('quiz'))
+    user = User.verify_reset_token(token)
+    if not user:
+        flash('That is an invalid or expired token', 'warning')
+        return redirect(url_for('request_reset_password'))
+    form = NewPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bycrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+        flash('Your password has been successfully updated! You can now login with your new password.')
+        return redirect(url_for('login'))
+    return render_template('changepassword.html', title='Reset Password', form = form)

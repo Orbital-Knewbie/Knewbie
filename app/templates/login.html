@@ -23,7 +23,7 @@
         {{ form.submit(class_="login-btn") }}
         <div class="bottom-text">
             <p>Don't have an account? <a href="{{ url_for('reg') }}">Create one here!</a></p>
-            <p>Forgot your password? <a href="#">Click here!</a></p>
+            <p>Forgot your password? <a href="{{ url_for('request_reset_password') }}">Click here!</a></p>
         </div>
     </form>
 {% endblock %}

@@ -84,6 +84,7 @@
     <Content Include="app\static\resources\images\Logo.svg" />
     <Content Include="app\static\resources\Knewbie Prototype v1.0.xd" />
     <Content Include="app\static\content\style.css" />
+    <Content Include="app\templates\changepassword.html" />
     <Content Include="app\templates\email\activate.txt" />
     <Content Include="app\templates\email\activate.html" />
     <Content Include="app\templates\email\contactmsg.txt" />
@@ -91,6 +92,7 @@
     <Content Include="app\templates\index.html" />
     <Content Include="app\templates\login.html" />
     <Content Include="app\templates\quiz.html" />
+    <Content Include="app\templates\resetpassword.html" />
     <Content Include="app\templates\test.html" />
     <Content Include="app\templates\base.html" />
     <Content Include="app\templates\register.html" />
