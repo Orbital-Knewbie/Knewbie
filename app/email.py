@@ -29,6 +29,16 @@ def send_contact_email(form):
                html_body=render_template('email/contactmsg.html', form=form)
     )
 
+def send_reset_email(user):
+    token = user.reset_token()
+    #message = Message('Password Reset Request', sender='resetpassword@knewbie.com', recipients=[user.email])
+    send_email('Password Reset Request', 
+               sender=app.config['ADMINS'][0],
+               recipients=[user.email],
+               text_body=render_template('email/reset.txt', name=user.firstName, token=token),
+               html_body=render_template('email/reset.html', name=user.firstName, token=token)
+    )
+
 def get_confirm_url(user):
     token = generate_confirmation_token(user.email)
     confirm_url = url_for('confirm_email', token=token, _external=True)

@@ -1,0 +1,10 @@
+Dear {{name}}, 
+To reset your password, visit the following link by clicking on it or, copy and paste the link in your web browser's address bar.
+{{url_for('reset_password', token = token, _external = True)}}
+
+The link will expire in 10 minutes.
+
+If you did not make this request, simply ignore this email. Thank you.
+
+Take care and enjoy learning,
+Knewbie Support Team

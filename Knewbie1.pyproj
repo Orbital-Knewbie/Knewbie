@@ -90,6 +90,8 @@
     <Content Include="app\templates\email\activate.html" />
     <Content Include="app\templates\email\contactmsg.txt" />
     <Content Include="app\templates\email\contactmsg.html" />
+    <Content Include="app\templates\email\reset.txt" />
+    <Content Include="app\templates\email\reset.html" />
     <Content Include="app\templates\faq.html" />
     <Content Include="app\templates\index.html" />
     <Content Include="app\templates\login.html" />
