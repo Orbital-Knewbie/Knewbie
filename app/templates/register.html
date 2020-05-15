@@ -9,30 +9,30 @@
         <form action="{{ url_for('regedu') }}" method="post" id="eduForm">
             <h1>Create An Educator Account</h1>
             {{ eduForm.hidden_tag() }}
-        <div class="input-field">
-            {{ eduForm.firstName(placeholder="First Name", size=32) }}
-            {% for error in eduForm.firstName.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-            {{ eduForm.lastName(placeholder="Last Name", size=32) }}
-            {% for error in eduForm.lastName.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-            {{ eduForm.email(placeholder="Email", size=64) }}
-            {% for error in eduForm.email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-            {{ eduForm.password(placeholder="Password", size=32) }}
-            {% for error in eduForm.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-            {{ eduForm.password2(placeholder="Confirm Password", size=32) }}
-            {% for error in eduForm.password2.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-            <p>Already have an account? <a href="{{ url_for('login') }}">Click here!</a></p>
-            <p>By clicking on the register button, you agree to our <a href="#">Terms & Conditions</a></p>
-        </div>
+            <div class="input-field">
+                {{ eduForm.firstName(placeholder="First Name", size=32) }}
+                {% for error in eduForm.firstName.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                {{ eduForm.lastName(placeholder="Last Name", size=32) }}
+                {% for error in eduForm.lastName.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                {{ eduForm.email(placeholder="Email", size=64) }}
+                {% for error in eduForm.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                {{ eduForm.password(placeholder="Password", size=32) }}
+                {% for error in eduForm.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                {{ eduForm.password2(placeholder="Confirm Password", size=32) }}
+                {% for error in eduForm.password2.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                <p>Already have an account? <a href="{{ url_for('login') }}">Click here!</a></p>
+                <p>By clicking on the register button, you agree to our <a href="#">Terms & Conditions</a></p>
+            </div>
             {{ eduForm.submit(class_="register-btn") }}
         </form>
     </div>

@@ -42,22 +42,28 @@ span {
 }
 
 .register-btn {
-    margin-bottom: 1rem;
+    display: inline-block;
+    position: relative;
     margin-top: 3rem;
-    width: 15%;
-    padding: 1rem;
-    font-size: 1.5rem;
+    padding: 1rem 4rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
     border: none;
-    border-radius: 1rem;
+    border-radius: .4rem;
     background: var(--LIGHTPURPLE);
     color: var(--OFFWHITE);
+    box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
     outline: none;
     cursor: pointer;
     transition: all .2s ease-in-out;
 }
 
 .register-btn:hover {
-    background: var(--PURPLE);
+    background: var(--OFFWHITE);
+    border: 1px solid var(--LIGHTPURPLE);
+    color: var(--LIGHTPURPLE);
 }
 
 .register-btn:active {
@@ -67,13 +73,12 @@ span {
 button {
     border: 1px solid var(--LIGHTPURPLE);
     font-weight: bold;
-    transition: transform 80ms ease-in;
     display: inline-block;
     font-size: 1.2rem;
     letter-spacing: 1px;
     text-decoration: none;
     color: var(--OFFWHITE);
-    background-color: var(--LIGHTPURPLE);
+    background: var(--LIGHTPURPLE);
     padding: 1rem 4rem;
     margin-top: 1rem;
     border-radius: .4rem;
@@ -83,13 +88,13 @@ button {
     outline: none;
 }
 
-button.ghost {
+.ghost{
     background-color: var(--OFFWHITE);
     border-color: var(--OFFWHITE);
     color: var(--LIGHTPURPLE)
 }
 
-button.ghost::after {
+.ghost::after {
     content: '';
     position: absolute;
     top: 0;
@@ -101,10 +106,14 @@ button.ghost::after {
     z-index: -1;
 }
 
-button.ghost:hover::after {
+.ghost:hover::after {
     transform: scaleX(1.2) scaleY(1.4);
     opacity: 0;
     transition: all .5s;
+}
+
+.ghost:active {
+    transform: translateY(1.5px);
 }
 
 form {

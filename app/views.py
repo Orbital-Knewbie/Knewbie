@@ -21,6 +21,11 @@ def home():
     """Renders the home page."""
     return render_template('index.html')
 
+@app.route('/dashboard')
+def dashboard():
+    """Renders the dashboard page."""
+    return render_template('dashboard.html')
+
 @app.route('/faq')
 def faq():
     """Renders the faq page."""

@@ -32,7 +32,6 @@ $('.navbar a').on('click', function (e) {
   }
 });
 
-// MODAL FORM SIGNUP
 const EducatorButton = document.getElementById('Educator');
 const StudentButton = document.getElementById('Student');
 const container = document.getElementById('container');
@@ -45,27 +44,24 @@ StudentButton.addEventListener('click', () => {
   container.classList.remove("right-panel-active");
 })
 
-document.getElementById('signupnow').addEventListener("click", function() {
-	document.querySelector('.modal-container').style.display = "inline";
-});
+var mySwiper = new Swiper('.swiper-container', {
+    // Optional parameters
+    direction: 'vertical',
+    loop: true,
 
-document.querySelector('.close').addEventListener("click", function() {
-	document.querySelector('.modal-container').style.display = "none";
-});
+    // If we need pagination
+    pagination: {
+        el: '.swiper-pagination',
+    },
 
-document.querySelector('.close1').addEventListener("click", function() {
-	document.querySelector('.modal-container').style.display = "none";
-});
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
 
-// MODAL FOR LOGIN
-//document.getElementById('std-login').addEventListener("click", function () {
-//   document.querySelector('.login-modal').style.display = "flex";
-//});
-
-//document.getElementById('tcr-login').addEventListener("click", function () {
-//   document.querySelector('.login-modal').style.display = "flex";
-//});
-
-//document.querySelector('.loginclose').addEventListener("click", function () {
-//   document.querySelector('.login-modal').style.display = "none";
-//});
+    // And if we need scrollbar
+    //scrollbar: {
+    //    el: '.swiper-scrollbar',
+    //},
+})

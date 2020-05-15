@@ -59,6 +59,7 @@
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\content\dashboardstyle.css" />
     <Content Include="app\static\content\faqstyle.css" />
     <Content Include="app\static\content\homepagestyle.css" />
     <Content Include="app\static\content\loginstyle.css" />
@@ -86,6 +87,7 @@
     <Content Include="app\static\resources\Knewbie Prototype v1.0.xd" />
     <Content Include="app\static\content\style.css" />
     <Content Include="app\templates\changepassword.html" />
+    <Content Include="app\templates\dashboard.html" />
     <Content Include="app\templates\email\activate.txt" />
     <Content Include="app\templates\email\activate.html" />
     <Content Include="app\templates\email\contactmsg.txt" />

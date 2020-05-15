@@ -31,7 +31,7 @@ def send_contact_email(form):
 
 def send_reset_email(user):
     token = user.reset_token()
-    #message = Message('Password Reset Request', sender='resetpassword@knewbie.com', recipients=[user.email])
+    #message = Message('[Knewbie] Password Reset Request', sender='resetpassword@knewbie.com', recipients=[user.email])
     send_email('Password Reset Request', 
                sender=app.config['ADMINS'][0],
                recipients=[user.email],
