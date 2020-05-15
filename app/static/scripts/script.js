@@ -32,6 +32,7 @@ $('.navbar a').on('click', function (e) {
   }
 });
 
+// Reg form, slider
 const EducatorButton = document.getElementById('Educator');
 const StudentButton = document.getElementById('Student');
 const container = document.getElementById('container');
@@ -43,6 +44,28 @@ EducatorButton.addEventListener('click', () => {
 StudentButton.addEventListener('click', () => {
   container.classList.remove("right-panel-active");
 })
+
+// Split Screen
+const left = document.querySelector(".left");
+const right = document.querySelector(".right");
+const container = document.querySelector(".split-container");
+
+left.addEventListener("mouseenter", () => {
+    container.classList.add("hover-left");
+});
+
+left.addEventListener("mouseleave", () => {
+    container.classList.remove("hover-left");
+});
+
+right.addEventListener("mouseenter", () => {
+    container.classList.add("hover-right");
+});
+
+right.addEventListener("mouseleave", () => {
+    container.classList.remove("hover-right");
+});
+
 
 var mySwiper = new Swiper('.swiper-container', {
     // Optional parameters

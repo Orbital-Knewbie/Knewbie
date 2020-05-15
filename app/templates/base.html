@@ -35,9 +35,18 @@
             <ul class="list">
                 <li class="navitem"><a href="{{ url_for('home') }}" class="link">Home</a></li>
                 {% if current_user.is_authenticated %}
-                <li class="navitem"><a href="{{ url_for('home') }}#about" class="link">About Us</a></li>
+                <li class="navitem"><a href="#viewclasses" class="link">View Classes</a></li>
+                <li class="navitem"><a href="#joinclass" class="link">Join A Class</a></li>
+                <li class="navitem"><a href="#topicalquiz" class="link">Topical Quizzes</a></li>
+                <li class="navitem"><a href="#mockquiz" class="link">Mock Quizzes</a></li>
                 <li class="navitem"><a href="{{ url_for('contact') }}" class="link">Contact</a></li>
                 <li class="navitem"><a href="{{ url_for('logout') }}" class="link">Sign Out</a></li>
+                <!--{% elif user.urole == educator %}
+                <li class="navitem"><a href="#viewclasses" class="link">View Classes</a></li>
+                <li class="navitem"><a href="#createclass" class="link">Create A Class</a></li>
+                <li class="navitem"><a href="#createquestion" class="link">Create Questions</a></li>
+                <li class="navitem"><a href="{{ url_for('contact') }}" class="link">Contact</a></li>
+                <li class="navitem"><a href="{{ url_for('logout') }}" class="link">Sign Out</a></li>-->
                 {% else %}
                 <li class="navitem"><a href="{{ url_for('login') }}" class="link">Sign In</a></li>
                 <li class="navitem"><a href="{{ url_for('home') }}#about" class="link">About Us</a></li>

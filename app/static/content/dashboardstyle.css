@@ -164,3 +164,143 @@ img {
         transform: scale(1.07);
     }
 }
+
+/* SPLIT SCREEN */
+.split-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--GREY);
+}
+
+.split-container h1 {
+  font-size: 4rem;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.left h1 {
+    color: var(--OFFWHITE);
+}
+
+.right h1 {
+    color: var(--LIGHTPURPLE);
+}
+
+
+.split-btn {
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  text-decoration: none;
+  padding: 1rem 4rem;
+  border-radius: .4rem;
+  box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.left .split-btn {
+  color: var(--LIGHTPURPLE);
+  background-color: var(--OFFWHITE);
+}
+
+.right .split-btn {
+  color: var(--OFFWHITE);
+  background-color: var(--LIGHTPURPLE);
+}
+
+.split-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: inherit;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.split-btn:hover::after {
+  transform: scaleX(1.2) scaleY(1.4);
+  opacity: 0;
+  transition: all .5s;
+}
+
+.split {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.left {
+  left: 0;
+/*background: var(--LIGHTPURPLE);*/
+  background: url('../resources/images/Student.svg') center center no-repeat;
+  background-size: 53vh;
+  background-color: rgba(0, 0, 0, .7);
+}
+
+.left::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  background: var(--LIGHTPURPLE);
+  opacity: 0.7;
+}
+
+.right {
+  right: 0; */
+/*background: var(--GREY);*/
+  background: url('../resources/images/Teacher.svg') center center no-repeat;
+  background-size: 80vh;
+}
+
+.right::before {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  background: var(--GREY);
+}
+
+.left, .right, .right::before, .left::before {
+  transition: var(--speed) all ease-in-out;
+}
+
+.hover-left .left {
+  width: var(--hover-width);
+}
+
+.hover-left .right {
+  width: var(--width);
+}
+
+.hover-left .right::before {
+  z-index: 2;
+}
+
+.hover-right .right {
+  width: var(--hover-width);
+}
+
+.hover-right .left {
+  width: var(--width);
+}
+
+.hover-right .left::before {
+  z-index: 2;
+}
