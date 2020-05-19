@@ -55,7 +55,7 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; 2. When you first begin, you will not have any classes.
 
-#### <a name="view"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.1. Join A Class</a><br>
+#### <a name="view"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.1. Joining A Class</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. Only educators will be able to create an account.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. When your educator has created a class, they will share a unqiue class code with you.
@@ -76,13 +76,12 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; 2. Quizzes are sorted into topical and practice quizzes. You can attempt these quizzes at your own time.
 
-&nbsp; &nbsp; &nbsp; &nbsp; 2. Topical quizzes are sorted by topics and practice quizzes will display questions from a mixture of topics.
+&nbsp; &nbsp; &nbsp; &nbsp; 3. Topical quizzes are sorted by topics and practice quizzes will display questions from a mixture of topics.
 
 &nbsp; &nbsp; &nbsp; &nbsp; 4. Questions are tailored to your ability. Attempting more questions improves the accuracy of those recommended.
 
 &nbsp; &nbsp; &nbsp; &nbsp; 5. Based on your current ability, questions will be recommended in a way to ensure you improve.
 
 &nbsp; &nbsp; &nbsp; &nbsp; 6. You can access your progress report through your dashboard, or as detailed [here](#id).
-
 
 ## <a name="faq">4. Frequently Asked Questions (FAQ)</a><br>
