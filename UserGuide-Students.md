@@ -69,7 +69,9 @@ Knewbie is an educational platform that provides tailored content to suit the in
 #### <a name="score"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.2. Leaderboard</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You can view the progress report of your classmates for the specific class.
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. You can contact classmates good at particular topics via the forum or the chatroom to assist you.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. You can contact classmates good at particular topics to assist you. 
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. The leaderboard is not meant to be competetive but so you know who to approach for help!
 
 ### <a name="quiz"> &nbsp; &nbsp; 3.4. Quizzes</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; 1. When you have logged in to your acocunt, you will be able to view all the quizzes from your dashboard.
