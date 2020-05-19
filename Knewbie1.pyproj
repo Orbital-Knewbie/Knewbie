@@ -104,12 +104,15 @@
     <Content Include="app\templates\register.html" />
     <Content Include="app\templates\unconfirmed.html" />
     <Content Include="app\templates\contact.html" />
+    <Content Include="docs\Architecture.png" />
+    <Content Include="docs\DeveloperGuide.md" />
     <Content Include="migrations\alembic.ini" />
     <Content Include="migrations\env.pyc" />
     <Content Include="migrations\README" />
     <Content Include="migrations\script.py.mako" />
     <Content Include="migrations\versions\c49913c2f7b5_initial_db.pyc" />
     <Content Include="requirements.txt" />
+    <Content Include="docs\UserGuide-Students.md" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">
@@ -136,6 +139,7 @@
     <Folder Include="app\templates\email\" />
     <Folder Include="migrations\" />
     <Folder Include="migrations\versions\" />
+    <Folder Include="docs\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 
