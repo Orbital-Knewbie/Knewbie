@@ -4,14 +4,26 @@
 {% endblock %}
 {% block content %}
 <section class="gradient" id="home-page">
-    
+    <div class="gradient-textbox">
+        <h1 class="text">Knewbie</h1>
+        <h2 class="subtext">Knowledge is Power. Even if you are a Noobie.</h2>
+        <a href="{{ url_for('reg') }}" class="home-btn" id="signupnow">REGISTER!</a>
+    </div>
     <div class="gradient-clipped">
-        <div class="gradient-textbox">
-            <h1 class="text">Knewbie</h1>
-            <h2 class="subtext">Knowledge is Power. Even if you are a Noobie.</h2>
-            <a href="{{ url_for('login') }}" class="home-btn" id="login">SIGN IN!</a>
-            <a href="{{ url_for('reg') }}" class="home-btn" id="signupnow">REGISTER!</a>
-        </div>
+        <form class="login-form" action="" method="post" novalidate>
+            <h2 class="sign-in">Sign In</h2>
+            <div class="input-field">
+                <input type="email" name="Email" autocomplete="off" required />
+            </div>
+            <div class="input-field">
+                <input type="password" name="Password" autocomplete="off" required />
+            </div>
+            <a href="{{ url_for('reg') }}" class="submit-btn" id="signupnow">SIGN IN!</a>
+            <!--<div class="bottom-text">
+                <p>Don't have an account? <a href="{{ url_for('reg') }}">Create one here!</a></p>
+                <p>Forgot your password? <a href="{{ url_for('request_reset_password') }}">Click here!</a></p>
+            </div>-->
+        </form>
     </div>
 </section>
 
