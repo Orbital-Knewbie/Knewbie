@@ -4,8 +4,12 @@
 [1. Introduction](#intro)  
 [2. Quick Start](#quickstart)<br>
 [3. Features](#features)<br>
-&nbsp; &nbsp; [3.1 Reset Password](#pw)<br>
-&nbsp; &nbsp; [3.2 Unique ID](#id)<br>
+&nbsp; &nbsp; [3.1. Reset Password](#pw)<br>
+&nbsp; &nbsp; [3.2. Progress Report](#id)<br>
+&nbsp; &nbsp; [3.3. Classes](#class)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.3.1. Joining A Class](#view)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.3.2. Leaderboard](#score)<br>
+&nbsp; &nbsp; [3.4. Quizzes](#quiz)<br>
 [4. Frequently Asked Questions (FAQ)](#faq)
 
 ## <a name="intro">1. Introduction</a><br>
@@ -25,7 +29,7 @@ Knewbie is an educational platform that provides tailored content to suit the in
 6. You can now successfully log in using your email and password to access all the features available on our platform!
 
 ## <a name="features">3. Features</a><br>
-### <a name="pw"> &nbsp; &nbsp; 3.1 Reset Password</a><br>
+### <a name="pw"> &nbsp; &nbsp; 3.1. Reset Password</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; 1. If you have forgotten your password, or want to change it, you can do so through this [link]. (Not Up Yet)
 
 &nbsp; &nbsp; &nbsp; &nbsp; 2. To change your password input the email address you created your account with.
@@ -37,7 +41,7 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; 5. You will be taken to a site to change your password.
 
-### <a name="id"> &nbsp; &nbsp; 3.2 Unique ID</a><br>
+### <a name="id"> &nbsp; &nbsp; 3.2. Progress Report</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; 1. When you create an account, you will be given a unique id which can be used to access your progress report.
 
 &nbsp; &nbsp; &nbsp; &nbsp; 2. On the homepage, navigate to the [unique id section (near the bottom of the page)]. (link not up yet)
@@ -46,6 +50,39 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; 4. Keep your unique id confidential or only to people you want to share your progress with (i.e your parents)
 
+### <a name="class"> &nbsp; &nbsp; 3.3. Classes</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; 1. When you have logged in to your acocunt, you will be able to view all your enrolled classes from your dashboard.
+
+&nbsp; &nbsp; &nbsp; &nbsp; 2. When you first begin, you will not have any classes.
+
+#### <a name="view"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.1. Join A Class</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. Only educators will be able to create an account.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. When your educator has created a class, they will share a unqiue class code with you.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. Under the Join A Class Section on your dashboard, enter the unique code.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. You are now enrolled in the class and can access the questions/topics assigned specifically by your educators.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. You are able to ask questions on the forum in which teachers can respond to.
+
+#### <a name="score"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.2. Leaderboard</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You can view the progress report of your classmates for the specific class.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. You can contact classmates good at particular topics via the forum or the chatroom to assist you.
+
+### <a name="quiz"> &nbsp; &nbsp; 3.4. Quizzes</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; 1. When you have logged in to your acocunt, you will be able to view all the quizzes from your dashboard.
+
+&nbsp; &nbsp; &nbsp; &nbsp; 2. Quizzes are sorted into topical and practice quizzes. You can attempt these quizzes at your own time.
+
+&nbsp; &nbsp; &nbsp; &nbsp; 2. Topical quizzes are sorted by topics and practice quizzes will display questions from a mixture of topics.
+
+&nbsp; &nbsp; &nbsp; &nbsp; 4. Questions are tailored to your ability. Attempting more questions improves the accuracy of those recommended.
+
+&nbsp; &nbsp; &nbsp; &nbsp; 5. Based on your current ability, questions will be recommended in a way to ensure you improve.
+
+&nbsp; &nbsp; &nbsp; &nbsp; 6. You can access your progress report through your dashboard, or as detailed [here](#id).
 
 
 ## <a name="faq">4. Frequently Asked Questions (FAQ)</a><br>
