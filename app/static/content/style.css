@@ -125,8 +125,6 @@ header {
   text-decoration: none;
   display: block;
   transition: color 2s;
-  /*margin-left: 2rem;
-  margin-right: 2rem;*/
 }
 
 .link:hover, .link:focus {
@@ -197,6 +195,14 @@ nav li:hover {
 .open .line.end{
   transform: rotate(-450deg) translateX(-0.8rem);
 }
+
+footer {
+    color: var(--OFFWHITE);
+    background-color: var(--DARKPURPLE);
+    padding: 3rem;
+}
+
+
 
 @keyframes rubberBand {
   from {

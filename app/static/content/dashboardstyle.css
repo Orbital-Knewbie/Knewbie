@@ -169,7 +169,7 @@ img {
 .split-container {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 70%;
     background: var(--GREY);
 }
 
@@ -246,9 +246,8 @@ img {
 
 .left {
   left: 0;
-/*background: var(--LIGHTPURPLE);*/
-  background: url('../resources/images/Student.svg') center center no-repeat;
-  background-size: 53vh;
+  background: url('../resources/images/Teacher.svg') center center no-repeat;
+  background-size: 40vh;
   background-color: rgba(0, 0, 0, .7);
 }
 
@@ -262,10 +261,9 @@ img {
 }
 
 .right {
-  right: 0; */
-/*background: var(--GREY);*/
-  background: url('../resources/images/Teacher.svg') center center no-repeat;
-  background-size: 80vh;
+  right: 0;
+  background: url('../resources/images/Student.svg') center center no-repeat;
+  background-size: 35vh;
 }
 
 .right::before {

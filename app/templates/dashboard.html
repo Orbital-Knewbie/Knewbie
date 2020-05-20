@@ -25,7 +25,7 @@
                 <a href="#" class="btn">Begin Quiz</a>
             </div>
 
-            <!-- IF STUDENT -->
+
             <div class="card">
                 <div class="card-background"></div>
                 <img src="../static/resources/images/Teacher.svg" class="quiz-symbol">
@@ -49,6 +49,7 @@
         </div>
     </section>
 
+    {% if current_user.is_authenticated and current_user.urole == 'student' %}
     <section class="box">
         <h1>Join A Class</h1>
         <div class="details">
@@ -116,7 +117,7 @@
         </div>
     </section>
 
-    <!-- IF EDUCATOR -->
+    {% elif current_user.is_authenticated and current_user.urole == 'educator' %}
     <!-- SPLIT SCREEN -->
     <div class="split-container" id="login-page">
         <div class="split left">
@@ -129,5 +130,6 @@
             <a href="#" class="split-btn" id="tcr-login">Click Here</a>
         </div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

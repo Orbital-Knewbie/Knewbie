@@ -102,7 +102,7 @@ def resend():
 @app.route('/login', methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('quiz'))
+        return redirect(url_for('dashboard'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -110,7 +110,7 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user)
-        return redirect(url_for('quiz'))
+        return redirect(url_for('dashboard'))
     return render_template('login.html', form=form)
 
 @app.route('/logout')
