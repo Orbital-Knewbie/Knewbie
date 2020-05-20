@@ -105,7 +105,7 @@ header {
   width: 50rem;
   height: 100vh;
   position: absolute;
-  padding: 10%;
+  padding: 5%;
   top: 0;
   right: 0;
   background-color: var(--OFFWHITE);
@@ -125,8 +125,8 @@ header {
   text-decoration: none;
   display: block;
   transition: color 2s;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  /*margin-left: 2rem;
+  margin-right: 2rem;*/
 }
 
 .link:hover, .link:focus {

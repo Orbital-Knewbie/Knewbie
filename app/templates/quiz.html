@@ -1,7 +1,9 @@
 ﻿{% extends "base.html" %}
-
+{% block style %}
+<link rel="stylesheet" href="../static/content/quizstyle.css">
+{% endblock %}
 {% block content %}
-<form action='/end' method='POST'>
+<!--<form action='/end' method='POST'>
     <ol>
         {% for i in q %}
         <li>{{i}}</li>
@@ -12,7 +14,32 @@
         {% endfor %}
     </ol>
     <input type="submit" value="submit" />
-</form>
+</form>-->
+<div class="quiz-container">
+    <div id="quiz" class="justify-center flex-column">
+        <!--<h1>QUIZ TITLE</h1>-->
+        <h2 id="question">What is 1 + 1?</h2>
+        <div class="options-container">
+            <p class="options-prefix">A</p>
+            <p class="options">0</p>
+        </div>
+        <div class="options-container">
+            <p class="options-prefix">B</p>
+            <p class="options">2</p>
+        </div>
+        <div class="options-container">
+            <p class="options-prefix">C</p>
+            <p class="options">1</p>
+        </div>
+        <div class="options-container">
+            <p class="options-prefix">D</p>
+            <p class="options">3</p>
+        </div>
+        <a href="#" class="submit-btn" id="signupnow">SUBMIT</a>
+    </div>
+
+</div>
+
 
 <!--<div id="quiz"></div>
 <button id="submit">Submit Quiz</button>
