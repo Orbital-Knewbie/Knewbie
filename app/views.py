@@ -14,12 +14,22 @@ from app.decorator import check_confirmed
 from flask_mail import Message
 import json, datetime
 
-@app.route('/')
-@app.route('/home')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 #@login_required
 def home():
     """Renders the home page."""
-    return render_template('index.html')
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user)
+        return redirect(url_for('dashboard'))
+    return render_template('index.html', form=form)
 
 @app.route('/dashboard')
 def dashboard():
