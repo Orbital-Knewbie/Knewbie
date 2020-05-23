@@ -13,7 +13,7 @@ $(document).ready(function () {
 
   // GSAP ANIMATIONS LANDING PAGE
   gsap.fromTo('.gradient-clipped', {scaleX: 0}, {duration: 1, scaleX: 1});
-  gsap.fromTo('.logo', {x: -200, opacity: 0}, {duration: 1, delay: 0.5, x: 0, opacity: 1});
+  gsap.fromTo('.login-form', {opacity: 0}, {duration: 3, delay: 0.5, opacity: 1});
   gsap.fromTo('.menu', {opacity: 0}, {duration: 2, delay: 0.5, opacity: 1});
   gsap.fromTo('.gradient-textbox', {yPercent: 40, opacity: 0}, {duration: 1, delay: 0.8, yPercent: -50, opacity: 1});
 

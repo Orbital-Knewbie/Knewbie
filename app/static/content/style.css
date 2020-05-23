@@ -47,7 +47,12 @@ html, body {
   padding: 0;
   margin: 0;
   width: 100%;
-  height: 100%;
+  /*height: 100%;*/
+}
+
+html {
+    position: relative;
+    min-height: 100%;
 }
 
 header {
@@ -199,10 +204,65 @@ nav li:hover {
 footer {
     color: var(--OFFWHITE);
     background-color: var(--DARKPURPLE);
-    padding: 3rem;
+    padding: 1.5rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.3rem;
+    display: block;
 }
 
+.inner-footer {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
 
+}
+
+.inner-footer .footer_third {
+    margin: 0 3rem;
+    float: left;
+}
+
+.footer_third a {
+    letter-spacing: 0;
+    color: var(--OFFWHITE);
+    text-decoration: none;
+}
+
+.footer_third a:active,
+.footer_third a:hover {
+    letter-spacing: 0.2rem;
+    transition: all 280ms ease-in-out;
+}
+
+.footer_third::after {
+    backface-visibility: hidden;
+    border: 1px solid var(--OFFWHITE);
+    opacity: 0;
+    bottom: -5px;
+    content: " ";
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    transition: all 280ms ease-in-out;
+    width: 0;
+}
+
+.footer_third:hover::after {
+    backface-visibility: hidden;
+    border-color: var(--OFFWHITE);
+    transition: width 350ms ease-in-out;
+    width: 100%;
+    opacity: 1;
+}
+
+.footer_copyright {
+    float: right;
+    margin: 0 3rem;
+    letter-spacing: 0.2rem;
+}
 
 @keyframes rubberBand {
   from {

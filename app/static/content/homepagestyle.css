@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
 /* MAIN PAGE */
  .gradient {
   width: 100%;
@@ -116,8 +118,8 @@
 .input-field {
     color: var(--LIGHTPURPLE);
     outline: none;
-    margin-bottom: 5rem;
     display: block;
+    margin-bottom: 5rem;
 }
 
 .input-field input {
@@ -129,6 +131,54 @@
     border: none;
     background: none;
     border-bottom: 3px solid var(--LIGHTPURPLE);
+}
+
+.signIn-btn {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 1rem;
+    padding: 1rem 4rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border: none;
+    border-radius: .4rem;
+    background: var(--LIGHTPURPLE);
+    color: var(--OFFWHITE);
+    box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
+    outline: none;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+.signIn-btn:hover {
+    background: var(--OFFWHITE);
+    border: 1px solid var(--LIGHTPURPLE);
+    color: var(--LIGHTPURPLE);
+}
+
+.signIn-btn:active {
+    transform: scale(0.95);
+}
+
+.bottom-text {
+    margin-top: 1rem;
+    color: var(--DARKPURPLE);
+    font-size: 1.5rem;
+}
+
+bottom-text p {
+    margin: 1rem 0;
+}
+
+.bottom-text a {
+    color: var(--LIGHTPURPLE);
+    text-decoration: none;
+}
+
+.bottom-text a:hover {
+    color: var(--PURPLE);
 }
 
 /* BACKGROUND IMAGE */
