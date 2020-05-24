@@ -1,0 +1,26 @@
+@startuml
+package Controller {
+Class Questions
+Class Email
+Class Token
+Class Decorator
+Interface Routes <<Interface>>
+}
+
+package Model{
+}
+
+package View{
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Routes
+
+Routes --> Questions
+Routes --> Email
+Routes --> Token
+Routes --> Decorator
+Questions --> Model
+Email --> Model
+Routes --> View
+@enduml

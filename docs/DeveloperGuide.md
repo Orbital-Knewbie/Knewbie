@@ -8,8 +8,9 @@
 &nbsp; &nbsp; [2.3. View component](#view)<br>
 &nbsp; &nbsp; [2.4. Controller component](#control)<br>
 [3. Implementation](#implement)<br>
-[4. Frequently Asked Questions (FAQ)](#faq)<br>
-[Testing](#test)<br>
+[4. Documentation](#doc)<br>
+[5. Testing](#test)<br>
+[6. Frequently Asked Questions (FAQ)](#faq)<br>
 [User Stories](#user)<br>
 
 ## 1. Setting up <a name="setup"></a>
@@ -18,7 +19,7 @@ Refer to the guide [here](https://github.com/R-Ramana/Knewbie/blob/master/README
 ## 2. Design <a name="design"></a>
 [Flask](https://flask.palletsprojects.com/) is a micro web framework written in [Python](https://www.python.org/). This Web App makes use of the framework for its overall design.
 ### 2.1 Architecture <a name="arch"></a>
-![Architecture Design](Architecture.png)
+![Architecture Design](diagrams/Architecture.png)
 
 The [Model-View-Controller (MVC)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) is a software design pattern that divides the program logic into the components. While some of the components may have some overlap with the others due to the nature of the Flask framework design, the Web App can still be said to consist of these three main components.
 * [Model](#model): Manages data, logic and rules of application
@@ -38,6 +39,9 @@ The Model component includes files:
 ├── models.py
 └── ...
 ```
+![Model Class](diagrams/Model.png)
+![Form Class](diagrams/Form.png)
+Fig #. Structure of Model components
 
 The Model component
 * stores `User` data.
@@ -54,6 +58,7 @@ The View component includes folders (and all the files within them):
     └── ...
 └── ...
 ``` 
+![View Component](diagrams/View.png)
 The View component consists of the `HTML` templates along with `CSS` styling. 
 Templates also have `Jinja` syntax, which is a templating language. 
 Under the Flask framework, the `Jinja` syntax acts as part of the Controller component, changing the view logic depending on inputs from the Model component.
@@ -73,6 +78,9 @@ The Controller component includes files:
 ├── token.py
 └── ...
 ```
+![Controller Component](diagrams/Controller.png)
+Fig #. Structure of Controller Component
+
 The Controller component converts input from View to commands for Model and vice versa.
 The files in this component consist of functions to control the logic of the application, ranging from email verification to quiz question generation. It is important to note that in Flask, there is a file specific to route the various URLs along with their HTTP methods to the right function - which in this case is `views.py`. This function can display a webpage (View component), or redirect to another function. As such, the main interaction between the View and Controller component will happen here. The other files under the Controller component would then be mainly used to interact with the Model component.
 
@@ -85,9 +93,12 @@ This section describes some noteworthy details on how certain features are imple
 ### 3.1 Progress Report
 ### 3.2 Classes
 ### 3.3 Quizzes
-## 4. Frequently Asked Questions (FAQ) <a name="faq"></a>
 
-## Testing <a name="test"></a>
+## 4. Documentation <a name="doc"></a>
+
+## 5. Testing <a name="test"></a>
+
+## 6. Frequently Asked Questions (FAQ) <a name="faq"></a>
 
 ## User Stories <a name="user"></a>
 * As a {target user}, I can {feature} so that {aim of the project}.
@@ -95,3 +106,15 @@ This section describes some noteworthy details on how certain features are imple
 * As a new student using the application, I can create an account so that I can log in and access the features of the application.
 
 * As an existing educator using the application, I can update students enrolled in my class so I can track their progress in the application.
+
+* As a student, I can log in to access tailored content as a quiz which caters to my learning abilities, and join classes which my educator creates.
+
+* As a student, I can change my password or unique ID if required in the event either has been compromised.
+
+* As an educator, I can log in to access classes and additional questions I have created for my students.
+
+* As an educator, I can change my password if required in the even it has been compromised.
+
+* As an educator, I can delete my classes, or remove participants from the classes I have created.
+
+* As a parent, I can access the progress report to monitor my child's progress through the unique ID.'

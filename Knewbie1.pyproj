@@ -105,8 +105,15 @@
     <Content Include="app\templates\register.html" />
     <Content Include="app\templates\unconfirmed.html" />
     <Content Include="app\templates\contact.html" />
-    <Content Include="docs\Architecture.png" />
+    <Content Include="docs\diagrams\Architecture.png" />
+    <Content Include="docs\diagrams\Controller.png" />
     <Content Include="docs\DeveloperGuide.md" />
+    <Content Include="docs\diagrams\Controller.puml" />
+    <Content Include="docs\diagrams\Form.png" />
+    <Content Include="docs\diagrams\ModelClass.png" />
+    <Content Include="docs\diagrams\Model.png" />
+    <Content Include="docs\diagrams\View.png" />
+    <Content Include="docs\diagrams\View.puml" />
     <Content Include="migrations\alembic.ini" />
     <Content Include="migrations\env.pyc" />
     <Content Include="migrations\README" />
@@ -138,6 +145,7 @@
     <Folder Include="app\static\content\" />
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\email\" />
+    <Folder Include="docs\diagrams\" />
     <Folder Include="migrations\" />
     <Folder Include="migrations\versions\" />
     <Folder Include="docs\" />
