@@ -1,0 +1,125 @@
+﻿{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="../static/content/settingstyle.css">
+{% endblock %}
+{% block content %}
+<div id="settings" ontouchstart="true">
+    <input checked="checked" class="settings-nav" name="settings-nav" type="radio" />
+    <span class="settings-nav">Profile</span>
+    <input class="settings-nav" name="settings-nav" type="radio" />
+    <span class="settings-nav">Account</span>
+    <input class="settings-nav" name="settings-nav" type="radio" />
+    <span class="settings-nav">Privacy</span>
+    <input class="settings-nav" name="settings-nav" type="radio" />
+    <span class="settings-nav">Advanced</span>
+    <main class="content">
+        <section id="profile">
+            <h1 style="text-align: center; padding-top: 5rem;">Update Details</h1>
+            <form>
+                <ul>
+                    <li class="large padding avatar">
+                        <span style="background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/6035/scrtpxls_location.png');"></span>
+                        <div>
+
+                            <fieldset class="settings-button center">
+                                <div>
+                                    <button>Choose Image</button>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </li>
+
+                    <li>
+                        <fieldset class="settings-input">
+                            <div>
+                                <input required type="text" value="John" />
+                                <label>First Name</label>
+                                <hr />
+                            </div>
+                        </fieldset>
+                    </li>
+
+                    <li>
+                        <fieldset class="settings-input">
+                            <div>
+                                <input required type="text" value="Doe" />
+                                <label>Last Name</label>
+                                <hr />
+                            </div>
+                        </fieldset>
+                    </li>
+                    <li>
+
+                    <li class="large padding">
+                        <fieldset class="settings-button center">
+                            <div>
+                                <input class="save" type="submit" value="Save" />
+                            </div>
+                        </fieldset>
+                    </li>
+                </ul>
+            </form>
+        </section>
+
+        <section id="account">
+            <h1 style="text-align: center; padding-top: 5rem;">Change Password</h1>
+            <form>
+                <ul>
+                    <li>
+                        <fieldset class="settings-input">
+                            <div>
+                                <input required type="email" value="current@user.email" />
+                                <label>Email</label>
+                                <hr />
+                            </div>
+                        </fieldset>
+                    </li>
+                    <li>
+                        <fieldset class="settings-input">
+                            <div>
+                                <input required type="password" />
+                                <label>Current Password</label>
+                                <hr />
+                            </div>
+                        </fieldset>
+                    </li>
+                    <li>
+                        <fieldset class="settings-input">
+                            <div>
+                                <input required type="password" />
+                                <label>New Password</label>
+                                <hr />
+                            </div>
+                        </fieldset>
+                    </li>
+
+                    <li>
+                        <fieldset class="settings-input">
+                            <div>
+                                <input required type="password" />
+                                <label>Confirm Password</label>
+                                <hr />
+                            </div>
+                        </fieldset>
+                    </li>
+
+                    <li class="large padding">
+                        <fieldset class="settings-button center">
+                            <div>
+                                <input class="save" type="submit" value="Save" />
+                            </div>
+                        </fieldset>
+                    </li>
+                </ul>
+            </form>
+        </section>
+
+        <section class="upcoming" id="privacy">
+            <h1>Coming soon!</h1>
+        </section>
+        <section class="upcoming" id="advanced">
+            <h1>Coming soon!</h1>
+        </section>
+    </main>
+</div>
+{% endblock %}

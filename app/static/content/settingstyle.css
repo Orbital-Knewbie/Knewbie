@@ -1,0 +1,434 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+*:focus {
+    outline: none !important;
+}
+
+fieldset {
+    border: none;
+    outline: none;
+}
+
+body, html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--LIGHTPURPLE) 0%, var(--PURPLE) 50%, var(--DARKPURPLE) 100%);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    perspective: 1000px;
+}
+
+input, textarea, button {
+    border: 0;
+    font-family: 'Montserrat', sans-serif;
+    resize: none;
+    outline: none;
+}
+
+a, button, input[type="submit"] {
+    cursor: pointer;
+}
+
+#settings {
+    opacity: 1;
+    transform-origin: center top;
+    animation: rotateIn 1000ms cubic-bezier(0.215, 0.61, 0.355, 1) 500ms forwards;
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    background: var(--OFFWHITE);
+    box-shadow: 0 0 20px rgba(21, 21, 29, .2);
+    overflow: hidden;
+    border-radius: 0.4rem;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    color: var(--LIGHTPURPLE);
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+span.settings-nav {
+    transition: all 150ms ease-out;
+    flex-basis: 25%;
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 1.5rem 0;
+    text-align: center;
+}
+
+span.settings-nav:nth-of-type(1) {
+    z-index: 5;
+}
+
+span.settings-nav:nth-of-type(2) {
+    z-index: 4;
+}
+
+span.settings-nav:nth-of-type(3) {
+    z-index: 3;
+}
+
+span.settings-nav:nth-of-type(4) {
+    z-index: 2;
+}
+
+span.settings-nav:nth-of-type(5) {
+    z-index: 1;
+}
+
+span.settings-nav:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -1px;
+    width: 2px;
+    height: 100%;
+    background: var(--LIGHTPURPLE);
+}
+
+span.settings-nav:last-of-type:after {
+    display: none;
+}
+
+input.settings-nav {
+    cursor: pointer;
+    opacity: 0;
+    position: absolute;
+    z-index: 6;
+    top: 0;
+    width: 25%;
+    height: 4.5rem;
+}
+
+input.settings-nav:hover + span, input.settings-nav:focus + span {
+    background: rgba(170, 7, 107, 0.2);
+    color: var(--PURPLE);
+}
+
+input.settings-nav:active + span, input.settings-nav:checked + span {
+    background: var(--LIGHTPURPLE);
+    color: var(--OFFWHITE);
+}
+
+input.settings-nav:active + span {
+    transition: all 150ms ease-in;
+}
+
+input.settings-nav ~ main section {
+    transition: all 450ms ease-out;
+    transform: translateY(50%) translateZ(0);
+    opacity: 0;
+    z-index: -1;
+}
+
+input.settings-nav:nth-of-type(1) {
+    left: 0%;
+}
+
+input.settings-nav:nth-of-type(1):checked ~ main section:nth-of-type(1) {
+    transform: translateY(0) translateZ(0);
+    opacity: 1;
+    z-index: 10;
+}
+
+input.settings-nav:nth-of-type(2) {
+    left: 25%;
+}
+
+input.settings-nav:nth-of-type(2):checked ~ main section:nth-of-type(2) {
+    transform: translateY(0) translateZ(0);
+    opacity: 1;
+    z-index: 10;
+}
+
+input.settings-nav:nth-of-type(3) {
+    left: 50%;
+}
+
+input.settings-nav:nth-of-type(3):checked ~ main section:nth-of-type(3) {
+    transform: translateY(0) translateZ(0);
+    opacity: 1;
+    z-index: 10;
+}
+
+input.settings-nav:nth-of-type(4) {
+    left: 75%;
+}
+
+input.settings-nav:nth-of-type(4):checked ~ main section:nth-of-type(4) {
+    transform: translateY(0) translateZ(0);
+    opacity: 1;
+    z-index: 10;
+}
+
+input.settings-nav:nth-of-type(5) {
+    left: 100%;
+}
+
+input.settings-nav:nth-of-type(5):checked ~ main section:nth-of-type(5) {
+    transform: translateY(0) translateZ(0);
+    opacity: 1;
+    z-index: 10;
+}
+
+main {
+    align-self: flex-end;
+    position: relative;
+    border-top: 2px solid var(--LIGHTPURPLE);
+    width: 100%;
+    height: calc(100% - 4.5rem);
+
+}
+
+section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--OFFWHITE);
+}
+
+section ul {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 1rem;
+    list-style-type: none;
+}
+
+section ul li {
+    opacity: 0;
+    transform: translateY(100%) translateZ(0);
+    animation: slideIn 600ms cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+    padding: 0.5rem 1rem;
+    width: 50%;
+    margin-top: 2rem;
+}
+
+section ul li:nth-child(1) {
+    animation-delay: 700ms;
+}
+
+section ul li:nth-child(2) {
+    animation-delay: 800ms;
+}
+
+section ul li:nth-child(3) {
+    animation-delay: 900ms;
+}
+
+section ul li:nth-child(4) {
+    animation-delay: 1000ms;
+}
+
+section ul li:nth-child(5) {
+    animation-delay: 1100ms;
+}
+
+section ul li:nth-child(6) {
+    animation-delay: 1200ms;
+}
+
+section ul li:nth-child(7) {
+    animation-delay: 1300ms;
+}
+
+section ul li.large {
+    width: 100%;
+}
+
+section ul li.padding {
+    padding: 1rem;
+}
+
+section.upcoming {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+}
+
+section.upcoming h1 {
+    font-size: 3rem;
+    color: var(--GREY);
+}
+
+.avatar {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar span {
+    display: block;
+    width: 15rem;
+    height: 15rem;
+    background-position: center center;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.avatar div {
+    padding-left: 2rem;
+}
+
+.avatar div .settings-button {
+    margin-top: 3rem;
+}
+
+.settings-input div {
+    position: relative;
+    width: 100%;
+    padding-top: 1.5rem;
+    padding-left: 0.5rem;
+}
+
+.settings-input label {
+    transition: all 150ms ease-out;
+    transform: translateZ(0);
+    display: block;
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: 0.5rem;
+    width: 100%;
+    padding-bottom: 2px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+.settings-input hr {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border: 0;
+    border-radius: 0.4rem;
+    margin: 0 0 4px 0;
+    background: var(--LIGHTPURPLE);
+}
+
+.settings-input hr:after {
+    transition: all 150ms ease-out;
+    transform: scaleX(0) translateZ(0);
+    transform-origin: left top;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    background: #cd908b;
+}
+
+.settings-input input {
+    display: block;
+    position: relative;
+    z-index: 1;
+    padding: 0.4rem 0;
+    margin-top: 2rem;
+    width: 100%;
+    background: none;
+    color: var(--LIGHTPURPLE);
+    font-size: 2rem;
+    line-height: 1.5;
+}
+
+.settings-input input:focus + label, .settings-input input:valid + label {
+    transform: translateY(-2.5rem) translateZ(0);
+    font-size: 2rem;
+    padding: 0.8rem 0;
+}
+
+.settings-input input:focus ~ hr:after {
+    transform: scaleX(1) translateZ(0);
+}
+
+.settings-button {
+    width: 100%;
+}
+
+.settings-button div {
+    width: 100%;
+}
+
+.settings-button button, .settings-button input[type="submit"],
+.settings-button button.save, .settings-button input[type="submit"].save {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 1rem;
+    padding: 1rem 4rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border: none;
+    border-radius: .4rem;
+    background: var(--LIGHTPURPLE);
+    color: var(--OFFWHITE);
+    box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
+    outline: none;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+.settings-button button.save, .settings-button input[type="submit"].save {
+    font-size: 2rem;
+}
+
+.settings-button button:hover, .settings-button input[type="submit"]:hover, .settings-button button:focus, .settings-button input[type="submit"]:focus,
+.settings-button button.save:hover, .settings-button input[type="submit"].save:hover, .settings-button button.save:focus, .settings-button input[type="submit"].save:focus {
+    background: var(--OFFWHITE);
+    border: 1px solid var(--LIGHTPURPLE);
+    color: var(--LIGHTPURPLE);
+}
+
+.settings-button button:active, .settings-button input[type="submit"]:active,
+.settings-button button.save:active, .settings-button input[type="submit"].save:active {
+    transform: translateY(2px) scale(0.99);
+}
+
+.settings-button.center div {
+    display: flex;
+    justify-content: center;
+}
+
+@keyframes rotateIn {
+    0% {
+        opacity: 0;
+        transform: rotateX(30deg) rotateY(30deg) translateY(300px) translateZ(200px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(100%) translateZ(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}

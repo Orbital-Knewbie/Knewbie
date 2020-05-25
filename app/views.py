@@ -36,6 +36,11 @@ def dashboard():
     """Renders the dashboard page."""
     return render_template('dashboard.html')
 
+@app.route('/settings')
+def settings():
+    """Renders the dashboard page."""
+    return render_template('settings.html')
+
 @app.route('/faq')
 def faq():
     """Renders the faq page."""
