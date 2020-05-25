@@ -160,7 +160,7 @@ def request_reset_password():
          user = User.query.filter_by(email = form.email.data).first()
          send_reset_email(user)
          flash('An email has been sent with instructions to reset your password.', 'info')
-         return redirect(url_for('login'))
+         return redirect(url_for('home'))
      return render_template('resetpassword.html', title='Reset Password', form=form)
 
 @app.route("/resetpassword/<token>", methods=['GET', 'POST'])

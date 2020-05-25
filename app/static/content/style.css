@@ -201,6 +201,8 @@ nav li:hover {
   transform: rotate(-450deg) translateX(-0.8rem);
 }
 
+/* FOOTER */
+
 footer {
     color: var(--OFFWHITE);
     background-color: var(--DARKPURPLE);
@@ -211,6 +213,7 @@ footer {
     font-family: 'Lato', sans-serif;
     font-size: 1.3rem;
     display: block;
+    z-index: 50;
 }
 
 .inner-footer {

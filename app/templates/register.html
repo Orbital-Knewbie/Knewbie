@@ -30,7 +30,7 @@
                 {% for error in eduForm.password2.errors %}
                 <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
-                <p>Already have an account? <a href="{{ url_for('login') }}">Click here!</a></p>
+                <p>Already have an account? <a href="{{ url_for('home') }}">Click here!</a></p>
                 <p>By clicking on the register button, you agree to our <a href="#">Terms & Conditions</a></p>
             </div>
             {{ eduForm.submit(class_="register-btn") }}
@@ -61,7 +61,7 @@
             {% for error in stuForm.password2.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
-            <p>Already have an account? <a href="{{ url_for('login') }}">Click here!</a></p>
+            <p>Already have an account? <a href="{{ url_for('home') }}">Click here!</a></p>
             <p>By clicking on the register button, you agree to our <a href="#">Terms & Conditions</a></p>
         </div>
             {{ stuForm.submit(class_="register-btn") }}
