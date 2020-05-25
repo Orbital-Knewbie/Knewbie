@@ -18,13 +18,19 @@ Knewbie is an educational platform that provides tailored content to suit the in
 ## <a name="quickstart">2. Quick Start</a><br>
 1. Access the Knewbie website [here]. (Currently not up yet)
 
-2. Click on register to create a new account (make sure you are creating a student account). Please note, you will need an active email account. If you do not already have one, please create one before continuing.
+![Knewbie Homepage](/images/Homepage.png)
+
+2. Click on register to create a new account (make sure you are creating a student account). Please note, you will need an active email account. If you do not already have one, please create an email before continuing.
 
 3. Enter your **FIRST NAME, LAST NAME**, email, password and click on the register button. Please note, by clicking on the register button, you would have agreed to our terms and conditions as listed [here]. (Not up yet)
+
+![Register Page](/images/Register.png)
 
 4. If you have followed the instructions correctly, you will receive a verification link sent to the email address you registered the account with.
 
 5. Log in to the email and click on the link to verify your account.
+
+![Confirmation Email](/images/Confirmation.png)
 
 6. You can now successfully log in using your email and password to access all the features available on our platform!
 
@@ -34,24 +40,36 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; 2. To change your password input the email address you created your account with.
 
+![Reset Password](/images/ResetPW.png)
+
 &nbsp; &nbsp; &nbsp; &nbsp; 3. A link will be sent your email address. This link will only be valid for 10 minutes.<br> 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If the link expired, you will have to request for a new one.
 
 &nbsp; &nbsp; &nbsp; &nbsp; 4. Log in to your email account and click on the link.
 
-&nbsp; &nbsp; &nbsp; &nbsp; 5. You will be taken to a site to change your password.
+![Reset Password Email](/images/ResetPWLink.png)
+
+&nbsp; &nbsp; &nbsp; &nbsp; 5. You will be taken to a page to change your password.
+
+![Change Password Page](/images/ChangePW.png)
 
 ### <a name="id"> &nbsp; &nbsp; 3.2. Progress Report</a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; 1. When you create an account, you will be given a unique id which can be used to access your progress report.
+&nbsp; &nbsp; &nbsp; &nbsp; 1. When you create an account, you will be given a unique Knewbie ID which can be used to access your progress report.
 
-&nbsp; &nbsp; &nbsp; &nbsp; 2. On the homepage, navigate to the [unique id section (near the bottom of the page)]. (link not up yet)
+![Knewbie ID](/images/UniqueID.png)
 
-&nbsp; &nbsp; &nbsp; &nbsp; 3. Enter your unique id to retrieve your progress report.
+&nbsp; &nbsp; &nbsp; &nbsp; 2. To access your progress report without logging in, on the homepage, navigate to the [Knewbie ID section (at the bottom of the page)]. (link not up yet)
+
+&nbsp; &nbsp; &nbsp; &nbsp; 3. Enter your Knewbie ID to retrieve your progress report.
+
+![Knewbie ID on the homepage](/images/UniqueIDhome.png)
 
 &nbsp; &nbsp; &nbsp; &nbsp; 4. Keep your unique id confidential or only to people you want to share your progress with (i.e your parents)
 
 ### <a name="class"> &nbsp; &nbsp; 3.3. Classes</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; 1. When you have logged in to your acocunt, you will be able to view all your enrolled classes from your dashboard.
+
+![Student Dashboard](/images/ViewClass.png)
 
 &nbsp; &nbsp; &nbsp; &nbsp; 2. When you first begin, you will not have any classes.
 
@@ -61,6 +79,8 @@ Knewbie is an educational platform that provides tailored content to suit the in
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. When your educator has created a class, they will share a unqiue class code with you.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. Under the Join A Class Section on your dashboard, enter the unique code.
+
+![Student Dashboard](/images/JoinClass.png)
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. You are now enrolled in the class and can access the questions/topics assigned specifically by your educators.
 
