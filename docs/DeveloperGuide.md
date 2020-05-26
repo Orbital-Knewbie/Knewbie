@@ -100,7 +100,8 @@ Fig #. Interactions within Controller Component for `register`
 
 ### 2.5 Database <a name="database"></a>
 The database design is centered around the users, quizzes, and forum posts (to be added). The Entity-Relationship Diagram below showcases the attributes and relationships used.
-![Database] (diagrams/Database.png)<br>
+
+![Database](diagrams/Database.png)<br>
 Fig #. Database Design
 
 ## 3. Implementation <a name="implement"></a>

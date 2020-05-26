@@ -3,7 +3,7 @@ box Controller
 participant ":Route" as Route
 participant ":views.py" as views
 participant ":validate" as validate
-participant ":register" as register
+participant ":Email" as email
 end box
 
 box Model
@@ -22,23 +22,23 @@ activate validate
 validate --> views
 deactivate validate
 
-views --> register
-activate register
+views --> email
+activate email
 
-register --> Model : RegistrationForm.submit("student")
+email --> Model : RegistrationForm.submit("student")
 activate Model
 
-Model --> register
+Model --> email
 deactivate Model
 
-register --> Model : register(RegistrationForm, "student")
+email --> Model : register(RegistrationForm, "student")
 activate Model
 
-Model --> register : user = User(RegistrationForm, "student")
+Model --> email : user = User(RegistrationForm, "student")
 deactivate Model
 
-register --> views : unconfirmed()
-deactivate register
+email --> views : unconfirmed()
+deactivate email
 
 views --> Route
 deactivate views
