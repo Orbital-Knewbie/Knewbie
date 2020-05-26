@@ -4,13 +4,45 @@ Web Application built using Flask and React
 ## Getting Started
 
 ### Prerequisites
-[Python 3](https://www.python.org/downloads/)
+* [Git](https://git-scm.com/)
+* [Python 3](https://www.python.org/downloads/)
 ### Installing
-1. Clone this repo.
-2. Enter ```virtualenv``` using ```source venv/bin/activate``` if on a Linux system (or ```env\Scripts\activate``` for a Windows system).
-3. Install dependencies using ```pip install -r requirements.txt```.
-4. Set the environment variable using ```export FLASK_APP=run.py``` if on a Linux system (or ```set FLASK_APP=run.py``` for a Windows system).
-5. Run the application using ```flask run```.
+Commands given should be carried out on the command line. Commands were tested on [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) and [MVS](https://visualstudio.microsoft.com/vs/) was used for development.
+1. Clone this repo and enter the folder.
+```
+git clone https://github.com/Orbital-Knewbie/Knewbie
+cd Knewbie
+```
+2. Install, then create a `virtualenv`.
+```
+pip install virtualenv
+virtualenv venv
+```
+3. Enter ```virtualenv```.
+```
+source venv/bin/activate
+```
+* If Step 2 was done on the Windows command line, then do
+```
+venv\Scripts\activate
+```
+4. Install dependencies. If there are missing modules, it can likely be fixed with `pip install`.
+```
+pip install -r requirements.txt
+```
+5. Set the environment variable. Note that there is no spacing around `=`.
+```
+export FLASK_APP=run.py
+```
+* If on Windows, do
+```
+set FLASK_APP=run.py
+```
+6. Run the application.
+```
+flask run
+```
+7. Open up `localhost:5000` on a browser of your choice.
 
 ## Built With
 
