@@ -101,20 +101,38 @@ This section describes some noteworthy details on how certain features are imple
 ## 6. Frequently Asked Questions (FAQ) <a name="faq"></a>
 
 ## User Stories <a name="user"></a>
-* As a {target user}, I can {feature} so that {aim of the project}.
+Priorities: High (must have) - `* * *`, Medium (good to have) - `* *`, Low (not significant) - `*`
 
-* As a new student using the application, I can create an account so that I can log in and access the features of the application.
-
-* As an existing educator using the application, I can update students enrolled in my class so I can track their progress in the application.
-
-* As a student, I can log in to access tailored content as a quiz which caters to my learning abilities, and join classes which my educator creates.
-
-* As a student, I can change my password or unique ID if required in the event either has been compromised.
-
-* As an educator, I can log in to access classes and additional questions I have created for my students.
-
-* As an educator, I can change my password if required in the even it has been compromised.
-
-* As an educator, I can delete my classes, or remove participants from the classes I have created.
-
-* As a parent, I can access the progress report to monitor my child's progress through the unique ID.'
+Priority | As a ... | I want to ... | So that I can...
+--- | --- | --- | ---
+ `* * *` |{target user} | {feature} | {aim of the project}
+`* * *` | new student | create an account | log in and access the features of the application
+`* * *` | student | log in | access the personalized features such as the tailored quizzes on the web application
+`* * *` | student | attempt the (topical) quizzes |  
+`* * *` | user (student/educator) | I want to be able to change my password | have it not be compromised 
+`* * *` | user (student/educator) | I want to deactivate my account when I no longer need it | people cannot gain unauthorized access to my account information
+`* *` | user | read the frequently asked questions | see responses for common issues people may face
+`* *` | user | contact the developers | raise a technical issue not in the frequently asked questions
+`* *` | student | view my progress report | keep track of my learning
+`* *` | student | change my Knewbie ID | have it not be compromised 
+`*` | student | view my classmate’s progress | know who to approach if I have queries
+`* *` | student | ask questions on a forum | clear any doubts
+`* *` | student | view questions my friends have asked | read important questions to understand, but questions which I did not think of
+`* *` | student | help answer my peer’s questions | have a slightly better understanding of the topic
+`* *` | student | to edit my post | fix my typos
+`* *` | student | delete my post | remove unwanted posts
+`* *` | educator | read my students’ queries |
+`* *` | educator | respond to my students’ queries |
+`* *` | educator | edit my replies | clarify my response
+`* *` | educator | delete hurtful comments and posts | remove inappropriate comments
+`* *` | educator | create a group | effectively and efficiently teach my students
+`* *` | educator | kick participants out of the class | remove “intruders”
+`*` | educator | delete my classes that are no longer in use | keep my dashboard au courant
+`* *` | educator | change my class code that students require to join the class | intrusions are prevented
+`* *` | educator | viewing my students' progress reports | monitor their progress
+`*` | educator | create more questions | my students can practise
+`* *` | educator | update the questions I have created | fix a typo
+`* *` | educator | delete questions | 
+`* *` | parent | view my child’s progress | be more involved in his/her learning
+`* *` | existing educator | update students enrolled in my class | track their progress in the application
+`* * *` | student | log in to access tailored content as a quiz | cater to my learning abilities
