@@ -130,6 +130,7 @@
     <Content Include="docs\images\Register.png" />
     <Content Include="docs\images\ResetPW.png" />
     <Content Include="docs\images\ResetPWLink.png" />
+    <Content Include="docs\images\Unconfirmed.png" />
     <Content Include="docs\images\UniqueID.png" />
     <Content Include="docs\images\UniqueIDhome.png" />
     <Content Include="docs\images\ViewClass.png" />

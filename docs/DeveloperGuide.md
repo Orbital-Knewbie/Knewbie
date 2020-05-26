@@ -21,6 +21,7 @@ Refer to the guide [here](https://github.com/R-Ramana/Knewbie/blob/master/README
 [Flask](https://flask.palletsprojects.com/) is a micro web framework written in [Python](https://www.python.org/). This Web App makes use of the framework for its overall design.
 ### 2.1 Architecture <a name="arch"></a>
 ![Architecture Design](diagrams/Architecture.png)
+Fig #. Overall Architecture
 
 The [Model-View-Controller (MVC)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) is a software design pattern that divides the program logic into the components. While some of the components may have some overlap with the others due to the nature of the Flask framework design, the Web App can still be said to consist of these three main components.
 * [Model](#model): Manages data, logic and rules of application
@@ -99,16 +100,42 @@ The Sequence Diagram below shows the interactions within the Controller componen
 Fig #. Interactions within Controller Component for `register`
 
 ### 2.5 Database <a name="database"></a>
-The database design is centered around the users, quizzes, and forum posts (to be added). The Entity-Relationship Diagram below showcases the attributes and relationships used.
+The database design is centered around the users, quizzes, and forum posts (to be added). The *Entity-Relationship Diagram* below showcases the attributes and relationships used.
 
 ![Database](diagrams/Database.png)<br>
 Fig #. Database Design
 
 ## 3. Implementation <a name="implement"></a>
 This section describes some noteworthy details on how certain features are implemented.
-### 3.1 Progress Report
-### 3.2 Classes
-### 3.3 Quizzes
+### 3.1 Account Management
+#### 3.1.1 Registration
+An overview of user registration had already been provided under the [Architecture](#arch) and [Controller](#control) sections earlier. In essence, it takes 4 steps:
+1. Submission in View component
+2. Validation check in Controller component
+3. Register in Controller component
+4. Create user in Model component
+5. Save to database
+
+In line with modern practices, there is also [email verification](https://ux.stackexchange.com/questions/111005/what-is-the-point-of-email-verification), which verifies that the email used belongs to whomever had registered.
+Immediately after the above steps are taken, the User account is still unconfirmed, and certain features will not be accessible. Trying to do so will result in the following page.
+
+![Unconfirmed](images/Unconfirmed.png)<br>
+Fig #. Unconfirmed webpage
+
+Using the [`ItsDangerous`](https://itsdangerous.palletsprojects.com/) module, a token is generated and a clickable confirmation link will be available from the user's email.
+From the [Database Design](#database), the `User` properties `confirmed` and `confirmed_on` will be updated when the account is confirmed, to be `True` and the current `datetime` respectively.
+
+#### 3.1.2 Progress Report
+
+#### 3.1.3 Update Account Details
+
+#### 3.1.4 Deactivate Account
+
+### 3.2 Quizzes
+#### 3.2.1 Attempt Quiz
+
+#### 3.2.2 Create Quiz (Educator only)
+
 
 ## 4. Documentation <a name="doc"></a>
 
