@@ -1,0 +1,38 @@
+@startuml
+Actor User as user
+Participant ":View" as view
+Participant ":Controller" as controller
+Participant ":Model" as model
+Participant ":database" as database
+
+user --> view : Click "Register" as Student
+activate view
+
+view --> controller : execute("Register", "student")
+activate controller
+
+
+
+controller --> model : register(RegistrationForm, "student")
+activate model
+
+model --> controller : user = User(RegistrationForm, "student")
+deactivate model
+
+controller --> database : db.session.add(user)
+activate database
+
+database --> database : Save to File
+activate database
+deactivate database
+
+database --> controller
+deactivate database
+
+controller --> view : unconfirmed.html
+deactivate controller
+
+view --> user
+deactivate view
+
+@enduml

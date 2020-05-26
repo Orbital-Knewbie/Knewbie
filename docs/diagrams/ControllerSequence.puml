@@ -1,0 +1,49 @@
+@startuml
+box Controller
+participant ":Route" as Route
+participant ":views.py" as views
+participant ":validate" as validate
+participant ":register" as register
+end box
+
+box Model
+participant ":Model" as Model
+end box
+
+[-> Route : regStu()
+activate Route
+
+Route --> views : execute("Register", "student")
+activate views
+
+views --> validate : validateOnSubmit()
+activate validate
+
+validate --> views
+deactivate validate
+
+views --> register
+activate register
+
+register --> Model : RegistrationForm.submit("student")
+activate Model
+
+Model --> register
+deactivate Model
+
+register --> Model : register(RegistrationForm, "student")
+activate Model
+
+Model --> register : user = User(RegistrationForm, "student")
+deactivate Model
+
+register --> views : unconfirmed()
+deactivate register
+
+views --> Route : unconfirmed.html
+deactivate views
+
+[<-- Route
+deactivate Route
+
+@enduml

@@ -28,9 +28,10 @@ The [Model-View-Controller (MVC)](https://en.wikipedia.org/wiki/Model%E2%80%93vi
 
 The Web App will use the [RESTful API](https://restfulapi.net/) architectural style to perform its HTTP requests.
 
-The *Sequence Diagram* below shows how a `POST` request for a `ContactForm` will cause the different components to interact.
+The *Sequence Diagram* below shows how a `POST` request for a `RegistrationForm` - registering for an account - will cause the different components to interact.
 
-{sequence-diagram}
+![Architecture Sequence](diagrams/ArchitectureSequence.png)<br>
+Fig #. Component Interactions for `register`
 
 ### 2.2 Model component <a name="model"></a>
 The Model component includes files:
@@ -40,7 +41,7 @@ The Model component includes files:
 └── ...
 ```
 ![Model Class](diagrams/Model.png)
-![Form Class](diagrams/Form.png)
+![Form Class](diagrams/Form.png)<br>
 Fig #. Structure of Model components
 
 The Model component
@@ -58,7 +59,9 @@ The View component includes folders (and all the files within them):
     └── ...
 └── ...
 ``` 
-![View Component](diagrams/View.png)
+![View Component](diagrams/View.png)<br>
+Fig #. Structure of View component
+
 The View component consists of the `HTML` templates along with `CSS` styling. 
 Templates also have `Jinja` syntax, which is a templating language. 
 Under the Flask framework, the `Jinja` syntax acts as part of the Controller component, changing the view logic depending on inputs from the Model component.
@@ -78,15 +81,21 @@ The Controller component includes files:
 ├── token.py
 └── ...
 ```
-![Controller Component](diagrams/Controller.png)
+![Controller Component](diagrams/Controller.png)<br>
 Fig #. Structure of Controller Component
 
 The Controller component converts input from View to commands for Model and vice versa.
 The files in this component consist of functions to control the logic of the application, ranging from email verification to quiz question generation. It is important to note that in Flask, there is a file specific to route the various URLs along with their HTTP methods to the right function - which in this case is `views.py`. This function can display a webpage (View component), or redirect to another function. As such, the main interaction between the View and Controller component will happen here. The other files under the Controller component would then be mainly used to interact with the Model component.
 
-The Sequence Diagram below shows the interactions within the Controller component for the submission of the `ContactForm`.
+1. Controller uses `views.py` to route the URL.
+2. Correct route function is called (e.g. as a `GET` or `POST` request).
+3. Function carried out can affect the Model.
+4. The result will be seen in the View component as a `HTML` webpage, either from a redirect or an update to the WebPage itself.
 
-{sequence-diagram}
+The Sequence Diagram below shows the interactions within the Controller component for the submission of the `RegistrationForm` using a `POST` request from `/register`.
+
+![Controller Sequence](diagrams/ControllerSequence.png)<br>
+Fig #. Interactions within Controller Component for `register`
 
 ## 3. Implementation <a name="implement"></a>
 This section describes some noteworthy details on how certain features are implemented.
