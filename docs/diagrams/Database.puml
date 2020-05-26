@@ -1,0 +1,39 @@
+@startuml
+entity User {
+*id
+--
+firstName
+lastName
+email
+password_hash
+urole
+confirmed
+confirmed_on
+}
+
+entity Question {
+*id
+--
+question
+score
+}
+
+entity Option {
+*id
+--
+qnId
+option
+}
+
+entity Answer {
+*id
+--
+optId
+userID
+}
+
+Answer ||--|{ Option
+Option }|--|| Question
+
+
+@enduml

@@ -10,10 +10,10 @@ box Model
 participant ":Model" as Model
 end box
 
-[-> Route : regStu()
+[-> Route : execute("Register", "student")
 activate Route
 
-Route --> views : execute("Register", "student")
+Route --> views : regStu()
 activate views
 
 views --> validate : validateOnSubmit()
@@ -40,7 +40,7 @@ deactivate Model
 register --> views : unconfirmed()
 deactivate register
 
-views --> Route : unconfirmed.html
+views --> Route
 deactivate views
 
 [<-- Route

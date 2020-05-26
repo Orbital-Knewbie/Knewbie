@@ -19,7 +19,6 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 Mako==1.1.2
 MarkupSafe==1.1.1
-plantuml @ git+https://github.com/SamuelMarks/python-plantuml@93e1aac25b17d896b0d05d0a1aa352c7bd11dd31
 psycopg2==2.8.5
 pycparser==2.20
 PyJWT==1.7.1

@@ -7,6 +7,7 @@
 &nbsp; &nbsp; [2.2. Model component](#model)<br>
 &nbsp; &nbsp; [2.3. View component](#view)<br>
 &nbsp; &nbsp; [2.4. Controller component](#control)<br>
+&nbsp; &nbsp; [2.5. Database](#database)<br>
 [3. Implementation](#implement)<br>
 [4. Documentation](#doc)<br>
 [5. Testing](#test)<br>
@@ -96,6 +97,11 @@ The Sequence Diagram below shows the interactions within the Controller componen
 
 ![Controller Sequence](diagrams/ControllerSequence.png)<br>
 Fig #. Interactions within Controller Component for `register`
+
+### 2.5 Database <a name="database"></a>
+The database design is centered around the users, quizzes, and forum posts (to be added). The Entity-Relationship Diagram below showcases the attributes and relationships used.
+![Database] (diagrams/Database.png)<br>
+Fig #. Database Design
 
 ## 3. Implementation <a name="implement"></a>
 This section describes some noteworthy details on how certain features are implemented.

@@ -116,6 +116,7 @@
     <Content Include="docs\diagrams\ModelClass.png" />
     <Content Include="docs\diagrams\Model.png" />
     <Content Include="docs\diagrams\ArchitectureSequence.puml" />
+    <Content Include="docs\diagrams\Database.puml" />
     <Content Include="docs\diagrams\View.png" />
     <Content Include="docs\diagrams\View.puml" />
     <Content Include="docs\images\ChangePW.png" />
