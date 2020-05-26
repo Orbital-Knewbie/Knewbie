@@ -111,5 +111,10 @@ Knewbie is an educational platform that provides tailored content to suit the in
 &nbsp; &nbsp; &nbsp; &nbsp; 6. You can access your progress report through your dashboard, or as detailed [here](#id).
 
 ## <a name="faq">4. Frequently Asked Questions (FAQ)</a><br>
+1. You can access the list of FAQ through the link at the footer (bottom of every page), the navigation bar, or through this link. (not up yet)
 
 ![FAQ Page](images/FAQ.png)
+
+2. If you have a question, issue or feedback not listed here, please do not hesitate to contact us. Similarly to the FAQ page, you can access the contact us page either through the link at the footer, the navigation bar or through this link. (not up yet)
+
+![Contact Page](images/Contact.png)
