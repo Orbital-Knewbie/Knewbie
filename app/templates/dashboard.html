@@ -3,6 +3,15 @@
 <link rel="stylesheet" href="../static/content/dashboardstyle.css">
 {% endblock %}
 {% block content %}
+<nav class="sidebar">
+    <ul>
+        <li><a href="#">Notifications <i class="fas fa-bell"></i></a></li>
+        <li><a href="#">Forum <i class="fas fa-newspaper"></i></a></li>
+        <li><a href="{{ url_for('faq') }}">FAQ <i class="fas fa-question"></i></a></li>
+        <li><a href="{{ url_for('contact') }}">Contact Us<i class="fas fa-comments"></i></a></li>
+    </ul>
+</nav>
+
 <div class="container">
     <section class="box">
         <div class="avatar">
@@ -15,7 +24,7 @@
         </div>
     </section>
 
-    <section class="box">
+    <section class="box" id="viewclass">
         <h1>View Your Classes</h1>
         <div class="card-wrapper">
             <div class="card">
@@ -50,7 +59,7 @@
     </section>
 
     {% if current_user.is_authenticated and current_user.urole == 'student' %}
-    <section class="box">
+    <section class="box" id="joinclass">
         <h1>Join A Class</h1>
         <div class="details">
             <h2>John Doe</h2>
@@ -58,7 +67,7 @@
         </div>
     </section>
 
-    <section class="box">
+    <section class="box" id="topicalquiz">
         <h1>Topical Quizzes</h1>
         <div class="card-wrapper">
             <div class="card">
@@ -91,7 +100,7 @@
         </div>
     </section>
 
-    <section class="box">
+    <section class="box" id="mockquiz">
         <h1>Mock Quizzes</h1>
         <div class="card-wrapper">
             <div class="card">

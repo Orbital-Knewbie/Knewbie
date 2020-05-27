@@ -138,7 +138,7 @@ header {
   -webkit-text-fill-color: transparent;
 }
 
-nav li:hover {
+.navbar li:hover {
   animation: rubberBand 1s;
   box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
   border-radius: 0.4rem;

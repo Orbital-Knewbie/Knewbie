@@ -33,23 +33,21 @@
 
         <nav class="navbar">
             <ul class="list">
-                <li class="navitem"><a href="{{ url_for('home') }}" class="link">Home</a></li>
                 {% if current_user.is_authenticated and current_user.urole == 'student' %}
-                <li class="navitem"><a href="#viewclasses" class="link">View Classes</a></li>
-                <li class="navitem"><a href="#joinclass" class="link">Join A Class</a></li>
-                <li class="navitem"><a href="#topicalquiz" class="link">Topical Quizzes</a></li>
-                <li class="navitem"><a href="#mockquiz" class="link">Mock Quizzes</a></li>
-                <li class="navitem"><a href="{{ url_for('faq') }}" class="link">FAQ</a></li>
-                <li class="navitem"><a href="{{ url_for('contact') }}" class="link">Contact</a></li>
+                <li class="navitem"><a href="{{ url_for('dashboard') }}" class="link">Home</a></li>
+                <li class="navitem"><a href="{{ url_for('dashboard') }}#viewclass" class="link">View Classes</a></li>
+                <li class="navitem"><a href="{{ url_for('dashboard') }}#joinclass" class="link">Join A Class</a></li>
+                <li class="navitem"><a href="{{ url_for('dashboard') }}#topicalquiz" class="link">Topical Quizzes</a></li>
+                <li class="navitem"><a href="{{ url_for('dashboard') }}#mockquiz" class="link">Mock Quizzes</a></li>
                 <li class="navitem"><a href="{{ url_for('logout') }}" class="link">Sign Out</a></li>
                 {% elif current_user.is_authenticated and current_user.urole == 'educator' %}
-                <li class="navitem"><a href="#viewclasses" class="link">View Classes</a></li>
-                <li class="navitem"><a href="#createclass" class="link">Create A Class</a></li>
-                <li class="navitem"><a href="#createquestion" class="link">Create Questions</a></li>
-                <li class="navitem"><a href="{{ url_for('faq') }}" class="link">FAQ</a></li>
-                <li class="navitem"><a href="{{ url_for('contact') }}" class="link">Contact</a></li>
+                <li class="navitem"><a href="{{ url_for('dashboard') }}" class="link">Home</a></li>
+                <li class="navitem"><a href="{{ url_for('dashboard') }}#viewclasses" class="link">View Classes</a></li>
+                <li class="navitem"><a href="{{ url_for('dashboard') }}#createclass" class="link">Create A Class</a></li>
+                <li class="navitem"><a href="{{ url_for('dashboard') }}#createquestion" class="link">Create Questions</a></li>
                 <li class="navitem"><a href="{{ url_for('logout') }}" class="link">Sign Out</a></li>
                 {% else %}
+                <li class="navitem"><a href="{{ url_for('home') }}" class="link">Home</a></li>
                 <li class="navitem"><a href="{{ url_for('login') }}" class="link">Sign In</a></li>
                 <li class="navitem"><a href="{{ url_for('faq') }}" class="link">FAQ</a></li>
                 <li class="navitem"><a href="{{ url_for('contact') }}" class="link">Contact</a></li>
