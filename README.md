@@ -22,7 +22,7 @@ virtualenv venv
 ```
 source venv/bin/activate
 ```
-* If Step 2 was done on the Windows command line, then do
+###### If Step 2 was done on the Windows command line, then do
 ```
 venv\Scripts\activate
 ```
@@ -34,7 +34,7 @@ pip install -r requirements.txt
 ```
 export FLASK_APP=run.py
 ```
-* If on Windows, do
+###### If on Windows, do
 ```
 set FLASK_APP=run.py
 ```
