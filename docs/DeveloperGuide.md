@@ -131,6 +131,7 @@ From the [Database Design](#database), the `User` properties `confirmed` and `co
 #### 3.1.2 Account Details
 Account details include the user's login information, name, and statistics having to do with the quizzes. 
 * Currently, there are 2 different types of a `User` that can register for an account in the application - Student and Educator.
+
 Overall, account details can be retrieved simply by doing a `GET` request at the appropriate URLs provided that the user is authenticated.
 Updating and/or deletion of the account can be explained quite similarly to the registration procedure mentioned, in that there the submission, validation, and saving of the information being updated. <br>
 {Screenshots to be added} <br>
@@ -154,8 +155,8 @@ Interactions between are part of peer learning and can enhance the knowledge gai
 
 ### 3.2 Quiz <a name="quiz"></a>
 #### 3.2.1 Attempt Quiz
-The quiz requires the use of an AdaptiveTesting feature which aims to provide tailored content to suit the user's ability, explained in a [later section](#adaptive). 
-Overall, there is a large similarity to previously mentioned features in terms of the interaction with the addition of the AdaptiveTesting feature. 
+The quiz requires the use of an Adaptive Testing feature which aims to provide tailored content to suit the user's ability, explained in a [later section](#adaptive). 
+Overall, there is a large similarity to previously mentioned features in terms of the interaction with the addition of the Adaptive Testing feature. 
 Below is the Sequence Diagram in completing a quiz.
 
 ![Quiz Sequence](diagrams/QuizSequence.png)<br>
@@ -167,7 +168,7 @@ In addition to tailored content, Educators can also create their own `Question` 
 [Computerized Adaptive Testing (CAT)](https://en.wikipedia.org/wiki/Computerized_adaptive_testing) is a form of test that adapts to the user's ability. 
 Currently, multiple ideas are being generated including the use of a Recommender System, or the use of a module such as CatSim. The general idea can be seen in the following flowchart.
 
-![Adaptive Testing](diagrams/AdaptiveTesting.png)<br>
+![Adaptive Testing](diagrams/AdaptiveFlowchart.png)<br>
 Fig #. Flowchart of general adaptive testing algorithm used
 
 ## 4. Documentation <a name="doc"></a>
