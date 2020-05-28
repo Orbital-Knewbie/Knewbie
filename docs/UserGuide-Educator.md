@@ -7,8 +7,9 @@
 &nbsp; &nbsp; [3.1. Reset Password](#pw)<br>
 &nbsp; &nbsp; [3.2. Progress Report](#id)<br>
 &nbsp; &nbsp; [3.3. Classes](#class)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [3.3.1. Joining A Class](#view)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [3.3.2. Leaderboard](#score)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.3.1. Creating A Class](#create)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.3.1. Creating A Question](#qn)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.3.3. Leaderboard](#score)<br>
 &nbsp; &nbsp; [3.4. Quizzes](#quiz)<br>
 [4. Frequently Asked Questions (FAQ)](#faq)
 
@@ -67,23 +68,17 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; 2. When you first begin, you will not have any classes.
 
-#### <a name="view"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.1. Creating A Class</a><br>
+#### <a name="create"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.1. Creating A Class</a><br>
 
 
-#### <a name="score"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.2. Leaderboard</a><br>
+#### <a name="qn"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.2. Creating A Question</a><br>
 
 
-### <a name="quiz"> &nbsp; &nbsp; 3.4. Quizzes</a><br>
-{Educator Quiz guide here}
-![Quiz Layout](images/Quiz.png)
+#### <a name="score"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.3. Leaderboard</a><br>
 
-&nbsp; &nbsp; &nbsp; &nbsp; 4. Questions are tailored to your ability. Attempting more questions improves the accuracy of those recommended.
 
-![Example Of A Question](images/QuizQn.png)
+### <a name="quiz"> &nbsp; &nbsp; 3.4. Forum</a><br>
 
-&nbsp; &nbsp; &nbsp; &nbsp; 5. Based on your current ability, questions will be recommended in a way to ensure you improve.
-
-&nbsp; &nbsp; &nbsp; &nbsp; 6. You can access your progress report through your dashboard, or as detailed [here](#id).
 
 ## <a name="faq">4. Frequently Asked Questions (FAQ)</a><br>
 1. You can access the list of FAQ through the link at the footer (bottom of every page), the navigation bar, or through this link. (not up yet)
