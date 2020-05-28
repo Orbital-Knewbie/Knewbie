@@ -145,6 +145,7 @@
     <Content Include="docs\images\UniqueID.png" />
     <Content Include="docs\images\UniqueIDhome.png" />
     <Content Include="docs\images\ViewClass.png" />
+    <Content Include="docs\UserGuide-Educator.md" />
     <Content Include="migrations\alembic.ini" />
     <Content Include="migrations\env.pyc" />
     <Content Include="migrations\README" />

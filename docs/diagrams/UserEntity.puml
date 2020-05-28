@@ -2,14 +2,14 @@
 ' avoid problems with angled crows feet
 skinparam linetype ortho
 
-entity Student {
+entity UserStudent {
 *id
 --
 name
 score
 }
 
-entity Educator {
+entity UserEducator {
 *id
 --
 name
@@ -28,9 +28,9 @@ classID
 userID
 }
 
-Student ||--|{ UserClass
-Student }|--|{ Educator
-Educator ||--|{ UserClass
+UserStudent ||--|{ UserClass
+
+UserEducator ||--|{ UserClass
 Class ||--|{ UserClass
 
 

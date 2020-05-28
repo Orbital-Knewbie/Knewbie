@@ -127,13 +127,14 @@ Fig #. Unconfirmed webpage
 
 Using the [`ItsDangerous`](https://itsdangerous.palletsprojects.com/) module, a token is generated and a clickable confirmation link will be available from the user's email.
 From the [Database Design](#database), the `User` properties `confirmed` and `confirmed_on` will be updated when the account is confirmed, to be `True` and the current `datetime` respectively.
+In case a user forgets their password, or had their account compromised, there is a reset password feature available. Similarly, the reset password feature also uses the same module to produce the secure tokens to provide the links used.
 
 #### 3.1.2 Account Details
 Account details include the user's login information, name, and statistics having to do with the quizzes. 
 * Currently, there are 2 different types of a `User` that can register for an account in the application - Student and Educator.
 
 Overall, account details can be retrieved simply by doing a `GET` request at the appropriate URLs provided that the user is authenticated.
-Updating and/or deletion of the account can be explained quite similarly to the registration procedure mentioned, in that there the submission, validation, and saving of the information being updated. <br>
+Updating and/or deletion of the account can be explained quite similarly to the registration procedure mentioned, in that there is the submission, validation, and saving of the information being updated. <br>
 {Screenshots to be added} <br>
 
 #### 3.1.3 Contact Us
