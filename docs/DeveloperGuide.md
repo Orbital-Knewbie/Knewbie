@@ -155,7 +155,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user (student/educator) | I want to be able to change my password | have it not be compromised 
 `* * *` | user (student/educator) | I want to deactivate my account when I no longer need it | prevent unauthorized access to my account information
 `* *` | generic user | read the frequently asked questions | see responses for common issues people may face
-`* *` | generic user | contact the developers | raise a technical issue not in the frequently asked questions
+`* *` | generic user | contact the technical team via email | raise a technical issue not in the frequently asked questions
 `* *` | student | view my progress report | keep track of my learning
 `* *` | student | change my Knewbie ID | have it not be compromised 
 `*` | student | view my classmate’s progress | know who to approach if I have queries
