@@ -153,7 +153,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | student | log in | access the personalized features such as the tailored quizzes on the web application
 `* * *` | student | attempt the (topical) quizzes |  practice more questions than those I usually get
 `* * *` | user (student/educator) | I want to be able to change my password | have it not be compromised 
-`* * *` | user (student/educator) | I want to deactivate my account when I no longer need it | people cannot gain unauthorized access to my account information
+`* * *` | user (student/educator) | I want to deactivate my account when I no longer need it | prevent unauthorized access to my account information
 `* *` | generic user | read the frequently asked questions | see responses for common issues people may face
 `* *` | generic user | contact the developers | raise a technical issue not in the frequently asked questions
 `* *` | student | view my progress report | keep track of my learning
