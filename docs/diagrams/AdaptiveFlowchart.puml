@@ -1,0 +1,10 @@
+@startuml
+
+(*) --> "1. Item Selection"
+--> "2. Capture Answer"
+--> "3. Score Calculation"
+if "4. Stop Criterion Reached"
+--> [Yes] "5. Functional Outcome"
+else
+--> [No] "1. Item Selection"
+@enduml

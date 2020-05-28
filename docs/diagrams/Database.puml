@@ -1,4 +1,7 @@
 @startuml
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
 entity User {
 *id
 --
@@ -32,8 +35,33 @@ optId
 userID
 }
 
+entity Post {
+*id
+--
+title
+content
+}
+
+entity Class {
+*id
+--
+name
+}
+
+entity UserClass {
+*id
+--
+classID
+userID
+}
+
+User ||--|{ Answer
+
 Answer ||--|{ Option
 Option }|--|| Question
 
+User ||--|{ UserClass
+Class ||--|{ UserClass
+UserClass ||--|{ Post
 
 @enduml
