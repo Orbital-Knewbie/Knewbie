@@ -154,6 +154,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | student | attempt the (topical) quizzes |  practice more questions than those I usually get
 `* * *` | user (student/educator) | I want to be able to change my password | have it not be compromised 
 `* * *` | user (student/educator) | I want to deactivate my account when I no longer need it | prevent unauthorized access to my account information
+`* * *` | new user | receive an email verification | ensure my account email is correct
 `* *` | generic user | read the frequently asked questions | see responses for common issues people may face
 `* *` | generic user | contact the technical team via email | raise a technical issue not in the frequently asked questions
 `* *` | student | view my progress report | keep track of my learning
@@ -171,7 +172,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | educator | create a group | effectively and efficiently teach my students
 `* *` | educator | kick participants out of the class | remove “intruders”
 `*` | educator | delete my classes that are no longer in use | keep my dashboard au courant
-`* *` | educator | change my class code that students require to join the class | intrusions are prevented
+`* *` | educator | change my class code that students require to join the class | prevent intrusions
 `* *` | educator | viewing my students' progress reports | monitor their progress
 `*` | educator | create more questions | have my students practice
 `* *` | educator | update the questions I have created | fix a typo
