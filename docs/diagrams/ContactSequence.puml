@@ -1,0 +1,55 @@
+@startuml
+Actor User as user
+Participant ":View" as view
+box Controller
+participant ":Route" as Route
+participant ":views.py" as views
+participant ":validate" as validate
+participant ":Email" as email
+end box
+Participant ":Model" as model
+
+
+user --> view : Click "Submit" ContactForm
+activate view
+
+view --> Route : execute("Submit ContactForm")
+activate Route
+
+Route --> views : contact()
+activate views
+
+views --> validate : validateOnSubmit()
+activate validate
+
+validate --> views
+deactivate validate
+
+views --> email
+activate email
+
+email --> model : ContactForm.submit()
+activate model
+
+model --> email
+deactivate model
+
+email --> model : send_contact_email()
+activate model
+
+model --> email : Mail().send(Message())
+deactivate model
+
+email --> views : contact(success=True)
+deactivate email
+
+views --> Route
+deactivate views
+
+Route --> view : contact.html(success=True)
+deactivate Route
+
+view --> user
+deactivate view
+
+@enduml

@@ -9,6 +9,9 @@
 &nbsp; &nbsp; [2.4. Controller component](#control)<br>
 &nbsp; &nbsp; [2.5. Database](#database)<br>
 [3. Implementation](#implement)<br>
+&nbsp; &nbsp; [3.1. User](#user)<br>
+&nbsp; &nbsp; [3.2. Quiz](#quiz)<br>
+&nbsp; &nbsp; [3.3. Adaptive Testing](#adaptive)<br>
 [4. Documentation](#doc)<br>
 [5. Testing](#test)<br>
 [6. Frequently Asked Questions (FAQ)](#faq)<br>
@@ -48,7 +51,7 @@ Fig #. Structure of Model components
 
 The Model component
 * stores `User` data.
-* stores `Question` data.
+* stores `Question, Option, Answer` data.
 * defines the various `FlaskForm`s used.
 * does not depend on the other components.
 
@@ -107,7 +110,7 @@ Fig #. Database Design
 
 ## 3. Implementation <a name="implement"></a>
 This section describes some noteworthy details on how certain features are implemented.
-### 3.1 Account Management
+### 3.1 User <a name="user"></a>
 #### 3.1.1 Registration
 An overview of user registration had already been provided under the [Architecture](#arch) and [Controller](#control) sections earlier. In essence, it takes 4 steps:
 1. Submission in View component
@@ -125,17 +128,47 @@ Fig #. Unconfirmed webpage
 Using the [`ItsDangerous`](https://itsdangerous.palletsprojects.com/) module, a token is generated and a clickable confirmation link will be available from the user's email.
 From the [Database Design](#database), the `User` properties `confirmed` and `confirmed_on` will be updated when the account is confirmed, to be `True` and the current `datetime` respectively.
 
-#### 3.1.2 Progress Report
+#### 3.1.2 Account Details
+Account details include the user's login information, name, and statistics having to do with the quizzes. 
+* Currently, there are 2 different types of a `User` that can register for an account in the application - Student and Educator.
+Overall, account details can be retrieved simply by doing a `GET` request at the appropriate URLs provided that the user is authenticated.
+Updating and/or deletion of the account can be explained quite similarly to the registration procedure mentioned, in that there the submission, validation, and saving of the information being updated. <br>
+{Screenshots to be added} <br>
 
-#### 3.1.3 Update Account Details
+#### 3.1.3 Contact Us
+The Contact Us page is also another example of the `FlaskForm` being used - in this case to communicate with the technical team. Provided is the Sequence Diagram for a `POST` request for a `ContactForm`.
 
-#### 3.1.4 Deactivate Account
+![Contact Sequence](diagrams/ContactSequence.png)<br>
+Fig #. Interactions of Components for a ContactForm
 
-### 3.2 Quizzes
+#### 3.1.4 Classes
+Both Students and Educators can be part of Classes. Classes are created to let Educators monitor their students progress collectively, and also can allow interaction between Educators and Students as well as Students with other Students using the forum.
+A simple demonstration of a Student-Educator relationship, along with the Classes is shown in the Entity-Relationship Diagram below.
+
+![Student Educator Classes](diagrams/UserEntity.png)<br>
+Fig #. Relationship of Student-Educator-Class
+
+Interactions between are part of peer learning and can enhance the knowledge gained from the platform. The forum created for each class will allow for the clarification of questions students may have.
+
+{diagram}
+
+### 3.2 Quiz <a name="quiz"></a>
 #### 3.2.1 Attempt Quiz
+The quiz requires the use of an AdaptiveTesting feature which aims to provide tailored content to suit the user's ability, explained in a [later section](#adaptive). 
+Overall, there is a large similarity to previously mentioned features in terms of the interaction with the addition of the AdaptiveTesting feature. 
+Below is the Sequence Diagram in completing a quiz.
+
+![Quiz Sequence](diagrams/QuizSequence.png)<br>
+Fig #. Interactions of Components for a Quiz submission
 
 #### 3.2.2 Create Quiz (Educator only)
+In addition to tailored content, Educators can also create their own `Question` for their own Class
+### 3.3 Adaptive Testing <a name="adaptive"></a>
+[Computerized Adaptive Testing (CAT)](https://en.wikipedia.org/wiki/Computerized_adaptive_testing) is a form of test that adapts to the user's ability. 
+Currently, multiple ideas are being generated including the use of a Recommender System, or the use of a module such as CatSim. The general idea can be seen in the following flowchart.
 
+![Adaptive Testing](diagrams/AdaptiveTesting.png)<br>
+Fig #. Flowchart of general adaptive testing algorithm used
 
 ## 4. Documentation <a name="doc"></a>
 

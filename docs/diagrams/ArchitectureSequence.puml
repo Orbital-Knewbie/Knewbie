@@ -26,7 +26,7 @@ database --> database : Save to File
 activate database
 deactivate database
 
-database --> controller
+database --> controller : db.session.commit()
 deactivate database
 
 controller --> view : unconfirmed.html

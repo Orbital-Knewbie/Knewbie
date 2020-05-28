@@ -32,6 +32,17 @@ optId
 userID
 }
 
+entity Post {
+*id
+--
+userID
+title
+content
+}
+
+User ||--|{ Post
+User ||--|{ Answer
+
 Answer ||--|{ Option
 Option }|--|| Question
 

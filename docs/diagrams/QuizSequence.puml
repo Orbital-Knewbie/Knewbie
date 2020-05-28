@@ -1,0 +1,95 @@
+@startuml
+Actor User as user
+Participant ":View" as view
+box Controller
+participant ":Route" as Route
+participant ":views.py" as views
+participant ":validate" as validate
+participant ":Questions" as qns
+participant ":AdaptiveTesting" as ML
+end box
+Participant ":Model" as model
+Participant ":database" as database
+
+
+user --> view : Click "Submit" Question
+activate view
+
+view --> Route : execute("Submit Question")
+activate Route
+
+Route --> views : quiz()
+activate views
+
+views --> validate : validateOnSubmit()
+activate validate
+
+validate --> views
+deactivate validate
+
+views --> qns
+activate qns
+
+qns --> model : Question.submit()
+activate model
+
+model --> qns
+deactivate model
+
+qns --> model : check_answers()
+activate model
+
+model --> qns : Answer(user=User)
+deactivate model
+
+qns --> database : db.session.add(Answer())
+activate database
+
+database --> database : Save to File
+activate database
+deactivate database
+
+database --> qns : User(), Question()
+deactivate database
+
+qns --> model : User(), Question()
+activate model
+
+model --> qns : User(score), Question(score)
+deactivate model
+
+qns --> ML : User(score), Question(score)
+activate ML
+
+ML --> model : getQuestion()
+activate model
+
+model --> ML : Question()
+deactivate model
+
+ML --> database : User(score), Question(score)
+activate database
+
+database --> database : Save to File
+activate database
+deactivate database
+
+database --> ML : db.session.commit()
+deactivate database
+
+ML --> qns
+deactivate ML
+
+qns --> views : dashboard()
+deactivate qns
+
+views --> Route
+deactivate views
+
+Route --> view : dashboard.html
+deactivate Route
+
+view --> user
+deactivate view
+
+@enduml

@@ -1,0 +1,37 @@
+@startuml
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity Student {
+*id
+--
+name
+score
+}
+
+entity Educator {
+*id
+--
+name
+}
+
+entity Class {
+*id
+--
+name
+}
+
+entity UserClass {
+*id
+--
+classID
+userID
+}
+
+Student ||--|{ UserClass
+Student }|--|{ Educator
+Educator ||--|{ UserClass
+Class ||--|{ UserClass
+
+
+@enduml
