@@ -162,7 +162,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | student | ask questions on a forum | clear any doubts
 `* *` | student | view questions my friends have asked | read important questions to understand, but questions which I did not think of
 `* *` | student | help answer my peer’s questions | have a slightly better understanding of the topic
-`* *` | student | to edit my post | fix my typos
+`* *` | student | edit my post | fix my typos
 `* *` | student | delete my post | remove unwanted posts
 `* *` | educator | read my students’ queries | so that I can respond to them
 `* *` | educator | respond to my students’ queries | to clarify doubts
