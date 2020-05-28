@@ -173,7 +173,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | educator | delete my classes that are no longer in use | keep my dashboard au courant
 `* *` | educator | change my class code that students require to join the class | intrusions are prevented
 `* *` | educator | viewing my students' progress reports | monitor their progress
-`*` | educator | create more questions | my students can practise
+`*` | educator | create more questions | have my students practice
 `* *` | educator | update the questions I have created | fix a typo
 `* *` | educator | delete questions I created | if I deem they are irrelevant
 `* *` | parent | view my child’s progress | be more involved in his/her learning
