@@ -1,0 +1,57 @@
+﻿{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="../static/content/createstyle.css">
+{% endblock %}
+{% block content %}
+<div class="create-container">
+    <div class="create-left">
+        <form class="create-form">
+           
+            <h1>Create A New Class</h1>
+
+            <input required type="text" placeholder="Class Name">
+            <button type="submit" class="create-btn">Create Class</button>
+        
+        </form>
+    </div>
+
+    <div class="create-ctr">
+        <form class="create-form">
+            
+            <h1>Create A New Question</h1>
+
+            <select required>
+                <option value="" disabled selected hidden>Select Topic</option>
+                <option value="">Geometry</option>
+                <option value="">Estimation</option>
+                <option value="">Model</option>
+            </select>
+            <input required type="text" placeholder="Input Question">
+            <input required type="text" placeholder="Option 1">
+            <input required type="text" placeholder="Option 2">
+            <input required type="text" placeholder="Option 3">
+            <input required type="text" placeholder="Option 4">
+            <select required>
+                <option value="" disabled selected hidden>Select Correct Option</option>
+                <option value="">Option 1</option>
+                <option value="">Option 2</option>
+                <option value="">Option 3</option>
+                <option value="">Option 4</option>
+            </select>
+            <button type="submit" class="create-btn">Attach Image</button>
+            <button type="submit" class="create-btn">Create Question</button>
+        
+        </form>
+    </div>
+
+    <div class="create-right"> 
+        <form class="create-form">
+            <h1>Create A New Quiz</h1>
+
+            <input type="text" placeholder="Quiz Name">
+            <button type="submit" class="create-btn">Create Quiz</button>
+        
+        </form>
+    </div>
+</div>
+{% endblock %}

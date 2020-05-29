@@ -46,6 +46,11 @@ def faq():
     """Renders the faq page."""
     return render_template('faq.html')
 
+@app.route('/create')
+def create():
+    """Renders the create page."""
+    return render_template('create.html')
+
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     """Renders the contact page."""

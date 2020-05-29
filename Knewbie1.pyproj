@@ -59,6 +59,7 @@
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\content\createstyle.css" />
     <Content Include="app\static\content\dashboardstyle.css" />
     <Content Include="app\static\content\faqstyle.css" />
     <Content Include="app\static\content\homepagestyle.css" />
@@ -107,6 +108,7 @@
     <Content Include="app\templates\register.html" />
     <Content Include="app\templates\unconfirmed.html" />
     <Content Include="app\templates\contact.html" />
+    <Content Include="app\templates\create.html" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.png" />
     <Content Include="docs\diagrams\Architecture.png" />
     <Content Include="docs\diagrams\ArchitectureSequence.png" />

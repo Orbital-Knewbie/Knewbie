@@ -41,9 +41,24 @@ body {
 }
 
 .sidebar ul li:hover {
-    transform: translate(150px, 0);
     background: var(--LIGHTPURPLE);
     transition: all .75s;
+}
+
+.sidebar ul li:first-child:hover {
+    transform: translate(150px, 0);
+}
+
+.sidebar ul li:last-child:hover {
+    transform: translate(130px, 0);
+}
+
+.sidebar ul li:nth-child(2):hover {
+    transform: translate(90px, 0);
+}
+
+.sidebar ul li:nth-child(3):hover {
+    transform: translate(65px, 0);
 }
 
 .sidebar ul li:hover a {
