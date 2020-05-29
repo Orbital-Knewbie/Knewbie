@@ -5,12 +5,11 @@
 [2. Quick Start](#quickstart)<br>
 [3. Features](#features)<br>
 &nbsp; &nbsp; [3.1. Reset Password](#pw)<br>
-&nbsp; &nbsp; [3.2. Progress Report](#id)<br>
-&nbsp; &nbsp; [3.3. Classes](#class)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [3.3.1. Creating A Class](#create)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [3.3.1. Creating A Question](#qn)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [3.3.3. Leaderboard](#score)<br>
-&nbsp; &nbsp; [3.4. Quizzes](#quiz)<br>
+&nbsp; &nbsp; [3.2. Classes](#class)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.2.1. Creating A Class](#create)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.2.2. Creating A Question](#qn)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.2.3. Leaderboard](#score)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.2.4 Progress Report](#id)<br>
 [4. Frequently Asked Questions (FAQ)](#faq)
 
 ## <a name="intro">1. Introduction</a><br>
@@ -58,26 +57,33 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 ![Change Password Page](images/ChangePW.png)
 
-### <a name="id"> &nbsp; &nbsp; 3.2. Progress Report</a><br>
 
-
-### <a name="class"> &nbsp; &nbsp; 3.3. Classes</a><br>
+### <a name="class"> &nbsp; &nbsp; 3.2. Classes</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; 1. When you have logged in to your acocunt, you will be able to view all your create classes from your dashboard.
 
 ![Student Dashboard](images/ViewClass.png)
 
 &nbsp; &nbsp; &nbsp; &nbsp; 2. When you first begin, you will not have any classes.
 
-#### <a name="create"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.1. Creating A Class</a><br>
+#### <a name="create"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.1. Creating A Class</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. To create a class, click on the create option on the sidebar. You will be taken to another page.
 
+![Create Page](images/Create.png)
 
-#### <a name="qn"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.2. Creating A Question</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. Include all the relevant details under the 'Create A Class' heading and click on the create class button.
 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. A unique class code and passcode will be displayed. Share both information with the students you would like to participate in the class.
 
-#### <a name="score"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.3. Leaderboard</a><br>
+#### <a name="qn"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.2. Creating A Question</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. Similarly to creating a class, to create a question, click on the create option on the sidebar. You will be taken to another page.
 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. Include all the relevant details under the 'Create A Question' heading and click on the create question button.
 
-### <a name="quiz"> &nbsp; &nbsp; 3.4. Forum</a><br>
+#### <a name="score"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.3. Leaderboard</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You will be able to view the individual progress report of the students in your class. This only includes the scores from questions assigned and attempted within the class.
+
+#### <a name="id"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.4 Progress Report</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You will be able to view the individual progress report of the students in your class. This includes the scores from questions and quizzes attempted outside of the class.
 
 
 ## <a name="faq">4. Frequently Asked Questions (FAQ)</a><br>
