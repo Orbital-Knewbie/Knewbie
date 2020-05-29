@@ -186,22 +186,26 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` |**{target user}** | **{feature}** | **{aim of the project}**
 `* * *` | new student | create an account | log in and access the features of the application
 `* * *` | student | log in | access the personalized features such as the tailored quizzes on the web application
-`* * *` | student | attempt the (topical) quizzes |  practice more questions than those I usually get
-`* * *` | user (student/educator) | I want to be able to change my password | have it not be compromised 
-`* * *` | user (student/educator) | I want to deactivate my account when I no longer need it | prevent unauthorized access to my account information
+`* * *` | student | attempt the (topical) quizzes |  practise more questions than those I usually get
+`* * *` | user (student/educator) | be able to change my password | have it not be compromised 
+`* * *` | user (student/educator) | deactivate my account when I no longer need it | prevent unauthorized access to my account information
 `* * *` | new user | receive an email verification | ensure my account email is correct
 `* *` | generic user | read the frequently asked questions | see responses for common issues people may face
 `* *` | generic user | contact the technical team via email | raise a technical issue not in the frequently asked questions
 `* *` | student | view my progress report | keep track of my learning
 `* *` | student | change my Knewbie ID | have it not be compromised 
+`* * *` | student | be tested with tailored content as a quiz | cater to my learning abilities
+`* *` | student | be tested on the time I complete a quiz | improve my test taking speed
+`* *` | student | be tested on the number of attempts I take on a quiz question | improve my test taking accuracy
+`* *` | student | join a class | participate in learning with my educator and classmates
 `*` | student | view my classmate’s progress | know who to approach if I have queries
 `* *` | student | ask questions on a forum | clear any doubts
 `* *` | student | view questions my friends have asked | read important questions to understand, but questions which I did not think of
 `* *` | student | help answer my peer’s questions | have a slightly better understanding of the topic
 `* *` | student | edit my post | fix my typos
 `* *` | student | delete my post | remove unwanted posts
-`* *` | educator | read my students’ queries | so that I can respond to them
-`* *` | educator | respond to my students’ queries | to clarify doubts
+`* *` | educator | read my students’ queries | respond to them
+`* *` | educator | respond to my students’ queries | clarify doubts
 `* *` | educator | edit my replies | clarify my response
 `* *` | educator | delete hurtful comments and posts | remove inappropriate comments
 `* *` | educator | create a group | effectively and efficiently teach my students
@@ -209,9 +213,9 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | educator | delete my classes that are no longer in use | keep my dashboard au courant
 `* *` | educator | change my class code that students require to join the class | prevent intrusions
 `* *` | educator | viewing my students' progress reports | monitor their progress
-`*` | educator | create more questions | have my students practice
+`*` | educator | create more questions | have my students practise them
 `* *` | educator | update the questions I have created | fix a typo
-`* *` | educator | delete questions I created | if I deem they are irrelevant
+`* *` | educator | delete questions I created | remove irrelevant questions
 `* *` | parent | view my child’s progress | be more involved in his/her learning
 `* *` | existing educator | update students enrolled in my class | track their progress in the application
-`* * *` | student | log in to access tailored content as a quiz | cater to my learning abilities
+
