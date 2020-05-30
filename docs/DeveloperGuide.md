@@ -31,6 +31,8 @@ The [Model-View-Controller (MVC)](https://en.wikipedia.org/wiki/Model%E2%80%93vi
 * [View](#view): The representation to the users
 * [Controller](#control): Converts input to commands for Model or View
 
+[CRUD (Create, read, update and delete)](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) are the 4 basic operations of persistent storage and will be a basis for all operations done.
+
 The Web App will use the [RESTful API](https://restfulapi.net/) architectural style to perform its HTTP requests.
 
 The *Sequence Diagram* below shows how a `POST` request for a `RegistrationForm` - registering for an account - will cause the different components to interact.
@@ -173,6 +175,13 @@ Currently, multiple ideas are being generated including the use of a Recommender
 Fig #. Flowchart of general adaptive testing algorithm used
 
 ## 4. Documentation <a name="doc"></a>
+The Sequence Diagrams used in this Guide have their own notation and can be explained by the following diagram that can be found on the [CS2103 Software Engineering website here](https://nus-cs2103-ay1920s2.github.io/website/se-book-adapted/chapters/uml.html#uml).
+
+![Sequence Diagram Notation](https://nus-cs2103-ay1920s2.github.io/website/book/uml/sequenceDiagrams/basic/images/notation.png)
+Fig #. Sequence Diagram Notation<br>
+
+The diagrams were created and defined with [PlantUML](https://plantuml.com/). The source code can be found in the [diagrams folder](/docs/diagrams).
+
 
 ## 5. Testing <a name="test"></a>
 
