@@ -48,8 +48,13 @@ def faq():
 
 @app.route('/create')
 def create():
-    """Renders the create page."""
+    """Renders the create page for educators."""
     return render_template('create.html')
+
+@app.route('/error')
+def error():
+    """Renders the error page."""
+    return render_template('error.html')
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():

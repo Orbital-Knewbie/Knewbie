@@ -1,9 +1,138 @@
-﻿<p>Dear {{name}},</p>
-<p>To reset your password, please visit the following link.</p>
-<p> {{url_for('reset_password', token = token, _external = True)}} </p>
+﻿<title>Knewbie | Confirm Reset Password</title>
+<link href="../../static/content/style.css" rel="stylesheet" />
 
-<p>The link will expire in 10 minutes. If you did not make this request, simply ignore this email.<br />
-    Thank you.</p>
+<style type="text/css">
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
-<p>Take care and enjoy learning,<br />
-Knewbie Support Team</p>
+    body {
+        margin: 0;
+        padding: 0;
+        max-height: 100vh;
+        max-width: 100vw;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .email-container {
+        position: relative;
+        text-align: center;
+        margin: 0 auto 5rem auto;
+    }
+
+    .top {
+        background: var(--GREY);
+        height: 100px;
+        width: 85%;
+        margin: 2rem auto 0 auto;
+    }
+
+    .bold-text {
+        font-size: 10rem;
+        background: var(--LIGHTPURPLE);
+        color: var(--OFFWHITE);
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .bottom {
+        background: var(--GREY);
+        height: 60vh;
+        width: 85%;
+        margin: 0 auto;
+    }
+
+    .bottom-text {
+        padding-top: 6rem;
+        font-size: 2.4rem;
+    }
+
+    .sign-off {
+        font-size: 2rem;
+    }
+
+    .btn {
+        display: inline-block;
+        font-size: 2rem;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-decoration: none;
+        color: var(--OFFWHITE);
+        background-color: var(--LIGHTPURPLE);
+        padding: 2rem 4rem;
+        margin: 4rem auto;
+        border-radius: .4rem;
+        box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 1;
+    }
+
+    .btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: inherit;
+        border-radius: inherit;
+        z-index: -1;
+    }
+
+    .btn:hover::after {
+        transform: scaleX(1.2) scaleY(1.4);
+        opacity: 0;
+        transition: all .5s;
+    }
+
+    .btn:active {
+        transform: translateY(1.5px);
+    }
+
+    .inner-footer {
+        width: 85%;
+        position: absolute;
+        bottom: 0;
+        background: var(--LIGHTPURPLE);
+        color: var(--OFFWHITE);
+        padding: 15px 0;
+    }
+
+    .footer_copyright a {
+        letter-spacing: 0.2rem;
+        color: var(--OFFWHITE);
+        text-decoration: none;
+    }
+</style>
+
+<body>
+    <div class="top"></div>
+    <div class="email-container">
+        <p class="bold-text">Dear {{name}}!</p>
+        <div class="bottom">
+            <p class="bottom-text">
+                To reset your password, please click on the following button. <br />
+                The link will expire in 10 minutes. If you did not make this request, simply ignore this email.<br />
+                Thank you.
+            </p>
+            <a href="{{url_for('reset_password', token = token, _external = True)}}" class="btn">Click here!</a>
+            <br>
+            <p class="sign-off">
+                Take care and enjoy learning!<br />
+                Knewbie Support Team
+            </p>
+            <div class="inner-footer">
+                <div class="footer_third">
+                    <h3><a href="#" class="link-hover">Terms & Conditions</a></h3>
+                </div>
+                <div class="footer_third">
+                    <h3><a href="{{ url_for('contact') }}" class="link-hover">Contact Us</a></h3>
+                </div>
+                <div class="footer_third">
+                    <h3><a href="{{ url_for('faq') }}" class="link-hover">Frequently Asked Questions</a></h3>
+                </div>
+                <div class="footer_copyright">
+                    <h3><a href="{{ url_for('home') }}">&copy; 2020 Knewbie</a></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
