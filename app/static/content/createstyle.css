@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
+/* NAVBAR COLOUR */
+.line {
+    background: linear-gradient(to right, var(--GREY), var(--LIGHTPURPLE));
+    width: 100%;
+    height: 4px;
+    border-radius: 1.5rem;
+}
+
 .create-container {
     display: flex;
     width: 100vw;
@@ -107,8 +115,8 @@ option {
     text-decoration: none;
     border: none;
     border-radius: .4rem;
-    background: var(--LIGHTPURPLE);
-    color: var(--OFFWHITE);
+    background: var(--OFFWHITE);
+    color: var(--PURPLE);
     box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
     outline: none;
     cursor: pointer;
@@ -116,9 +124,9 @@ option {
 }
 
 .create-btn:hover {
-    background: var(--OFFWHITE);
-    border: 1px solid var(--LIGHTPURPLE);
-    color: var(--LIGHTPURPLE);
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid var(--OFFWHITE);
+    color: var(--PURPLE);
 }
 
 .create-btn:active {

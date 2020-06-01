@@ -61,6 +61,7 @@
   <ItemGroup>
     <Content Include="app\static\content\createstyle.css" />
     <Content Include="app\static\content\dashboardstyle.css" />
+    <Content Include="app\static\content\errorstyle.css" />
     <Content Include="app\static\content\faqstyle.css" />
     <Content Include="app\static\content\homepagestyle.css" />
     <Content Include="app\static\content\loginstyle.css" />
@@ -97,6 +98,7 @@
     <Content Include="app\templates\email\contactmsg.html" />
     <Content Include="app\templates\email\reset.txt" />
     <Content Include="app\templates\email\reset.html" />
+    <Content Include="app\templates\error.html" />
     <Content Include="app\templates\faq.html" />
     <Content Include="app\templates\index.html" />
     <Content Include="app\templates\login.html" />

@@ -1,10 +1,5 @@
 /* GLOBAL STYLE */
 @font-face {
-  font-family: "Quicksand_Light";
-  src: url("../resources/fonts/Quicksand_Light.woff");
-}
-
-@font-face {
   font-family: "Raleway-Regular";
   src: url("../resources/fonts/Raleway-Regular.woff");
 }
@@ -12,11 +7,6 @@
 @font-face {
   font-family: "roboto-regular";
   src: url("../resources/fonts/roboto-regular.woff");
-}
-
-@font-face {
-  font-family: "Simplifica";
-  src: url("../resources/fonts/Simplifica.ttf");
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap');
