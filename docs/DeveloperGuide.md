@@ -175,12 +175,37 @@ Currently, multiple ideas are being generated including the use of a Recommender
 Fig #. Flowchart of general adaptive testing algorithm used
 
 ## 4. Documentation <a name="doc"></a>
-The Sequence Diagrams used in this Guide have their own notation and can be explained by the following diagram that can be found on the [CS2103 Software Engineering website here](https://nus-cs2103-ay1920s2.github.io/website/se-book-adapted/chapters/uml.html#uml).
+The Diagrams in this Guide were created and defined with [PlantUML](https://plantuml.com/). The source code can be found in the [diagrams folder](/docs/diagrams).
+
+### 4.1 Class and Sequence Diagrams
+The Class and Sequence Diagrams used have their own notation and can be explained with the help of the [CS2103 Software Engineering website](https://nus-cs2103-ay1920s2.github.io/website/se-book-adapted/chapters/uml.html#uml).
+
+**Sequence Diagrams** show the sequence of events as time events and include, for a specific operation:
+* Entities
+* Operations 
+* Activation Bars 
+* Lifelines 
+* returned values
 
 ![Sequence Diagram Notation](https://nus-cs2103-ay1920s2.github.io/website/book/uml/sequenceDiagrams/basic/images/notation.png)
 Fig #. Sequence Diagram Notation<br>
 
-The diagrams were created and defined with [PlantUML](https://plantuml.com/). The source code can be found in the [diagrams folder](/docs/diagrams).
+**Class Diagrams** include:
+* Class Names 
+* Attributes
+* Methods
+
+![Class Diagram Notation](https://nus-cs2103-ay1920s2.github.io/website/book/uml/classDiagrams/classes/what/images/basicNotation.png)
+Fig #. Class Diagram Notation<br>
+
+### 4.2 Entity Relationship Diagrams
+The [Entity Relationship Diagrams](https://www.smartdraw.com/entity-relationship-diagram/) used to describe databases include:
+* Entities - represented by rectangles
+* Relationships - represented by diamonds
+* Cardinality - using the Information Engineering Style for its notation
+
+![Entity Relationship Notation](https://wcs.smartdraw.com/entity-relationship-diagram/img/information-engineering-style.jpg?bn=1510011165) {to be changed to own diagram}
+Fig #. Entity Relationship Diagram Notation <br>
 
 
 ## 5. Testing <a name="test"></a>
