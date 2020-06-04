@@ -1,0 +1,112 @@
+{
+    "0": {
+        "answer": "Answer / Explanation :\n\nAnswer : A.",
+        "option_texts": [
+            "A.    360",
+            "B.    120",
+            "C.    240",
+            "D.    260"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "1) Raja travelled 1/3 of his journey at a speed of 60 km/h and completed the remaining 240 km in 3 hours. Find the total distance he travelled."
+    },
+    "1": {
+        "answer": "Answer / Explanation :\n\nAnswer : D.",
+        "option_texts": [
+            "A.    9:00",
+            "B.    10:30",
+            "C.    11:30",
+            "D.    13:00"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "2) Raja set off on a 270km journey at 09:00. He drove at a speed of 80 km/h for the first 1 1/2 hours. For the rest of the journey, he drove at a speed of 60 km/h. At what time did he complete the journey?"
+    },
+    "2": {
+        "answer": "Answer / Explanation :\n\nAnswer : A.",
+        "option_texts": [
+            "A.    126km/h",
+            "B.    158km/h",
+            "C.    254km/h",
+            "D.    188km/h"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "3) A train left Town A at 8:50 a.m., it passed Town B at 9:30 a.m. and arrived at Town C at 10:30 a.m. The distance between Town A and Town B is 100 km. Between Town B and Town C, the train travelled at 110 km/h. What was the average speed of the train for the whole journey?"
+    },
+    "3": {
+        "answer": "Answer / Explanation :\n\nAnswer : C.",
+        "option_texts": [
+            "A.    1 hr 50 min",
+            "B.    1 hr 10 min",
+            "C.    1 hr 40 min",
+            "D.    1 hr 30 min"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "4) Raja travelled of his journey at 60 km/h. For the remaining 25 km he travelled at 30 km/h. How much time did he take for the whole journey?"
+    },
+    "4": {
+        "answer": "Answer / Explanation :\n\nAnswer : C.",
+        "option_texts": [
+            "A.    22 km/h",
+            "B.    16 km/h",
+            "C.    18 km/h",
+            "D.    14 km/h"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "5) Rani took 30 minutes to cycle from school to her home at an average speed of 12 km/h. If she wanted to reach home 10 minutes early, what must her average speed be?"
+    },
+    "5": {
+        "answer": "Answer / Explanation :\n\nAnswer : B.",
+        "option_texts": [
+            "A.    1755m",
+            "B.    1425m",
+            "C.    1835m",
+            "D.    1765m"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "6) Raja left home at 12.10 p.m. and walked to his grandmother's house. He walked at an average speed of 95 m/min. He arrived at 12:25 p.m. What is the distance between his house and his grandmother's house?"
+    },
+    "6": {
+        "answer": "Answer / Explanation :\n\nAnswer : D.",
+        "option_texts": [
+            "A.    1.5hr",
+            "B.    2h",
+            "C.    3h",
+            "D.    3.5h"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "7) A car is travelling at a speed of 50 km/h. How long will it take to travel a distance of 175 km?"
+    },
+    "7": {
+        "answer": "Answer / Explanation :\n\nAnswer : A.",
+        "option_texts": [
+            "A.    1 h 48 min",
+            "B.    1 h 18 min",
+            "C.    1 h 58 min",
+            "D.    2 h 18 min"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "8) Raja travelled 2/5 of his journey at 50 km/h. The next 1/5 of his journey he travelled at 40 km/h. The remaining 40 km he covered in half an hour. How much time did he take for the whole journey?"
+    },
+    "8": {
+        "answer": "Answer / Explanation :\n\nAnswer : B.",
+        "option_texts": [
+            "A.    3.5 m/s",
+            "B.    2.5 m/s",
+            "C.    2.8 m/s",
+            "D.    4.5 m/s"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "9) The children cycled between Camp A and Camp B which are 500 m apart in 50 seconds. If they wanted to reduce the time to 40 seconds, what is the increase in speed?"
+    },
+    "9": {
+        "answer": "Answer / Explanation :\n\nAnswer : D.",
+        "option_texts": [
+            "A.    45m",
+            "B.    35m",
+            "C.    95m",
+            "D.    65m"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "10) A cheetah runs 100 metres in 3.5 seconds. A man runs the same distance in 10 seconds. During a 100 metre race, when the cheetah crossed the finishing line, how far back was the man?"
+    }
+}

@@ -12,6 +12,15 @@ password_hash
 urole
 confirmed
 confirmed_on
+proficiency
+}
+
+entity Response {
+*id
+--
+userID
+optId
+qnId
 }
 
 entity Question {
@@ -19,6 +28,10 @@ entity Question {
 --
 question
 score
+discrimination
+difficulty
+guessing
+upper
 }
 
 entity Option {
@@ -32,7 +45,7 @@ entity Answer {
 *id
 --
 optId
-userID
+qnId
 }
 
 entity Post {
@@ -55,10 +68,14 @@ classID
 userID
 }
 
-User ||--|{ Answer
+User ||--|{ Response
 
-Answer ||--|{ Option
+Response }|--|| Option
+Response }|--|| Question
 Option }|--|| Question
+Answer ||--|| Question
+Option ||--|| Answer
+
 
 User ||--|{ UserClass
 Class ||--|{ UserClass

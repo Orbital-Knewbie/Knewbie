@@ -1,0 +1,112 @@
+{
+    "0": {
+        "answer": "Answer / Explanation :\n\nAnswer : B.\n\nThe solid has one flat face and one curved face.",
+        "option_texts": [
+            "A.    2",
+            "B.    3",
+            "C.    4",
+            "D.    6"
+        ],
+        "question_img_src": "https://raffles.guru/image/exams/maths/psle/measurement-q1.png",
+        "question_text": "1)\n\nThe solid shown in the figure above has ___ faces."
+    },
+    "1": {
+        "answer": "Answer / Explanation :\n\nAnswer : C.\n\nPrice of one pen = 7 / 2 = $3.50.\nPrice of 5 pens = 5 X 3.50 = $17.50.",
+        "option_texts": [
+            "A.    $10.00",
+            "B.    $14.00",
+            "C.    $17.50",
+            "D.    $19.50"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "2) Abi bought two pens for $7. How much did she has to pay if she had bought 5 pens instead?"
+    },
+    "2": {
+        "answer": "Answer / Explanation :\n\nAnswer : B.\n\nArea of square = 6y X 6y = 36y2.",
+        "option_texts": [
+            "A.    6y2",
+            "B.    36y2",
+            "C.    12y2",
+            "D.    60y2"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "3) The area of a square of side 6y is ____ cm2."
+    },
+    "3": {
+        "answer": "Answer / Explanation :\n\nAnswer : C.\n\n9 X 9 X 9 = 729\nArea of one face of the cube = 9 X 9 = 81\nTotal surface area (ie., total area of six faces) = 6 X 81 = 486cm2.",
+        "option_texts": [
+            "A.    324cm2",
+            "B.    81cm2",
+            "C.    486cm2",
+            "D.    927cm2"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "4) The volume of a cube is 729cm3. Its total surface area is ______ cm2."
+    },
+    "4": {
+        "answer": "Answer / Explanation :\n\nAnswer : B.\n\nSide of the cube = 4cm.\nVolume of the cube = 4 X 4 X 4 = 64cm3.",
+        "option_texts": [
+            "A.    16cm3",
+            "B.    4cm3",
+            "C.    64cm3",
+            "D.    96cm3"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "5) What is the volume of a cube if the area of one face is 16cm2?"
+    },
+    "5": {
+        "answer": "Answer / Explanation :\n\nAnswer : A.\n\nThe base and height of the triangle are given. Area of triangle = 1/2 X Base X Height = 1/2 X 17 X 8 = 68cm2.",
+        "option_texts": [
+            "A.    68cm2",
+            "B.    60cm2",
+            "C.    120cm2",
+            "D.    136cm2"
+        ],
+        "question_img_src": "https://raffles.guru/image/exams/maths/psle/measurement-q6.png",
+        "question_text": "6)\n\nFind the area of the figure above."
+    },
+    "6": {
+        "answer": "Answer / Explanation :\n\nAnswer : B.\n\nTotal length of longest piece and second piece = 87 - 15 = 72cm.\nLength of second piece = 72 / 3 = 24cm.\nLength of longest piece = 24 X 2 = 48cm.",
+        "option_texts": [
+            "A.    72cm",
+            "B.    48cm",
+            "C.    30cm",
+            "D.    24cm"
+        ],
+        "question_img_src": "https://raffles.guru/image/blank.gif",
+        "question_text": "7) A piece of rope 87cm is cut into 3 parts. If the longest piece is twice the length of the second piece and the shortest piece is 15cm, find the length of the longest piece of rope."
+    },
+    "7": {
+        "answer": "Answer / Explanation :\n\nAnswer : D.\n\nSplit the rectanlge diagnally into two halves and focus only on the left half. Now, deduct the area of the unshaded triangle from the half portion of the rectangle.\nArea of half of the rectangel = 1/2 X 16 X 12 = 96cm2\nArea of unshaded triangle = 1/2 X 10 X 12 = 60cm2\nHence, area of shaded portion = 96 - 60 = 36cm2",
+        "option_texts": [
+            "A.    192cm2",
+            "B.    60cm2",
+            "C.    96cm2",
+            "D.    36cm2"
+        ],
+        "question_img_src": "https://raffles.guru/image/exams/maths/psle/measurement-q8.png",
+        "question_text": "8)\n\nWhat is the area of the shaded portion of the above figure?"
+    },
+    "8": {
+        "answer": "Answer / Explanation :\n\nAnswer : D.\n\nSplit the unshaded portion into two triangles. Find the area of those two triangles separately and add them up. Remember that each division in the graph is equal to 2cm.\nArea of the top triangle = 1/2 X 10 X 2 = 10cm2\nArea of the bottom triangle = 1/2 X 10 X 4 = 20cm2\nHence, area of shaded portion = 10 + 20 = 30cm2",
+        "option_texts": [
+            "A.    60cm2",
+            "B.    48cm2",
+            "C.    36cm2",
+            "D.    30cm2"
+        ],
+        "question_img_src": "https://raffles.guru/image/exams/maths/psle/measurement-q9.png",
+        "question_text": "9)\n\nWhat is the area of the shaded portion of the above figure?"
+    },
+    "9": {
+        "answer": "Answer / Explanation :\n\nAnswer : B.\n\nWhen you simply ignore the length of the diagnals given, this is a straight forward question. The base and height of the triangle are given. Area of triangle = 1/2 X Base X Height = 1/2 X 12 X 8 = 48cm2.",
+        "option_texts": [
+            "A.    80cm2",
+            "B.    48cm2",
+            "C.    60cm2",
+            "D.    96cm2"
+        ],
+        "question_img_src": "https://raffles.guru/image/exams/maths/psle/measurement-q10.png",
+        "question_text": "10)\n\nWhat is the area of triangle PQR above?"
+    }
+}
