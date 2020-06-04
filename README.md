@@ -47,6 +47,3 @@ flask run
 ## Built With
 
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/) - The web framework used
-
-
-test pull request
