@@ -27,7 +27,6 @@ entity Question {
 *id
 --
 question
-score
 discrimination
 difficulty
 guessing
@@ -51,6 +50,7 @@ qnId
 entity Post {
 *id
 --
+userclassID
 title
 content
 }

@@ -12,15 +12,7 @@ class User(UserMixin, db.Model):
     urole = db.Column(db.String(80))
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime, nullable=True)
-
-    def __init__(self, email,firstName, lastName, urole, confirmed=False, admin=False, confirmed_on=None ):
-        self.email = email
-        self.firstName = firstName
-        self.lastName = lastName
-        self.urole = urole
-        self.admin = admin
-        self.confirmed = confirmed
-        self.confirmed_on = confirmed_on
+    admin = db.Column(db.Boolean, nullable=False, default=False)
 
     def __repr__(self):
         return '<User {}>'.format(self.firstName)
@@ -47,19 +39,40 @@ class User(UserMixin, db.Model):
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String(255), index=True, unique=True)
-    score = db.Column(db.Float)
+    discrimination = db.Column(db.Float)
+    difficulty = db.Column(db.Float)
+    guessing = db.Column(db.Float)
+    upper = db.Column(db.Float)
 
     #type = db.Column(db.String(16), index=True, unique=True)
 
 class Option(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    qnId = db.Column(db.Integer)
+    qnID = db.Column(db.Integer)
     option = db.Column(db.String(255))
 
 class Answer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    optId = db.Column(db.Integer)
+    optID = db.Column(db.Integer)
+    qnID = db.Column(db.Integer)
+
+class Response(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     userID = db.Column(db.Integer)
+    optID = db.Column(db.Integer)
+    qnID = db.Column(db.Integer)
+
+
+class UserClass(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    classID = db.Column(db.Integer)
+    userID = db.Column(db.Integer)
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    userclassID = db.Column(db.Integer)
+    title = db.Column(db.String(120))
+    content = db.Column(db.String(140))
 
 @login.user_loader
 def load_user(id):
