@@ -1,10 +1,11 @@
 from app import db
 from app.models import Question, Option, Answer, Response
-from copy import deepcopy
+from app.cat import Student
+
 from random import choice, shuffle
 from catsim.cat import generate_item_bank
 
-import glob, os, json, numpy
+import glob, os, json
 
 org_qns = {
     "Fill in the blank: 423 x 1000 = ____ x 10": {
@@ -117,7 +118,7 @@ org_qns = {
     }
 }
 
-def remove_qn():
+def clear_questions():
     for q in Question.query.all():
         db.session.delete(q)
         db.session.commit()
@@ -133,8 +134,16 @@ def clear_responses():
         db.session.delete(r)
     db.session.commit()
 
-def add_qn():
-    remove_qn()
+clear_responses()
+
+def add_qn(questions):
+    '''Adds questions to the database, where questions are formatted to be in a dictionary
+    {<question>:{'answer':<options>,'difficulty':<difficulty>}
+    <questions> is str
+    <options> is list of str
+    <difficulty> is float (not added yet)
+    '''
+    #remove_qn()
     if Question.query.all(): return
     for q in org_qns.keys():
         item = generate_item_bank(1)[0]
@@ -155,35 +164,11 @@ def add_qn():
             
             db.session.commit()
 
-#add_qn()
-
-def get_qns():
-    d = {}
-    questions = Question.query.all()
-    for q in questions:
-        opt = Option.query.filter_by(qnId=q.id).all()
-        d[q.question] = {}
-        d[q.question]["answers"] = []
-        for o in opt:
-            #if (Answer.query.filter(optId=o.Id)):
-            #    d[q.question].insert(0, opt.option)
-            d[q.question]["answers"].append(o.option)
- 
-    return d
-
-#og_qns = get_qns()
-#qns = deepcopy(og_qns)
-
-def final_qns():
-    sh_qns = og_qns.keys()
-    shuffle(sh_qns)
-    for k in qns.keys():
-        shuffle(qns[k]['answers'])
-    return sh_qns, qns
-
-#remove_qn()
-
 def insert_qns():
+    '''Inserts questions formatted as a json file
+    {<number>:{'answer':<extra text><answer>,'option_texts':<extra text><options>, 'question_text':<extra text><question><extra text>}}
+    all are strings
+    '''
     path = 'app/static/resources/questions'
     qn_dict = {}
     for filename in glob.glob(os.path.join(path, '*.json')):
@@ -220,12 +205,8 @@ def insert_qns():
 
                 db.session.commit()
 
-                #print (qn_text)
-                #print(options)
-                #print(answer)
-                #print(explanation)
-
-def test_insert():
+def test_insert_qns():
+    '''To test insert_qns() works'''
     insert_qns()
     questions = Question.query.all()
     for q in questions:
@@ -239,17 +220,32 @@ def test_insert():
 
         print("ANS" + o.option)
 
-#test_insert()
+#test_insert_qns()
 
 
-def get_items():
-    questions = Question.query.all()
-    get_dis = lambda x:x.discrimination
-    get_diff = lambda x:x.difficulty
-    get_guess = lambda x:x.guessing
-    get_upp = lambda x:x.upper
-    get_params = [get_dis, get_diff, get_guess, get_upp]
-    items = [[get(qn) for get in get_params] for qn in questions]
-    return numpy.array(items)
+def get_question_options(student):
+    '''Retrieve Question and Option from Database'''
+    # Get the Question
+    qnid = student.get_next_question()
+    question = Question.query.filter_by(id=qnid).first()
+    qn_txt = question.question
 
-clear_responses()
+    # Get the Options
+    options_query = Option.query.filter_by(qnID=qnid).all()
+    shuffle(options_query)
+    options = {x.id : x.option for x in options_query}
+
+    return qn_txt, options
+
+def submit_response(id, form):
+    '''Submit Response to Database'''
+    # Get the submitted Option
+    optID = form.get('option')
+    option = Option.query.filter_by(id=optID).first()
+
+    # Create a Response entry
+    response = Response(userID=id,optID=option.id,qnID=option.qnID)
+
+    # Save to DB
+    db.session.add(response)
+    db.session.commit()

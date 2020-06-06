@@ -37,18 +37,21 @@ class User(UserMixin, db.Model):
             return None
         return User.query.get(user_id)
 
-   
-    def get_responses(self):
-        return Response.query.filter_by(userID=self.id).all()
-
     def get_AI_responses(self):
+        '''Method to retrive Administered Items (AI) and response vector'''
+
+        # Retrieve stored responses from DB
         responses = Response.query.filter_by(userID=self.id).all()
+        # Get AI / qnID from Responses
         AI = [x.qnID for x in responses]
+
+        # Compare all responses with correct answer and store in resp_vector - in order
         resp_vector = []
         for qn in AI:
             ans = Answer.query.filter_by(qnID=qn).first()
             resp = Response.query.filter_by(userID=self.id,qnID=qn).first()
             resp_vector.append(ans.optID==resp.optID)
+
         return AI, resp_vector
 
 
@@ -77,7 +80,6 @@ class Response(db.Model):
     userID = db.Column(db.Integer)
     optID = db.Column(db.Integer)
     qnID = db.Column(db.Integer)
-
 
 class UserClass(db.Model):
     id = db.Column(db.Integer, primary_key=True)
