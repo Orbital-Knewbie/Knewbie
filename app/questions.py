@@ -136,14 +136,14 @@ def clear_responses():
 
 clear_responses()
 
-def add_qn(questions):
+def add_qn(org_qns):
     '''Adds questions to the database, where questions are formatted to be in a dictionary
     {<question>:{'answer':<options>,'difficulty':<difficulty>}
     <questions> is str
     <options> is list of str
     <difficulty> is float (not added yet)
     '''
-    #remove_qn()
+    clear_questions()
     if Question.query.all(): return
     for q in org_qns.keys():
         item = generate_item_bank(1)[0]
@@ -163,6 +163,8 @@ def add_qn(questions):
                 b=False
             
             db.session.commit()
+
+#add_qn(org_qns)
 
 def insert_qns():
     '''Inserts questions formatted as a json file
