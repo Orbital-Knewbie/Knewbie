@@ -5,7 +5,7 @@ Routes and views for the flask application.
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
-from app.models import User, Question, Option, Answer
+from app.models import User, Question, Option, Answer, Response
 from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm
 from app.questions import final_qns
 from app.email import register, resend_conf, send_contact_email, send_reset_email
@@ -153,16 +153,39 @@ def quiz():
     theta = current_user.theta
     AI, responses = current_user.get_AI_responses()
     student = Student(id, theta, AI, responses)
+    print(student.stop())
+    if student.stop():
+        return redirect(url_for('result'))
     if request.method == 'GET':
         qnid = student.get_next_question()
+        #print(qnid, type(qnid))
+        #print(Question.query.filter_by(id=1))
         question = Question.query.filter_by(id=qnid).first()
+        print(question)
         qn_txt = question.question
-        options = Option.query.filter_by(id=qnid).all()
-        opt_txt = [x.option for x in options]
-        #render_template('quiz.html', question=qn_txt, options=opt_txt)
+        options_query = Option.query.filter_by(qnID=qnid).all()
+        options = {x.id:x.option for x in options_query}
+        return render_template('quiz.html', question=qn_txt, options=options)
     elif request.method == 'POST':
-        pass
+        optID = request.form.get('option')
+        option = Option.query.filter_by(id=optID).first()
+        response = Response(userID=id,optID=option.id,qnID=option.qnID)
+
+
+        db.session.add(response)
+        db.session.commit()
+        return redirect(url_for('quiz'))
     return render_template('quiz.html', q = [], o = {})
+
+@app.route('/result')
+@login_required
+@check_confirmed
+def result():
+    id = current_user.id
+    AI, responses = current_user.get_AI_responses()
+
+    correct = responses.count(True)
+    return '<h1>Correct Answers: <u>' + str(correct) + '/' + str(len(responses)) + '<u></h1>'
 
 @app.route('/end', methods=['POST'])
 def end():

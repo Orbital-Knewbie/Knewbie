@@ -1,4 +1,5 @@
 from app.models import User, Question, Option, Answer, Response
+from app import db
 
 from catsim.simulation import *
 # initialization package contains different initial proficiency estimation strategies
@@ -11,6 +12,9 @@ from catsim.estimation import *
 from catsim.stopping import *
 
 from app.questions import get_items
+
+
+from random import choice
 
 # create a random proficiency initializer
 initializer = RandomInitializer()
@@ -35,24 +39,28 @@ class Student(object):
         self.responses = [] if responses is None else responses
 
     def get_next_question(self):
-        if self.theta is None:
-            self.theta = initializer.initialize()
+        #if self.theta is None:
+        #    self.theta = initializer.initialize()
+        # return a random question if no responses yet
+        if not self.responses:
+            qnIDs = db.session.query(Question.id).all()
+            return choice(qnIDs)[0]
+
         # get an estimated theta, given the answers to the dummy items
         new_theta = estimator.estimate(items=items, administered_items=self.AI, \
-           response_vector=self.responses)
+           response_vector=self.responses, est_theta=self.theta)
        
         # get the index of the next item to be administered to the current examinee, 
         # given the answers they have already given to the previous dummy items
         item_index = selector.select(items=items, administered_items=self.AI, \
            est_theta=self.theta)
+        
+        self.theta = new_theta
+
+        if not self.stop():
+            return item_index.item()
 
 
+    def stop(self):
         # get a boolean value pointing out whether the test should stop
-        _stop = stopper.stop(administered_items=items[self.AI], theta=self.theta)
-
-        if not _stop:
-            return item_index
-
-    def add_response(self, item, response):
-        self.AI.append(item)
-        self.responses.append(response)
+        return stopper.stop(administered_items=items[self.AI], theta=self.theta)

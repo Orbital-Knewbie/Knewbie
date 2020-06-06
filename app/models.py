@@ -42,13 +42,14 @@ class User(UserMixin, db.Model):
         return Response.query.filter_by(userID=self.id).all()
 
     def get_AI_responses(self):
-        responses = []
+        responses = Response.query.filter_by(userID=self.id).all()
         AI = [x.qnID for x in responses]
+        resp_vector = []
         for qn in AI:
-            ans = Answer.query.filter_by(userID=self.id,qnID=qn)
-            resp = Response.query.filter_by(userID=self.id,qnID=qn)
-            responses.append(ans.optID==resp.optID)
-        return AI, responses
+            ans = Answer.query.filter_by(qnID=qn).first()
+            resp = Response.query.filter_by(userID=self.id,qnID=qn).first()
+            resp_vector.append(ans.optID==resp.optID)
+        return AI, resp_vector
 
 
 class Question(db.Model):

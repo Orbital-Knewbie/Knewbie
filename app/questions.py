@@ -1,10 +1,10 @@
 from app import db
-from app.models import Question, Option, Answer
+from app.models import Question, Option, Answer, Response
 from copy import deepcopy
 from random import choice, shuffle
 from catsim.cat import generate_item_bank
 
-import glob, os, json
+import glob, os, json, numpy
 
 org_qns = {
     "Fill in the blank: 423 x 1000 = ____ x 10": {
@@ -128,6 +128,11 @@ def remove_qn():
         db.session.delete(q)
         db.session.commit()
 
+def clear_responses():
+    for r in Response.query.all():
+        db.session.delete(r)
+    db.session.commit()
+
 def add_qn():
     remove_qn()
     if Question.query.all(): return
@@ -246,3 +251,5 @@ def get_items():
     get_params = [get_dis, get_diff, get_guess, get_upp]
     items = [[get(qn) for get in get_params] for qn in questions]
     return numpy.array(items)
+
+clear_responses()
