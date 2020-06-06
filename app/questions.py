@@ -2,6 +2,9 @@ from app import db
 from app.models import Question, Option, Answer
 from copy import deepcopy
 from random import choice, shuffle
+from catsim.cat import generate_item_bank
+
+import glob, os, json
 
 org_qns = {
     "Fill in the blank: 423 x 1000 = ____ x 10": {
@@ -126,19 +129,28 @@ def remove_qn():
         db.session.commit()
 
 def add_qn():
-    #remove_qn()
+    remove_qn()
     if Question.query.all(): return
     for q in org_qns.keys():
-        qn = Question(question=q)
+        item = generate_item_bank(1)[0]
+        qn = Question(question=q, discrimination=item[0], \
+                    difficulty=item[1], guessing=item[2], upper=item[3])
         db.session.add(qn)
         db.session.commit()
         qid = Question.query.filter_by(question=q).first().id
+        b=True
         for o in org_qns[q]['answers']:
-            o=Option(qnId=qid,option=o)
-            db.session.add(o)
+            opt=Option(qnID=qid,option=o)
+            db.session.add(opt)
+            if b:
+                optID = Option.query.filter_by(option=o).first().id
+                ans = Answer(qnID=qid, optID=optID)
+                db.session.add(ans)
+                b=False
+            
             db.session.commit()
 
-add_qn()
+#add_qn()
 
 def get_qns():
     d = {}
@@ -154,8 +166,8 @@ def get_qns():
  
     return d
 
-og_qns = get_qns()
-qns = deepcopy(og_qns)
+#og_qns = get_qns()
+#qns = deepcopy(og_qns)
 
 def final_qns():
     sh_qns = og_qns.keys()
@@ -164,3 +176,73 @@ def final_qns():
         shuffle(qns[k]['answers'])
     return sh_qns, qns
 
+#remove_qn()
+
+def insert_qns():
+    path = 'app/static/resources/questions'
+    qn_dict = {}
+    for filename in glob.glob(os.path.join(path, '*.json')):
+        print("===")
+        print(filename)
+        print("===")
+        with open(filename, 'r') as f: # open in readonly mode
+            data = json.load(f)
+            for qn_set in data.values():
+                qn_txt = qn_set["question_text"]
+                n, qn_text = qn_txt.split(")",1)
+                options = qn_set["option_texts"]
+                options = [[o[0], o[6:]] for o in options]
+                
+                answer = qn_set["answer"]
+                a, answer = answer.split("Answer / Explanation :\n\nAnswer : ", 1)
+                answer, explanation = answer.split(".", 1)
+
+                item = generate_item_bank(1)[0]
+
+                question = Question(question=qn_text, discrimination=item[0], \
+                    difficulty=item[1], guessing=item[2], upper=item[3])
+                db.session.add(question)
+
+                qid = Question.query.filter_by(question=qn_text).first().id
+
+                for opt in options:
+                    o = Option(qnID=qid, option=opt[1])
+                    db.session.add(o)
+                    if opt[0] == answer:
+                        optID = Option.query.filter_by(option=opt[1]).first().id
+                        ans = Answer(qnID=qid, optID=optID)
+                        db.session.add(ans)
+
+                db.session.commit()
+
+                #print (qn_text)
+                #print(options)
+                #print(answer)
+                #print(explanation)
+
+def test_insert():
+    insert_qns()
+    questions = Question.query.all()
+    for q in questions:
+        options = Option.query.filter_by(qnID=q.id)
+        answer = Answer.query.filter_by(qnID=q.id).first()
+        print(q.question)
+        for o in options:
+            if o.id == answer.optID:
+                ans_opt = o
+            print(o.option)
+
+        print("ANS" + o.option)
+
+#test_insert()
+
+
+def get_items():
+    questions = Question.query.all()
+    get_dis = lambda x:x.discrimination
+    get_diff = lambda x:x.difficulty
+    get_guess = lambda x:x.guessing
+    get_upp = lambda x:x.upper
+    get_params = [get_dis, get_diff, get_guess, get_upp]
+    items = [[get(qn) for get in get_params] for qn in questions]
+    return numpy.array(items)

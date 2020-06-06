@@ -27,6 +27,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="app\cat.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\forms.py">
       <SubType>Code</SubType>
     </Compile>
@@ -55,7 +58,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="migrations\env.py" />
-    <Compile Include="migrations\versions\c49913c2f7b5_initial_db.py" />
+    <Compile Include="migrations\versions\a565ea52cf5e_init_db.py" />
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
@@ -158,7 +161,6 @@
     <Content Include="migrations\env.pyc" />
     <Content Include="migrations\README" />
     <Content Include="migrations\script.py.mako" />
-    <Content Include="migrations\versions\c49913c2f7b5_initial_db.pyc" />
     <Content Include="requirements.txt" />
     <Content Include="docs\UserGuide-Students.md" />
   </ItemGroup>

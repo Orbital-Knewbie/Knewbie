@@ -11,6 +11,7 @@ from app.questions import final_qns
 from app.email import register, resend_conf, send_contact_email, send_reset_email
 from app.token import confirm_token
 from app.decorator import check_confirmed
+from app.cat import Student
 from flask_mail import Message
 import json, datetime
 
@@ -143,12 +144,25 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route('/quiz')
+@app.route('/quiz', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
 def quiz():
-    sh_qns, qns = final_qns()
-    return render_template('quiz.html', q = sh_qns, o = qns)
+    #sh_qns, qns = final_qns()
+    id = current_user.id
+    theta = current_user.theta
+    AI, responses = current_user.get_AI_responses()
+    student = Student(id, theta, AI, responses)
+    if request.method == 'GET':
+        qnid = student.get_next_question()
+        question = Question.query.filter_by(id=qnid).first()
+        qn_txt = question.question
+        options = Option.query.filter_by(id=qnid).all()
+        opt_txt = [x.option for x in options]
+        #render_template('quiz.html', question=qn_txt, options=opt_txt)
+    elif request.method == 'POST':
+        pass
+    return render_template('quiz.html', q = [], o = {})
 
 @app.route('/end', methods=['POST'])
 def end():

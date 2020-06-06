@@ -13,6 +13,7 @@ class User(UserMixin, db.Model):
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime, nullable=True)
     admin = db.Column(db.Boolean, nullable=False, default=False)
+    theta = db.Column(db.Float)
 
     def __repr__(self):
         return '<User {}>'.format(self.firstName)
@@ -35,6 +36,20 @@ class User(UserMixin, db.Model):
         except:
             return None
         return User.query.get(user_id)
+
+   
+    def get_responses(self):
+        return Response.query.filter_by(userID=self.id).all()
+
+    def get_AI_responses(self):
+        responses = []
+        AI = [x.qnID for x in responses]
+        for qn in AI:
+            ans = Answer.query.filter_by(userID=self.id,qnID=qn)
+            resp = Response.query.filter_by(userID=self.id,qnID=qn)
+            responses.append(ans.optID==resp.optID)
+        return AI, responses
+
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
