@@ -19,6 +19,7 @@ sudo rm -rf /etc/apt/apt.conf.d/20snapd.conf
 ```
 sudo apt-get install build-essential
 sudo apt-get install libsqlite3-dev 
+sudo apt-get install zlib1g-dev
 sudo apt-get remove python3.6
 cd /tmp && wget https://www.python.org/ftp/python/3.6.10/Python-3.6.10.tgz
 tar -xvf Python-3.6.10.tgz
