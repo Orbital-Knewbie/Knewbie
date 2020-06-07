@@ -28,7 +28,7 @@ matplotlib==3.2.1
 numexpr==2.7.1
 numpy==1.18.5
 plantuml==0.3.0
-psycopg2==2.8.5
+psycopg2-binary==2.8.5
 pycparser==2.20
 PyJWT==1.7.1
 pyparsing==2.4.7
