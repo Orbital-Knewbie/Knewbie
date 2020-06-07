@@ -14,12 +14,14 @@ Setting up on WSL notably produces some errors if the installation steps were to
 ```
 sudo rm -rf /etc/apt/apt.conf.d/20snapd.conf
 ```
-2. Due to the [Common Build Problems using `pyenv`](https://github.com/pyenv/pyenv/wiki/Common-build-problems), if using Linux/WSL, there is a need to install `libsqlite3-dev` before getting started. See this [StackOverflow answer](https://stackoverflow.com/questions/39907475/cannot-import-sqlite3-in-python3) for more information regarding the commands used.
-###### Linux/WSL only
+2. Due to the [Common Build Problems using `pyenv`](https://github.com/pyenv/pyenv/wiki/Common-build-problems), if using Ubuntu/WSL, there is a need to install packages before getting started. See this [StackOverflow answer](https://stackoverflow.com/questions/39907475/cannot-import-sqlite3-in-python3) for more information regarding the commands used.
+###### Ubuntu/WSL only
 ```
-sudo apt-get install build-essential
-sudo apt-get install libsqlite3-dev 
-sudo apt-get install zlib1g-dev
+sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
+libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
+```
+```
 sudo apt-get remove python3.6
 cd /tmp && wget https://www.python.org/ftp/python/3.6.10/Python-3.6.10.tgz
 tar -xvf Python-3.6.10.tgz
