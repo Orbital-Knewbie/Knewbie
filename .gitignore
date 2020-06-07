@@ -33,3 +33,6 @@ bld/
 # venv
 env/
 venv/
+
+# temp db
+*.db-journal

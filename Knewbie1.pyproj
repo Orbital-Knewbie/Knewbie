@@ -27,6 +27,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="app\cat.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\forms.py">
       <SubType>Code</SubType>
     </Compile>
@@ -55,10 +58,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="migrations\env.py" />
-    <Compile Include="migrations\versions\c49913c2f7b5_initial_db.py" />
+    <Compile Include="migrations\versions\a565ea52cf5e_init_db.py" />
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="app\static\content\createstyle.css" />
     <Content Include="app\static\content\dashboardstyle.css" />
     <Content Include="app\static\content\errorstyle.css" />
@@ -71,6 +75,15 @@
     <Content Include="app\static\content\settingstyle.css" />
     <Content Include="app\static\resources\images\Student.svg" />
     <Content Include="app\static\resources\images\Teacher.svg" />
+    <Content Include="app\static\resources\questions\fractions-short-questions-001.php.json" />
+    <Content Include="app\static\resources\questions\geometry-short-questions-001.php.json" />
+    <Content Include="app\static\resources\questions\geometry-short-questions-002.php.json" />
+    <Content Include="app\static\resources\questions\geometry-short-questions-003.php.json" />
+    <Content Include="app\static\resources\questions\measurement-short-questions-001.php.json" />
+    <Content Include="app\static\resources\questions\measurement-short-questions-002.php.json" />
+    <Content Include="app\static\resources\questions\measurement-short-questions-003.php.json" />
+    <Content Include="app\static\resources\questions\percentage-short-questions-001.php.json" />
+    <Content Include="app\static\resources\questions\speed-short-questions-001.php.json" />
     <Content Include="app\static\scripts\animation.gsap.min.js" />
     <Content Include="app\static\scripts\quiz.js" />
     <Content Include="app\static\scripts\jquery.min.js" />
@@ -81,14 +94,8 @@
     <Content Include="app\static\resources\fonts\Raleway-Regular.woff" />
     <Content Include="app\static\resources\fonts\roboto-regular.woff" />
     <Content Include="app\static\resources\fonts\Simplifica.ttf" />
-    <Content Include="app\static\resources\illustrator\Character Design.ai" />
-    <Content Include="app\static\resources\illustrator\Knewbie BG.ai" />
-    <Content Include="app\static\resources\illustrator\Newbie Logo.ai" />
-    <Content Include="app\static\resources\illustrator\templates\2234581.ai" />
-    <Content Include="app\static\resources\illustrator\templates\3647050.ai" />
     <Content Include="app\static\resources\images\BG.svg" />
     <Content Include="app\static\resources\images\Logo.svg" />
-    <Content Include="app\static\resources\Knewbie Prototype v1.0.xd" />
     <Content Include="app\static\content\style.css" />
     <Content Include="app\templates\changepassword.html" />
     <Content Include="app\templates\dashboard.html" />
@@ -154,7 +161,6 @@
     <Content Include="migrations\env.pyc" />
     <Content Include="migrations\README" />
     <Content Include="migrations\script.py.mako" />
-    <Content Include="migrations\versions\c49913c2f7b5_initial_db.pyc" />
     <Content Include="requirements.txt" />
     <Content Include="docs\UserGuide-Students.md" />
   </ItemGroup>
@@ -172,11 +178,10 @@
   <ItemGroup>
     <Folder Include="app\" />
     <Folder Include="app\static\" />
+    <Folder Include="app\static\resources\questions\" />
     <Folder Include="app\static\scripts\" />
     <Folder Include="app\static\resources\" />
     <Folder Include="app\static\resources\fonts\" />
-    <Folder Include="app\static\resources\illustrator\" />
-    <Folder Include="app\static\resources\illustrator\templates\" />
     <Folder Include="app\static\resources\images\" />
     <Folder Include="app\static\content\" />
     <Folder Include="app\templates\" />

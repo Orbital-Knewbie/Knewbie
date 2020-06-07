@@ -3,39 +3,36 @@
 <link rel="stylesheet" href="../static/content/quizstyle.css">
 {% endblock %}
 {% block content %}
-<!--<form action='/end' method='POST'>
-    <ol>
-        {% for i in q %}
-        <li>{{i}}</li>
-        {% for j in o[i]['answers'] %}
-        <input type='radio' value='{{j}}' name='{{i}}' />
-        {{j}} </br>
-        {% endfor %} </br>
-        {% endfor %}
-    </ol>
-    <input type="submit" value="submit" />
-</form>-->
 <div class="quiz-container">
     <div id="quiz" class="justify-center flex-column">
         <!--<h1>QUIZ TITLE</h1>-->
-        <h2 id="question">What is 1 + 1?</h2>
-        <div class="options-container">
-            <p class="options-prefix">A</p>
-            <p class="options">0</p>
-        </div>
-        <div class="options-container">
-            <p class="options-prefix">B</p>
-            <p class="options">2</p>
-        </div>
-        <div class="options-container">
-            <p class="options-prefix">C</p>
-            <p class="options">1</p>
-        </div>
-        <div class="options-container">
-            <p class="options-prefix">D</p>
-            <p class="options">3</p>
-        </div>
-        <a href="#" class="submit-btn" id="signupnow">SUBMIT</a>
+        <h2 id="question">{{question}}</h2>
+        <!--<div class="options-container">
+        <p class="options-prefix">A</p>
+        <p class="options">0</p>
+    </div>
+    <div class="options-container">
+        <p class="options-prefix">B</p>
+        <p class="options">2</p>
+    </div>
+    <div class="options-container">
+        <p class="options-prefix">C</p>
+        <p class="options">1</p>
+    </div>
+    <div class="options-container">
+        <p class="options-prefix">D</p>
+        <p class="options">3</p>
+    </div>-->
+        <form action="/quiz" target="result" method="post">
+            <ol>
+                {% for o in options %}
+                <li>
+                    <input type="radio" name="option" value="{{o}}"> {{options[o]}}
+                </li><br />
+                {% endfor %}
+            </ol>
+            <p><input class="submit-btn" type="submit" value="SUBMIT"></p>
+        </form>
     </div>
 
 </div>

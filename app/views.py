@@ -5,18 +5,20 @@ Routes and views for the flask application.
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
-from app.models import User, Question, Option, Answer
+from app.models import User, Question, Option, Answer, Response
 from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm
-from app.questions import final_qns
+from app.questions import get_question_options, submit_response
 from app.email import register, resend_conf, send_contact_email, send_reset_email
 from app.token import confirm_token
 from app.decorator import check_confirmed
+from app.cat import Student
 from flask_mail import Message
 import json, datetime
 
+
+# Route for main page functionalities
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
-#@login_required
 def home():
     """Renders the home page."""
     if current_user.is_authenticated:
@@ -36,25 +38,10 @@ def dashboard():
     """Renders the dashboard page."""
     return render_template('dashboard.html')
 
-@app.route('/settings')
-def settings():
-    """Renders the dashboard page."""
-    return render_template('settings.html')
-
 @app.route('/faq')
 def faq():
     """Renders the faq page."""
     return render_template('faq.html')
-
-@app.route('/create')
-def create():
-    """Renders the create page for educators."""
-    return render_template('create.html')
-
-@app.route('/error')
-def error():
-    """Renders the error page."""
-    return render_template('error.html')
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -66,6 +53,25 @@ def contact():
         return render_template('contact.html', success=True)
     return render_template('contact.html', form=form)
 
+@app.route('/error')
+def error():
+    """Renders the error page."""
+    return render_template('error.html')
+
+
+# Routes for account management
+@app.route('/settings')
+def settings():
+    """Renders the dashboard page."""
+    return render_template('settings.html')
+
+@app.route('/create')
+def create():
+    """Renders the create page for educators."""
+    return render_template('create.html')
+
+
+# Routes for Registration
 @app.route('/register')
 def reg():
     if current_user.is_authenticated:
@@ -143,24 +149,43 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route('/quiz')
+
+# Routes for Quiz
+@app.route('/quiz', methods=['GET', 'POST'])
 @login_required
 @check_confirmed
 def quiz():
-    sh_qns, qns = final_qns()
-    return render_template('quiz.html', q = sh_qns, o = qns)
+    # userID, theta (proficiency), Admistered Items (AI), response vector
+    id = current_user.id
+    theta = current_user.theta
+    AI, responses = current_user.get_AI_responses()
+    student = Student(id, theta, AI, responses)
 
-@app.route('/end', methods=['POST'])
-def end():
-    totalEasy = len(tuple(filter(lambda x: og_qns[x]['difficulty'] == 'Easy', qns.keys())))
-    totalHard = len(qns.keys()) - totalEasy
-    correct = tuple(filter(lambda x: request.form.get(x) == og_qns[x]['answers'][0], qns.keys()))
-    easyCorrect = len(tuple(filter(lambda x: og_qns[x]['difficulty'] == 'Easy', correct)))
-    hardCorrect = len(correct) - easyCorrect
-    #hardCorrect = tuple(filter(lambda x: og_qns[x]['difficulty'] == 'Easy', correct))
-    
-    return '<h1>Correct Answers: <u>Easy: ' + str(easyCorrect) + '/' + str(totalEasy) + ' Hard:' + str(hardCorrect) + '/' + str(totalHard) + '<u></h1>'
+    # If enough questions already attempted, go to result
+    if student.stop():
+        return redirect(url_for('result'))
 
+    # If attempting the quiz, get the next unanswered question to display
+    if request.method == 'GET':
+        question, options = get_question_options(student)
+        return render_template('quiz.html', question=question, options=options)
+
+    # If submitting an attempted question
+    elif request.method == 'POST':
+        submit_response(id, request.form)
+        return redirect(url_for('quiz'))
+
+@app.route('/result')
+@login_required
+@check_confirmed
+def result():
+    AI, responses = current_user.get_AI_responses()
+
+    correct = responses.count(True)
+    return '<h1>Correct Answers: <u>' + str(correct) + '/' + str(len(responses)) + '<u></h1>'
+
+
+# Routes to reset password
 @app.route("/resetpassword", methods=['GET', 'POST'])
 def request_reset_password():
      if current_user.is_authenticated:
