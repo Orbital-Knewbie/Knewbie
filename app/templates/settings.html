@@ -18,12 +18,13 @@
             <form>
                 <ul>
                     <li class="large padding avatar">
-                        <span></span>
+                        <span><img src="{{ image_file }}"/></span>
                         <div>
 
                             <fieldset class="settings-button center">
                                 <div>
-                                    <button>Change Image</button>
+                                    <!--<button>Change Image</button>-->
+                                    {{ form.image }}
                                 </div>
                                 <div>
                                     <button>Request A New Knewbie ID</button>
@@ -35,7 +36,7 @@
                     <li>
                         <fieldset class="settings-input">
                             <div>
-                                <input required type="text" value="John" />
+                                {{ form.firstName }}
                                 <label>First Name</label>
                                 <hr />
                             </div>
@@ -45,7 +46,7 @@
                     <li>
                         <fieldset class="settings-input">
                             <div>
-                                <input required type="text" value="Doe" />
+                                {{ form.lastName }}
                                 <label>Last Name</label>
                                 <hr />
                             </div>
@@ -56,7 +57,7 @@
                     <li class="large padding">
                         <fieldset class="settings-button center">
                             <div>
-                                <input class="save" type="submit" value="Save" />
+                                {{ form.submit(class_="save") }}
                             </div>
                         </fieldset>
                     </li>
@@ -71,7 +72,7 @@
                     <li>
                         <fieldset class="settings-input">
                             <div>
-                                <input required type="email" value="current@user.email" />
+                                <input required type="email" value="{{ current_user.email }}" />
                                 <label>Email</label>
                                 <hr />
                             </div>

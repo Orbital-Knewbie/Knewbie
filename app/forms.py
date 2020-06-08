@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, MultipleFileField, SelectField
+from flask_login import current_user
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, FileField, MultipleFileField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models import User
 
@@ -60,3 +61,31 @@ class CreateQnForm(FlaskForm):
     corrOp = SelectField('Correct Option', choices=[('nth', 'Select Correct Option'), ('Op1', 'Option 1'), ('Op2', 'Option 2'), ('Op3', 'Option 3'), ('Op4', 'Option 4')], validators=[DataRequired()])
     img = MultipleFileField('Attach Image')
     submit = SubmitField('Create Question')
+
+class UpdateProfileForm(FlaskForm):
+    firstName = StringField('First Name', validators=[DataRequired()])
+    lastName = StringField('Last Name', validators=[DataRequired()])
+    image = FileField('Change Image')
+    submit = SubmitField('Save')
+
+class UpdateAccountForm(FlaskForm):
+    firstName = StringField('First Name', validators=[DataRequired()])
+    lastName = StringField('Last Name', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Current Password', validators=[DataRequired()])
+    password1 = PasswordField('New Password', validators=[DataRequired()])
+    password2 = PasswordField(
+        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Save')
+
+    def validate_password(self, password_hash):
+        if password.data != current_user.password_hash:
+            user = User.query.filter_by(password_hash=password.data).first()
+            if user is not None:
+                raise ValidationError('Please use a different username.')
+
+    def validate_email(self, email):
+        if email.data != current_user.email:
+            user = User.query.filter_by(email=email.data).first()
+            if user is not None:
+                raise ValidationError('Email is the same. Please use a different email address.')

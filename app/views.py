@@ -6,7 +6,7 @@ from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
 from app.models import User, Question, Option, Answer, Response
-from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm, CreateQnForm
+from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm, CreateQnForm, UpdateAccountForm, UpdateProfileForm
 from app.questions import get_question_options, submit_response
 from app.email import register, resend_conf, send_contact_email, send_reset_email
 from app.token import confirm_token
@@ -14,6 +14,8 @@ from app.decorator import check_confirmed
 from app.cat import Student
 from flask_mail import Message
 import json, datetime
+import os
+import secrets
 
 
 # Route for main page functionalities
@@ -36,12 +38,34 @@ def home():
 @app.route('/dashboard')
 def dashboard():
     """Renders the dashboard page."""
-    return render_template('dashboard.html')
+    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    return render_template('dashboard.html', image_file=image_file)
 
-@app.route('/settings')
+def update_image(form_image):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_image.filename)
+    image_filename = random_hex + f_ext
+    image_path = os.path.join(app.root_path, 'static/resources/images/profile_pics', image_filename)
+    form_image.save(image_path)
+    return image_filename
+
+@app.route('/settings', methods=['GET', 'POST'])
 def settings():
     """Renders the dashboard page."""
-    return render_template('settings.html', title=' | Settings')
+    form = UpdateProfileForm()
+    if form.validate_on_submit():
+        if form.image.data:
+            image_file = update_image(form.image.data)
+            current_user.image_dile = image_file
+        current_user.firstName = form.firstName.data
+        current_user.lastName = form.lastName.data
+        flash('Your profile has been successfully updated!', 'success')
+        return redirect(url_for('settings'))
+    elif request.method == 'GET':
+        form.firstName.data = current_user.firstName
+        form.lastName.data = current_user.lastName
+    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    return render_template('settings.html', title=' | Settings', image_file=image_file, form=form)
 
 @app.route('/faq')
 def faq():

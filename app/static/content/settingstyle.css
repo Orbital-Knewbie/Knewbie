@@ -18,7 +18,7 @@ body {
     align-items: center;
     align-content: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--LIGHTPURPLE) 0%, var(--PURPLE) 50%, var(--DARKPURPLE) 100%);
+    background: var(--OFFWHITE);
     font-family: 'Montserrat', sans-serif;
     font-size: 1.5rem;
     perspective: 1000px;
@@ -37,8 +37,6 @@ a, button, input[type="submit"] {
 
 #settings {
     opacity: 1;
-    transform-origin: center top;
-    animation: rotateIn 1000ms cubic-bezier(0.215, 0.61, 0.355, 1) 500ms forwards;
     position: relative;
     display: flex;
     flex-flow: row wrap;
@@ -270,11 +268,10 @@ section.upcoming h1 {
     align-items: center;
 }
 
-.avatar span {
-    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/6035/scrtpxls_location.png');
+.avatar span img {
     display: block;
-    width: 15rem;
-    height: 15rem;
+    width: 200px;
+    height: 200px;
     background-position: center center;
     background-size: cover;
     border-radius: 50%;
@@ -440,18 +437,6 @@ section.upcoming h1 {
 
 .deactivate-button {
     margin-top: 2rem;
-}
-
-@keyframes rotateIn {
-    0% {
-        opacity: 0;
-        transform: rotateX(30deg) rotateY(30deg) translateY(300px) translateZ(200px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: none;
-    }
 }
 
 @keyframes slideIn {

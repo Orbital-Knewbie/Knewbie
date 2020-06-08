@@ -15,11 +15,11 @@
 <div class="container">
     <section class="box">
         <div class="avatar">
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/6035/scrtpxls_location.png" />
+            <img src="{{ image_file }}" style="width: 200px; height: 200px" />
         </div>
         <div class="details">
-            <h2>John Doe</h2>
-            <p>Unique ID: </p>
+            <h2>{{ current_user.firstName }} {{ current_user.lastName }}</h2>
+            <p>Unique ID: {{ current_user.knewbie_id }} </p>
             <a href="#" class="btn">Progress Report</a>
         </div>
     </section>

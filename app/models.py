@@ -1,3 +1,6 @@
+import string
+import secrets
+import random
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from app import db, login, app
 from flask_login import UserMixin
@@ -12,6 +15,8 @@ class User(UserMixin, db.Model):
     urole = db.Column(db.String(80))
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime, nullable=True)
+    knewbie_id = db.Column(db.String(8), nullable=False, unique=True)
+    image_file = db.Column(db.String(20), nullable=False, default='profileimg.jpg')
     admin = db.Column(db.Boolean, nullable=False, default=False)
     theta = db.Column(db.Float)
 
@@ -36,6 +41,16 @@ class User(UserMixin, db.Model):
         except:
             return None
         return User.query.get(user_id)
+
+    def knewbie_id(self):
+        alphabet = string.ascii_letters + string.digits
+        while True:
+            self.knewbie_id = ''.join(secrets.choice(alphabet) for i in range(8))
+            if (any(c.islower() for c in id)
+                    and any(c.isupper() for c in password)
+                    and sum(c.isdigit() for c in password) >= 3):
+                break
+        return self.knewbie_id
 
     def get_AI_responses(self):
         '''Method to retrive Administered Items (AI) and response vector'''
