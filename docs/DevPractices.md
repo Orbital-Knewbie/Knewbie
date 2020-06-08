@@ -5,22 +5,22 @@ This document serves to inform on the Project Management and Technical Developme
 Software Development is a complex topic that has many models and frameworks. Thankfully for Orbital and our Mentor, the development team had a chance to learn about the many practices used in Software Engineering.
 This section will explain the methodologies and frameworks used in project management.
 ### Scrum (Agile Model)
-![Scrum](/images/Scrum.png)<br>
-[Scrum](https://en.wikipedia.org/wiki/Scrum_(software_development) is a framework used under the [Agile software development model](https://en.wikipedia.org/wiki/Agile_software_development), 
+![Scrum](/docs/images/Scrum.png)<br>
+[Scrum](https://en.wikipedia.org/wiki/Scrum_(software_development)) is a framework used under the [Agile software development model](https://en.wikipedia.org/wiki/Agile_software_development), 
 and the general process can be explained in the diagram above. It serves to break a team's work into goals that can be achieved within a certain time frame.
 For our project, Orbital is already designed to have three one-month long periods between each Milestone submission. 
 With only 2 members in the team and just 3 months to complete the project, there needs to be an adjustment to the framework to for our needs. 
 This includes having both members as part of the Development Team, with 1 member taking the role of the Product Manager, and the other taking the role of the Scrum Master.
 
 ### Kanban Boards
-![Kanban](/images/Kanban.png)<br>
+![Kanban](/docs/images/Kanban.png)<br>
 Unsurprisingly, GitHub is used as the host for version control with Git, so its features should be used to a great extent in terms of the software engineering aspect of the project.
 [Kanban boards](https://en.wikipedia.org/wiki/Kanban_board) are a feature used under the Projects section of each GitHub repository, and are extremely useful in providing an overview of the work at various stages of the project.
 
 ### UML Diagrams
 For most people, reading long lines of text to explain a concept can be downright impossible without any diagrams. 
-This project also then uses [UML Diagrams](https://en.wikipedia.org/wiki/Unified_Modeling_Language) to explain the flow of the logic which can be found in abundance in the [Developer Guide](/DeveloperGuide.md).
-Explanations of some of the Diagrams used can also be found in the [Documentation section](/DeveloperGuide.md#doc)
+This project also then uses [UML Diagrams](https://en.wikipedia.org/wiki/Unified_Modeling_Language) to explain the flow of the logic which can be found in abundance in the [Developer Guide](/docs/DeveloperGuide.md).
+Explanations of some of the Diagrams used can also be found in the [Documentation section](/docs/DeveloperGuide.md#doc)
 
 ## Technical Development
 ### Flask
