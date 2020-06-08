@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, MultipleFileField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models import User
 
@@ -49,3 +49,14 @@ class NewPasswordForm(FlaskForm):
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Update Password')
+
+class CreateQnForm(FlaskForm):
+    topic = SelectField('Select Topic', choices=[('nth', 'Select Topic'), ('Est', 'Estimation'), ('Geo', 'Geometry'), ('Model', 'Model')], validators=[DataRequired()])
+    qn = StringField('Input Question', validators=[DataRequired()])
+    op1 = StringField('Option 1', validators=[DataRequired()])
+    op2 = StringField('Option 2', validators=[DataRequired()])
+    op3 = StringField('Option 3', validators=[DataRequired()])
+    op4 = StringField('Option 4', validators=[DataRequired()])
+    corrOp = SelectField('Correct Option', choices=[('nth', 'Select Correct Option'), ('Op1', 'Option 1'), ('Op2', 'Option 2'), ('Op3', 'Option 3'), ('Op4', 'Option 4')], validators=[DataRequired()])
+    img = MultipleFileField('Attach Image')
+    submit = SubmitField('Create Question')

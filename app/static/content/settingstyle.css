@@ -201,7 +201,7 @@ section {
 section ul {
     display: flex;
     flex-flow: row wrap;
-    padding: 1rem;
+    padding: 0.25rem 1rem;
     list-style-type: none;
 }
 
@@ -209,7 +209,7 @@ section ul li {
     opacity: 0;
     transform: translateY(100%) translateZ(0);
     animation: slideIn 600ms cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 1rem;
     width: 50%;
     margin-top: 2rem;
 }
@@ -271,6 +271,7 @@ section.upcoming h1 {
 }
 
 .avatar span {
+    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/6035/scrtpxls_location.png');
     display: block;
     width: 15rem;
     height: 15rem;
@@ -300,7 +301,7 @@ section.upcoming h1 {
     display: block;
     position: absolute;
     z-index: 0;
-    bottom: 0;
+    bottom: 10px;
     left: 0.5rem;
     width: 100%;
     padding-bottom: 2px;
@@ -360,15 +361,26 @@ section.upcoming h1 {
     transform: scaleX(1) translateZ(0);
 }
 
-.settings-button {
+.settings-button, .deactivate-button {
     width: 100%;
 }
 
-.settings-button div {
+.settings-button div, .deactivate-button div {
     width: 100%;
 }
 
 .settings-button button, .settings-button input[type="submit"],
+.settings-button button.save, .settings-button input[type="submit"].save {
+    background: var(--LIGHTPURPLE);
+    color: var(--OFFWHITE);
+}
+
+.deactivate-button button {
+    background: red;
+    color: var(--OFFWHITE);
+}
+
+.settings-button button, .deactivate-button button,
 .settings-button button.save, .settings-button input[type="submit"].save {
     display: inline-block;
     position: relative;
@@ -380,8 +392,6 @@ section.upcoming h1 {
     text-decoration: none;
     border: none;
     border-radius: .4rem;
-    background: var(--LIGHTPURPLE);
-    color: var(--OFFWHITE);
     box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
     outline: none;
     cursor: pointer;
@@ -392,21 +402,44 @@ section.upcoming h1 {
     font-size: 2rem;
 }
 
-.settings-button button:hover, .settings-button input[type="submit"]:hover, .settings-button button:focus, .settings-button input[type="submit"]:focus,
+.settings-button button:hover, .settings-button button:focus,
 .settings-button button.save:hover, .settings-button input[type="submit"].save:hover, .settings-button button.save:focus, .settings-button input[type="submit"].save:focus {
     background: var(--OFFWHITE);
     border: 1px solid var(--LIGHTPURPLE);
     color: var(--LIGHTPURPLE);
 }
 
-.settings-button button:active, .settings-button input[type="submit"]:active,
+.deactivate-button button:hover, .deactivate-button button:focus {
+    background: var(--OFFWHITE);
+    border: 1px solid red;
+    color: red;
+}
+
+.settings-button button:active, .deactivate-button button:active,
 .settings-button button.save:active, .settings-button input[type="submit"].save:active {
     transform: translateY(2px) scale(0.99);
 }
 
-.settings-button.center div {
+.settings-button.center div, .deactivate-button.center div {
     display: flex;
     justify-content: center;
+}
+
+.zone {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.zone hr {
+    border-top: 3px solid var(--LIGHTPURPLE);
+    opacity: 0.4;
+    width: 50%;
+    margin: 1rem auto;
+    border-radius: 100%;
+}
+
+.deactivate-button {
+    margin-top: 2rem;
 }
 
 @keyframes rotateIn {

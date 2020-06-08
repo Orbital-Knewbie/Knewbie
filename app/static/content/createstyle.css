@@ -100,7 +100,17 @@ select {
 option {
     outline: none;
     border: none;
-    color: var(--LIGHTPURPLE);
+    color: var(--OFFWHITE);
+    background: var(--LIGHTPURPLE);
+}
+
+option::selection {
+    background: var(--OFFWHITE);
+}
+
+.center {
+    text-align: center;
+/*    padding:5rem;*/
 }
 
 .create-btn {

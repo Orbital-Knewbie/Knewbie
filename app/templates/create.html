@@ -16,31 +16,40 @@
     </div>
 
     <div class="create-ctr">
-        <form class="create-form">
-            
+        <form action="" method="post" novalidate class="create-form">
+            {{ form.hidden_tag() }}
             <h1>Create A New Question</h1>
 
-            <select required>
-                <option value="" disabled selected hidden>Select Topic</option>
-                <option value="">Geometry</option>
-                <option value="">Estimation</option>
-                <option value="">Model</option>
-            </select>
-            <input required type="text" placeholder="Input Question">
-            <input required type="text" placeholder="Option 1">
-            <input required type="text" placeholder="Option 2">
-            <input required type="text" placeholder="Option 3">
-            <input required type="text" placeholder="Option 4">
-            <select required>
-                <option value="" disabled selected hidden>Select Correct Option</option>
-                <option value="">Option 1</option>
-                <option value="">Option 2</option>
-                <option value="">Option 3</option>
-                <option value="">Option 4</option>
-            </select>
-            <button type="button" class="create-btn">Attach Image</button>
-            <button type="submit" class="create-btn">Create Question</button>
-        
+            {{ form.topic(placeholder="Select Topic", class_="center") }}
+            {{ form.qn(size=32, placeholder="Input Question") }}
+            {{ form.op1(size=32, placeholder="Option 1") }}
+            {{ form.op2(size=32, placeholder="Option 2") }}
+            {{ form.op3(size=32, placeholder="Option 3") }}
+            {{ form.op4(size=32, placeholder="Option 4") }}
+            {{ form.corrOp(placeholder="Correct Option") }}
+            {{ form.img(class_="create-btn") }}
+            {{ form.submit(class_="create-btn") }}
+            <!--<select required>
+        <option value="" disabled selected hidden>Select Topic</option>
+        <option value="">Geometry</option>
+        <option value="">Estimation</option>
+        <option value="">Model</option>
+    </select>
+    <input required type="text" placeholder="Input Question">
+    <input required type="text" placeholder="Option 1">
+    <input required type="text" placeholder="Option 2">
+    <input required type="text" placeholder="Option 3">
+    <input required type="text" placeholder="Option 4">
+    <select required>
+        <option value="" disabled selected hidden>Select Correct Option</option>
+        <option value="">Option 1</option>
+        <option value="">Option 2</option>
+        <option value="">Option 3</option>
+        <option value="">Option 4</option>
+    </select>
+    <button type="button" class="create-btn">Attach Image</button>
+    <button type="submit" class="create-btn">Create Question</button>-->
+
         </form>
     </div>
 

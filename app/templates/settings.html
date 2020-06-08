@@ -18,12 +18,15 @@
             <form>
                 <ul>
                     <li class="large padding avatar">
-                        <span style="background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/6035/scrtpxls_location.png');"></span>
+                        <span></span>
                         <div>
 
                             <fieldset class="settings-button center">
                                 <div>
-                                    <button>Choose Image</button>
+                                    <button>Change Image</button>
+                                </div>
+                                <div>
+                                    <button>Request A New Knewbie ID</button>
                                 </div>
                             </fieldset>
                         </div>
@@ -103,10 +106,43 @@
                         </fieldset>
                     </li>
 
+                    <h1 style="text-align: center; padding-top: 5rem; width: 100vw; position: relative; margin: 0 auto;">Change Email Address</h1>
+
+                    <li>
+                        <fieldset class="settings-input">
+                            <div>
+                                <input required type="email" />
+                                <label>New Email</label>
+                                <hr />
+                            </div>
+                        </fieldset>
+                    </li>
+
+                    <li>
+                        <fieldset class="settings-input">
+                            <div>
+                                <input required type="email" />
+                                <label>Confirm Email</label>
+                                <hr />
+                            </div>
+                        </fieldset>
+                    </li>
+
                     <li class="large padding">
                         <fieldset class="settings-button center">
                             <div>
                                 <input class="save" type="submit" value="Save" />
+                            </div>
+                        </fieldset>
+
+                        <div class="zone">
+                            <p> Danger Zone <p />
+                            <hr />
+                        </div>
+
+                        <fieldset class="deactivate-button center">
+                            <div>
+                                <button>Deactivate Account</button>
                             </div>
                         </fieldset>
                     </li>

@@ -6,7 +6,7 @@ from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
 from app.models import User, Question, Option, Answer, Response
-from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm
+from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm, CreateQnForm
 from app.questions import get_question_options, submit_response
 from app.email import register, resend_conf, send_contact_email, send_reset_email
 from app.token import confirm_token
@@ -38,10 +38,26 @@ def dashboard():
     """Renders the dashboard page."""
     return render_template('dashboard.html')
 
+@app.route('/settings')
+def settings():
+    """Renders the dashboard page."""
+    return render_template('settings.html', title=' | Settings')
+
 @app.route('/faq')
 def faq():
     """Renders the faq page."""
-    return render_template('faq.html')
+    return render_template('faq.html', title=' | FAQ')
+
+@app.route('/create', methods=['GET', 'POST'])
+def create():
+    """Renders the create page for educators."""
+    form = CreateQnForm()
+    return render_template('create.html', title=' | Create', form=form)
+
+@app.route('/error')
+def error():
+    """Renders the error page."""
+    return render_template('error.html')
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -51,35 +67,17 @@ def contact():
     if request.method == 'POST' and form.validate_on_submit():
         send_contact_email(form)
         return render_template('contact.html', success=True)
-    return render_template('contact.html', form=form)
-
-@app.route('/error')
-def error():
-    """Renders the error page."""
-    return render_template('error.html')
-
-
-# Routes for account management
-@app.route('/settings')
-def settings():
-    """Renders the dashboard page."""
-    return render_template('settings.html')
-
-@app.route('/create')
-def create():
-    """Renders the create page for educators."""
-    return render_template('create.html')
-
+    return render_template('contact.html', title=' | Contact Us', form=form)
 
 # Routes for Registration
 @app.route('/register')
 def reg():
     if current_user.is_authenticated:
-        return redirect(url_for('quiz'))
+        return redirect(url_for('dashboard'))
     #Forms for either student or educator
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
-    return render_template('register.html', stuForm=stuForm, eduForm=eduForm)
+    return render_template('register.html', title=' | Register', stuForm=stuForm, eduForm=eduForm)
 
 @app.route('/registerstudent', methods=['POST'])
 def regstu():
@@ -87,7 +85,7 @@ def regstu():
     eduForm = RegistrationForm(prefix='edu')
     if stuForm.validate_on_submit():
         return register(stuForm, 'student')
-    return render_template('register.html', stuForm=stuForm, eduForm=eduForm)
+    return render_template('register.html', title=' | Register', stuForm=stuForm, eduForm=eduForm)
 
 @app.route('/registereducator', methods=['POST'])
 def regedu():
@@ -95,7 +93,7 @@ def regedu():
     eduForm = RegistrationForm(prefix='edu')
     if eduForm.validate_on_submit():
         return register(eduForm, 'educator')
-    return render_template('register.html', stuForm=stuForm, eduForm=eduForm)
+    return render_template('register.html', title=' | Register', stuForm=stuForm, eduForm=eduForm)
 
 @app.route('/confirm/<token>')
 @login_required
@@ -122,7 +120,7 @@ def unconfirmed():
     if current_user.confirmed:
         return redirect(url_for('home'))
     flash('Please confirm your account!', 'warning')
-    return render_template('unconfirmed.html')
+    return render_template('unconfirmed.html', title=' | Log In')
 
 @app.route('/resend')
 @login_required
@@ -142,7 +140,7 @@ def login():
             return redirect(url_for('login'))
         login_user(user)
         return redirect(url_for('dashboard'))
-    return render_template('login.html', form=form)
+    return render_template('login.html', title=' | Log In', form=form)
 
 @app.route('/logout')
 def logout():
@@ -155,6 +153,20 @@ def logout():
 @login_required
 @check_confirmed
 def quiz():
+    sh_qns, qns = final_qns()
+    return render_template('quiz.html', title=' | Quiz', q = sh_qns, o = qns)
+
+@app.route('/end', methods=['POST'])
+def end():
+    totalEasy = len(tuple(filter(lambda x: og_qns[x]['difficulty'] == 'Easy', qns.keys())))
+    totalHard = len(qns.keys()) - totalEasy
+    correct = tuple(filter(lambda x: request.form.get(x) == og_qns[x]['answers'][0], qns.keys()))
+    easyCorrect = len(tuple(filter(lambda x: og_qns[x]['difficulty'] == 'Easy', correct)))
+    hardCorrect = len(correct) - easyCorrect
+    #hardCorrect = tuple(filter(lambda x: og_qns[x]['difficulty'] == 'Easy', correct))
+    
+    return '<h1>Correct Answers: <u>Easy: ' + str(easyCorrect) + '/' + str(totalEasy) + ' Hard:' + str(hardCorrect) + '/' + str(totalHard) + '<u></h1>'
+  
     # userID, theta (proficiency), Admistered Items (AI), response vector
     id = current_user.id
     theta = current_user.theta
@@ -184,7 +196,6 @@ def result():
     correct = responses.count(True)
     return '<h1>Correct Answers: <u>' + str(correct) + '/' + str(len(responses)) + '<u></h1>'
 
-
 # Routes to reset password
 @app.route("/resetpassword", methods=['GET', 'POST'])
 def request_reset_password():
@@ -196,7 +207,7 @@ def request_reset_password():
          send_reset_email(user)
          flash('An email has been sent with instructions to reset your password.', 'info')
          return redirect(url_for('home'))
-     return render_template('resetpassword.html', title='Reset Password', form=form)
+     return render_template('resetpassword.html', title=' | Reset Password', form=form)
 
 @app.route("/resetpassword/<token>", methods=['GET', 'POST'])
 def reset_password(token):
@@ -212,4 +223,4 @@ def reset_password(token):
         db.session.commit()
         flash('Your password has been successfully updated! You can now login with your new password.')
         return redirect(url_for('login'))
-    return render_template('changepassword.html', title='Reset Password', form = form)
+    return render_template('changepassword.html', title=' | Reset Password', form = form)
