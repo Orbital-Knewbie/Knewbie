@@ -22,6 +22,8 @@ For most people, reading long lines of text to explain a concept can be downrigh
 This project also then uses [UML Diagrams](https://en.wikipedia.org/wiki/Unified_Modeling_Language) to explain the flow of the logic which can be found in abundance in the [Developer Guide](/docs/DeveloperGuide.md).
 Explanations of some of the Diagrams used can also be found in the [Documentation section](/docs/DeveloperGuide.md#doc)
 
+### Testing
+
 ## Technical Development
 ### Flask
 [Flask](https://flask.palletsprojects.com/en/1.1.x/) is a micro and lightweight web development framework that makes use of Python to build web applications. 
@@ -29,3 +31,14 @@ Flask was chosen for development due to its ease of use, along with the develope
 It is known to be [configurable](https://flask.palletsprojects.com/en/1.1.x/foreword/#what-does-micro-mean).
 [This tutorial made by Miguel Grinberg](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world) also proved to be extremely useful in the implementation of the various features in the platform.
 It might be helpful to mention that Django - a full-stack web development framework also in Python - was also a choice, but the development team had previous experience with Flask leading to its choice over Django.
+
+### Model View Controller (MVC)
+[Model-view-controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) is a software design framework for developing user interfaces, and due to its popularity, was used in the project.
+Its main feature is separation of the different areas of development.
+Further explanation on how it is applied in Flask can be found in the [Developer Guide](DeveloperGuide.md#arch).
+
+### RESTful API
+[REST, which stands for REpresentation State Transfer](https://en.wikipedia.org/wiki/Representational_state_transfer), is an architectural style used in defining constraints for creating web applications.
+Our web application makes use of the RESTful API when making HTTP requests such as GET or POST requests. 
+The team saw no reason to deviate from using the REST API to the alternative, 
+[such as SOAP](https://www.upwork.com/hiring/development/soap-vs-rest-comparing-two-apis/#:~:text=REST%20is%20an%20architectural%20style.,SOAP%20APIs%20perform%20an%20operation.).
