@@ -37,7 +37,7 @@ tar -xvf Python-3.6.10.tgz
 cd Python-3.6.10 && ./configure
 make && sudo make install
 ```
-![make](docs/images/Make.png)<br>
+![make](images/Make.png)<br>
 Successful Installation of Python 3.6.10
 
 ### Installing
@@ -50,7 +50,7 @@ Commands given should be carried out on the command line. Commands were tested o
 git clone https://github.com/Orbital-Knewbie/Knewbie
 cd Knewbie
 ```
-![clone](docs/images/Clone.png)<br>
+![clone](images/Clone.png)<br>
 Cloning into the Knewbie repo
 !
 2. Install, then create a Python 3 `virtualenv`.
@@ -69,7 +69,7 @@ virtualenv venv
 ```
 source venv/bin/activate
 ```
-![virtualenv](docs/images/EnterVenv.png)<br>
+![virtualenv](images/EnterVenv.png)<br>
 Entering the `virtualenv`
 ###### Windows only
 ```
@@ -80,7 +80,7 @@ venv\Scripts\activate
 ```
 pip install -r requirements.txt
 ```
-![requirements](docs/images/Requirements.png)
+![requirements](images/Requirements.png)
 Sucessful Installation of `requirements.txt` packages
 
 6. Set the environment variable. Note that there is no spacing around `=`.
@@ -97,8 +97,8 @@ set FLASK_APP=run.py
 ```
 flask run
 ```
-8. Open up `localhost:5000` on a browser of your choice. You should see the homepage.
-![Homepage](docs/images/Homepage.png)
+8. Open up `localhost:5000` on a browser of your choice. You should see the homepage. Do read the [User Guide (Educator)](UserGuide-Educator.md) or [User Guide (Student)](UserGuide-Students.md) for guidance on the web application usage, and subsequently the [Developer Guide](DeveloperGuide.md) for Design and Implementation details.
+![Homepage](images/Homepage.png)
 
 ## Built With
 
