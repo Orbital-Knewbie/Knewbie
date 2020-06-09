@@ -37,6 +37,8 @@ tar -xvf Python-3.6.10.tgz
 cd Python-3.6.10 && ./configure
 make && sudo make install
 ```
+![make](docs/images/Make.png)<br>
+Successful Installation of Python 3.6.10
 
 ### Installing
 Commands given should be carried out on the command line. Commands were tested on Windows and [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) and Python 3.6 was used for development.
@@ -48,6 +50,9 @@ Commands given should be carried out on the command line. Commands were tested o
 git clone https://github.com/Orbital-Knewbie/Knewbie
 cd Knewbie
 ```
+![clone](docs/images/Clone.png)<br>
+Cloning into the Knewbie repo
+!
 2. Install, then create a Python 3 `virtualenv`.
 ###### Linux/WSL only
 ```
@@ -64,6 +69,8 @@ virtualenv venv
 ```
 source venv/bin/activate
 ```
+![virtualenv](docs/images/EnterVenv.png)<br>
+Entering the `virtualenv`
 ###### Windows only
 ```
 venv\Scripts\activate
@@ -73,6 +80,9 @@ venv\Scripts\activate
 ```
 pip install -r requirements.txt
 ```
+![requirements](docs/images/Requirements.png)
+Sucessful Installation of `requirements.txt` packages
+
 6. Set the environment variable. Note that there is no spacing around `=`.
 ###### Linux/WSL only
 ```
@@ -87,7 +97,8 @@ set FLASK_APP=run.py
 ```
 flask run
 ```
-8. Open up `localhost:5000` on a browser of your choice.
+8. Open up `localhost:5000` on a browser of your choice. You should see the homepage.
+![Homepage](docs/images/Homepage.png)
 
 ## Built With
 

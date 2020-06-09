@@ -14,6 +14,9 @@ Please refer to the [Installation Guide](/docs/InstallationGuide.md) for full in
 ## Development Practices
 Please refer to the [Developer Practices Guide](/docs/DevPractices.md) for the Software Development practices used in the project.
 
+## User & Developer Guides
+Please refer to the appropriate [User Guide](/docs/UserGuide.md) and [Developer Guide](/docs/DeveloperGuide.md) for guidance in using the web application.
+
 ## Built With
 
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/) - The web framework used
