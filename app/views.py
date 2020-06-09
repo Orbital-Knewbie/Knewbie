@@ -6,7 +6,7 @@ from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
 from app.models import User, Question, Option, Answer, Response
-from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm, CreateQnForm, UpdateAccountForm, UpdateProfileForm
+from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm, CreateQnForm, UpdateProfileForm
 from app.questions import get_question_options, submit_response
 from app.email import register, resend_conf, send_contact_email, send_reset_email
 from app.token import confirm_token
@@ -51,13 +51,12 @@ def update_image(form_image):
 
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
-    """Renders the dashboard page."""
+    """Renders the settings page."""
     form = UpdateProfileForm()
     if form.validate_on_submit():
         if form.image.data:
             image_file = update_image(form.image.data)
             current_user.image_file = image_file
-            db.session.commit()
         current_user.firstName = form.firstName.data
         current_user.lastName = form.lastName.data
         db.session.commit()

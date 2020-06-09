@@ -19,7 +19,9 @@
         </div>
         <div class="details">
             <h2>{{ current_user.firstName }} {{ current_user.lastName }}</h2>
-            <p>Unique ID: {{ current_user.knewbie_id }} </p>
+            {% if current_user.is_authenticated and current_user.urole == 'student' %}
+            <p>Knewbie ID: {{ current_user.knewbie_id }} </p>
+            {% endif %}
             <a href="#" class="btn">Progress Report</a>
         </div>
     </section>

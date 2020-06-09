@@ -268,7 +268,7 @@ section.upcoming h1 {
     align-items: center;
 }
 
-.avatar span img {
+.avatar img {
     display: block;
     width: 200px;
     height: 200px;
@@ -358,6 +358,22 @@ section.upcoming h1 {
     transform: scaleX(1) translateZ(0);
 }
 
+.image-btn input {
+    display: block;
+    outline: none;
+    border: none;
+    background-color: var(--LIGHTPURPLE);
+    width: 250px;
+    border-radius: 0.4rem;
+    padding: 10px 15px;
+    margin: 2rem auto;
+    display: block;
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--OFFWHITE);
+    cursor: pointer;
+}
+
 .settings-button, .deactivate-button {
     width: 100%;
 }
@@ -399,7 +415,7 @@ section.upcoming h1 {
     font-size: 2rem;
 }
 
-.settings-button button:hover, .settings-button button:focus,
+.settings-button button:hover, .settings-button button:focus, .image-btn input:hover, .image-btn input:focus,
 .settings-button button.save:hover, .settings-button input[type="submit"].save:hover, .settings-button button.save:focus, .settings-button input[type="submit"].save:focus {
     background: var(--OFFWHITE);
     border: 1px solid var(--LIGHTPURPLE);
@@ -412,7 +428,7 @@ section.upcoming h1 {
     color: red;
 }
 
-.settings-button button:active, .deactivate-button button:active,
+.settings-button button:active, .deactivate-button button:active, .image-btn input:active,
 .settings-button button.save:active, .settings-button input[type="submit"].save:active {
     transform: translateY(2px) scale(0.99);
 }

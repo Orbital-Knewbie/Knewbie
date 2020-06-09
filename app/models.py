@@ -1,5 +1,4 @@
 import string
-import secrets
 import random
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from app import db, login, app
@@ -43,17 +42,8 @@ class User(UserMixin, db.Model):
         return User.query.get(user_id)
 
     def set_knewbie_id(self):
-        alphabet = string.ascii_letters + string.digits
-        while True:
-            if self.urole == 'student':
-                self.knewbie_id = ''.join(secrets.choice(alphabet) for i in range(8))
-                if (any(c.islower() for c in id)
-                        and any(c.isupper() for c in password)
-                        and sum(c.isdigit() for c in password) >= 3):
-                    break
-                queryID = session.query(Item.id).filter(Item.knewbie_id==knewbie_id)
-                while session.query(queryID.exists()).scalar() == True:
-                    set_knewbie_id(self)
+        lettersAndDigits = string.ascii_letters + string.digits
+        self.knewbie_id =  ''.join((random.choice(lettersAndDigits) for i in range(8)))
         return self.knewbie_id
 
     def get_AI_responses(self):
