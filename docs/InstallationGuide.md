@@ -80,7 +80,7 @@ venv\Scripts\activate
 ```
 pip install -r requirements.txt
 ```
-![requirements](images/Requirements.png)
+![requirements](images/Requirements.png)<br>
 Sucessful Installation of `requirements.txt` packages
 
 6. Set the environment variable. Note that there is no spacing around `=`.
@@ -98,7 +98,7 @@ set FLASK_APP=run.py
 flask run
 ```
 8. Open up `localhost:5000` on a browser of your choice. You should see the homepage. Do read the [User Guide (Educator)](UserGuide-Educator.md) or [User Guide (Student)](UserGuide-Students.md) for guidance on the web application usage, and subsequently the [Developer Guide](DeveloperGuide.md) for Design and Implementation details.
-![Homepage](images/Homepage.png)
+![Homepage](images/Homepage.png)<br>
 
 ## Built With
 
