@@ -81,16 +81,27 @@ class Response(db.Model):
     optID = db.Column(db.Integer)
     qnID = db.Column(db.Integer)
 
-class UserClass(db.Model):
+class UserGroup(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    classID = db.Column(db.Integer)
+    groupID = db.Column(db.Integer)
     userID = db.Column(db.Integer)
+
+class Group(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    userclassID = db.Column(db.Integer)
+    userID = db.Column(db.Integer, unique=True)
+    threadID = db.Column(db.Integer, unique=True)
+    timestamp = db.Column(db.DateTime)
     title = db.Column(db.String(120))
     content = db.Column(db.String(140))
+
+class Thread(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    classID = db.Column(db.Integer, unique=True)
+    timestamp = db.Column(db.DateTime)
 
 @login.user_loader
 def load_user(id):

@@ -1,0 +1,13 @@
+﻿{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="../static/content/dashboardstyle.css">
+{% endblock %}
+{% block content %}
+<div>
+    {% for thread in threads %}
+    <div>
+        <a href="{{ url_for('forum_post', groupID=groupID, threadID=thread.id) }} ">Thread {{thread.id}}</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -60,3 +60,9 @@ class CreateQnForm(FlaskForm):
     corrOp = SelectField('Correct Option', choices=[('nth', 'Select Correct Option'), ('Op1', 'Option 1'), ('Op2', 'Option 2'), ('Op3', 'Option 3'), ('Op4', 'Option 4')], validators=[DataRequired()])
     img = MultipleFileField('Attach Image')
     submit = SubmitField('Create Question')
+
+
+class PostForm(FlaskForm):
+    post = TextAreaField('Say something', validators=[
+        DataRequired(), Length(min=1, max=1024)])
+    submit = SubmitField('Submit')

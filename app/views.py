@@ -5,8 +5,8 @@ Routes and views for the flask application.
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
-from app.models import User, Question, Option, Answer, Response
-from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm, CreateQnForm
+from app.models import User, Question, Option, Answer, Response, UserGroup, Group, Thread, Post
+from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm, CreateQnForm, PostForm
 from app.questions import get_question_options, submit_response
 from app.email import register, resend_conf, send_contact_email, send_reset_email
 from app.token import confirm_token
@@ -147,6 +147,32 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+
+# Routes for Group Forum
+@app.route('/<groupID>')
+#@login_required
+def forum(groupID):
+    group = Group.query.filter_by(id=groupID).first_or_404()
+    if UserGroup.query.filter_by(userID=current_user.id, groupID=groupID).first() is None:
+        return redirect(url_for('dashboard'))
+    threads = Thread.query.filter_by(groupID=groupID).all()
+    return render_template('forum.html', title=' | Forum', groupID=groupID, threads=threads)
+
+@app.route('/<groupID>/<threadID>', methods=['GET', 'POST'])
+def forum_post(groupID, threadID):
+    group = Group.query.filter_by(id=groupID).first_or_404()
+    if UserGroup.query.filter_by(userID=current_user.id, groupID=groupID).first() is None:
+        return redirect(url_for('dashboard'))
+    posts = Post.query.filter_by(threadID=threadID)
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(body=form.post.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post is now live!')
+        return render_template('posts.html', title=' | Forum', posts=posts)
+    
+    return render_template('posts.html', title=' | Forum', posts=posts)
 
 # Routes for Quiz
 @app.route('/quiz', methods=['GET', 'POST'])

@@ -1,0 +1,26 @@
+﻿{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="../static/content/dashboardstyle.css">
+{% endblock %}
+{% block content %}
+<div>
+    {% for post in posts %}
+    <div>
+        <h1> {{ post.title }} </h1>
+        <div> {{ post.content }} </div>
+    </div>
+    {% endfor %}
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.post.label }}<br>
+            {{ form.post(cols=32, rows=4) }}<br>
+            {% for error in form.post.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+</div>
+{% endblock %}

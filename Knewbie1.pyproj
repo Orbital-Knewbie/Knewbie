@@ -107,6 +107,7 @@
     <Content Include="app\templates\email\reset.html" />
     <Content Include="app\templates\error.html" />
     <Content Include="app\templates\faq.html" />
+    <Content Include="app\templates\posts.html" />
     <Content Include="app\templates\index.html" />
     <Content Include="app\templates\login.html" />
     <Content Include="app\templates\quiz.html" />
@@ -118,6 +119,7 @@
     <Content Include="app\templates\unconfirmed.html" />
     <Content Include="app\templates\contact.html" />
     <Content Include="app\templates\create.html" />
+    <Content Include="app\templates\forum.html" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.png" />
     <Content Include="docs\diagrams\Architecture.png" />
     <Content Include="docs\diagrams\ArchitectureSequence.png" />

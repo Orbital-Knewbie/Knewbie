@@ -47,25 +47,42 @@ optId
 qnId
 }
 
+entity Thread {
+*id
+--
+groupID
+timestamp
+}
+
 entity Post {
 *id
 --
-userclassID
+userID
+threadID
+timestamp
 title
 content
 }
 
-entity Class {
+entity Group {
 *id
 --
 name
 }
 
-entity UserClass {
+entity UserGroup {
 *id
 --
-classID
+groupID
 userID
+}
+
+entity Proficiency {
+*id
+--
+userID
+datetime
+theta
 }
 
 User ||--|{ Response
@@ -77,8 +94,11 @@ Answer ||--|| Question
 Option ||--|| Answer
 
 
-User ||--|{ UserClass
-Class ||--|{ UserClass
-UserClass ||--|{ Post
+User ||--|{ UserGroup
+Group ||--|{ UserGroup
+Thread }|--|| Group
+Post }|--|| Thread
+Post }|--|| User
+User ||--|{ Proficiency
 
 @enduml
