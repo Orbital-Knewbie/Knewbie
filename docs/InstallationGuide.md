@@ -81,7 +81,7 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 ![requirements](images/Requirements.png)<br>
-Sucessful Installation of `requirements.txt` packages
+Successful Installation of `requirements.txt` packages
 
 6. Set the environment variable. Note that there is no spacing around `=`.
 ###### Linux/WSL only
