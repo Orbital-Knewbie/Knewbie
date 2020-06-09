@@ -79,13 +79,13 @@ class UpdateAccountForm(FlaskForm):
     submit = SubmitField('Save')
 
     def validate_password(self, password_hash):
-        if password.data != current_user.password_hash:
+        if not current_user.check_password(password):
             user = User.query.filter_by(password_hash=password.data).first()
             if user is not None:
-                raise ValidationError('Please use a different username.')
+                raise ValidationError('You cannot reuse your old password. Please choose a different password.')
 
     def validate_email(self, email):
-        if email.data != current_user.email:
+        if email.data == current_user.email:
             user = User.query.filter_by(email=email.data).first()
             if user is not None:
-                raise ValidationError('Email is the same. Please use a different email address.')
+                raise ValidationError('Email is the same as the registered email. Please use a different email address.')

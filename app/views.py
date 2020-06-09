@@ -56,9 +56,11 @@ def settings():
     if form.validate_on_submit():
         if form.image.data:
             image_file = update_image(form.image.data)
-            current_user.image_dile = image_file
+            current_user.image_file = image_file
+            db.session.commit()
         current_user.firstName = form.firstName.data
         current_user.lastName = form.lastName.data
+        db.session.commit()
         flash('Your profile has been successfully updated!', 'success')
         return redirect(url_for('settings'))
     elif request.method == 'GET':
@@ -78,10 +80,25 @@ def create():
     form = CreateQnForm()
     return render_template('create.html', title=' | Create', form=form)
 
-@app.route('/error')
-def error():
-    """Renders the error page."""
-    return render_template('error.html')
+#@app.errorhandler(403)
+#def page_not_found(e):
+#    """Renders the error page."""
+#    return render_template('403.html'), 403
+
+#@app.errorhandler(404)
+#def page_not_found(e):
+#    """Renders the error page."""
+#    return render_template('error.html'), 404
+
+#@app.errorhandler(410)
+#def page_not_found(e):
+#    """Renders the error page."""
+#    return render_template('410.html'), 410
+
+#@app.errorhandler(500)
+#def page_not_found(e):
+#    """Renders the error page."""
+#    return render_template('500.html'), 500
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():

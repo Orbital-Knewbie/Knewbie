@@ -16,7 +16,7 @@ login = LoginManager(app)
 login.login_view = 'login'
 mail = Mail(app)
 
-from app import views, models
+#from app import views, models
 
 if __name__ == '__main__':
     app.run(debug=True)

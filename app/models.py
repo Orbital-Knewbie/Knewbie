@@ -15,8 +15,8 @@ class User(UserMixin, db.Model):
     urole = db.Column(db.String(80))
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime, nullable=True)
-    knewbie_id = db.Column(db.String(8), nullable=False, unique=True)
-    image_file = db.Column(db.String(20), nullable=False, default='profileimg.jpg')
+    knewbie_id = db.Column(db.String(8), nullable=True, unique=True)
+    image_file = db.Column(db.String(20), default='profileimg.jpg')
     admin = db.Column(db.Boolean, nullable=False, default=False)
     theta = db.Column(db.Float)
 
@@ -42,14 +42,18 @@ class User(UserMixin, db.Model):
             return None
         return User.query.get(user_id)
 
-    def knewbie_id(self):
+    def set_knewbie_id(self):
         alphabet = string.ascii_letters + string.digits
         while True:
-            self.knewbie_id = ''.join(secrets.choice(alphabet) for i in range(8))
-            if (any(c.islower() for c in id)
-                    and any(c.isupper() for c in password)
-                    and sum(c.isdigit() for c in password) >= 3):
-                break
+            if self.urole == 'student':
+                self.knewbie_id = ''.join(secrets.choice(alphabet) for i in range(8))
+                if (any(c.islower() for c in id)
+                        and any(c.isupper() for c in password)
+                        and sum(c.isdigit() for c in password) >= 3):
+                    break
+                queryID = session.query(Item.id).filter(Item.knewbie_id==knewbie_id)
+                while session.query(queryID.exists()).scalar() == True:
+                    set_knewbie_id(self)
         return self.knewbie_id
 
     def get_AI_responses(self):

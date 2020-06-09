@@ -47,6 +47,8 @@ def get_confirm_url(user):
 def register(form, role):
     user = User(firstName=form.firstName.data, lastName=form.lastName.data, email=form.email.data, urole=role, confirmed=False)
     user.set_password(form.password.data)
+    if role == 'student':
+        user.set_knewbie_id()
     db.session.add(user)
     db.session.commit()
     confirm_url = get_confirm_url(user)
