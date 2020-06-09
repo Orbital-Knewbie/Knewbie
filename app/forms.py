@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, MultipleFileField, SelectField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
 
 class LoginForm(FlaskForm):
@@ -63,6 +63,7 @@ class CreateQnForm(FlaskForm):
 
 
 class PostForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
     post = TextAreaField('Say something', validators=[
         DataRequired(), Length(min=1, max=1024)])
     submit = SubmitField('Submit')

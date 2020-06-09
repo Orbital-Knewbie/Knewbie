@@ -100,8 +100,14 @@ class Post(db.Model):
 
 class Thread(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    classID = db.Column(db.Integer, unique=True)
+    groupID = db.Column(db.Integer, unique=True)
     timestamp = db.Column(db.DateTime)
+
+class Proficiency(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    userID = db.Column(db.Integer, unique=True)
+    timestamp = db.Column(db.DateTime)
+    theta = db.Column(db.Float)
 
 @login.user_loader
 def load_user(id):

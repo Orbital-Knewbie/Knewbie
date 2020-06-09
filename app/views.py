@@ -9,6 +9,7 @@ from app.models import User, Question, Option, Answer, Response, UserGroup, Grou
 from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm, CreateQnForm, PostForm
 from app.questions import get_question_options, submit_response
 from app.email import register, resend_conf, send_contact_email, send_reset_email
+from app.forum import validate_group_link, save_post
 from app.token import confirm_token
 from app.decorator import check_confirmed
 from app.cat import Student
@@ -152,27 +153,39 @@ def logout():
 @app.route('/<groupID>')
 #@login_required
 def forum(groupID):
-    group = Group.query.filter_by(id=groupID).first_or_404()
-    if UserGroup.query.filter_by(userID=current_user.id, groupID=groupID).first() is None:
+    group = validate_group_link(groupID)
+    if group is None:
         return redirect(url_for('dashboard'))
     threads = Thread.query.filter_by(groupID=groupID).all()
     return render_template('forum.html', title=' | Forum', groupID=groupID, threads=threads)
 
 @app.route('/<groupID>/<threadID>', methods=['GET', 'POST'])
 def forum_post(groupID, threadID):
-    group = Group.query.filter_by(id=groupID).first_or_404()
-    if UserGroup.query.filter_by(userID=current_user.id, groupID=groupID).first() is None:
+    group = validate_group_link(groupID)
+    if group is None:
         return redirect(url_for('dashboard'))
     posts = Post.query.filter_by(threadID=threadID)
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(body=form.post.data, author=current_user)
-        db.session.add(post)
-        db.session.commit()
+        save_post(form)
         flash('Your post is now live!')
-        return render_template('posts.html', title=' | Forum', posts=posts)
     
-    return render_template('posts.html', title=' | Forum', posts=posts)
+    return render_template('posts.html', title=' | Forum', posts=posts, form=form)
+
+@app.route('/<groupID>/createthread')
+def create_thread(groupID):
+    group = Group.query.filter_by(id=groupID).first_or_404()
+    if UserGroup.query.filter_by(userID=current_user.id, groupID=groupID).first() is None:
+        return redirect(url_for('dashboard'))
+    form = PostForm()
+    if form.validate_on_submit():
+        thread = Thread(groupID=groupID, timestamp=datetime.datetime.now())
+        db.session.add(thread)
+        save_post(form)
+        flash('Your post is now live!')
+        return redirect(url_for('forum_post', groupID=groupID, threadID=threadID))
+    return render_template('posts.html', title=' | Forum', form=form)
+
 
 # Routes for Quiz
 @app.route('/quiz', methods=['GET', 'POST'])

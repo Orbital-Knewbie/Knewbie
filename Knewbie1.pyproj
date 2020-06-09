@@ -39,6 +39,9 @@
     <Compile Include="app\decorator.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\forum.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\token.py">
       <SubType>Code</SubType>
     </Compile>
@@ -58,7 +61,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="migrations\env.py" />
-    <Compile Include="migrations\versions\a565ea52cf5e_init_db.py" />
+    <Compile Include="migrations\versions\88c831d8fa3c_proficiency.py" />
+    <Compile Include="migrations\versions\92b7ff614ece_init_db.py" />
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
