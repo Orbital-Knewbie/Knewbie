@@ -52,7 +52,7 @@ cd Knewbie
 ```
 ![clone](images/Clone.png)<br>
 Cloning into the Knewbie repo
-!
+
 2. Install, then create a Python 3 `virtualenv`.
 ###### Linux/WSL only
 ```
