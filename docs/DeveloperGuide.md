@@ -18,10 +18,11 @@
 [User Stories](#user)<br>
 
 ## 1. Setting up <a name="setup"></a>
-Refer to the guide [here](https://github.com/R-Ramana/Knewbie/blob/master/README.md).
+Refer to the guide [here](/docs/InstallationGuide.md).
 
 ## 2. Design <a name="design"></a>
 [Flask](https://flask.palletsprojects.com/) is a micro web framework written in [Python](https://www.python.org/). This Web App makes use of the framework for its overall design.
+The rationale behind choosing Flask may be found in the [Development Practices document](/docs/DevPractices.md).
 ### 2.1 Architecture <a name="arch"></a>
 ![Architecture Design](diagrams/Architecture.png)
 Fig #. Overall Architecture
