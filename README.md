@@ -15,7 +15,7 @@ Please refer to the [Installation Guide](/docs/InstallationGuide.md) for full in
 Please refer to the [Developer Practices Guide](/docs/DevPractices.md) for the Software Development practices used in the project.
 
 ## User & Developer Guides
-Please refer to the appropriate [User Guide](/docs/UserGuide.md) and [Developer Guide](/docs/DeveloperGuide.md) for guidance in using the web application.
+Please refer to the appropriate [User Guide (Educator)](UserGuide-Educator.md) or [User Guide (Student)](UserGuide-Students.md) and [Developer Guide](/docs/DeveloperGuide.md) for guidance in using the web application.
 
 ## Built With
 
