@@ -73,6 +73,11 @@ def faq():
     """Renders the faq page."""
     return render_template('faq.html', title=' | FAQ')
 
+@app.route('/progressreport')
+def progressreport():
+    """Renders the report page."""
+    return render_template('report.html', title=' | Progress Report')
+
 @app.route('/create', methods=['GET', 'POST'])
 def create():
     """Renders the create page for educators."""

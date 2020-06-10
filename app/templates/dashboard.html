@@ -22,7 +22,7 @@
             {% if current_user.is_authenticated and current_user.urole == 'student' %}
             <p>Knewbie ID: {{ current_user.knewbie_id }} </p>
             {% endif %}
-            <a href="#" class="btn">Progress Report</a>
+            <a href="{{ url_for('progressreport') }}" class="btn">Progress Report</a>
         </div>
     </section>
 

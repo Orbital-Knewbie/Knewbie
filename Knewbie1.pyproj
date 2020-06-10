@@ -113,6 +113,7 @@
     <Content Include="app\templates\index.html" />
     <Content Include="app\templates\login.html" />
     <Content Include="app\templates\quiz.html" />
+    <Content Include="app\templates\report.html" />
     <Content Include="app\templates\resetpassword.html" />
     <Content Include="app\templates\settings.html" />
     <Content Include="app\templates\test.html" />
