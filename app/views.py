@@ -5,9 +5,9 @@ Routes and views for the flask application.
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
-from app.models import User, Question, Option, Answer, Response, UserGroup, Group, Thread, Post
-from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm, CreateQnForm, PostForm
-from app.questions import get_question_options, submit_response
+from app.models import User, Question, Option, Answer, Response, UserGroup, Group, Thread, Post, Proficiency
+from app.forms import *
+from app.questions import get_question_options, submit_response, get_question_cat
 from app.email import register, resend_conf, send_contact_email, send_reset_email
 from app.forum import validate_group_link, save_post
 from app.token import confirm_token
@@ -177,7 +177,7 @@ def create_thread(groupID):
     group = Group.query.filter_by(id=groupID).first_or_404()
     if UserGroup.query.filter_by(userID=current_user.id, groupID=groupID).first() is None:
         return redirect(url_for('dashboard'))
-    form = PostForm()
+    form = ThreadForm()
     if form.validate_on_submit():
         thread = Thread(groupID=groupID, timestamp=datetime.datetime.now())
         db.session.add(thread)
@@ -194,9 +194,7 @@ def create_thread(groupID):
 def quiz():
     # userID, theta (proficiency), Admistered Items (AI), response vector
     id = current_user.id
-    theta = current_user.theta
-    AI, responses = current_user.get_AI_responses()
-    student = Student(id, theta, AI, responses)
+    prof, student = get_student_cat(id)
 
     # If enough questions already attempted, go to result
     if student.stop():
@@ -216,7 +214,9 @@ def quiz():
 @login_required
 @check_confirmed
 def result():
-    AI, responses = current_user.get_AI_responses()
+    id = current_user.id
+    prof, student = get_student_cat(id)
+    AI, responses = prof.get_AI_responses()
 
     correct = responses.count(True)
     return '<h1>Correct Answers: <u>' + str(correct) + '/' + str(len(responses)) + '<u></h1>'

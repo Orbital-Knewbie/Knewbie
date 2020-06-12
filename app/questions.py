@@ -1,5 +1,5 @@
 from app import db
-from app.models import Question, Option, Answer, Response
+from app.models import Question, Option, Answer, Response, Proficiency
 from app.cat import Student
 
 from random import choice, shuffle
@@ -244,10 +244,24 @@ def submit_response(id, form):
     # Get the submitted Option
     optID = form.get('option')
     option = Option.query.filter_by(id=optID).first()
+    qnID = option.qnID
 
     # Create a Response entry
     response = Response(userID=id,optID=option.id,qnID=option.qnID)
 
+    # Update topic proficiency
+    qn = Question.query.filter_by(id=qnID).first()
+    topicID = qn.topicID
+    prof, topic_student = get_student_cat(id, topicID)
+    topic_student.update()
+    prof.theta = topic_student.theta
+
     # Save to DB
     db.session.add(response)
     db.session.commit()
+
+def get_student_cat(userID, topicID=1):
+    prof = Proficiency.query.filter_by(userID=id,topicID=topicID).first()
+    AI, responses = prof.get_AI_responses()
+    student = Student(id, topicID, prof.theta, AI, responses)
+    return prof, student

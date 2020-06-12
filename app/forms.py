@@ -61,9 +61,10 @@ class CreateQnForm(FlaskForm):
     img = MultipleFileField('Attach Image')
     submit = SubmitField('Create Question')
 
-
 class PostForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
     post = TextAreaField('Say something', validators=[
         DataRequired(), Length(min=1, max=1024)])
     submit = SubmitField('Submit')
+
+class ThreadForm(PostForm):
+    title = StringField('Title', validators=[DataRequired()])

@@ -12,15 +12,14 @@ password_hash
 urole
 confirmed
 confirmed_on
-proficiency
 }
 
 entity Response {
 *id
 --
 userID
-optId
-qnId
+optID
+qnID
 }
 
 entity Question {
@@ -31,20 +30,21 @@ discrimination
 difficulty
 guessing
 upper
+topicID
 }
 
 entity Option {
 *id
 --
-qnId
+qnID
 option
 }
 
 entity Answer {
 *id
 --
-optId
-qnId
+optID
+qnID
 }
 
 entity Thread {
@@ -52,6 +52,7 @@ entity Thread {
 --
 groupID
 timestamp
+title
 }
 
 entity Post {
@@ -60,7 +61,6 @@ entity Post {
 userID
 threadID
 timestamp
-title
 content
 }
 
@@ -81,8 +81,30 @@ entity Proficiency {
 *id
 --
 userID
-datetime
+timestamp
 theta
+topicID
+}
+
+entity Quiz {
+*id
+--
+userID
+name
+}
+
+
+entity QuestionQuiz {
+*id
+--
+quizID
+questionID
+}
+
+entity Topic {
+*id
+--
+name
 }
 
 User ||--|{ Response
@@ -100,5 +122,12 @@ Thread }|--|| Group
 Post }|--|| Thread
 Post }|--|| User
 User ||--|{ Proficiency
+
+Quiz }|--|| User
+Question ||--|{ QuestionQuiz
+QuestionQuiz }|--|| Quiz
+Question }|--|| Topic
+Proficiency }|--|| Topic
+
 
 @enduml

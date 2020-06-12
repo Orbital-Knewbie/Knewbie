@@ -13,7 +13,6 @@ class User(UserMixin, db.Model):
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime, nullable=True)
     admin = db.Column(db.Boolean, nullable=False, default=False)
-    theta = db.Column(db.Float)
 
     def __repr__(self):
         return '<User {}>'.format(self.firstName)
@@ -37,22 +36,6 @@ class User(UserMixin, db.Model):
             return None
         return User.query.get(user_id)
 
-    def get_AI_responses(self):
-        '''Method to retrive Administered Items (AI) and response vector'''
-
-        # Retrieve stored responses from DB
-        responses = Response.query.filter_by(userID=self.id).all()
-        # Get AI / qnID from Responses
-        AI = [x.qnID for x in responses]
-
-        # Compare all responses with correct answer and store in resp_vector - in order
-        resp_vector = []
-        for qn in AI:
-            ans = Answer.query.filter_by(qnID=qn).first()
-            resp = Response.query.filter_by(userID=self.id,qnID=qn).first()
-            resp_vector.append(ans.optID==resp.optID)
-
-        return AI, resp_vector
 
 
 class Question(db.Model):
@@ -62,6 +45,7 @@ class Question(db.Model):
     difficulty = db.Column(db.Float)
     guessing = db.Column(db.Float)
     upper = db.Column(db.Float)
+    topicID = db.Column(db.Integer)
 
     #type = db.Column(db.String(16), index=True, unique=True)
 
@@ -95,19 +79,53 @@ class Post(db.Model):
     userID = db.Column(db.Integer, unique=True)
     threadID = db.Column(db.Integer, unique=True)
     timestamp = db.Column(db.DateTime)
-    title = db.Column(db.String(120))
     content = db.Column(db.String(140))
 
 class Thread(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     groupID = db.Column(db.Integer, unique=True)
     timestamp = db.Column(db.DateTime)
+    title = db.Column(db.String(120))
 
 class Proficiency(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userID = db.Column(db.Integer, unique=True)
     timestamp = db.Column(db.DateTime)
     theta = db.Column(db.Float)
+    topicID = db.Column(db.Integer)
+
+    def get_AI_responses(self):
+        '''Method to retrive Administered Items (AI) and response vector'''
+
+        # Retrieve stored responses from DB
+        responses = Response.query.filter_by(userID=self.userID).all()
+        # Get relevant topic questions
+        questions = Question.query.filter_by(userID=self.userID,topicID=self.topicID).all()
+        # Get AI / qnID from Responses
+        AI = [x.id for x in questions]
+
+        # Compare all responses with correct answer and store in resp_vector - in order
+        resp_vector = []
+        for qn in AI:
+            ans = Answer.query.filter_by(qnID=qn).first()
+            resp = Response.query.filter_by(userID=self.id,qnID=qn).first()
+            resp_vector.append(ans.optID==resp.optID)
+
+        return AI, resp_vector
+
+class QuestionQuiz(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    quizID = db.Column(db.Integer)
+    qnID = db.Column(db.Integer)
+
+class Quiz(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    userID = db.Column(db.Integer)
+    name = db.Column(db.String(120))
+
+class Topic(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120))
 
 @login.user_loader
 def load_user(id):
