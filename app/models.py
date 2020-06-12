@@ -76,20 +76,20 @@ class Group(db.Model):
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    userID = db.Column(db.Integer, unique=True)
-    threadID = db.Column(db.Integer, unique=True)
+    userID = db.Column(db.Integer)
+    threadID = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime)
     content = db.Column(db.String(140))
 
 class Thread(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    groupID = db.Column(db.Integer, unique=True)
+    groupID = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime)
     title = db.Column(db.String(120))
 
 class Proficiency(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    userID = db.Column(db.Integer, unique=True)
+    userID = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime)
     theta = db.Column(db.Float)
     topicID = db.Column(db.Integer)
@@ -99,16 +99,25 @@ class Proficiency(db.Model):
 
         # Retrieve stored responses from DB
         responses = Response.query.filter_by(userID=self.userID).all()
-        # Get relevant topic questions
-        questions = Question.query.filter_by(userID=self.userID,topicID=self.topicID).all()
+
         # Get AI / qnID from Responses
-        AI = [x.id for x in questions]
+        if self.topicID == 1 or self.topicID is None:
+            AI = [resp.qnID for resp in responses]
+        else:
+            # Get relevant topic questions
+            questions = Question.query.filter_by(topicID=self.topicID).all()
+            questions = {qn.id for qn in questions}
+            AI = []
+            for resp in responses:
+                if resp.qnID in questions:
+                    AI.append(resp.qnID)
 
         # Compare all responses with correct answer and store in resp_vector - in order
         resp_vector = []
         for qn in AI:
             ans = Answer.query.filter_by(qnID=qn).first()
-            resp = Response.query.filter_by(userID=self.id,qnID=qn).first()
+            resp = Response.query.filter_by(userID=self.userID,qnID=qn).first()
+
             resp_vector.append(ans.optID==resp.optID)
 
         return AI, resp_vector

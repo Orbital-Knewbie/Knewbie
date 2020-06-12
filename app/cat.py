@@ -37,6 +37,7 @@ class Student(object):
         self.items = self.get_items()
 
     def update(self):
+        '''Updates theta and returns item_index'''
         # get an estimated theta, given the answers to the dummy items
         new_theta = estimator.estimate(items=self.items, administered_items=self.AI, \
            response_vector=self.responses, est_theta=self.theta)
@@ -56,7 +57,7 @@ class Student(object):
         if not self.responses:
             qns = self.get_questions()
             qnIDs = [qn.id for qn in qns]
-            return choice(qnIDs)[0]
+            return choice(qnIDs)
 
         item_index = self.update()
 

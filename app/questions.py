@@ -1,8 +1,9 @@
 from app import db
-from app.models import Question, Option, Answer, Response, Proficiency
+from app.models import Question, Option, Answer, Response, Proficiency, Topic
 from app.cat import Student
 
 from random import choice, shuffle
+from datetime import datetime
 from catsim.cat import generate_item_bank
 
 import glob, os, json
@@ -249,19 +250,78 @@ def submit_response(id, form):
     # Create a Response entry
     response = Response(userID=id,optID=option.id,qnID=option.qnID)
 
-    # Update topic proficiency
-    qn = Question.query.filter_by(id=qnID).first()
-    topicID = qn.topicID
-    prof, topic_student = get_student_cat(id, topicID)
-    topic_student.update()
-    prof.theta = topic_student.theta
-
     # Save to DB
     db.session.add(response)
     db.session.commit()
 
-def get_student_cat(userID, topicID=1):
-    prof = Proficiency.query.filter_by(userID=id,topicID=topicID).first()
+    # Update topic proficiency
+    qn = Question.query.filter_by(id=qnID).first()
+    topicID = qn.topicID if qn.topicID else None
+    prof, topic_student = get_student_cat(id, topicID)
+    topic_student.update()
+    prof.theta = topic_student.theta
+
+    
+
+def get_student_cat(userID, topicID=None):
+    '''Returns proficiency, student (CAT object) given a userID and optional topicID
+    Defaults to overall proficiency (topicID=1)'''
+    prof = Proficiency.query.filter_by(userID=userID,topicID=topicID)
+    if not prof.all():
+        prof = create_student_prof(userID)
+    else:
+        prof = prof.first()
     AI, responses = prof.get_AI_responses()
-    student = Student(id, topicID, prof.theta, AI, responses)
+    print(userID, topicID, prof.theta, AI, responses)
+    student = Student(userID, topicID, prof.theta, AI, responses)
     return prof, student
+
+def create_student_prof(userID):
+    '''Creates a proficiency entity for a student'''
+    if not Topic.query.all():
+        add_topic("first")
+    topics = db.session.query(Topic.id).all()
+    student_cat = Student(userID)
+    for topic, in topics:
+        prof = Proficiency(userID=userID, timestamp=datetime.now(), 
+                           theta=student_cat.theta, topicID=topic)
+        db.session.add(prof)
+    db.session.commit()
+    return prof
+
+def add_topic(name):
+    '''Adds a topic to the database'''
+    topic = Topic(name=name)
+    db.session.add(topic)
+    db.session.commit()
+
+def add_question(qn_text, options, answer):
+    '''Adds a question to the database
+    Input
+    qn_text : str
+    options : seq of str
+    answer : int (1 to 4)
+    '''
+    # Generate item parameters from CatSim
+    item = generate_item_bank(1)[0]
+
+    # Add question
+    question = Question(question=qn_text, discrimination=item[0], \
+        difficulty=item[1], guessing=item[2], upper=item[3])
+    db.session.add(question)
+
+    qnID = question.id
+    
+    # Add options and answer
+    for opt in options:
+        o = Option(qnID=qnID,option=opt)
+        answer -= 1
+        db.session.add(o)
+        db.session.flush()
+        if answer == 0:
+            optID = o.id
+            ans = Answer(optID=optID,qnID=qnID)
+            db.session.add(ans)
+
+
+    

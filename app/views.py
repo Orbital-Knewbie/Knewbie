@@ -7,7 +7,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
 from app.models import User, Question, Option, Answer, Response, UserGroup, Group, Thread, Post, Proficiency
 from app.forms import *
-from app.questions import get_question_options, submit_response, get_question_cat
+from app.questions import get_question_options, submit_response, get_student_cat
 from app.email import register, resend_conf, send_contact_email, send_reset_email
 from app.forum import validate_group_link, save_post
 from app.token import confirm_token
@@ -161,16 +161,20 @@ def forum(groupID):
 
 @app.route('/<groupID>/<threadID>', methods=['GET', 'POST'])
 def forum_post(groupID, threadID):
+    groupID, threadID = int(groupID), int(threadID)
     group = validate_group_link(groupID)
     if group is None:
         return redirect(url_for('dashboard'))
-    posts = Post.query.filter_by(threadID=threadID)
+    thread = Thread.query.filter_by(id=threadID).first()
+    if thread is None or thread.groupID != groupID:
+        return render_template("error.html"), 404
+    posts = Post.query.filter_by(threadID=threadID).all()
     form = PostForm()
     if form.validate_on_submit():
         save_post(form)
         flash('Your post is now live!')
     
-    return render_template('posts.html', title=' | Forum', posts=posts, form=form)
+    return render_template('posts.html', title=' | Forum', thread=thread,posts=posts, form=form)
 
 @app.route('/<groupID>/createthread')
 def create_thread(groupID):

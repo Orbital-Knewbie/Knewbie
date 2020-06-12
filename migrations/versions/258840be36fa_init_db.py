@@ -1,8 +1,8 @@
 """init db
 
-Revision ID: 92b7ff614ece
+Revision ID: 258840be36fa
 Revises: 
-Create Date: 2020-06-09 20:02:15.288132
+Create Date: 2020-06-13 01:51:08.268070
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '92b7ff614ece'
+revision = '258840be36fa'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -41,11 +41,18 @@ def upgrade():
     sa.Column('userID', sa.Integer(), nullable=True),
     sa.Column('threadID', sa.Integer(), nullable=True),
     sa.Column('timestamp', sa.DateTime(), nullable=True),
-    sa.Column('title', sa.String(length=120), nullable=True),
     sa.Column('content', sa.String(length=140), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('threadID'),
     sa.UniqueConstraint('userID')
+    )
+    op.create_table('proficiency',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('userID', sa.Integer(), nullable=True),
+    sa.Column('timestamp', sa.DateTime(), nullable=True),
+    sa.Column('theta', sa.Float(), nullable=True),
+    sa.Column('topicID', sa.Integer(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('question',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -54,11 +61,24 @@ def upgrade():
     sa.Column('difficulty', sa.Float(), nullable=True),
     sa.Column('guessing', sa.Float(), nullable=True),
     sa.Column('upper', sa.Float(), nullable=True),
+    sa.Column('topicID', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     with op.batch_alter_table('question', schema=None) as batch_op:
         batch_op.create_index(batch_op.f('ix_question_question'), ['question'], unique=True)
 
+    op.create_table('question_quiz',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('quizID', sa.Integer(), nullable=True),
+    sa.Column('qnID', sa.Integer(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('quiz',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('userID', sa.Integer(), nullable=True),
+    sa.Column('name', sa.String(length=120), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('response',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userID', sa.Integer(), nullable=True),
@@ -70,8 +90,14 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('groupID', sa.Integer(), nullable=True),
     sa.Column('timestamp', sa.DateTime(), nullable=True),
+    sa.Column('title', sa.String(length=120), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('groupID')
+    )
+    op.create_table('topic',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=120), nullable=True),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -83,7 +109,6 @@ def upgrade():
     sa.Column('confirmed', sa.Boolean(), nullable=False),
     sa.Column('confirmed_on', sa.DateTime(), nullable=True),
     sa.Column('admin', sa.Boolean(), nullable=False),
-    sa.Column('theta', sa.Float(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     with op.batch_alter_table('user', schema=None) as batch_op:
@@ -105,12 +130,16 @@ def downgrade():
         batch_op.drop_index(batch_op.f('ix_user_email'))
 
     op.drop_table('user')
+    op.drop_table('topic')
     op.drop_table('thread')
     op.drop_table('response')
+    op.drop_table('quiz')
+    op.drop_table('question_quiz')
     with op.batch_alter_table('question', schema=None) as batch_op:
         batch_op.drop_index(batch_op.f('ix_question_question'))
 
     op.drop_table('question')
+    op.drop_table('proficiency')
     op.drop_table('post')
     op.drop_table('option')
     op.drop_table('group')
