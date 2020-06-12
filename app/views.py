@@ -13,6 +13,7 @@ from app.token import confirm_token
 from app.decorator import check_confirmed
 from app.cat import Student
 from flask_mail import Message
+from PIL import Image
 import json, datetime
 import os
 import secrets
@@ -46,7 +47,11 @@ def update_image(form_image):
     _, f_ext = os.path.splitext(form_image.filename)
     image_filename = random_hex + f_ext
     image_path = os.path.join(app.root_path, 'static/resources/images/profile_pics', image_filename)
-    form_image.save(image_path)
+    
+    img_size = (400, 400)
+    new_image = Image.open(form_image)
+    new_image.thumbnail(img_size)  
+    new_image.save(image_path)
     return image_filename
 
 @app.route('/settings', methods=['GET', 'POST'])

@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto|Syncopate&display=swap" rel="stylesheet">
 </head>
 <body>
+    {% block message %}
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul class="flashes">
@@ -23,6 +24,7 @@
     </ul>
     {% endif %}
     {% endwith %}
+    {% endblock %}
     <!-- NAV BAR -->
     <header>
         <div class="menu">

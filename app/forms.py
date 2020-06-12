@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from flask_login import current_user
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, FileField, MultipleFileField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, MultipleFileField, SelectField, FileField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from flask_wtf.file import FileAllowed
 from app.models import User
 
 class LoginForm(FlaskForm):
@@ -65,7 +66,7 @@ class CreateQnForm(FlaskForm):
 class UpdateProfileForm(FlaskForm):
     firstName = StringField('First Name', validators=[DataRequired()])
     lastName = StringField('Last Name', validators=[DataRequired()])
-    image = FileField('Change Image')
+    image = FileField('Change Image', validators=[FileAllowed(['jpg', 'png'], 'Images only!')])
     submit = SubmitField('Save')
 
 #class UpdateAccountForm(FlaskForm):
