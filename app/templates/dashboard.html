@@ -19,7 +19,7 @@
         </div>
         <div class="details">
             <h2>{{ current_user.firstName }} {{ current_user.lastName }}</h2>
-            {% if current_user.is_authenticated and current_user.urole == 'student' %}
+            {% if current_user.urole == 'student' %}
             <p>Knewbie ID: {{ current_user.knewbie_id }} </p>
             {% endif %}
             <a href="{{ url_for('progressreport') }}" class="btn">Progress Report</a>
@@ -60,7 +60,7 @@
         </div>
     </section>
 
-    {% if current_user.is_authenticated and current_user.urole == 'student' %}
+    {% if current_user.urole == 'student' %}
     <section class="box" id="joinclass">
         <h1>Join A Class</h1>
         <div class="details">
@@ -128,7 +128,7 @@
         </div>
     </section>
 
-    {% elif current_user.is_authenticated and current_user.urole == 'educator' %}
+    {% elif current_user.urole == 'educator' %}
     <!-- SPLIT SCREEN -->
     <div class="split-container" id="login-page">
         <div class="split left">
