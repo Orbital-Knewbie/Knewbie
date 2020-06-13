@@ -43,11 +43,14 @@ def dashboard():
     return render_template('dashboard.html', image_file=image_file)
 
 def update_image(form_image):
+    """To rename & resize image"""
+    #rename image
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_image.filename)
     image_filename = random_hex + f_ext
     image_path = os.path.join(app.root_path, 'static/resources/images/profile_pics', image_filename)
     
+    # resize image
     img_size = (400, 400)
     new_image = Image.open(form_image)
     new_image.thumbnail(img_size)  
@@ -59,6 +62,9 @@ def settings():
     """Renders the settings page."""
     form = UpdateProfileForm()
     if form.validate_on_submit():
+        if form.knewbie_id:
+            current_user.knewbie_id = current_user.set_knewbie_id()
+            db.session.commit()
         if form.image.data:
             image_file = update_image(form.image.data)
             current_user.image_file = image_file
