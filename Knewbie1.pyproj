@@ -39,6 +39,9 @@
     <Compile Include="app\decorator.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\profile.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\token.py">
       <SubType>Code</SubType>
     </Compile>

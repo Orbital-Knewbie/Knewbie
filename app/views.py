@@ -9,11 +9,11 @@ from app.models import User, Question, Option, Answer, Response
 from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm, CreateQnForm, UpdateProfileForm
 from app.questions import get_question_options, submit_response
 from app.email import register, resend_conf, send_contact_email, send_reset_email
+from app.profile import update_image
 from app.token import confirm_token
 from app.decorator import check_confirmed
 from app.cat import Student
 from flask_mail import Message
-from PIL import Image
 import json, datetime
 import os
 import secrets
@@ -41,21 +41,6 @@ def dashboard():
     """Renders the dashboard page."""
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
     return render_template('dashboard.html', image_file=image_file)
-
-def update_image(form_image):
-    """To rename & resize image"""
-    #rename image
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_image.filename)
-    image_filename = random_hex + f_ext
-    image_path = os.path.join(app.root_path, 'static/resources/images/profile_pics', image_filename)
-    
-    # resize image
-    img_size = (400, 400)
-    new_image = Image.open(form_image)
-    new_image.thumbnail(img_size)  
-    new_image.save(image_path)
-    return image_filename
 
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
