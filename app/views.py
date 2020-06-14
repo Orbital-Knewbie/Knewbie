@@ -7,7 +7,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
 from app.models import User, Question, Option, Answer, Response, UserGroup, Group, Thread, Post, Proficiency
 from app.forms import *
-from app.questions import get_question_options, submit_response, get_student_cat
+from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer
 from app.email import register, resend_conf, send_contact_email, send_reset_email
 from app.forum import validate_group_link, save_post
 from app.token import confirm_token
@@ -233,11 +233,12 @@ def quiz():
 @check_confirmed
 def result():
     id = current_user.id
-    prof, student = get_student_cat(id)
-    AI, responses = prof.get_AI_responses()
+    #prof, student = get_student_cat(id)
+    #AI, responses = prof.get_AI_responses()
 
-    correct = responses.count(True)
-    return '<h1>Correct Answers: <u>' + str(correct) + '/' + str(len(responses)) + '<u></h1>'
+    #correct = responses.count(True)
+    correct, qn_responses = get_response_answer(id)
+    return '<h1>Correct Answers: <u>' + str(correct) + '/' + str(len(qn_responses)) + '<u></h1>'
 
 # Routes to reset password
 @app.route("/resetpassword", methods=['GET', 'POST'])

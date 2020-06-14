@@ -149,23 +149,24 @@ def add_qn(org_qns):
     for q in org_qns.keys():
         item = generate_item_bank(1)[0]
         qn = Question(question=q, discrimination=item[0], \
-                    difficulty=item[1], guessing=item[2], upper=item[3])
+                    difficulty=item[1], guessing=item[2], upper=item[3], topicID=1)
         db.session.add(qn)
         db.session.commit()
-        qid = Question.query.filter_by(question=q).first().id
+        qid = qn.id
         b=True
         for o in org_qns[q]['answers']:
             opt=Option(qnID=qid,option=o)
             db.session.add(opt)
             if b:
-                optID = Option.query.filter_by(option=o).first().id
+                db.session.flush()
+                optID = opt.id
                 ans = Answer(qnID=qid, optID=optID)
                 db.session.add(ans)
                 b=False
             
             db.session.commit()
 
-#add_qn(org_qns)
+add_qn(org_qns)
 
 def insert_qns():
     '''Inserts questions formatted as a json file
@@ -193,7 +194,7 @@ def insert_qns():
                 item = generate_item_bank(1)[0]
 
                 question = Question(question=qn_text, discrimination=item[0], \
-                    difficulty=item[1], guessing=item[2], upper=item[3])
+                    difficulty=item[1], guessing=item[2], upper=item[3], topicID=1)
                 db.session.add(question)
 
                 qid = Question.query.filter_by(question=qn_text).first().id
@@ -278,9 +279,9 @@ def get_student_cat(userID, topicID=1):
     if not prof.all():
         prof = create_student_prof(userID)
     else:
-        prof = prof.order_by(desc('timestamp')).first()
+        prof = prof.order_by(Proficiency.timestamp.desc()).first()
     AI, responses = prof.get_AI_responses()
-    print(userID, topicID, prof.theta, AI, responses)
+
     student = Student(userID, topicID, prof.theta, AI, responses)
     return prof, student
 
@@ -335,9 +336,35 @@ def add_question(qn_text, options, answer):
 
 def get_proficiencies(userID):
     '''Return list of (timestamp, proficiency) in chronological order'''
-    profs = Proficiency.query.filter_by(userID=userID,topicID=1).order_by(asc('timestamp')).all()
+    profs = Proficiency.query.filter_by(userID=userID,topicID=1).order_by(Proficiency.timestamp.asc()).all()
     return [(prof.timestamp, prof.theta) for prof in profs]
 
 def get_curr_prof(userID):
     '''Returns current proficiency of the user'''
     return get_proficiencies(userID)[-1][1]
+
+def get_response_answer(id):
+    '''Returns number of correct responses, 
+    and dictionary with question : [options, response, answer]'''
+
+    responses = Response.query.filter_by(userID=id).all()
+    d={}
+    correct = 0
+    for r in responses:
+        qnID = r.qnID
+        qn_txt = Question.query.filter_by(id=qnID).first().question
+        opt = Option.query.filter_by(qnID=qnID).all()
+        opt_txt = []
+        ans = Answer.query.filter_by(qnID=qnID).first().optID
+        for i in range(len(opt)):
+            opt_txt.append(opt[i].option)
+            if opt[i].id == ans:
+                ans_num = i
+            if opt[i].id == r.optID:
+                res_num = i
+        if ans_num == res_num:
+            correct += 1
+        d[qn_txt]=[opt_txt,ans_num,res_num]
+
+    print(d)
+    return correct, d
