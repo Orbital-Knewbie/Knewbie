@@ -200,20 +200,6 @@ def logout():
 @login_required
 @check_confirmed
 def quiz():
-    sh_qns, qns = final_qns()
-    return render_template('quiz.html', title=' | Quiz', q = sh_qns, o = qns)
-
-@app.route('/end', methods=['POST'])
-def end():
-    totalEasy = len(tuple(filter(lambda x: og_qns[x]['difficulty'] == 'Easy', qns.keys())))
-    totalHard = len(qns.keys()) - totalEasy
-    correct = tuple(filter(lambda x: request.form.get(x) == og_qns[x]['answers'][0], qns.keys()))
-    easyCorrect = len(tuple(filter(lambda x: og_qns[x]['difficulty'] == 'Easy', correct)))
-    hardCorrect = len(correct) - easyCorrect
-    #hardCorrect = tuple(filter(lambda x: og_qns[x]['difficulty'] == 'Easy', correct))
-    
-    return '<h1>Correct Answers: <u>Easy: ' + str(easyCorrect) + '/' + str(totalEasy) + ' Hard:' + str(hardCorrect) + '/' + str(totalHard) + '<u></h1>'
-  
     # userID, theta (proficiency), Admistered Items (AI), response vector
     id = current_user.id
     theta = current_user.theta
