@@ -256,21 +256,29 @@ def submit_response(id, form):
 
     # Update topic proficiency
     qn = Question.query.filter_by(id=qnID).first()
-    topicID = qn.topicID if qn.topicID else None
+    topicID = qn.topicID if qn.topicID else 1
     prof, topic_student = get_student_cat(id, topicID)
     topic_student.update()
     prof.theta = topic_student.theta
+    db.session.commit()
 
-    
+def add_proficiency(id):
+    '''Add timestamped proficiency entity, done every completed quiz'''
+    prof, student = get_student_cat(userID)
+    new_prof = Proficiency(userID=userID, timestamp=datetime.now(), 
+                           theta=student.theta, topicID=1)
+    db.session.add(new_prof)
+    db.session.commit()
 
-def get_student_cat(userID, topicID=None):
+def get_student_cat(userID, topicID=1):
     '''Returns proficiency, student (CAT object) given a userID and optional topicID
     Defaults to overall proficiency (topicID=1)'''
+
     prof = Proficiency.query.filter_by(userID=userID,topicID=topicID)
     if not prof.all():
         prof = create_student_prof(userID)
     else:
-        prof = prof.first()
+        prof = prof.order_by(desc('timestamp')).first()
     AI, responses = prof.get_AI_responses()
     print(userID, topicID, prof.theta, AI, responses)
     student = Student(userID, topicID, prof.theta, AI, responses)
@@ -309,6 +317,7 @@ def add_question(qn_text, options, answer):
     question = Question(question=qn_text, discrimination=item[0], \
         difficulty=item[1], guessing=item[2], upper=item[3])
     db.session.add(question)
+    db.session.flush()
 
     qnID = question.id
     
@@ -322,6 +331,13 @@ def add_question(qn_text, options, answer):
             optID = o.id
             ans = Answer(optID=optID,qnID=qnID)
             db.session.add(ans)
+    db.session.commit()
 
+def get_proficiencies(userID):
+    '''Return list of (timestamp, proficiency) in chronological order'''
+    profs = Proficiency.query.filter_by(userID=userID,topicID=1).order_by(asc('timestamp')).all()
+    return [(prof.timestamp, prof.theta) for prof in profs]
 
-    
+def get_curr_prof(userID):
+    '''Returns current proficiency of the user'''
+    return get_proficiencies(userID)[-1][1]

@@ -79,7 +79,7 @@ class Post(db.Model):
     userID = db.Column(db.Integer)
     threadID = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime)
-    content = db.Column(db.String(140))
+    content = db.Column(db.Text)
 
 class Thread(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -29,7 +29,7 @@ def home():
         user = User.query.filter_by(email=form.email.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
-            return redirect(url_for('login'))
+            return redirect(url_for('home'))
         login_user(user)
         return redirect(url_for('dashboard'))
     return render_template('index.html', form=form)
@@ -49,7 +49,7 @@ def faq():
     """Renders the faq page."""
     return render_template('faq.html', title=' | FAQ')
 
-@app.route('/create', methods=['GET', 'POST'])
+@app.route('/questions', methods=['GET', 'POST'])
 def create():
     """Renders the create page for educators."""
     form = CreateQnForm()
@@ -80,7 +80,7 @@ def reg():
     eduForm = RegistrationForm(prefix='edu')
     return render_template('register.html', title=' | Register', stuForm=stuForm, eduForm=eduForm)
 
-@app.route('/registerstudent', methods=['POST'])
+@app.route('/register/student', methods=['POST'])
 def regstu():
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
@@ -88,7 +88,7 @@ def regstu():
         return register(stuForm, 'student')
     return render_template('register.html', title=' | Register', stuForm=stuForm, eduForm=eduForm)
 
-@app.route('/registereducator', methods=['POST'])
+@app.route('/register/educator', methods=['POST'])
 def regedu():
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
@@ -129,19 +129,20 @@ def resend():
     resend_conf(current_user)
     return redirect(url_for('unconfirmed'))
 
-@app.route('/login', methods=['GET','POST'])
-def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('dashboard'))
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
-            return redirect(url_for('login'))
-        login_user(user)
-        return redirect(url_for('dashboard'))
-    return render_template('login.html', title=' | Log In', form=form)
+# Lone login page probably not needed, should be on homepage
+#@app.route('/login', methods=['GET','POST'])
+#def login():
+#    if current_user.is_authenticated:
+#        return redirect(url_for('dashboard'))
+#    form = LoginForm()
+#    if form.validate_on_submit():
+#        user = User.query.filter_by(email=form.email.data).first()
+#        if user is None or not user.check_password(form.password.data):
+#            flash('Invalid username or password')
+#            return redirect(url_for('login'))
+#        login_user(user)
+#        return redirect(url_for('dashboard'))
+#    return render_template('login.html', title=' | Log In', form=form)
 
 @app.route('/logout')
 def logout():
@@ -150,7 +151,7 @@ def logout():
 
 
 # Routes for Group Forum
-@app.route('/<groupID>')
+@app.route('/group/<groupID>')
 #@login_required
 def forum(groupID):
     group = validate_group_link(groupID)
@@ -159,35 +160,48 @@ def forum(groupID):
     threads = Thread.query.filter_by(groupID=groupID).all()
     return render_template('forum.html', title=' | Forum', groupID=groupID, threads=threads)
 
-@app.route('/<groupID>/<threadID>', methods=['GET', 'POST'])
+@app.route('/group/<groupID>/thread/<threadID>', methods=['GET', 'POST'])
 def forum_post(groupID, threadID):
+    # Check validity of link access first
     groupID, threadID = int(groupID), int(threadID)
     group = validate_group_link(groupID)
     if group is None:
         return redirect(url_for('dashboard'))
-    thread = Thread.query.filter_by(id=threadID).first()
-    if thread is None or thread.groupID != groupID:
+    thread = Thread.query.filter_by(id=threadID).first_or_404()
+    if thread.groupID != groupID:
         return render_template("error.html"), 404
+
+    # Render Posts and PostForm
     posts = Post.query.filter_by(threadID=threadID).all()
     form = PostForm()
+
+    # POST request for new post
     if form.validate_on_submit():
         save_post(form)
         flash('Your post is now live!')
     
+    # GET request for forum thread
     return render_template('posts.html', title=' | Forum', thread=thread,posts=posts, form=form)
 
-@app.route('/<groupID>/createthread')
+@app.route('/group/<groupID>/thread', methods=['GET','POST'])
 def create_thread(groupID):
+    # Check validity of link access first
     group = Group.query.filter_by(id=groupID).first_or_404()
     if UserGroup.query.filter_by(userID=current_user.id, groupID=groupID).first() is None:
         return redirect(url_for('dashboard'))
+
+    # Render ThreadForm
     form = ThreadForm()
+
+    # POST request for new thread
     if form.validate_on_submit():
         thread = Thread(groupID=groupID, timestamp=datetime.datetime.now())
         db.session.add(thread)
         save_post(form)
         flash('Your post is now live!')
-        return redirect(url_for('forum_post', groupID=groupID, threadID=threadID))
+        return redirect(url_for('forum_post', groupID=groupID, threadID=thread.id))
+
+    # GET request for create thread
     return render_template('posts.html', title=' | Forum', form=form)
 
 

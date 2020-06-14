@@ -62,8 +62,7 @@ class CreateQnForm(FlaskForm):
     submit = SubmitField('Create Question')
 
 class PostForm(FlaskForm):
-    post = TextAreaField('Say something', validators=[
-        DataRequired(), Length(min=1, max=1024)])
+    post = TextAreaField('Say something', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class ThreadForm(PostForm):

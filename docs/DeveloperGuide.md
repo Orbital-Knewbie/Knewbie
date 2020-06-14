@@ -22,7 +22,8 @@ Refer to the guide [here](/docs/InstallationGuide.md).
 
 ## 2. Design <a name="design"></a>
 [Flask](https://flask.palletsprojects.com/) is a micro web framework written in [Python](https://www.python.org/). This Web App makes use of the framework for its overall design.
-The rationale behind choosing Flask may be found in the [Development Practices document](/docs/DevPractices.md).
+The rationale behind choosing Flask may be found in the [Development Practices document](/docs/DevPractices.md). 
+The explanation of Diagrams used in this Guide can be found in the [Documentation section below](#doc).
 ### 2.1 Architecture <a name="arch"></a>
 ![Architecture Design](diagrams/Architecture.png)
 Fig #. Overall Architecture
@@ -46,6 +47,7 @@ The Model component includes files:
 ```
 ├── forms.py
 ├── models.py
+├── cat.py
 └── ...
 ```
 ![Model Class](diagrams/Model.png)
@@ -56,6 +58,7 @@ The Model component
 * stores `User` data.
 * stores `Question, Option, Answer` data.
 * defines the various `FlaskForm`s used.
+* defines `Student` used in CAT, explained under [Implementation](#adaptive)
 * does not depend on the other components.
 
 ### 2.3 View component <a name="view"></a>
@@ -87,6 +90,7 @@ The Controller component includes files:
 ├── questions.py
 ├── email.py
 ├── token.py
+├── forum.py
 └── ...
 ```
 ![Controller Component](diagrams/Controller.png)<br>
@@ -106,7 +110,7 @@ The Sequence Diagram below shows the interactions within the Controller componen
 Fig #. Interactions within Controller Component for `register`
 
 ### 2.5 Database <a name="database"></a>
-The database design is centered around the users, quizzes, and forum posts (to be added). The *Entity-Relationship Diagram* below showcases the attributes and relationships used.
+The database design is centered around the users, quizzes, and forum posts. The *Entity-Relationship Diagram* below showcases the attributes and relationships used.
 
 ![Database](diagrams/Database.png)<br>
 Fig #. Database Design
@@ -149,13 +153,14 @@ Fig #. Interactions of Components for a ContactForm
 #### 3.1.4 Classes
 Both Students and Educators can be part of Classes. Classes are created to let Educators monitor their students progress collectively, and also can allow interaction between Educators and Students as well as Students with other Students using the forum.
 A simple demonstration of a Student-Educator relationship, along with the Classes is shown in the Entity-Relationship Diagram below.
+Note that the User properties were omitted for brevity - the full database design can still be found earlier in the [Database section](#database).
 
 ![Student Educator Classes](diagrams/UserEntity.png)<br>
 Fig #. Relationship of Student-Educator-Class
 
-Interactions between are part of peer learning and can enhance the knowledge gained from the platform. The forum created for each class will allow for the clarification of questions students may have.
-
-{diagram}
+Interactions between are part of peer learning and can enhance the knowledge gained from the platform. 
+The forum created for each class will allow for the clarification of questions students may have.
+The diagram above also demonstrates the relationships between the forum and users.
 
 ### 3.2 Quiz <a name="quiz"></a>
 #### 3.2.1 Attempt Quiz

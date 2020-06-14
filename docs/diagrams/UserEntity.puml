@@ -2,36 +2,61 @@
 ' avoid problems with angled crows feet
 skinparam linetype ortho
 
-entity UserStudent {
+package User {
+entity User_Student
+entity User_Educator
+}
+
+entity User_Student {
 *id
 --
 name
-score
+urole="student"
 }
 
-entity UserEducator {
+entity User_Educator {
+*id
+--
+name
+urole="educator"
+}
+
+entity Thread {
+*id
+--
+groupID
+timestamp
+title
+}
+
+entity Post {
+*id
+--
+userID
+threadID
+timestamp
+content
+}
+
+entity Group {
 *id
 --
 name
 }
 
-entity Class {
+entity UserGroup {
 *id
 --
-name
-}
-
-entity UserClass {
-*id
---
-classID
+groupID
 userID
 }
 
-UserStudent ||--|{ UserClass
-
-UserEducator ||--|{ UserClass
-Class ||--|{ UserClass
-
+User_Student ||--|{ UserGroup
+User_Educator ||--|{ UserGroup
+Group ||--|{ UserGroup
+Thread }|--|| Group
+Post }|--|| Thread
+Post }|--|| User_Student
+Post }|--|| User_Educator
 
 @enduml

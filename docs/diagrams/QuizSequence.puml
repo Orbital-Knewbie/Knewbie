@@ -30,26 +30,26 @@ deactivate validate
 views --> qns
 activate qns
 
-qns --> model : Question.submit()
+qns --> model : submit_response()
 activate model
 
-model --> qns
+model --> qns : Response(user,form)
 deactivate model
 
-qns --> model : check_answers()
+qns --> model : get_student_cat()
 activate model
 
-model --> qns : Answer(user=User)
+model --> qns : theta=Proficiency(user),student=Student(user)
 deactivate model
 
-qns --> database : db.session.add(Answer())
+qns --> database : db.session.add(theta),student.get_next_question()
 activate database
 
 database --> database : Save to File
 activate database
 deactivate database
 
-database --> qns : User(), Question()
+database --> qns : Question()
 deactivate database
 
 qns --> model : User(), Question()

@@ -2,8 +2,7 @@
 package Controller {
 Class Questions
 Class Email
-Class Token
-Class Decorator
+Class Forum
 Interface Routes <<Interface>>
 }
 
@@ -18,9 +17,9 @@ HiddenOutside ..> Routes
 
 Routes --> Questions
 Routes --> Email
-Routes --> Token
-Routes --> Decorator
+Routes --> Forum
 Questions --> Model
 Email --> Model
+Forum --> Model
 Routes --> View
 @enduml
