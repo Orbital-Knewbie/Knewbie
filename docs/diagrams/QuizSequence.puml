@@ -6,9 +6,11 @@ participant ":Route" as Route
 participant ":views.py" as views
 participant ":validate" as validate
 participant ":Questions" as qns
+end box
+box Model
+Participant ":Model" as model
 participant ":AdaptiveTesting" as ML
 end box
-Participant ":Model" as model
 Participant ":database" as database
 
 
@@ -30,63 +32,63 @@ deactivate validate
 views --> qns
 activate qns
 
-qns --> model : Question.submit()
+qns --> model : submit_response()
 activate model
 
-model --> qns
+model --> qns : Response(user,form)
 deactivate model
 
-qns --> model : check_answers()
+qns --> model : get_student_cat()
 activate model
 
-model --> qns : Answer(user=User)
+model --> qns : theta=Proficiency(user),student=Student(user)
 deactivate model
 
-qns --> database : db.session.add(Answer())
+qns --> database : db.session.add(theta),student.get_next_question()
 activate database
 
 database --> database : Save to File
 activate database
 deactivate database
 
-database --> qns : User(), Question()
+database --> qns : Question(), Proficiency()
 deactivate database
 
-qns --> model : User(), Question()
-activate model
-
-model --> qns : User(score), Question(score)
-deactivate model
-
-qns --> ML : User(score), Question(score)
+qns --> ML : item_response=Proficiency.get_item_responses()
 activate ML
 
-ML --> model : getQuestion()
-activate model
+ML --> qns : student=Student(item_response)
+deactivate ML
 
-model --> ML : Question()
-deactivate model
+qns --> ML : student.update()
+activate ML
 
-ML --> database : User(score), Question(score)
+ML --> qns : student.theta
+deactivate ML 
+
+qns --> database : Proficiency.theta=student.theta
 activate database
 
 database --> database : Save to File
 activate database
 deactivate database
 
-database --> ML : db.session.commit()
+database --> qns : Response(), Answer()
 deactivate database
 
-ML --> qns
-deactivate ML
+qns --> model : correct(Response,Answer)
+activate model
 
-qns --> views : dashboard()
+model --> qns : correct_responses
+deactivate model
+
+qns --> views : result()
 deactivate qns
 
-views --> Route
+views --> Route : /result
 deactivate views
 
-Route --> view : dashboard.html
+Route --> view : result.html
 deactivate Route
 
 view --> user

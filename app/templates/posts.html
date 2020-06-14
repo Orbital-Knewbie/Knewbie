@@ -1,0 +1,35 @@
+﻿{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="../static/content/dashboardstyle.css">
+{% endblock %}
+{% block content %}
+<div>
+    <h1> {{ thread.title }} </h1>
+    {% for post in posts %}
+    <div>
+        <h2> {{ post.userID }} said:</h2>
+        <div> {{ post.content }} </div>
+    </div> <br />
+    {% endfor %}
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {% if form.title %}
+            {{ form.title.label }}<br>
+            {{ form.title() }}<br>
+            {% for error in form.title.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            {% endif %}
+
+            {{ form.post.label }}<br>
+            {{ form.post(cols=32, rows=4) }}<br>
+            {% for error in form.post.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+</div>
+{% endblock %}

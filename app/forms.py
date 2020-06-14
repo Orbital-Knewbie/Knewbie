@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, MultipleFileField, SelectField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
 
 class LoginForm(FlaskForm):
@@ -60,3 +60,10 @@ class CreateQnForm(FlaskForm):
     corrOp = SelectField('Correct Option', choices=[('nth', 'Select Correct Option'), ('Op1', 'Option 1'), ('Op2', 'Option 2'), ('Op3', 'Option 3'), ('Op4', 'Option 4')], validators=[DataRequired()])
     img = MultipleFileField('Attach Image')
     submit = SubmitField('Create Question')
+
+class PostForm(FlaskForm):
+    post = TextAreaField('Say something', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+class ThreadForm(PostForm):
+    title = StringField('Title', validators=[DataRequired()])
