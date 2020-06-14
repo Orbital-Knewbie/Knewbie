@@ -65,6 +65,7 @@
     <Content Include=".gitignore" />
     <Content Include="app\static\content\createstyle.css" />
     <Content Include="app\static\content\dashboardstyle.css" />
+    <Content Include="app\static\content\deactstyle.css" />
     <Content Include="app\static\content\errorstyle.css" />
     <Content Include="app\static\content\faqstyle.css" />
     <Content Include="app\static\content\homepagestyle.css" />
@@ -103,6 +104,8 @@
     <Content Include="app\templates\email\activate.html" />
     <Content Include="app\templates\email\contactmsg.txt" />
     <Content Include="app\templates\email\contactmsg.html" />
+    <Content Include="app\templates\email\deactivate.html" />
+    <Content Include="app\templates\email\deactivate.txt" />
     <Content Include="app\templates\email\reset.txt" />
     <Content Include="app\templates\email\reset.html" />
     <Content Include="app\templates\error.html" />
@@ -118,6 +121,7 @@
     <Content Include="app\templates\unconfirmed.html" />
     <Content Include="app\templates\contact.html" />
     <Content Include="app\templates\create.html" />
+    <Content Include="app\templates\deactivate.html" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.png" />
     <Content Include="docs\diagrams\Architecture.png" />
     <Content Include="docs\diagrams\ArchitectureSequence.png" />

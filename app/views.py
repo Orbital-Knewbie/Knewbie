@@ -6,7 +6,7 @@ from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
 from app.models import User, Question, Option, Answer, Response
-from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm, CreateQnForm
+from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm, CreateQnForm, DeactivateForm
 from app.questions import get_question_options, submit_response
 from app.email import register, resend_conf, send_contact_email, send_reset_email
 from app.token import confirm_token
@@ -40,7 +40,7 @@ def dashboard():
 
 @app.route('/settings')
 def settings():
-    """Renders the dashboard page."""
+    """Renders the settings page."""
     return render_template('settings.html', title=' | Settings')
 
 @app.route('/faq')
@@ -141,6 +141,34 @@ def login():
         login_user(user)
         return redirect(url_for('dashboard'))
     return render_template('login.html', title=' | Log In', form=form)
+
+@app.route('/deactivate', methods=['GET','POST'])
+def deactivate():
+    form = DeactivateForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user is None:
+            flash('Invalid email. Please try again')
+            return redirect(url_for('deactivate'))
+        return redirect(url_for('deactivate'))
+    return render_template('deactivate.html', title=' | Deactivate Account', form=form)
+
+@app.route('/deactivate/<token>')
+@login_required
+def deactivate_email(token):
+    try:
+        email = deactivate_token(token)
+    except:
+        flash('The confirmation link is invalid or has expired.', 'danger')
+        return redirect(url_for('deactivate'))
+    user = User.query.filter_by(email=email).first_or_404()
+    if user.confirmed:
+        flash('Account already confirmed. Please login.', 'success')
+    else:
+        db.session.delete(user)
+        db.session.commit()
+        flash('You have deactivated your account successfully!', 'success')
+    return redirect(url_for('home'))
 
 @app.route('/logout')
 def logout():
