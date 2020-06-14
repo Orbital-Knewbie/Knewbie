@@ -46,10 +46,7 @@ def dashboard():
 def settings():
     """Renders the settings page."""
     form = UpdateProfileForm()
-    if form.validate_on_submit():
-        if form.knewbie_id:
-            current_user.knewbie_id = current_user.set_knewbie_id()
-            db.session.commit()
+    if form.validate_on_submit():            
         if form.image.data:
             image_file = update_image(form.image.data)
             current_user.image_file = image_file
@@ -63,6 +60,15 @@ def settings():
         form.lastName.data = current_user.lastName
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
     return render_template('settings.html', title=' | Settings', image_file=image_file, form=form)
+
+@app.route('/settings/knewbieID', methods=['GET', 'POST'])
+def settings_knewbie_id():
+    """Routing to update Knewbie ID"""
+    current_user.knewbie_id = current_user.set_knewbie_id()
+    db.session.commit()
+    flash('Your profile has been successfully updated!', 'success')
+    return redirect(url_for('settings'))
+
 
 @app.route('/faq')
 def faq():

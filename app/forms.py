@@ -67,7 +67,7 @@ class UpdateProfileForm(FlaskForm):
     firstName = StringField('First Name', validators=[DataRequired()])
     lastName = StringField('Last Name', validators=[DataRequired()])
     image = FileField('Change Image', validators=[FileAllowed(['jpg', 'png'], 'Images only!')])
-    knewbie_id = SubmitField('Request ID')
+    knewbie_id = SubmitField('Request A Knewbie ID')
     submit = SubmitField('Save')
 
 #class UpdateAccountForm(FlaskForm):
