@@ -64,7 +64,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="migrations\env.py" />
-    <Compile Include="migrations\versions\6123741f2fa8_init_db.py" />
+    <Compile Include="migrations\versions\755a46b318c1_init_db.py" />
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>

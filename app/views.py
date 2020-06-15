@@ -216,7 +216,7 @@ def forum_post(groupID, threadID):
         return redirect(url_for('dashboard'))
     thread = Thread.query.filter_by(id=threadID).first_or_404()
     if thread.groupID != groupID:
-        return render_template("error.html"), 404
+        return render_template('error.html'), 404
 
     # Render Posts and PostForm
     posts = Post.query.filter_by(threadID=threadID).all()
@@ -226,6 +226,7 @@ def forum_post(groupID, threadID):
     if form.validate_on_submit():
         save_post(form, threadID)
         flash('Your post is now live!')
+        return redirect(url_for('forum_post',groupID=groupID,threadID=threadID))
     
     # GET request for forum thread
     return render_template('posts.html', title=' | Forum', thread=thread,posts=posts, form=form)
@@ -242,15 +243,31 @@ def create_thread(groupID):
 
     # POST request for new thread
     if form.validate_on_submit():
-        thread = Thread(groupID=groupID, timestamp=datetime.datetime.now())
+        thread = Thread(groupID=groupID, timestamp=datetime.datetime.now(), title=form.title.data)
         db.session.add(thread)
-        db.session.flush()
+        db.session.commit()
         save_post(form, thread.id)
         flash('Your post is now live!')
         return redirect(url_for('forum_post', groupID=groupID, threadID=thread.id))
 
     # GET request for create thread
     return render_template('posts.html', title=' | Forum', form=form)
+
+@app.route('/group/<groupID>/thread/<threadID>/delete/<postID>')
+def delete_post(groupID, threadID, postID):
+    # Check validity of link access first
+    groupID, threadID, postID = int(groupID), int(threadID), int(postID)
+    group = validate_group_link(groupID)
+    if group is None:
+        return redirect(url_for('dashboard'))
+    thread = Thread.query.filter_by(id=threadID,groupID=groupID).first_or_404()
+    post = Post.query.filter_by(id=postID,threadID=threadID).first_or_404()
+    if current_user.id != post.userID and current_user.urole != 'educator':
+        return render_template('error.html'), 404
+    db.session.delete(post)
+    db.session.commit()
+    flash('Post deleted')
+    return redirect(url_for('forum_post', groupID=groupID,threadID=threadID))
 
 
 # Routes for Quiz

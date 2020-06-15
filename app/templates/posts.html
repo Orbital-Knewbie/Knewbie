@@ -1,14 +1,19 @@
 ﻿{% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="../static/content/dashboardstyle.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='content/dashboardstyle.css') }}">
 {% endblock %}
 {% block content %}
 <div>
     {% if thread %}
     <h1> {{ thread.title }} </h1>
+    <a href="#">Delete Thread</a>
     {% for post in posts %}
     <div>
         <h2> {{ post.userID }} said:</h2>
+        {% if current_user.id == post.userID or current_user.urole == 'educator' %}
+        <a href="{{url_for('delete_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}}">Delete Post</a>
+        <a href="#">Edit Post</a>
+        {% endif %}
         <div> {{ post.content }} </div>
     </div> <br />
     {% endfor %}

@@ -10,8 +10,7 @@ def validate_group_link(groupID):
 
 def save_post(form, threadID):
     post = Post(userID=current_user.id, threadID=threadID, 
-                    timestamp=datetime.datetime.now(), 
-                    title=form.title, content=form.post)
+                timestamp=datetime.now(), content=form.post.data)
     db.session.add(post)
     db.session.commit()
 
