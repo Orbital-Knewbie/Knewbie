@@ -92,7 +92,7 @@ class UpdateProfileForm(FlaskForm):
 #            user = User.query.filter_by(email=email.data).first()
 #            if user is not None:
 #                raise ValidationError('Email is the same as the registered email. Please use a different email address.')
-    submit = SubmitField('Create Question')
+#    submit = SubmitField('Create Question')
 
 class PostForm(FlaskForm):
     post = TextAreaField('Say something', validators=[DataRequired()])

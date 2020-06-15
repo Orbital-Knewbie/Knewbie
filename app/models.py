@@ -45,9 +45,6 @@ class User(UserMixin, db.Model):
         self.knewbie_id =  ''.join((random.choice(lettersAndDigits) for i in range(8)))
         return self.knewbie_id
 
-    def get_AI_responses(self):
-        '''Method to retrive Administered Items (AI) and response vector'''
-
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
