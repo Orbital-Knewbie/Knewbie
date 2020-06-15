@@ -30,6 +30,12 @@
     <Compile Include="app\cat.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\errors\handlers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\errors\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\forms.py">
       <SubType>Code</SubType>
     </Compile>
@@ -108,7 +114,9 @@
     <Content Include="app\templates\email\deactivate.txt" />
     <Content Include="app\templates\email\reset.txt" />
     <Content Include="app\templates\email\reset.html" />
-    <Content Include="app\templates\error.html" />
+    <Content Include="app\templates\errors\error403.html" />
+    <Content Include="app\templates\errors\error404.html" />
+    <Content Include="app\templates\errors\error500.html" />
     <Content Include="app\templates\faq.html" />
     <Content Include="app\templates\index.html" />
     <Content Include="app\templates\login.html" />
@@ -196,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
+    <Folder Include="app\errors\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\resources\questions\" />
     <Folder Include="app\static\scripts\" />
@@ -205,6 +214,7 @@
     <Folder Include="app\static\content\" />
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\email\" />
+    <Folder Include="app\templates\errors\" />
     <Folder Include="docs\diagrams\" />
     <Folder Include="docs\images\" />
     <Folder Include="migrations\" />
