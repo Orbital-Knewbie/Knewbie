@@ -49,7 +49,7 @@ class Student(object):
         
         self.theta = new_theta
 
-        return item_index
+        return item_index + 1
 
     def get_next_question(self):
         '''Get the next Question to be administered to the Student'''

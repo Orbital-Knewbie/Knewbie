@@ -61,9 +61,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="migrations\env.py" />
-    <Compile Include="migrations\versions\88c831d8fa3c_proficiency.py" />
-    <Compile Include="migrations\versions\92b7ff614ece_init_db.py" />
-    <Compile Include="migrations\versions\c20ddc19ef83_.py" />
+    <Compile Include="migrations\versions\6123741f2fa8_init_db.py" />
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
@@ -179,7 +177,6 @@
     <Content Include="docs\DevPractices.md" />
     <Content Include="docs\UserGuide-Educator.md" />
     <Content Include="migrations\alembic.ini" />
-    <Content Include="migrations\env.pyc" />
     <Content Include="migrations\README" />
     <Content Include="migrations\script.py.mako" />
     <Content Include="README.md" />
@@ -210,9 +207,9 @@
     <Folder Include="app\templates\email\" />
     <Folder Include="docs\diagrams\" />
     <Folder Include="docs\images\" />
+    <Folder Include="docs\" />
     <Folder Include="migrations\" />
     <Folder Include="migrations\versions\" />
-    <Folder Include="docs\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 

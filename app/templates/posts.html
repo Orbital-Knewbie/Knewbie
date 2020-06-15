@@ -4,6 +4,7 @@
 {% endblock %}
 {% block content %}
 <div>
+    {% if thread %}
     <h1> {{ thread.title }} </h1>
     {% for post in posts %}
     <div>
@@ -11,6 +12,7 @@
         <div> {{ post.content }} </div>
     </div> <br />
     {% endfor %}
+    {% endif %}
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>

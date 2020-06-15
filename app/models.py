@@ -102,7 +102,7 @@ class Proficiency(db.Model):
 
         # Get AI / qnID from Responses
         if self.topicID == 1 or self.topicID is None:
-            AI = [resp.qnID for resp in responses]
+            AI = [resp.qnID - 1 for resp in responses]
         else:
             # Get relevant topic questions
             questions = Question.query.filter_by(topicID=self.topicID).all()
@@ -110,13 +110,13 @@ class Proficiency(db.Model):
             AI = []
             for resp in responses:
                 if resp.qnID in questions:
-                    AI.append(resp.qnID)
+                    AI.append(resp.qnID - 1)
 
         # Compare all responses with correct answer and store in resp_vector - in order
         resp_vector = []
         for qn in AI:
-            ans = Answer.query.filter_by(qnID=qn).first()
-            resp = Response.query.filter_by(userID=self.userID,qnID=qn).first()
+            ans = Answer.query.filter_by(qnID=qn+1).first()
+            resp = Response.query.filter_by(userID=self.userID,qnID=qn+1).first()
 
             resp_vector.append(ans.optID==resp.optID)
 

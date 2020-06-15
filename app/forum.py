@@ -8,7 +8,7 @@ def validate_group_link(groupID):
     if UserGroup.query.filter_by(userID=current_user.id, groupID=groupID).first() is not None:
         return group
 
-def save_post(form):
+def save_post(form, threadID):
     post = Post(userID=current_user.id, threadID=threadID, 
                     timestamp=datetime.datetime.now(), 
                     title=form.title, content=form.post)

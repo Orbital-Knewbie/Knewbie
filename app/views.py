@@ -177,7 +177,7 @@ def forum_post(groupID, threadID):
 
     # POST request for new post
     if form.validate_on_submit():
-        save_post(form)
+        save_post(form, threadID)
         flash('Your post is now live!')
     
     # GET request for forum thread
@@ -197,7 +197,8 @@ def create_thread(groupID):
     if form.validate_on_submit():
         thread = Thread(groupID=groupID, timestamp=datetime.datetime.now())
         db.session.add(thread)
-        save_post(form)
+        db.session.flush()
+        save_post(form, thread.id)
         flash('Your post is now live!')
         return redirect(url_for('forum_post', groupID=groupID, threadID=thread.id))
 

@@ -1,8 +1,8 @@
 """init db
 
-Revision ID: 258840be36fa
+Revision ID: 6123741f2fa8
 Revises: 
-Create Date: 2020-06-13 01:51:08.268070
+Create Date: 2020-06-15 18:10:51.582618
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '258840be36fa'
+revision = '6123741f2fa8'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -41,10 +41,8 @@ def upgrade():
     sa.Column('userID', sa.Integer(), nullable=True),
     sa.Column('threadID', sa.Integer(), nullable=True),
     sa.Column('timestamp', sa.DateTime(), nullable=True),
-    sa.Column('content', sa.String(length=140), nullable=True),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('threadID'),
-    sa.UniqueConstraint('userID')
+    sa.Column('content', sa.Text(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('proficiency',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -91,8 +89,7 @@ def upgrade():
     sa.Column('groupID', sa.Integer(), nullable=True),
     sa.Column('timestamp', sa.DateTime(), nullable=True),
     sa.Column('title', sa.String(length=120), nullable=True),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('groupID')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('topic',
     sa.Column('id', sa.Integer(), nullable=False),
