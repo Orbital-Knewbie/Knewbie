@@ -39,6 +39,9 @@
     <Compile Include="app\decorator.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\profile.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\forum.py">
       <SubType>Code</SubType>
     </Compile>
@@ -100,6 +103,9 @@
     <Content Include="app\static\resources\images\BG.svg" />
     <Content Include="app\static\resources\images\Logo.svg" />
     <Content Include="app\static\content\style.css" />
+    <Content Include="app\templates\403.html" />
+    <Content Include="app\templates\410.html" />
+    <Content Include="app\templates\500.html" />
     <Content Include="app\templates\changepassword.html" />
     <Content Include="app\templates\dashboard.html" />
     <Content Include="app\templates\email\activate.txt" />
@@ -114,6 +120,7 @@
     <Content Include="app\templates\index.html" />
     <Content Include="app\templates\login.html" />
     <Content Include="app\templates\quiz.html" />
+    <Content Include="app\templates\report.html" />
     <Content Include="app\templates\resetpassword.html" />
     <Content Include="app\templates\settings.html" />
     <Content Include="app\templates\test.html" />

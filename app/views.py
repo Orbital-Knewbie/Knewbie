@@ -9,12 +9,15 @@ from app.models import User, Question, Option, Answer, Response, UserGroup, Grou
 from app.forms import *
 from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer
 from app.email import register, resend_conf, send_contact_email, send_reset_email
+from app.profile import update_image
 from app.forum import validate_group_link, save_post
 from app.token import confirm_token
 from app.decorator import check_confirmed
 from app.cat import Student
 from flask_mail import Message
 import json, datetime
+import os
+import secrets
 
 
 # Route for main page functionalities
@@ -37,28 +40,72 @@ def home():
 @app.route('/dashboard')
 def dashboard():
     """Renders the dashboard page."""
-    return render_template('dashboard.html')
+    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    return render_template('dashboard.html', image_file=image_file)
 
-@app.route('/settings')
+@app.route('/settings', methods=['GET', 'POST'])
 def settings():
-    """Renders the dashboard page."""
-    return render_template('settings.html', title=' | Settings')
+    """Renders the settings page."""
+    form = UpdateProfileForm()
+    if form.validate_on_submit():            
+        if form.image.data:
+            image_file = update_image(form.image.data)
+            current_user.image_file = image_file
+        current_user.firstName = form.firstName.data
+        current_user.lastName = form.lastName.data
+        db.session.commit()
+        flash('Your profile has been successfully updated!', 'success')
+        return redirect(url_for('settings'))
+    elif request.method == 'GET':
+        form.firstName.data = current_user.firstName
+        form.lastName.data = current_user.lastName
+    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    return render_template('settings.html', title=' | Settings', image_file=image_file, form=form)
+
+@app.route('/settings/knewbieID')
+def settings_knewbie_id():
+    """Routing to update Knewbie ID"""
+    current_user.knewbie_id = current_user.set_knewbie_id()
+    db.session.commit()
+    flash('Your profile has been successfully updated!', 'success')
+    return redirect(url_for('settings'))
+
 
 @app.route('/faq')
 def faq():
     """Renders the faq page."""
     return render_template('faq.html', title=' | FAQ')
 
-@app.route('/questions', methods=['GET', 'POST'])
+@app.route('/progressreport')
+def progressreport():
+    """Renders the report page."""
+    return render_template('report.html', title=' | Progress Report')
+
+@app.route('/create', methods=['GET', 'POST'])
 def create():
     """Renders the create page for educators."""
     form = CreateQnForm()
     return render_template('create.html', title=' | Create', form=form)
 
-@app.route('/error')
-def error():
-    """Renders the error page."""
-    return render_template('error.html')
+#@app.errorhandler(403)
+#def page_not_found(e):
+#    """Renders the error page."""
+#    return render_template('403.html'), 403
+
+#@app.errorhandler(404)
+#def page_not_found(e):
+#    """Renders the error page."""
+#    return render_template('error.html'), 404
+
+#@app.errorhandler(410)
+#def page_not_found(e):
+#    """Renders the error page."""
+#    return render_template('410.html'), 410
+
+#@app.errorhandler(500)
+#def page_not_found(e):
+#    """Renders the error page."""
+#    return render_template('500.html'), 500
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
