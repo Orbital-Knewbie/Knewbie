@@ -62,7 +62,7 @@ def settings():
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
     return render_template('settings.html', title=' | Settings', image_file=image_file, form=form)
 
-@app.route('/settings/knewbieID', methods=['GET', 'POST'])
+@app.route('/settings/knewbieID')
 def settings_knewbie_id():
     """Routing to update Knewbie ID"""
     current_user.knewbie_id = current_user.set_knewbie_id()
