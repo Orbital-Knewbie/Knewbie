@@ -42,6 +42,9 @@
     <Compile Include="app\profile.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\forum.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\token.py">
       <SubType>Code</SubType>
     </Compile>
@@ -61,7 +64,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="migrations\env.py" />
+    <Compile Include="migrations\versions\88c831d8fa3c_proficiency.py" />
+    <Compile Include="migrations\versions\92b7ff614ece_init_db.py" />
+    <Compile Include="migrations\versions\c20ddc19ef83_.py" />
     <Compile Include="migrations\versions\421de422462f_.py" />
+    <Compile Include="migrations\versions\a565ea52cf5e_init_db.py" />
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +120,7 @@
     <Content Include="app\templates\email\reset.html" />
     <Content Include="app\templates\error.html" />
     <Content Include="app\templates\faq.html" />
+    <Content Include="app\templates\posts.html" />
     <Content Include="app\templates\index.html" />
     <Content Include="app\templates\login.html" />
     <Content Include="app\templates\quiz.html" />
@@ -125,6 +133,7 @@
     <Content Include="app\templates\unconfirmed.html" />
     <Content Include="app\templates\contact.html" />
     <Content Include="app\templates\create.html" />
+    <Content Include="app\templates\forum.html" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.png" />
     <Content Include="docs\diagrams\Architecture.png" />
     <Content Include="docs\diagrams\ArchitectureSequence.png" />
@@ -148,26 +157,41 @@
     <Content Include="docs\diagrams\UserEntity.puml" />
     <Content Include="docs\diagrams\View.png" />
     <Content Include="docs\diagrams\View.puml" />
+    <Content Include="docs\images\BuildEssential.png" />
     <Content Include="docs\images\ChangePW.png" />
+    <Content Include="docs\images\Clone.png" />
+    <Content Include="docs\images\Configure.png" />
     <Content Include="docs\images\Confirmation.png" />
     <Content Include="docs\images\Contact.png" />
+    <Content Include="docs\images\Create.png" />
+    <Content Include="docs\images\DownloadPython.png" />
+    <Content Include="docs\images\DownloadVenv.png" />
+    <Content Include="docs\images\EnterVenv.png" />
     <Content Include="docs\images\FAQ.png" />
+    <Content Include="docs\images\FlaskRun.png" />
     <Content Include="docs\images\Homepage.png" />
     <Content Include="docs\images\JoinClass.png" />
+    <Content Include="docs\images\Kanban.png" />
+    <Content Include="docs\images\Make.png" />
     <Content Include="docs\images\Quiz.png" />
     <Content Include="docs\images\QuizQn.png" />
     <Content Include="docs\images\Register.png" />
+    <Content Include="docs\images\Requirements.png" />
     <Content Include="docs\images\ResetPW.png" />
     <Content Include="docs\images\ResetPWLink.png" />
+    <Content Include="docs\images\Scrum.png" />
     <Content Include="docs\images\Unconfirmed.png" />
     <Content Include="docs\images\UniqueID.png" />
     <Content Include="docs\images\UniqueIDhome.png" />
     <Content Include="docs\images\ViewClass.png" />
+    <Content Include="docs\InstallationGuide.md" />
+    <Content Include="docs\DevPractices.md" />
     <Content Include="docs\UserGuide-Educator.md" />
     <Content Include="migrations\alembic.ini" />
     <Content Include="migrations\env.pyc" />
     <Content Include="migrations\README" />
     <Content Include="migrations\script.py.mako" />
+    <Content Include="README.md" />
     <Content Include="requirements.txt" />
     <Content Include="docs\UserGuide-Students.md" />
   </ItemGroup>

@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from flask_login import current_user
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, MultipleFileField, SelectField, FileField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
+from flask_login import current_user
+
 from flask_wtf.file import FileAllowed
 from app.models import User
 
@@ -91,3 +92,11 @@ class UpdateProfileForm(FlaskForm):
 #            user = User.query.filter_by(email=email.data).first()
 #            if user is not None:
 #                raise ValidationError('Email is the same as the registered email. Please use a different email address.')
+    submit = SubmitField('Create Question')
+
+class PostForm(FlaskForm):
+    post = TextAreaField('Say something', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+class ThreadForm(PostForm):
+    title = StringField('Title', validators=[DataRequired()])

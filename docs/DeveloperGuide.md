@@ -18,10 +18,12 @@
 [User Stories](#user)<br>
 
 ## 1. Setting up <a name="setup"></a>
-Refer to the guide [here](https://github.com/R-Ramana/Knewbie/blob/master/README.md).
+Refer to the guide [here](/docs/InstallationGuide.md).
 
 ## 2. Design <a name="design"></a>
 [Flask](https://flask.palletsprojects.com/) is a micro web framework written in [Python](https://www.python.org/). This Web App makes use of the framework for its overall design.
+The rationale behind choosing Flask may be found in the [Development Practices document](/docs/DevPractices.md). 
+The explanation of Diagrams used in this Guide can be found in the [Documentation section below](#doc).
 ### 2.1 Architecture <a name="arch"></a>
 ![Architecture Design](diagrams/Architecture.png)
 Fig #. Overall Architecture
@@ -45,6 +47,7 @@ The Model component includes files:
 ```
 ├── forms.py
 ├── models.py
+├── cat.py
 └── ...
 ```
 ![Model Class](diagrams/Model.png)
@@ -55,6 +58,7 @@ The Model component
 * stores `User` data.
 * stores `Question, Option, Answer` data.
 * defines the various `FlaskForm`s used.
+* defines `Student` used in CAT, explained under [Implementation](#adaptive)
 * does not depend on the other components.
 
 ### 2.3 View component <a name="view"></a>
@@ -86,6 +90,7 @@ The Controller component includes files:
 ├── questions.py
 ├── email.py
 ├── token.py
+├── forum.py
 └── ...
 ```
 ![Controller Component](diagrams/Controller.png)<br>
@@ -105,7 +110,7 @@ The Sequence Diagram below shows the interactions within the Controller componen
 Fig #. Interactions within Controller Component for `register`
 
 ### 2.5 Database <a name="database"></a>
-The database design is centered around the users, quizzes, and forum posts (to be added). The *Entity-Relationship Diagram* below showcases the attributes and relationships used.
+The database design is centered around the users, quizzes, and forum posts. The *Entity-Relationship Diagram* below showcases the attributes and relationships used.
 
 ![Database](diagrams/Database.png)<br>
 Fig #. Database Design
@@ -148,13 +153,14 @@ Fig #. Interactions of Components for a ContactForm
 #### 3.1.4 Classes
 Both Students and Educators can be part of Classes. Classes are created to let Educators monitor their students progress collectively, and also can allow interaction between Educators and Students as well as Students with other Students using the forum.
 A simple demonstration of a Student-Educator relationship, along with the Classes is shown in the Entity-Relationship Diagram below.
+Note that the User properties were omitted for brevity - the full database design can still be found earlier in the [Database section](#database).
 
 ![Student Educator Classes](diagrams/UserEntity.png)<br>
 Fig #. Relationship of Student-Educator-Class
 
-Interactions between are part of peer learning and can enhance the knowledge gained from the platform. The forum created for each class will allow for the clarification of questions students may have.
-
-{diagram}
+Interactions between are part of peer learning and can enhance the knowledge gained from the platform. 
+The forum created for each class will allow for the clarification of questions students may have.
+The diagram above also demonstrates the relationships between the forum and users.
 
 ### 3.2 Quiz <a name="quiz"></a>
 #### 3.2.1 Attempt Quiz
@@ -169,7 +175,19 @@ Fig #. Interactions of Components for a Quiz submission
 In addition to tailored content, Educators can also create their own `Question` for their own Class
 ### 3.3 Adaptive Testing <a name="adaptive"></a>
 [Computerized Adaptive Testing (CAT)](https://en.wikipedia.org/wiki/Computerized_adaptive_testing) is a form of test that adapts to the user's ability. 
-Currently, multiple ideas are being generated including the use of a Recommender System, or the use of a module such as CatSim. The general idea can be seen in the following flowchart.
+[Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) provides a means to do so, 
+and this project has decided on the use of the CatSim Python package. [More information can be found on their main documentation.](https://douglasrizzo.com.br/catsim/)
+
+Under IRT, an examinee's proficiency is measured. In this web application, this corresponds to the students' proficiencies.
+Each item administered - MCQ Math questions in this case - will have 4 main parameters used, detailed below:
+* discimination - how well an item discriminates individuals who answer correctly and wrongly
+* difficulty - same scale as proficiency, and determines which proficiency level the item would be more informative
+* pseudo-guessing - probability low proficiency gets question correct
+* upper asymptote - probability high proficiency gets question incorrect
+
+More information on the parameters can be found on [CatSim's documentation](https://douglasrizzo.com.br/catsim/introduction.html). 
+
+The general idea used when administering questions can be seen in the following flowchart. This algorithm is used in every quiz that will be taken by a student.
 
 ![Adaptive Testing](diagrams/AdaptiveFlowchart.png)<br>
 Fig #. Flowchart of general adaptive testing algorithm used
@@ -180,6 +198,14 @@ The Diagrams in this Guide were created and defined with [PlantUML](https://plan
 ### 4.1 Class and Sequence Diagrams
 The Class and Sequence Diagrams used have their own notation and can be explained with the help of the [CS2103 Software Engineering website](https://nus-cs2103-ay1920s2.github.io/website/se-book-adapted/chapters/uml.html#uml).
 
+**Class Diagrams** include:
+* Class Names 
+* Attributes
+* Methods
+
+![Class Diagram Notation](https://nus-cs2103-ay1920s2.github.io/website/book/uml/classDiagrams/classes/what/images/basicNotation.png) <br>
+Fig #. Class Diagram Notation<br>
+
 **Sequence Diagrams** show the sequence of events as time events and include, for a specific operation:
 * Entities
 * Operations 
@@ -187,24 +213,16 @@ The Class and Sequence Diagrams used have their own notation and can be explaine
 * Lifelines 
 * returned values
 
-![Sequence Diagram Notation](https://nus-cs2103-ay1920s2.github.io/website/book/uml/sequenceDiagrams/basic/images/notation.png)
+![Sequence Diagram Notation](https://nus-cs2103-ay1920s2.github.io/website/book/uml/sequenceDiagrams/basic/images/notation.png) <br>
 Fig #. Sequence Diagram Notation<br>
-
-**Class Diagrams** include:
-* Class Names 
-* Attributes
-* Methods
-
-![Class Diagram Notation](https://nus-cs2103-ay1920s2.github.io/website/book/uml/classDiagrams/classes/what/images/basicNotation.png)
-Fig #. Class Diagram Notation<br>
 
 ### 4.2 Entity Relationship Diagrams
 The [Entity Relationship Diagrams](https://www.smartdraw.com/entity-relationship-diagram/) used to describe databases include:
-* Entities - represented by rectangles
+* Entities - represented by rectangles, properties can be found listed right after the primary key property
 * Relationships - represented by diamonds
 * Cardinality - using the Information Engineering Style for its notation
 
-![Entity Relationship Notation](https://wcs.smartdraw.com/entity-relationship-diagram/img/information-engineering-style.jpg?bn=1510011165) {to be changed to own diagram}
+![Entity Relationship Notation](https://wcs.smartdraw.com/entity-relationship-diagram/img/information-engineering-style.jpg?bn=1510011165) <br>
 Fig #. Entity Relationship Diagram Notation <br>
 
 
@@ -229,8 +247,6 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | student | view my progress report | keep track of my learning
 `* *` | student | change my Knewbie ID | have it not be compromised 
 `* * *` | student | be tested with tailored content as a quiz | cater to my learning abilities
-`* *` | student | be tested on the time I complete a quiz | improve my test taking speed
-`* *` | student | be tested on the number of attempts I take on a quiz question | improve my test taking accuracy
 `* *` | student | join a class | participate in learning with my educator and classmates
 `*` | student | view my classmate’s progress | know who to approach if I have queries
 `* *` | student | ask questions on a forum | clear any doubts

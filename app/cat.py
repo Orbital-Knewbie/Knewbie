@@ -23,25 +23,21 @@ selector = MaxInfoSelector()
 # create a hill climbing proficiency estimator
 estimator = HillClimbingEstimator()
 
-# create a stopping criterion that will make tests stop after 20 items
+# create a stopping criterion that will make tests stop after 4 items
 stopper = MaxItemStopper(4)
 
 class Student(object):
     """Student Class used to apply CAT logic"""
-    def __init__(self, id, theta=None, AI=None, responses=None):
+    def __init__(self, id, topic=None, theta=None, AI=None, responses=None):
         self.id = id
+        self.topic = 1 if topic is None else topic
         self.theta = initializer.initialize() if theta is None else theta
         self.AI = [] if AI is None else AI
         self.responses = [] if responses is None else responses
         self.items = self.get_items()
 
-    def get_next_question(self):
-        '''Get the next Question to be administered to the Student'''
-        # Return a random question if no responses yet
-        if not self.responses:
-            qnIDs = db.session.query(Question.id).all()
-            return choice(qnIDs)[0]
-
+    def update(self):
+        '''Updates theta and returns item_index'''
         # get an estimated theta, given the answers to the dummy items
         new_theta = estimator.estimate(items=self.items, administered_items=self.AI, \
            response_vector=self.responses, est_theta=self.theta)
@@ -53,6 +49,18 @@ class Student(object):
         
         self.theta = new_theta
 
+        return item_index
+
+    def get_next_question(self):
+        '''Get the next Question to be administered to the Student'''
+        # Return a random question if no responses yet
+        if not self.responses:
+            qns = self.get_questions()
+            qnIDs = [qn.id for qn in qns]
+            return choice(qnIDs)
+
+        item_index = self.update()
+
         if not self.stop():
             return item_index.item()
 
@@ -62,7 +70,7 @@ class Student(object):
 
     def get_items(self):
         '''Retrieve Question Item Bank from Database'''
-        questions = Question.query.all()
+        questions = self.get_questions()
         get_dis = lambda x:x.discrimination
         get_diff = lambda x:x.difficulty
         get_guess = lambda x:x.guessing
@@ -70,3 +78,9 @@ class Student(object):
         get_params = [get_dis, get_diff, get_guess, get_upp]
         items = [[get(qn) for get in get_params] for qn in questions]
         return numpy.array(items)
+
+    def get_questions(self):
+        if self.topic == 1:
+            return Question.query.all()
+        else:
+            return Question.query.filter_by(topic=self.topic).all()
