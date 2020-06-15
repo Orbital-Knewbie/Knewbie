@@ -39,6 +39,9 @@
     <Compile Include="app\decorator.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\profile.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\forum.py">
       <SubType>Code</SubType>
     </Compile>
@@ -64,6 +67,8 @@
     <Compile Include="migrations\versions\88c831d8fa3c_proficiency.py" />
     <Compile Include="migrations\versions\92b7ff614ece_init_db.py" />
     <Compile Include="migrations\versions\c20ddc19ef83_.py" />
+    <Compile Include="migrations\versions\421de422462f_.py" />
+    <Compile Include="migrations\versions\a565ea52cf5e_init_db.py" />
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +107,9 @@
     <Content Include="app\static\resources\images\BG.svg" />
     <Content Include="app\static\resources\images\Logo.svg" />
     <Content Include="app\static\content\style.css" />
+    <Content Include="app\templates\403.html" />
+    <Content Include="app\templates\410.html" />
+    <Content Include="app\templates\500.html" />
     <Content Include="app\templates\changepassword.html" />
     <Content Include="app\templates\dashboard.html" />
     <Content Include="app\templates\email\activate.txt" />
@@ -116,6 +124,7 @@
     <Content Include="app\templates\index.html" />
     <Content Include="app\templates\login.html" />
     <Content Include="app\templates\quiz.html" />
+    <Content Include="app\templates\report.html" />
     <Content Include="app\templates\resetpassword.html" />
     <Content Include="app\templates\settings.html" />
     <Content Include="app\templates\test.html" />
