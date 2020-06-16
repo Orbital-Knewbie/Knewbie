@@ -17,6 +17,9 @@ login.login_view = 'login'
 mail = Mail(app)
 
 from app import views, models
+from app.errors.handlers import errors
+
+app.register_blueprint(errors)
 
 if __name__ == '__main__':
     app.run(debug=True)
