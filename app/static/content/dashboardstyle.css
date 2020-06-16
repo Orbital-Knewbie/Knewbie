@@ -54,7 +54,7 @@ body {
 }
 
 .sidebar ul li:nth-child(2):hover {
-    transform: translate(90px, 0);
+    transform: translate(110px, 0);
 }
 
 .sidebar ul li:nth-child(3):hover {

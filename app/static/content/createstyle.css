@@ -11,34 +11,25 @@
 .create-container {
     display: flex;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     position: absolute;
     top: 0;
 }
 
-.create-left {
-    width: 33.33%;
-    background: var(--PURPLE);
-    position: relative;
+.create-class-wrapper {
+    background: var(--LIGHTPURPLE);
+    position: absolute;
+    width: 100vw;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
 }
-
-.create-ctr {
-    width: 33.33%;
-    background: var(--DARKPURPLE);
-    position: relative;
-}
-
-.create-right {
-    width: 33.33%;
-    background: var(--PURPLE);
-    position: relative;
-}
-
 
 .create-container h1 {
     text-align: center;
     padding-bottom: 1.5rem;
     color: var(--OFFWHITE);
+    font-size: 5rem;
 }
 
 .create-form {
@@ -52,7 +43,7 @@
 
 }
 
-.create-form input {
+.create-form input:not(:last-child) {
     display: block;
     outline: none;
     border: none;
@@ -63,23 +54,23 @@
     margin: 2rem auto;
     display: block;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: var(--OFFWHITE);
     transition-duration: 0.25s;
 }
 
-input:hover {
+input:not(:last-child):hover {
     background-color: rgba(255, 255, 255, 0.4);
 }
 
-input:focus,
-input:active {
+input:not(:last-child):focus,
+input:not(:last-child):active {
     background-color: var(--OFFWHITE);
     color: var(--LIGHTPURPLE);
     width: 300px;
 }
 
-input::placeholder {
+input:not(:last-child)::placeholder {
     color: var(--OFFWHITE);
 }
 
@@ -109,36 +100,35 @@ option::selection {
 }
 
 .center {
-    text-align: center;
+    text-align: center;*/
 /*    padding:5rem;*/
 }
 
-.create-btn {
-    display: block;
+.submit-btn {
+    display: inline-block;
     position: relative;
-    text-align: center;
-    margin: 2rem auto;
+    margin-bottom: 1rem;
     padding: 1rem 4rem;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     font-weight: bold;
     letter-spacing: 1px;
     text-decoration: none;
     border: none;
     border-radius: .4rem;
     background: var(--OFFWHITE);
-    color: var(--PURPLE);
+    color: var(--LIGHTPURPLE);
     box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
     outline: none;
     cursor: pointer;
     transition: all .2s ease-in-out;
 }
 
-.create-btn:hover {
-    background: rgba(255, 255, 255, 0.4);
-    border: 1px solid var(--OFFWHITE);
-    color: var(--PURPLE);
+.submit-btn:hover {
+    background: var(--GREY);
+    border: 1px solid var(--GREY);
+    color: var(--LIGHTPURPLE);
 }
 
-.create-btn:active {
-    transform: scale(0.98);
+.submit-btn:active {
+    transform: scale(0.95);
 }

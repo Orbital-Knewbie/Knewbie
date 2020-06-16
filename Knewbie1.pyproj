@@ -115,6 +115,7 @@
     <Content Include="app\static\resources\images\Logo.svg" />
     <Content Include="app\static\content\style.css" />
     <Content Include="app\templates\changepassword.html" />
+    <Content Include="app\templates\createquiz.html" />
     <Content Include="app\templates\dashboard.html" />
     <Content Include="app\templates\email\activate.txt" />
     <Content Include="app\templates\email\activate.html" />
@@ -141,7 +142,7 @@
     <Content Include="app\templates\register.html" />
     <Content Include="app\templates\unconfirmed.html" />
     <Content Include="app\templates\contact.html" />
-    <Content Include="app\templates\create.html" />
+    <Content Include="app\templates\createclass.html" />
     <Content Include="app\templates\forum.html" />
     <Content Include="app\templates\deactivate.html" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.png" />

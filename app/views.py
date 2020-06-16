@@ -32,7 +32,7 @@ def home():
         user = User.query.filter_by(email=form.email.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
-            return redirect(url_for('home'))
+            return redirect(url_for('login'))
         login_user(user)
         return redirect(url_for('dashboard'))
     return render_template('index.html', form=form)
@@ -81,11 +81,17 @@ def progressreport():
     """Renders the report page."""
     return render_template('report.html', title=' | Progress Report')
 
-@app.route('/create', methods=['GET', 'POST'])
-def create():
-    """Renders the create page for educators."""
-    form = CreateQnForm()
-    return render_template('create.html', title=' | Create', form=form)
+@app.route('/createclass', methods=['GET', 'POST'])
+def createclass():
+    """Renders the create class page for educators."""
+    form = CreateClass()
+    return render_template('createclass.html', title=' | Create Class', form=form)
+
+@app.route('/createquiz', methods=['GET', 'POST'])
+def createquiz():
+    """Renders the create quiz page for educators."""
+    form = CreateQuiz()
+    return render_template('createquiz.html', title=' | Create Quiz', form=form)
 
 
 
@@ -158,20 +164,19 @@ def resend():
     resend_conf(current_user)
     return redirect(url_for('unconfirmed'))
 
-# Lone login page probably not needed, should be on homepage
-#@app.route('/login', methods=['GET','POST'])
-#def login():
-#    if current_user.is_authenticated:
-#        return redirect(url_for('dashboard'))
-#    form = LoginForm()
-#    if form.validate_on_submit():
-#        user = User.query.filter_by(email=form.email.data).first()
-#        if user is None or not user.check_password(form.password.data):
-#            flash('Invalid username or password')
-#            return redirect(url_for('login'))
-#        login_user(user)
-#        return redirect(url_for('dashboard'))
-#    return render_template('login.html', title=' | Log In', form=form)
+@app.route('/login', methods=['GET','POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user)
+        return redirect(url_for('dashboard'))
+    return render_template('login.html', title=' | Log In', form=form)
 
 @app.route('/logout')
 def logout():

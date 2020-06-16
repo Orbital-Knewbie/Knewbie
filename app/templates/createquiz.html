@@ -6,12 +6,12 @@
 <div class="create-container">
     <div class="create-left">
         <form class="create-form">
-           
+
             <h1>Create A New Class</h1>
 
             <input required type="text" placeholder="Class Name">
             <button type="submit" class="create-btn">Create Class</button>
-        
+
         </form>
     </div>
 
@@ -28,38 +28,39 @@
             {{ form.op4(size=32, placeholder="Option 4") }}
             {{ form.corrOp(placeholder="Correct Option") }}
             {{ form.img(class_="create-btn") }}
-            {{ form.submit(class_="create-btn") }}
+            {{ form.submit_qn(class_="create-btn") }}
+            {{ form.submit_quiz(class_="create-btn") }}
             <!--<select required>
-        <option value="" disabled selected hidden>Select Topic</option>
-        <option value="">Geometry</option>
-        <option value="">Estimation</option>
-        <option value="">Model</option>
-    </select>
-    <input required type="text" placeholder="Input Question">
-    <input required type="text" placeholder="Option 1">
-    <input required type="text" placeholder="Option 2">
-    <input required type="text" placeholder="Option 3">
-    <input required type="text" placeholder="Option 4">
-    <select required>
-        <option value="" disabled selected hidden>Select Correct Option</option>
-        <option value="">Option 1</option>
-        <option value="">Option 2</option>
-        <option value="">Option 3</option>
-        <option value="">Option 4</option>
-    </select>
-    <button type="button" class="create-btn">Attach Image</button>
-    <button type="submit" class="create-btn">Create Question</button>-->
+                <option value="" disabled selected hidden>Select Topic</option>
+                <option value="">Geometry</option>
+                <option value="">Estimation</option>
+                <option value="">Model</option>
+            </select>
+            <input required type="text" placeholder="Input Question">
+            <input required type="text" placeholder="Option 1">
+            <input required type="text" placeholder="Option 2">
+            <input required type="text" placeholder="Option 3">
+            <input required type="text" placeholder="Option 4">
+            <select required>
+                <option value="" disabled selected hidden>Select Correct Option</option>
+                <option value="">Option 1</option>
+                <option value="">Option 2</option>
+                <option value="">Option 3</option>
+                <option value="">Option 4</option>
+            </select>
+            <button type="button" class="create-btn">Attach Image</button>
+            <button type="submit" class="create-btn">Create Question</button>-->
 
         </form>
     </div>
 
-    <div class="create-right"> 
+    <div class="create-right">
         <form class="create-form">
             <h1>Create A New Quiz</h1>
 
             <input type="text" placeholder="Quiz Name">
             <button type="submit" class="create-btn">Create Quiz</button>
-        
+
         </form>
     </div>
 </div>
