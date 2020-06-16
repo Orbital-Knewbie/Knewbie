@@ -126,6 +126,7 @@
     <Content Include="app\templates\email\reset.html" />
     <Content Include="app\templates\errors\error403.html" />
     <Content Include="app\templates\errors\error404.html" />
+    <Content Include="app\templates\errors\error410.html" />
     <Content Include="app\templates\errors\error500.html" />
     <Content Include="app\templates\faq.html" />
     <Content Include="app\templates\posts.html" />
