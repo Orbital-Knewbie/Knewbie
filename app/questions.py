@@ -1,8 +1,9 @@
 from app import db
-from app.models import Question, Option, Answer, Response
+from app.models import Question, Option, Answer, Response, Proficiency, Topic
 from app.cat import Student
 
 from random import choice, shuffle
+from datetime import datetime
 from catsim.cat import generate_item_bank
 
 import glob, os, json
@@ -148,23 +149,24 @@ def add_qn(org_qns):
     for q in org_qns.keys():
         item = generate_item_bank(1)[0]
         qn = Question(question=q, discrimination=item[0], \
-                    difficulty=item[1], guessing=item[2], upper=item[3])
+                    difficulty=item[1], guessing=item[2], upper=item[3], topicID=1)
         db.session.add(qn)
         db.session.commit()
-        qid = Question.query.filter_by(question=q).first().id
+        qid = qn.id
         b=True
         for o in org_qns[q]['answers']:
             opt=Option(qnID=qid,option=o)
             db.session.add(opt)
             if b:
-                optID = Option.query.filter_by(option=o).first().id
+                db.session.flush()
+                optID = opt.id
                 ans = Answer(qnID=qid, optID=optID)
                 db.session.add(ans)
                 b=False
             
             db.session.commit()
 
-#add_qn(org_qns)
+add_qn(org_qns)
 
 def insert_qns():
     '''Inserts questions formatted as a json file
@@ -192,7 +194,7 @@ def insert_qns():
                 item = generate_item_bank(1)[0]
 
                 question = Question(question=qn_text, discrimination=item[0], \
-                    difficulty=item[1], guessing=item[2], upper=item[3])
+                    difficulty=item[1], guessing=item[2], upper=item[3], topicID=1)
                 db.session.add(question)
 
                 qid = Question.query.filter_by(question=qn_text).first().id
@@ -244,6 +246,7 @@ def submit_response(id, form):
     # Get the submitted Option
     optID = form.get('option')
     option = Option.query.filter_by(id=optID).first()
+    qnID = option.qnID
 
     # Create a Response entry
     response = Response(userID=id,optID=option.id,qnID=option.qnID)
@@ -251,3 +254,117 @@ def submit_response(id, form):
     # Save to DB
     db.session.add(response)
     db.session.commit()
+
+    # Update topic proficiency
+    qn = Question.query.filter_by(id=qnID).first()
+    topicID = qn.topicID if qn.topicID else 1
+    prof, topic_student = get_student_cat(id, topicID)
+    topic_student.update()
+    prof.theta = topic_student.theta
+    db.session.commit()
+
+def add_proficiency(id):
+    '''Add timestamped proficiency entity, done every completed quiz'''
+    prof, student = get_student_cat(userID)
+    new_prof = Proficiency(userID=userID, timestamp=datetime.now(), 
+                           theta=student.theta, topicID=1)
+    db.session.add(new_prof)
+    db.session.commit()
+
+def get_student_cat(userID, topicID=1):
+    '''Returns proficiency, student (CAT object) given a userID and optional topicID
+    Defaults to overall proficiency (topicID=1)'''
+
+    prof = Proficiency.query.filter_by(userID=userID,topicID=topicID)
+    if not prof.all():
+        prof = create_student_prof(userID)
+    else:
+        prof = prof.order_by(Proficiency.timestamp.desc()).first()
+    AI, responses = prof.get_AI_responses()
+
+    student = Student(userID, topicID, prof.theta, AI, responses)
+    return prof, student
+
+def create_student_prof(userID):
+    '''Creates a proficiency entity for a student'''
+    if not Topic.query.all():
+        add_topic("first")
+    topics = db.session.query(Topic.id).all()
+    student_cat = Student(userID)
+    for topic, in topics:
+        prof = Proficiency(userID=userID, timestamp=datetime.now(), 
+                           theta=student_cat.theta, topicID=topic)
+        db.session.add(prof)
+    db.session.commit()
+    return prof
+
+def add_topic(name):
+    '''Adds a topic to the database'''
+    topic = Topic(name=name)
+    db.session.add(topic)
+    db.session.commit()
+
+def add_question(qn_text, options, answer):
+    '''Adds a question to the database
+    Input
+    qn_text : str
+    options : seq of str
+    answer : int (1 to 4)
+    '''
+    # Generate item parameters from CatSim
+    item = generate_item_bank(1)[0]
+
+    # Add question
+    question = Question(question=qn_text, discrimination=item[0], \
+        difficulty=item[1], guessing=item[2], upper=item[3])
+    db.session.add(question)
+    db.session.flush()
+
+    qnID = question.id
+    
+    # Add options and answer
+    for opt in options:
+        o = Option(qnID=qnID,option=opt)
+        answer -= 1
+        db.session.add(o)
+        db.session.flush()
+        if answer == 0:
+            optID = o.id
+            ans = Answer(optID=optID,qnID=qnID)
+            db.session.add(ans)
+    db.session.commit()
+
+def get_proficiencies(userID):
+    '''Return list of (timestamp, proficiency) in chronological order'''
+    profs = Proficiency.query.filter_by(userID=userID,topicID=1).order_by(Proficiency.timestamp.asc()).all()
+    return [(prof.timestamp, prof.theta) for prof in profs]
+
+def get_curr_prof(userID):
+    '''Returns current proficiency of the user'''
+    return get_proficiencies(userID)[-1][1]
+
+def get_response_answer(id):
+    '''Returns number of correct responses, 
+    and dictionary with question : [options, response, answer]'''
+
+    responses = Response.query.filter_by(userID=id).all()
+    d={}
+    correct = 0
+    for r in responses:
+        qnID = r.qnID
+        qn_txt = Question.query.filter_by(id=qnID).first().question
+        opt = Option.query.filter_by(qnID=qnID).all()
+        opt_txt = []
+        ans = Answer.query.filter_by(qnID=qnID).first().optID
+        for i in range(len(opt)):
+            opt_txt.append(opt[i].option)
+            if opt[i].id == ans:
+                ans_num = i
+            if opt[i].id == r.optID:
+                res_num = i
+        if ans_num == res_num:
+            correct += 1
+        d[qn_txt]=[opt_txt,ans_num,res_num]
+
+    print(d)
+    return correct, d

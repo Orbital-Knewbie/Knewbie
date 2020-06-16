@@ -267,11 +267,10 @@ section.upcoming h1 {
     align-items: center;
 }
 
-.avatar span {
-    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/6035/scrtpxls_location.png');
+.avatar img {
     display: block;
-    width: 15rem;
-    height: 15rem;
+    width: 200px;
+    height: 200px;
     background-position: center center;
     background-size: cover;
     border-radius: 50%;
@@ -358,6 +357,24 @@ section.upcoming h1 {
     transform: scaleX(1) translateZ(0);
 }
 
+.image-btn input {
+    display: block;
+    outline: none;
+    border: none;
+    background-color: var(--LIGHTPURPLE);
+    width: 250px;
+    border-radius: 0.4rem;
+    padding: 10px 15px;
+    margin: 2rem auto;
+    display: block;
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--OFFWHITE);
+    cursor: pointer;
+}
+
+.settings-button, .deactivate-button {
+    width: 100%;
 .deact-btn {
   display: inline-block;
   font-size: 1.2rem;
@@ -431,18 +448,16 @@ section.upcoming h1 {
     font-size: 2rem;
 }
 
-.settings-button button:hover, .settings-button button:focus,
-.settings-button button.save:hover, .settings-button input[type="submit"].save:hover, 
-.settings-button button.save:focus, .settings-button input[type="submit"].save:focus {
+.settings-button button:hover, .settings-button button:focus, .image-btn input:hover, .image-btn input:focus,
+.settings-button button.save:hover, .settings-button input[type="submit"].save:hover, .settings-button button.save:focus, .settings-button input[type="submit"].save:focus {
     background: var(--OFFWHITE);
     border: 1px solid var(--LIGHTPURPLE);
     color: var(--LIGHTPURPLE);
 }
 
 
-.settings-button button:active,
-.settings-button button.save:active, 
-.settings-button input[type="submit"].save:active {
+.settings-button button:active, .deactivate-button button:active, .image-btn input:active,
+.settings-button button.save:active, .settings-button input[type="submit"].save:active {
     transform: translateY(2px) scale(0.99);
 }
 
@@ -462,6 +477,46 @@ section.upcoming h1 {
     width: 50%;
     margin: 1rem auto;
     border-radius: 100%;
+}
+
+.deactivate-button {
+    margin-top: 2rem;
+}
+
+.home-btn {
+  display: inline-block;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: var(--OFFWHITE);
+  background-color: var(--LIGHTPURPLE);
+  padding: 1rem 4.5rem;
+  margin: 0 1rem 0 2rem;
+  border-radius: .4rem;
+  box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.home-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: inherit;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.home-btn:hover::after {
+  transform: scaleX(1.2) scaleY(1.4);
+  opacity: 0;
+  transition: all .5s;
+}
+
+.home-btn:active {
+    transform: translateY(1.5px);
 }
 
 @keyframes slideIn {

@@ -2,6 +2,10 @@
 {% block style %}
 <link rel="stylesheet" href="../static/content/settingstyle.css">
 {% endblock %}
+
+{% block message %}
+{% endblock %}
+
 {% block content %}
 <div id="settings" ontouchstart="true">
     <input checked="checked" class="settings-nav" name="settings-nav" type="radio" />
@@ -15,18 +19,18 @@
     <main class="content">
         <section id="profile">
             <h1 style="text-align: center; padding-top: 5rem;">Update Details</h1>
-            <form>
+            <form action="" method="post" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
                 <ul>
                     <li class="large padding avatar">
-                        <span></span>
+                        <img src="{{ image_file }}" />
                         <div>
-
                             <fieldset class="settings-button center">
-                                <div>
-                                    <button>Change Image</button>
+                                <div class="image-btn" style="margin-bottom: 1rem;">
+                                    {{ form.image(class_="create-btn") }}
                                 </div>
                                 <div>
-                                    <button>Request A New Knewbie ID</button>
+                                    <a href="{{ url_for('settings_knewbie_id') }}" class="home-btn">Request A New Knewbie ID</a>
                                 </div>
                             </fieldset>
                         </div>
@@ -35,7 +39,7 @@
                     <li>
                         <fieldset class="settings-input">
                             <div>
-                                <input required type="text" value="John" />
+                                {{ form.firstName }}
                                 <label>First Name</label>
                                 <hr />
                             </div>
@@ -45,7 +49,7 @@
                     <li>
                         <fieldset class="settings-input">
                             <div>
-                                <input required type="text" value="Doe" />
+                                {{ form.lastName }}
                                 <label>Last Name</label>
                                 <hr />
                             </div>
@@ -56,10 +60,20 @@
                     <li class="large padding">
                         <fieldset class="settings-button center">
                             <div>
-                                <input class="save" type="submit" value="Save" />
+                                {{ form.submit(class_="save") }}
                             </div>
                         </fieldset>
                     </li>
+
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <ul class="flashes" style="margin: 0 auto;">
+                        {% for message in messages %}
+                        <li style="color: red; font-size: 25px; width: 100%;">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
                 </ul>
             </form>
         </section>
@@ -71,7 +85,7 @@
                     <li>
                         <fieldset class="settings-input">
                             <div>
-                                <input required type="email" value="current@user.email" />
+                                <input required type="email" value="{{ current_user.email }}" />
                                 <label>Email</label>
                                 <hr />
                             </div>

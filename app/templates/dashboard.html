@@ -15,12 +15,14 @@
 <div class="container">
     <section class="box">
         <div class="avatar">
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/6035/scrtpxls_location.png" />
+            <img src="{{ image_file }}" style="width: 200px; height: 200px" />
         </div>
         <div class="details">
-            <h2>John Doe</h2>
-            <p>Unique ID: </p>
-            <a href="#" class="btn">Progress Report</a>
+            <h2>{{ current_user.firstName }} {{ current_user.lastName }}</h2>
+            {% if current_user.urole == 'student' %}
+            <p>Knewbie ID: {{ current_user.knewbie_id }} </p>
+            {% endif %}
+            <a href="{{ url_for('progressreport') }}" class="btn">Progress Report</a>
         </div>
     </section>
 
@@ -58,7 +60,7 @@
         </div>
     </section>
 
-    {% if current_user.is_authenticated and current_user.urole == 'student' %}
+    {% if current_user.urole == 'student' %}
     <section class="box" id="joinclass">
         <h1>Join A Class</h1>
         <div class="details">
@@ -126,7 +128,7 @@
         </div>
     </section>
 
-    {% elif current_user.is_authenticated and current_user.urole == 'educator' %}
+    {% elif current_user.urole == 'educator' %}
     <!-- SPLIT SCREEN -->
     <div class="split-container" id="login-page">
         <div class="split left">

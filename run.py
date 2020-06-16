@@ -11,7 +11,11 @@ wsgi_app = app.wsgi_app
 
 @app.shell_context_processor
 def make_shell_context():
-    return {'db': db, 'User': User, 'Question' : Question, 'Answer': Answer, 'Option' : Option, 'Response' : Response}
+    return {'db': db, 'User': User, 'Question' : Question, 'Answer': Answer, 
+            'Option' : Option, 'Response' : Response, 'UserGroup' : UserGroup,
+            'Group' : Group, 'Post' : Post, 'Thread' : Thread, 
+            'Proficiency' : Proficiency, 'QuestionQuiz' : QuestionQuiz,
+            'Quiz' : Quiz, 'Topic' : Topic}
 
 with app.app_context():
     if db.engine.url.drivername == 'sqlite':

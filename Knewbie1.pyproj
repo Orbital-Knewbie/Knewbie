@@ -45,6 +45,12 @@
     <Compile Include="app\decorator.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\profile.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\forum.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\token.py">
       <SubType>Code</SubType>
     </Compile>
@@ -64,6 +70,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="migrations\env.py" />
+    <Compile Include="migrations\versions\88c831d8fa3c_proficiency.py" />
+    <Compile Include="migrations\versions\92b7ff614ece_init_db.py" />
+    <Compile Include="migrations\versions\c20ddc19ef83_.py" />
+    <Compile Include="migrations\versions\421de422462f_.py" />
     <Compile Include="migrations\versions\a565ea52cf5e_init_db.py" />
     <Compile Include="run.py" />
   </ItemGroup>
@@ -104,6 +114,9 @@
     <Content Include="app\static\resources\images\BG.svg" />
     <Content Include="app\static\resources\images\Logo.svg" />
     <Content Include="app\static\content\style.css" />
+    <Content Include="app\templates\403.html" />
+    <Content Include="app\templates\410.html" />
+    <Content Include="app\templates\500.html" />
     <Content Include="app\templates\changepassword.html" />
     <Content Include="app\templates\dashboard.html" />
     <Content Include="app\templates\email\activate.txt" />
@@ -118,9 +131,11 @@
     <Content Include="app\templates\errors\error404.html" />
     <Content Include="app\templates\errors\error500.html" />
     <Content Include="app\templates\faq.html" />
+    <Content Include="app\templates\posts.html" />
     <Content Include="app\templates\index.html" />
     <Content Include="app\templates\login.html" />
     <Content Include="app\templates\quiz.html" />
+    <Content Include="app\templates\report.html" />
     <Content Include="app\templates\resetpassword.html" />
     <Content Include="app\templates\settings.html" />
     <Content Include="app\templates\test.html" />
@@ -129,6 +144,7 @@
     <Content Include="app\templates\unconfirmed.html" />
     <Content Include="app\templates\contact.html" />
     <Content Include="app\templates\create.html" />
+    <Content Include="app\templates\forum.html" />
     <Content Include="app\templates\deactivate.html" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.png" />
     <Content Include="docs\diagrams\Architecture.png" />

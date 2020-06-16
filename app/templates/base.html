@@ -14,15 +14,17 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto|Syncopate&display=swap" rel="stylesheet">
 </head>
 <body>
+    {% block message %}
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul class="flashes">
         {% for message in messages %}
-        <li style="color: red;">{{ message }}</li>
+        <li style="color: red; font-size: 25px">{{ message }}</li>
         {% endfor %}
     </ul>
     {% endif %}
     {% endwith %}
+    {% endblock %}
     <!-- NAV BAR -->
     <header>
         <div class="menu">
@@ -48,7 +50,6 @@
                 <li class="navitem"><a href="{{ url_for('logout') }}" class="link">Sign Out</a></li>
                 {% else %}
                 <li class="navitem"><a href="{{ url_for('home') }}" class="link">Home</a></li>
-                <li class="navitem"><a href="{{ url_for('login') }}" class="link">Sign In</a></li>
                 <li class="navitem"><a href="{{ url_for('faq') }}" class="link">FAQ</a></li>
                 <li class="navitem"><a href="{{ url_for('contact') }}" class="link">Contact</a></li>
                 {% endif %}
@@ -74,6 +75,7 @@
         </div>
     </footer>
 
+    {% block script %}{% endblock %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
     <!-- <script src="https://unpkg.com/aos@next/dist/aos.js"></script> -->

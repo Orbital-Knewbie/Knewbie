@@ -27,6 +27,7 @@ MarkupSafe==1.1.1
 matplotlib==3.2.1
 numexpr==2.7.1
 numpy==1.18.5
+Pillow==7.1.2
 plantuml==0.3.0
 psycopg2-binary==2.8.5
 pycparser==2.20

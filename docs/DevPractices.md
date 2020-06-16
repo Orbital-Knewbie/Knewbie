@@ -21,6 +21,7 @@ and the general process can be explained in the diagram above. It serves to brea
 For our project, Orbital is already designed to have three one-month long periods between each Milestone submission. 
 With only 2 members in the team and just 3 months to complete the project, there needs to be an adjustment to the framework to for our needs. 
 This includes having both members as part of the Development Team, with 1 member taking the role of the Product Manager, and the other taking the role of the Scrum Master.
+For our documentation, User Guides represent guidance on Business Requirements, while the Developer Guide represents guidance on the Product Development aspect of the project.
 
 ### 1.2 Kanban Boards <a name="kanban">
 ![Kanban](/docs/images/Kanban.png)<br>
@@ -49,6 +50,8 @@ Further explanation on how it is applied in Flask can be found in the [Developer
 
 ### 2.3 RESTful API <a name="rest">
 [REST, which stands for REpresentation State Transfer](https://en.wikipedia.org/wiki/Representational_state_transfer), is an architectural style used in defining constraints for creating web applications.
-Our web application makes use of the RESTful API when making HTTP requests such as GET or POST requests. 
-The team saw no reason to deviate from using the REST API to the alternative, 
-[such as SOAP](https://www.upwork.com/hiring/development/soap-vs-rest-comparing-two-apis/#:~:text=REST%20is%20an%20architectural%20style.,SOAP%20APIs%20perform%20an%20operation.).
+Our web application makes use of the RESTful API when making HTTP requests such as GET or POST requests.
+
+### 2.4 Database Normalization <a name="normal">
+There are multiple ways to design a database, and doing [Database Normalization](https://en.wikipedia.org/wiki/Database_normalization) can ensure that the design leads to better efficiency overall.
+The database design should satisfy 3NF normalization.
