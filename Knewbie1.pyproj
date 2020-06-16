@@ -114,9 +114,6 @@
     <Content Include="app\static\resources\images\BG.svg" />
     <Content Include="app\static\resources\images\Logo.svg" />
     <Content Include="app\static\content\style.css" />
-    <Content Include="app\templates\403.html" />
-    <Content Include="app\templates\410.html" />
-    <Content Include="app\templates\500.html" />
     <Content Include="app\templates\changepassword.html" />
     <Content Include="app\templates\dashboard.html" />
     <Content Include="app\templates\email\activate.txt" />

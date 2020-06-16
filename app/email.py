@@ -40,7 +40,7 @@ def send_reset_email(user):
     )
 
 def send_deactivate_email(user):
-    token = user.deactivate_token()
+    token = user.reset_token()
     #message = Message('[Knewbie] Password Reset Request', sender='resetpassword@knewbie.com', recipients=[user.email])
     send_email('Deactivate Account Request', 
                sender=app.config['ADMINS'][0],

@@ -87,25 +87,11 @@ def create():
     form = CreateQnForm()
     return render_template('create.html', title=' | Create', form=form)
 
-#@app.errorhandler(403)
-#def page_not_found(e):
-#    """Renders the error page."""
-#    return render_template('403.html'), 403
-
-#@app.errorhandler(404)
-#def page_not_found(e):
-#    """Renders the error page."""
-#    return render_template('error.html'), 404
 
 #@app.errorhandler(410)
 #def page_not_found(e):
 #    """Renders the error page."""
 #    return render_template('410.html'), 410
-
-#@app.errorhandler(500)
-#def page_not_found(e):
-#    """Renders the error page."""
-#    return render_template('500.html'), 500
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -303,7 +289,7 @@ def request_reset_password():
 @app.route("/resetpassword/<token>", methods=['GET', 'POST'])
 def reset_password(token):
     if current_user.is_authenticated:
-        return redirect(url_for('quiz'))
+        return redirect(url_for('dashboard'))
     user = User.verify_reset_token(token)
     if not user:
         flash('That is an invalid or expired token', 'warning')
@@ -326,8 +312,8 @@ def request_deactivate():
          user = User.query.filter_by(email = form.email.data).first()
          send_deactivate_email(user)
          flash('An email has been sent with instructions to deactivate your account.', 'info')
-         return redirect(url_for('deactivate'))
-     return render_template('deactivate.html', title=' | Deactivate', form=form)
+         return redirect(url_for('request_deactivate'))
+     return render_template('deactivate.html', title=' | Deactivate Account', form=form)
 
 @app.route("/deactivate/<token>", methods=['GET', 'POST'])
 def deactivate_account(token):
@@ -336,9 +322,8 @@ def deactivate_account(token):
         flash('That is an invalid or expired token', 'warning')
         return redirect(url_for('request_deactivate'))
     else:
-        logout_user()
         db.session.delete(user)
         db.session.commit
         flash('Your account has been successfully deactivated! Thank you.')
         return redirect(url_for('home'))
-    return render_template('deactivate.html', title=' | Deactivate')
+    return render_template('deactivate.html', title=' | Deactivate Account', form=form)

@@ -14,7 +14,6 @@ class LoginForm(FlaskForm):
 
 class DeactivateForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
-    remember_me = BooleanField('')
     submit = SubmitField('DEACTIVATE')
 
 class RegistrationForm(FlaskForm):
