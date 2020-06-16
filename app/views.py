@@ -8,7 +8,7 @@ from app import app, db, mail
 from app.models import User, Question, Option, Answer, Response
 from app.forms import LoginForm, RegistrationForm, ContactForm, ResetPasswordForm, NewPasswordForm, CreateQnForm, DeactivateForm
 from app.questions import get_question_options, submit_response
-from app.email import register, resend_conf, send_contact_email, send_reset_email
+from app.email import register, resend_conf, send_contact_email, send_reset_email, send_deactivate_email
 from app.token import confirm_token
 from app.decorator import check_confirmed
 from app.cat import Student
@@ -142,34 +142,6 @@ def login():
         return redirect(url_for('dashboard'))
     return render_template('login.html', title=' | Log In', form=form)
 
-@app.route('/deactivate', methods=['GET','POST'])
-def deactivate():
-    form = DeactivateForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user is None:
-            flash('Invalid email. Please try again')
-            return redirect(url_for('deactivate'))
-        return redirect(url_for('deactivate'))
-    return render_template('deactivate.html', title=' | Deactivate Account', form=form)
-
-@app.route('/deactivate/<token>')
-@login_required
-def deactivate_email(token):
-    try:
-        email = deactivate_token(token)
-    except:
-        flash('The confirmation link is invalid or has expired.', 'danger')
-        return redirect(url_for('deactivate'))
-    user = User.query.filter_by(email=email).first_or_404()
-    if user.confirmed:
-        flash('Account already confirmed. Please login.', 'success')
-    else:
-        db.session.delete(user)
-        db.session.commit()
-        flash('You have deactivated your account successfully!', 'success')
-    return redirect(url_for('home'))
-
 @app.route('/logout')
 def logout():
     logout_user()
@@ -238,3 +210,30 @@ def reset_password(token):
         flash('Your password has been successfully updated! You can now login with your new password.')
         return redirect(url_for('login'))
     return render_template('changepassword.html', title=' | Reset Password', form = form)
+
+
+# Routes to deactivate account
+@app.route("/deactivate", methods=['GET', 'POST'])
+@login_required
+def request_deactivate():
+     form = DeactivateForm()
+     if form.validate_on_submit():
+         user = User.query.filter_by(email = form.email.data).first()
+         send_deactivate_email(user)
+         flash('An email has been sent with instructions to deactivate your account.', 'info')
+         return redirect(url_for('deactivate'))
+     return render_template('deactivate.html', title=' | Deactivate', form=form)
+
+@app.route("/deactivate/<token>", methods=['GET', 'POST'])
+def deactivate_account(token):
+    user = User.verify_reset_token(token)
+    if not user:
+        flash('That is an invalid or expired token', 'warning')
+        return redirect(url_for('request_deactivate'))
+    else:
+        logout_user()
+        db.session.delete(user)
+        db.session.commit
+        flash('Your account has been successfully deactivated! Thank you.')
+        return redirect(url_for('home'))
+    return render_template('deactivate.html', title=' | Deactivate')
