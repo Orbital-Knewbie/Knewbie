@@ -30,6 +30,12 @@
     <Compile Include="app\cat.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\errors\handlers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\errors\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\forms.py">
       <SubType>Code</SubType>
     </Compile>
@@ -71,6 +77,7 @@
     <Content Include=".gitignore" />
     <Content Include="app\static\content\createstyle.css" />
     <Content Include="app\static\content\dashboardstyle.css" />
+    <Content Include="app\static\content\deactstyle.css" />
     <Content Include="app\static\content\errorstyle.css" />
     <Content Include="app\static\content\faqstyle.css" />
     <Content Include="app\static\content\homepagestyle.css" />
@@ -103,18 +110,20 @@
     <Content Include="app\static\resources\images\BG.svg" />
     <Content Include="app\static\resources\images\Logo.svg" />
     <Content Include="app\static\content\style.css" />
-    <Content Include="app\templates\403.html" />
-    <Content Include="app\templates\410.html" />
-    <Content Include="app\templates\500.html" />
     <Content Include="app\templates\changepassword.html" />
     <Content Include="app\templates\dashboard.html" />
     <Content Include="app\templates\email\activate.txt" />
     <Content Include="app\templates\email\activate.html" />
     <Content Include="app\templates\email\contactmsg.txt" />
     <Content Include="app\templates\email\contactmsg.html" />
+    <Content Include="app\templates\email\deactivate.html" />
+    <Content Include="app\templates\email\deactivate.txt" />
     <Content Include="app\templates\email\reset.txt" />
     <Content Include="app\templates\email\reset.html" />
-    <Content Include="app\templates\error.html" />
+    <Content Include="app\templates\errors\error403.html" />
+    <Content Include="app\templates\errors\error404.html" />
+    <Content Include="app\templates\errors\error410.html" />
+    <Content Include="app\templates\errors\error500.html" />
     <Content Include="app\templates\faq.html" />
     <Content Include="app\templates\posts.html" />
     <Content Include="app\templates\index.html" />
@@ -130,6 +139,7 @@
     <Content Include="app\templates\contact.html" />
     <Content Include="app\templates\create.html" />
     <Content Include="app\templates\forum.html" />
+    <Content Include="app\templates\deactivate.html" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.png" />
     <Content Include="docs\diagrams\Architecture.png" />
     <Content Include="docs\diagrams\ArchitectureSequence.png" />
@@ -203,6 +213,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
+    <Folder Include="app\errors\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\resources\questions\" />
     <Folder Include="app\static\scripts\" />
@@ -212,6 +223,7 @@
     <Folder Include="app\static\content\" />
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\email\" />
+    <Folder Include="app\templates\errors\" />
     <Folder Include="docs\diagrams\" />
     <Folder Include="docs\images\" />
     <Folder Include="docs\" />

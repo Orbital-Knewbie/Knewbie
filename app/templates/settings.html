@@ -79,7 +79,7 @@
         </section>
 
         <section id="account">
-            <h1 style="text-align: center; padding-top: 5rem;">Change Password</h1>
+            <h1 style="text-align: center; padding-top: 3rem;">Change Password</h1>
             <form>
                 <ul>
                     <li>
@@ -120,7 +120,7 @@
                         </fieldset>
                     </li>
 
-                    <h1 style="text-align: center; padding-top: 5rem; width: 100vw; position: relative; margin: 0 auto;">Change Email Address</h1>
+                    <h1 style="text-align: center; padding-top: 3rem; width: 100vw; position: relative; margin: 0 auto;">Change Email Address</h1>
 
                     <li>
                         <fieldset class="settings-input">
@@ -148,17 +148,11 @@
                                 <input class="save" type="submit" value="Save" />
                             </div>
                         </fieldset>
-
                         <div class="zone">
                             <p> Danger Zone <p />
                             <hr />
+                            <a href="{{ url_for('request_deactivate') }}" class="deact-btn">Deactivate Account</a>
                         </div>
-
-                        <fieldset class="deactivate-button center">
-                            <div>
-                                <button>Deactivate Account</button>
-                            </div>
-                        </fieldset>
                     </li>
                 </ul>
             </form>
