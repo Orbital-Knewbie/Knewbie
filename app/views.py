@@ -88,10 +88,6 @@ def create():
     return render_template('create.html', title=' | Create', form=form)
 
 
-#@app.errorhandler(410)
-#def page_not_found(e):
-#    """Renders the error page."""
-#    return render_template('410.html'), 410
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -315,7 +311,7 @@ def request_deactivate():
          return redirect(url_for('request_deactivate'))
      return render_template('deactivate.html', title=' | Deactivate Account', form=form)
 
-@app.route("/deactivate/<token>", methods=['GET', 'POST'])
+@app.route("/deactivate/<token>")
 def deactivate_account(token):
     user = User.verify_reset_token(token)
     if not user:
@@ -323,7 +319,6 @@ def deactivate_account(token):
         return redirect(url_for('request_deactivate'))
     else:
         db.session.delete(user)
-        db.session.commit
+        db.session.commit()
         flash('Your account has been successfully deactivated! Thank you.')
         return redirect(url_for('home'))
-    return render_template('deactivate.html', title=' | Deactivate Account', form=form)
