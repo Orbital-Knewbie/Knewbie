@@ -373,8 +373,10 @@ section.upcoming h1 {
     cursor: pointer;
 }
 
-.settings-button, .deactivate-button {
+.settings-button {
     width: 100%;
+}
+
 .deact-btn {
   display: inline-block;
   font-size: 1.2rem;
@@ -456,7 +458,7 @@ section.upcoming h1 {
 }
 
 
-.settings-button button:active, .deactivate-button button:active, .image-btn input:active,
+.settings-button button:active, .image-btn input:active,
 .settings-button button.save:active, .settings-button input[type="submit"].save:active {
     transform: translateY(2px) scale(0.99);
 }
@@ -477,10 +479,6 @@ section.upcoming h1 {
     width: 50%;
     margin: 1rem auto;
     border-radius: 100%;
-}
-
-.deactivate-button {
-    margin-top: 2rem;
 }
 
 .home-btn {
