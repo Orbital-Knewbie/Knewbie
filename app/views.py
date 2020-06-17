@@ -85,13 +85,29 @@ def progressreport():
 def createclass():
     """Renders the create class page for educators."""
     form = CreateClass()
+    if form.validate_on_submit():
+        Group.name = form.className.data
+        db.session.commit()
+        return redirect(url_for('createclasssuccess'))
     return render_template('createclass.html', title=' | Create Class', form=form)
+
+@app.route('/createclasssuccess', methods=['GET'])
+def createclasssuccess():
+    """Renders the create class was a success page for educators."""
+    form = CreateClass()
+    return render_template('createclasssuccess.html', title=' | Create Class', form=form)
 
 @app.route('/createquiz', methods=['GET', 'POST'])
 def createquiz():
     """Renders the create quiz page for educators."""
     form = CreateQuiz()
     return render_template('createquiz.html', title=' | Create Quiz', form=form)
+
+@app.route('/createquizsuccess', methods=['GET', 'POST'])
+def createquizsuccess():
+    """Renders the create quiz was a success page for educators."""
+    form = CreateQuiz()
+    return render_template('createquizsuccess.html', title=' | Create Quiz', form=form)
 
 
 

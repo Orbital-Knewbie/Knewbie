@@ -115,7 +115,9 @@
     <Content Include="app\static\resources\images\Logo.svg" />
     <Content Include="app\static\content\style.css" />
     <Content Include="app\templates\changepassword.html" />
+    <Content Include="app\templates\createclasssuccess.html" />
     <Content Include="app\templates\createquiz.html" />
+    <Content Include="app\templates\createquizsuccess.html" />
     <Content Include="app\templates\dashboard.html" />
     <Content Include="app\templates\email\activate.txt" />
     <Content Include="app\templates\email\activate.html" />

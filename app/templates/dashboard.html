@@ -21,8 +21,8 @@
             <h2>{{ current_user.firstName }} {{ current_user.lastName }}</h2>
             {% if current_user.urole == 'student' %}
             <p>Knewbie ID: {{ current_user.knewbie_id }} </p>
-            {% endif %}
             <a href="{{ url_for('progressreport') }}" class="btn">Progress Report</a>
+            {% endif %}
         </div>
     </section>
 
@@ -133,12 +133,12 @@
     <div class="split-container" id="login-page">
         <div class="split left">
             <h1>Create A New Class</h1>
-            <a href="#" class="split-btn" id="std-login">Click Here</a>
+            <a href="{{ url_for('createclass') }}" class="split-btn" id="std-login">Click Here</a>
         </div>
 
         <div class="split right">
             <h1>Create A New Question</h1>
-            <a href="#" class="split-btn" id="tcr-login">Click Here</a>
+            <a href="{{ url_for('createquiz') }}" class="split-btn" id="tcr-login">Click Here</a>
         </div>
     </div>
     {% endif %}

@@ -5,6 +5,7 @@
 {% block content %}
 <div class="create-class-wrapper">
     <div class="create-container">
+
         <form action="" method="post" novalidate class="create-form">
             {{ form.hidden_tag() }}
             <h1>Create A New Quiz</h1>
@@ -39,6 +40,17 @@
             <button type="button" class="create-btn">Attach Image</button>
             <button type="submit" class="create-btn">Create Question</button>-->
         </form>
+    </div>
+</div>
+
+<div class="bg-modal">
+    <div class="modal-contents">
+        <h1>Quiz was successfully created!</h1>
+        <!--<h1>Class code: <span>123456</span></h1>-->
+        <!--<a href="#" class="route-btn">Go To Class</a>
+        <a href="{{ url_for('createclass') }}" class="route-btn">Create Another Class</a>-->
+        <a href="{{ url_for('dashboard') }}" class="route-btn">Return Home</a>
+        <!--<p>Please share the class code with only the parties you want to add to the class.</p>-->
     </div>
 </div>
 {% endblock %}
