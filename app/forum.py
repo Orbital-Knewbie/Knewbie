@@ -1,3 +1,4 @@
+from flask import redirect, url_for
 from flask_login import current_user
 from app import db
 from app.models import Group, UserGroup, Post, Thread, User
@@ -7,6 +8,17 @@ def validate_group_link(groupID):
     group = Group.query.filter_by(id=groupID).first_or_404()
     if UserGroup.query.filter_by(userID=current_user.id, groupID=groupID).first() is not None:
         return group
+
+def validate_post_link(groupID, threadID, postID):
+    # Check validity of link access first
+    group = validate_group_link(groupID)
+    if group is None:
+        return 
+    thread = Thread.query.filter_by(id=threadID,groupID=groupID).first_or_404()
+    post = Post.query.filter_by(id=postID,threadID=threadID).first_or_404()
+    if current_user.id != post.userID and current_user.urole != 'educator':
+        return 
+    return post
 
 def save_post(form, threadID):
     post = Post(userID=current_user.id, threadID=threadID, 
@@ -43,6 +55,7 @@ def create_thread(user, group, title, content):
 def add_test_forum():
     clear_test_forum()
     user = User.query.first()
+    if user is None: return
     group = create_group(user, "first")
     add_participant(user, group)
     create_thread(user, group, "first thread", "first post")

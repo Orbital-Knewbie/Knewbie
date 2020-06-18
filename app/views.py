@@ -10,7 +10,7 @@ from app.forms import *
 from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer
 from app.email import register, resend_conf, send_contact_email, send_reset_email, send_deactivate_email
 from app.profile import update_image
-from app.forum import validate_group_link, save_post
+from app.forum import validate_group_link, save_post, validate_post_link
 from app.token import confirm_token
 from app.decorator import check_confirmed
 from app.cat import Student
@@ -159,19 +159,19 @@ def resend():
     return redirect(url_for('unconfirmed'))
 
 # Lone login page probably not needed, should be on homepage
-#@app.route('/login', methods=['GET','POST'])
-#def login():
-#    if current_user.is_authenticated:
-#        return redirect(url_for('dashboard'))
-#    form = LoginForm()
-#    if form.validate_on_submit():
-#        user = User.query.filter_by(email=form.email.data).first()
-#        if user is None or not user.check_password(form.password.data):
-#            flash('Invalid username or password')
-#            return redirect(url_for('login'))
-#        login_user(user)
-#        return redirect(url_for('dashboard'))
-#    return render_template('login.html', title=' | Log In', form=form)
+@app.route('/login', methods=['GET','POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user)
+        return redirect(url_for('dashboard'))
+    return render_template('login.html', title=' | Log In', form=form)
 
 @app.route('/logout')
 def logout():
@@ -180,7 +180,7 @@ def logout():
 
 
 # Routes for Group Forum
-@app.route('/group/<groupID>')
+@app.route('/group/<int:groupID>')
 #@login_required
 def forum(groupID):
     group = validate_group_link(groupID)
@@ -189,7 +189,7 @@ def forum(groupID):
     threads = Thread.query.filter_by(groupID=groupID).all()
     return render_template('forum.html', title=' | Forum', groupID=groupID, threads=threads)
 
-@app.route('/group/<groupID>/thread/<threadID>', methods=['GET', 'POST'])
+@app.route('/group/<int:groupID>/thread/<int:threadID>', methods=['GET', 'POST'])
 def forum_post(groupID, threadID):
     # Check validity of link access first
     groupID, threadID = int(groupID), int(threadID)
@@ -198,10 +198,16 @@ def forum_post(groupID, threadID):
         return redirect(url_for('dashboard'))
     thread = Thread.query.filter_by(id=threadID).first_or_404()
     if thread.groupID != groupID:
-        return render_template('error.html'), 404
+        return render_template('error404.html'), 404
 
     # Render Posts and PostForm
     posts = Post.query.filter_by(threadID=threadID).all()
+    users = {}
+    for post in posts:
+        if post.userID in users: continue
+        user = User.query.filter_by(id=post.userID).first()
+        users[post.userID] = ' '.join((user.firstName,user.lastName))
+
     form = PostForm()
 
     # POST request for new post
@@ -211,9 +217,9 @@ def forum_post(groupID, threadID):
         return redirect(url_for('forum_post',groupID=groupID,threadID=threadID))
     
     # GET request for forum thread
-    return render_template('posts.html', title=' | Forum', thread=thread,posts=posts, form=form)
+    return render_template('posts.html', title=' | Forum', thread=thread,posts=posts, form=form, users=users)
 
-@app.route('/group/<groupID>/thread', methods=['GET','POST'])
+@app.route('/group/<int:groupID>/thread', methods=['GET','POST'])
 def create_thread(groupID):
     # Check validity of link access first
     group = Group.query.filter_by(id=groupID).first_or_404()
@@ -235,22 +241,34 @@ def create_thread(groupID):
     # GET request for create thread
     return render_template('posts.html', title=' | Forum', form=form)
 
-@app.route('/group/<groupID>/thread/<threadID>/delete/<postID>')
+@app.route('/group/<int:groupID>/thread/<int:threadID>/delete/<int:postID>')
 def delete_post(groupID, threadID, postID):
     # Check validity of link access first
-    groupID, threadID, postID = int(groupID), int(threadID), int(postID)
-    group = validate_group_link(groupID)
-    if group is None:
-        return redirect(url_for('dashboard'))
-    thread = Thread.query.filter_by(id=threadID,groupID=groupID).first_or_404()
-    post = Post.query.filter_by(id=postID,threadID=threadID).first_or_404()
+    post = validate_post_link(groupID,threadID,postID)
     if current_user.id != post.userID and current_user.urole != 'educator':
-        return render_template('error.html'), 404
+        return render_template('error404.html'), 404
     db.session.delete(post)
     db.session.commit()
     flash('Post deleted')
     return redirect(url_for('forum_post', groupID=groupID,threadID=threadID))
 
+@app.route('/group/<groupID>/thread/<threadID>/edit/<postID>', methods=['GET','POST'])
+def edit_post(groupID,threadID,postID):
+    # Check validity of link access first
+    post = validate_post_link(groupID,threadID,postID)
+    if post is None:
+        return render_template('error404.html'), 404
+
+    form = PostForm()
+    if request.method == 'GET':
+        form.post.data=post.content
+
+    if form.validate_on_submit():
+        post.content = form.post.data
+        db.session.commit()
+        return redirect(url_for('forum_post', groupID=groupID,threadID=threadID))
+
+    return render_template('posts.html', title=' | Forum', form=form, editpost=post)
 
 # Routes for Quiz
 @app.route('/quiz', methods=['GET', 'POST'])

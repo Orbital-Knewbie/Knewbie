@@ -5,18 +5,25 @@
 {% block content %}
 <div>
     {% if thread %}
+    <a href="{{url_for('forum', groupID=thread.groupID)}}">Back</a>
+
     <h1> {{ thread.title }} </h1>
     <a href="#">Delete Thread</a>
+    {% if not editpost %}
+
     {% for post in posts %}
     <div>
-        <h2> {{ post.userID }} said:</h2>
+        <h2> {{ users[post.userID] }} said:</h2>
         {% if current_user.id == post.userID or current_user.urole == 'educator' %}
         <a href="{{url_for('delete_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}}">Delete Post</a>
-        <a href="#">Edit Post</a>
+        <a href="{{url_for('edit_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}} ">Edit Post</a>
         {% endif %}
+
         <div> {{ post.content }} </div>
     </div> <br />
     {% endfor %}
+
+    {% endif %}
     {% endif %}
     <form action="" method="post">
         {{ form.hidden_tag() }}
