@@ -143,17 +143,27 @@ option::selection {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 100;
 }
 
 .modal-contents {
-    height: 600px;
-    width: 1000px;
     background-color: var(--OFFWHITE);
     text-align: center;
     padding: 10rem;
     position: relative;
     border-radius: .4rem;
 }
+
+.quiz-size {
+    height: 450px;
+    width: 1000px;
+}
+
+.class-size {
+    height: 600px;
+    width: 1000px;
+}
+
 
 .modal-contents h1 {
     margin: 1rem 0;

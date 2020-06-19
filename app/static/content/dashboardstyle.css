@@ -54,7 +54,7 @@ body {
 }
 
 .sidebar ul li:nth-child(2):hover {
-    transform: translate(110px, 0);
+    transform: translate(100px, 0);
 }
 
 .sidebar ul li:nth-child(3):hover {
@@ -263,11 +263,11 @@ img {
 }
 
 .left h1 {
-    color: var(--OFFWHITE);
+    color: var(--LIGHTPURPLE);
 }
 
 .right h1 {
-    color: var(--LIGHTPURPLE);
+    color: var(--OFFWHITE);
 }
 
 
@@ -290,13 +290,13 @@ img {
 }
 
 .left .split-btn {
-  color: var(--LIGHTPURPLE);
-  background-color: var(--OFFWHITE);
+  color: var(--OFFWHITE);
+  background-color: var(--LIGHTPURPLE);
 }
 
 .right .split-btn {
-  color: var(--OFFWHITE);
-  background-color: var(--LIGHTPURPLE);
+  color: var(--LIGHTPURPLE);
+  background-color: var(--OFFWHITE);
 }
 
 .split-btn::after {
@@ -336,8 +336,8 @@ img {
   content: '';
   width: 100%;
   height: 100%;
-  background: var(--LIGHTPURPLE);
-  opacity: 0.7;
+  background: var(--OFFWHITE);
+  opacity: 0.6;
 }
 
 .right {
@@ -352,7 +352,7 @@ img {
   width: 100%;
   height: 100%;
   opacity: 0.7;
-  background: var(--GREY);
+  background: var(--LIGHTPURPLE);
 }
 
 .left, .right, .right::before, .left::before {

@@ -103,7 +103,7 @@ def createquiz():
     form = CreateQuiz()
     return render_template('createquiz.html', title=' | Create Quiz', form=form)
 
-@app.route('/createquizsuccess', methods=['GET', 'POST'])
+@app.route('/createquizsuccess', methods=['GET'])
 def createquizsuccess():
     """Renders the create quiz was a success page for educators."""
     form = CreateQuiz()

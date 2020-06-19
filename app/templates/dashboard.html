@@ -33,7 +33,11 @@
                 <div class="card-background"></div>
                 <img src="../static/resources/images/Student.svg" class="quiz-symbol">
                 <h2>Class 1</h2>
+                {% if current_user.urole == 'student' %}
                 <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
+                {% elif current_user.urole == 'educator' %}
+                <a href="{{ url_for('quiz') }}" class="btn">View Quiz</a>
+                {% endif %}
             </div>
 
 
@@ -41,21 +45,33 @@
                 <div class="card-background"></div>
                 <img src="../static/resources/images/Teacher.svg" class="quiz-symbol">
                 <h2>Class 2</h2>
+                {% if current_user.urole == 'student' %}
                 <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
+                {% elif current_user.urole == 'educator' %}
+                <a href="{{ url_for('quiz') }}" class="btn">View Quiz</a>
+                {% endif %}
             </div>
 
             <div class="card">
                 <div class="card-background"></div>
                 <img src="../static/resources/images/Contact.svg" class="quiz-symbol">
                 <h2>Class 3</h2>
+                {% if current_user.urole == 'student' %}
                 <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
+                {% elif current_user.urole == 'educator' %}
+                <a href="{{ url_for('quiz') }}" class="btn">View Quiz</a>
+                {% endif %}
             </div>
 
             <div class="card">
                 <div class="card-background"></div>
                 <img src="../static/resources/images/Teacher.svg" class="quiz-symbol">
                 <h2>Class 4</h2>
+                {% if current_user.urole == 'student' %}
                 <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
+                {% elif current_user.urole == 'educator' %}
+                <a href="{{ url_for('quiz') }}" class="btn">View Quiz</a>
+                {% endif %}
             </div>
         </div>
     </section>
