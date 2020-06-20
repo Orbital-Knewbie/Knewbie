@@ -75,6 +75,9 @@
     <Compile Include="migrations\env.py" />
     <Compile Include="migrations\versions\aa37f7215b67_init_db.py" />
     <Compile Include="run.py" />
+    <Compile Include="tests\test_1.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
@@ -232,6 +235,7 @@
     <Folder Include="docs\" />
     <Folder Include="migrations\" />
     <Folder Include="migrations\versions\" />
+    <Folder Include="tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 
