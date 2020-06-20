@@ -1,5 +1,5 @@
 from app import db
-from app.models import Question, Option, Answer, Response, Proficiency, Topic, Group, User
+from app.models import Question, Option, Response, Proficiency, Topic, Group, User, Quiz
 from app.cat import Student
 
 from flask_login import current_user
@@ -128,9 +128,9 @@ def clear_questions():
     for q in Option.query.all():
         db.session.delete(q)
         db.session.commit()
-    for q in Answer.query.all():
-        db.session.delete(q)
-        db.session.commit()
+    #for q in Answer.query.all():
+    #    db.session.delete(q)
+    #    db.session.commit()
 
 def clear_responses():
     for r in Response.query.all():
@@ -160,11 +160,9 @@ def add_qn(org_qns):
             opt=Option(qnID=qid,option=o)
             db.session.add(opt)
             if b:
-                ans = Answer()
-                opt.answer = ans
-                qn.answer = ans
-                db.session.add(ans)
                 db.session.flush()
+                qn.answerID = opt.id
+                
                 b=False
             
             db.session.commit()
@@ -208,8 +206,7 @@ def insert_qns():
                     if opt[0] == answer:
                         db.session.flush()
                         optID = o.id
-                        ans = Answer(question=qn,option=o)
-                        db.session.add(ans)
+                        question.answerID = optID
 
                 db.session.commit()
 
@@ -219,10 +216,10 @@ def test_insert_qns():
     questions = Question.query.all()
     for q in questions:
         options = Option.query.filter_by(qnID=q.id)
-        answer = Answer.query.filter_by(question=question).first()
+        answer = q.answerID
         print(q.question)
         for o in options:
-            if o.id == answer.optID:
+            if o.id == answer:
                 ans_opt = o
             print(o.option)
 
@@ -316,19 +313,20 @@ def add_topic(name):
     db.session.add(topic)
     db.session.commit()
 
-def add_question(qn_text, options, answer):
+def add_question(qn_text, options, answer, topic):
     '''Adds a question to the database
     Input
     qn_text : str
     options : seq of str
     answer : int (1 to 4)
+    topic : int
     '''
     # Generate item parameters from CatSim
     item = generate_item_bank(1)[0]
 
     # Add question
     question = Question(question=qn_text, discrimination=item[0], \
-        difficulty=item[1], guessing=item[2], upper=item[3])
+        difficulty=item[1], guessing=item[2], upper=item[3], topicID = topic)
     db.session.add(question)
     db.session.flush()
 
@@ -342,9 +340,11 @@ def add_question(qn_text, options, answer):
         db.session.flush()
         if answer == 0:
             optID = o.id
-            ans = Answer(question=qn,option=o)
+            #ans = Answer(question=qn,option=o)
+            question.answerID = optID
             db.session.add(ans)
     db.session.commit()
+    return question
 
 def get_proficiencies(userID):
     '''Return list of (timestamp, proficiency) in chronological order'''
@@ -364,10 +364,12 @@ def get_response_answer(id):
     correct = 0
     for r in responses:
         qnID = r.qnID
-        qn_txt = Question.query.filter_by(id=qnID).first().question
+        qn = Question.query.filter_by(id=qnID).first()
+        qn_txt = qn.question
         opt = Option.query.filter_by(qnID=qnID).all()
         opt_txt = []
-        ans = Answer.query.filter_by(qnID=qnID).first().optID
+        #ans = Answer.query.filter_by(qnID=qnID).first().optID
+        ans = qn.answerID
         for i in range(len(opt)):
             opt_txt.append(opt[i].option)
             if opt[i].id == ans:
@@ -381,6 +383,22 @@ def get_response_answer(id):
     print(d)
     return correct, d
 
-def get_sorted_students(groupID):
-    return User.query.filter_by(urole='student').\
-        filter(User.groups.any(id=groupID)).order_by(User.curr_theta.desc()).all()
+def add_quiz(user, name):
+    quiz = Quiz(userID=user.id, name=name)
+    db.session.add(quiz)
+    db.session.commit()
+
+def add_question_quiz(quiz, question):
+    quiz.questions.append(question)
+    db.session.commit()
+
+def remove_question(question):
+    options = question.options
+    responses = question.responses
+    question.quizzes = []
+    db.session.delete(question)
+    for o in options:
+        db.session.delete(o)
+    for q in responses:
+        db.session.delete(q)
+    db.session.commit()

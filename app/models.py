@@ -72,9 +72,9 @@ class Question(db.Model):
     topicID = db.Column(db.Integer, db.ForeignKey('topic.id'))
     topic = db.relationship('Topic', backref='questions')
     options = db.relationship('Option')
-    answerID = db.Column(db.Integer, db.ForeignKey('answer.id'))
-    answer = db.relationship('Answer', backref=db.backref('question', uselist=False))
-    responses = db.relationship('Response')
+    answerID = db.Column(db.Integer)
+    #answer = db.relationship('Answer', backref=db.backref('question', uselist=False))
+    responses = db.relationship('Response', backref='question')
 
 
     #type = db.Column(db.String(16), index=True, unique=True)
@@ -84,11 +84,11 @@ class Option(db.Model):
     qnID = db.Column(db.Integer, db.ForeignKey('question.id'))
     option = db.Column(db.String(255))
     responses = db.relationship('Response')
-    answer = db.relationship('Answer', backref=db.backref('option', uselist=False))
-    answerID = db.Column(db.Integer, db.ForeignKey('answer.id'))
+    #answer = db.relationship('Answer', backref=db.backref('option', uselist=False))
+    #answerID = db.Column(db.Integer, db.ForeignKey('answer.id'))
 
-class Answer(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+#class Answer(db.Model):
+#    id = db.Column(db.Integer, primary_key=True)
 
 class Response(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -97,12 +97,16 @@ class Response(db.Model):
     qnID = db.Column(db.Integer, db.ForeignKey('question.id'))
 
 
-
-
 class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), unique=True)
+    name = db.Column(db.String(64))
+    classCode = db.Column(db.String(6), nullable=True, unique=True)
     threads = db.relationship('Thread', backref='group')
+
+    def set_class_code(self):
+        lettersAndDigits = string.ascii_letters + string.digits
+        self.classCode = ''.join((random.choice(lettersAndDigits) for i in range(6)))
+        return self.classCode
 
 
 class Thread(db.Model):
@@ -132,26 +136,19 @@ class Proficiency(db.Model):
 
         # Retrieve stored responses from DB
         responses = Response.query.filter_by(userID=self.userID).all()
+        # Get only topic relevant responses
+        if self.topicID != 1:
+            responses = list(filter(lambda x: x.question.topicID == self.topicID, responses))
 
-        # Get AI / qnID from Responses
-        if self.topicID == 1 or self.topicID is None:
-            AI = [resp.qnID - 1 for resp in responses]
-        else:
-            # Get relevant topic questions
-            questions = Question.query.filter_by(topicID=self.topicID).all()
-            questions = {qn.id for qn in questions}
-            AI = []
-            for resp in responses:
-                if resp.qnID in questions:
-                    AI.append(resp.qnID - 1)
-
-        # Compare all responses with correct answer and store in resp_vector - in order
+        questions = [response.question for response in responses]
+        AI = []
         resp_vector = []
-        for qn in AI:
-            ans = Answer.query.filter_by(qnID=qn+1).first()
-            resp = Response.query.filter_by(userID=self.userID,qnID=qn+1).first()
 
-            resp_vector.append(ans.optID==resp.optID)
+        for response in responses:
+            AI.append(response.qnID - 1)
+            qn = response.question
+            resp_vector.append(qn.answerID == response.optID)
+        print((AI, resp_vector))
 
         return AI, resp_vector
 

@@ -5,7 +5,7 @@ Routes and views for the flask application.
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
-from app.models import User, Question, Option, Answer, Response, Group, Thread, Post, Proficiency
+from app.models import User, Question, Option, Response, Group, Thread, Post, Proficiency
 from app.forms import *
 from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer
 from app.email import register, resend_conf, send_contact_email, send_reset_email, send_deactivate_email
@@ -222,8 +222,7 @@ def forum_post(groupID, threadID):
 @app.route('/group/<int:groupID>/forum/thread', methods=['GET','POST'])
 def create_thread(groupID):
     # Check validity of link access first
-    group = Group.query.filter_by(id=groupID).\
-        filter(Group.users.any(user_id=current_user.id, group_id=groupID)).first_or_404()
+    group = validate_group_link(groupID)
 
     # Render ThreadForm
     form = ThreadForm()

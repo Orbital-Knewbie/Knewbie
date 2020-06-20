@@ -5,7 +5,7 @@ from app.models import Group, Post, Thread, User
 from datetime import datetime
 
 def validate_group_link(groupID):
-    return Group.query.filter(Group.users.any(user_id=current_user.id, group_id=groupID)).first_or_404()
+    return Group.query.filter_by(id=groupID).filter(Group.users.any(id=current_user.id)).first_or_404()
 
 def validate_post_link(groupID, threadID, postID):
     # Check validity of link access first

@@ -74,3 +74,14 @@ def resend_conf(user):
     confirm_url = get_confirm_url(user)
     send_conf_email(user, confirm_url)
     flash('A new confirmation email has been sent.', 'success')
+
+
+def add_user():
+    if User.query.all(): return
+    user = User(firstName='test',lastName='test',email='testflask202005@gmail.com', urole='student',confirmed=True)
+    user.set_password('test')
+    user.set_knewbie_id()
+    db.session.add(user)
+    db.session.commit()
+
+add_user()
