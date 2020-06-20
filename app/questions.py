@@ -1,6 +1,8 @@
 from app import db
-from app.models import Question, Option, Answer, Response, Proficiency, Topic
+from app.models import Question, Option, Answer, Response, Proficiency, Topic, Group, User
 from app.cat import Student
+
+from flask_login import current_user
 
 from random import choice, shuffle
 from datetime import datetime
@@ -158,10 +160,11 @@ def add_qn(org_qns):
             opt=Option(qnID=qid,option=o)
             db.session.add(opt)
             if b:
-                db.session.flush()
-                optID = opt.id
-                ans = Answer(qnID=qid, optID=optID)
+                ans = Answer()
+                opt.answer = ans
+                qn.answer = ans
                 db.session.add(ans)
+                db.session.flush()
                 b=False
             
             db.session.commit()
@@ -196,15 +199,16 @@ def insert_qns():
                 question = Question(question=qn_text, discrimination=item[0], \
                     difficulty=item[1], guessing=item[2], upper=item[3], topicID=1)
                 db.session.add(question)
-
-                qid = Question.query.filter_by(question=qn_text).first().id
+                db.session.flush()
+                qid = question.id
 
                 for opt in options:
                     o = Option(qnID=qid, option=opt[1])
                     db.session.add(o)
                     if opt[0] == answer:
-                        optID = Option.query.filter_by(option=opt[1]).first().id
-                        ans = Answer(qnID=qid, optID=optID)
+                        db.session.flush()
+                        optID = o.id
+                        ans = Answer(question=qn,option=o)
                         db.session.add(ans)
 
                 db.session.commit()
@@ -215,7 +219,7 @@ def test_insert_qns():
     questions = Question.query.all()
     for q in questions:
         options = Option.query.filter_by(qnID=q.id)
-        answer = Answer.query.filter_by(qnID=q.id).first()
+        answer = Answer.query.filter_by(question=question).first()
         print(q.question)
         for o in options:
             if o.id == answer.optID:
@@ -257,10 +261,17 @@ def submit_response(id, form):
 
     # Update topic proficiency
     qn = Question.query.filter_by(id=qnID).first()
-    topicID = qn.topicID if qn.topicID else 1
-    prof, topic_student = get_student_cat(id, topicID)
+    if qn.topicID > 1:
+        update_proficiency(qn.id, qn.topicID)
+    update_proficiency(qn.id)
+
+def update_proficiency(qnID, topicID=1):
+    qn = Question.query.filter_by(id=qnID).first()
+    prof, topic_student = get_student_cat(current_user.id, topicID)
     topic_student.update()
     prof.theta = topic_student.theta
+    if topicID == 1:
+        current_user.curr_theta = topic_student.theta
     db.session.commit()
 
 def add_proficiency(id):
@@ -291,7 +302,8 @@ def create_student_prof(userID):
         add_topic("first")
     topics = db.session.query(Topic.id).all()
     student_cat = Student(userID)
-    for topic, in topics:
+    current_user.curr_theta = student_cat.theta
+    for topic, in topics:            
         prof = Proficiency(userID=userID, timestamp=datetime.now(), 
                            theta=student_cat.theta, topicID=topic)
         db.session.add(prof)
@@ -330,7 +342,7 @@ def add_question(qn_text, options, answer):
         db.session.flush()
         if answer == 0:
             optID = o.id
-            ans = Answer(optID=optID,qnID=qnID)
+            ans = Answer(question=qn,option=o)
             db.session.add(ans)
     db.session.commit()
 
@@ -368,3 +380,7 @@ def get_response_answer(id):
 
     print(d)
     return correct, d
+
+def get_sorted_students(groupID):
+    return User.query.filter_by(urole='student').\
+        filter(User.groups.any(id=groupID)).order_by(User.curr_theta.desc()).all()

@@ -5,6 +5,12 @@ from app import db, login, app
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
+usergroup = db.Table('usergroup', \
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True), \
+    db.Column('group_id', db.Integer, db.ForeignKey('group.id'), primary_key=True)
+)
+
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstName = db.Column(db.String(64))
@@ -17,6 +23,12 @@ class User(UserMixin, db.Model):
     knewbie_id = db.Column(db.String(8), nullable=True, unique=True)
     image_file = db.Column(db.String(20), default='profileimg.jpg')
     admin = db.Column(db.Boolean, nullable=False, default=False)
+    curr_theta = db.Column(db.Float)
+    groups = db.relationship('Group', secondary=usergroup, backref='users')
+    posts = db.relationship('Post', backref='user')
+    responses = db.relationship('Response')
+    proficiencies = db.relationship('Proficiency')
+    quizzes = db.relationship('Quiz')
 
     def __repr__(self):
         return '<User {}>'.format(self.firstName)
@@ -45,6 +57,10 @@ class User(UserMixin, db.Model):
         self.knewbie_id =  ''.join((random.choice(lettersAndDigits) for i in range(8)))
         return self.knewbie_id
 
+questionquiz = db.Table('questionquiz', \
+    db.Column('question_id', db.Integer, db.ForeignKey('question.id'), primary_key=True), \
+    db.Column('quiz_id', db.Integer, db.ForeignKey('quiz.id'), primary_key=True)
+)
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -53,54 +69,63 @@ class Question(db.Model):
     difficulty = db.Column(db.Float)
     guessing = db.Column(db.Float)
     upper = db.Column(db.Float)
-    topicID = db.Column(db.Integer)
+    topicID = db.Column(db.Integer, db.ForeignKey('topic.id'))
+    topic = db.relationship('Topic', backref='questions')
+    options = db.relationship('Option')
+    answerID = db.Column(db.Integer, db.ForeignKey('answer.id'))
+    answer = db.relationship('Answer', backref=db.backref('question', uselist=False))
+    responses = db.relationship('Response')
+
 
     #type = db.Column(db.String(16), index=True, unique=True)
 
 class Option(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    qnID = db.Column(db.Integer)
+    qnID = db.Column(db.Integer, db.ForeignKey('question.id'))
     option = db.Column(db.String(255))
+    responses = db.relationship('Response')
+    answer = db.relationship('Answer', backref=db.backref('option', uselist=False))
+    answerID = db.Column(db.Integer, db.ForeignKey('answer.id'))
 
 class Answer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    optID = db.Column(db.Integer)
-    qnID = db.Column(db.Integer)
 
 class Response(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    userID = db.Column(db.Integer)
-    optID = db.Column(db.Integer)
-    qnID = db.Column(db.Integer)
+    userID = db.Column(db.Integer, db.ForeignKey('user.id'))
+    optID = db.Column(db.Integer, db.ForeignKey('option.id'))
+    qnID = db.Column(db.Integer, db.ForeignKey('question.id'))
 
-class UserGroup(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    groupID = db.Column(db.Integer)
-    userID = db.Column(db.Integer)
+
+
 
 class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
+    threads = db.relationship('Thread', backref='group')
 
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    userID = db.Column(db.Integer)
-    threadID = db.Column(db.Integer)
-    timestamp = db.Column(db.DateTime)
-    content = db.Column(db.Text)
 
 class Thread(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    groupID = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime)
     title = db.Column(db.String(120))
+    posts = db.relationship('Post', backref='thread')
+    groupID = db.Column(db.Integer, db.ForeignKey('group.id'))
+
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime)
+    content = db.Column(db.Text)
+    threadID = db.Column(db.Integer, db.ForeignKey('thread.id'))
+    userID = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Proficiency(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    userID = db.Column(db.Integer)
+    userID = db.Column(db.Integer, db.ForeignKey('user.id'))
     timestamp = db.Column(db.DateTime)
     theta = db.Column(db.Float)
-    topicID = db.Column(db.Integer)
+    topicID = db.Column(db.Integer, db.ForeignKey('topic.id'))
 
     def get_AI_responses(self):
         '''Method to retrive Administered Items (AI) and response vector'''
@@ -130,19 +155,16 @@ class Proficiency(db.Model):
 
         return AI, resp_vector
 
-class QuestionQuiz(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    quizID = db.Column(db.Integer)
-    qnID = db.Column(db.Integer)
-
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    userID = db.Column(db.Integer)
+    userID = db.Column(db.Integer, db.ForeignKey('user.id'))
     name = db.Column(db.String(120))
+    questions = db.relationship('Question', secondary=questionquiz, backref='quizzes')
 
 class Topic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
+    proficiencies = db.relationship('Proficiency')
 
 @login.user_loader
 def load_user(id):

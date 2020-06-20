@@ -5,7 +5,7 @@ Routes and views for the flask application.
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
-from app.models import User, Question, Option, Answer, Response, UserGroup, Group, Thread, Post, Proficiency
+from app.models import User, Question, Option, Answer, Response, Group, Thread, Post, Proficiency
 from app.forms import *
 from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer
 from app.email import register, resend_conf, send_contact_email, send_reset_email, send_deactivate_email
@@ -180,7 +180,7 @@ def logout():
 
 
 # Routes for Group Forum
-@app.route('/group/<int:groupID>')
+@app.route('/group/<int:groupID>/forum')
 #@login_required
 def forum(groupID):
     group = validate_group_link(groupID)
@@ -189,7 +189,7 @@ def forum(groupID):
     threads = Thread.query.filter_by(groupID=groupID).all()
     return render_template('forum.html', title=' | Forum', groupID=groupID, threads=threads)
 
-@app.route('/group/<int:groupID>/thread/<int:threadID>', methods=['GET', 'POST'])
+@app.route('/group/<int:groupID>/forum/thread/<int:threadID>', methods=['GET', 'POST'])
 def forum_post(groupID, threadID):
     # Check validity of link access first
     groupID, threadID = int(groupID), int(threadID)
@@ -219,12 +219,11 @@ def forum_post(groupID, threadID):
     # GET request for forum thread
     return render_template('posts.html', title=' | Forum', thread=thread,posts=posts, form=form, users=users)
 
-@app.route('/group/<int:groupID>/thread', methods=['GET','POST'])
+@app.route('/group/<int:groupID>/forum/thread', methods=['GET','POST'])
 def create_thread(groupID):
     # Check validity of link access first
-    group = Group.query.filter_by(id=groupID).first_or_404()
-    if UserGroup.query.filter_by(userID=current_user.id, groupID=groupID).first() is None:
-        return redirect(url_for('dashboard'))
+    group = Group.query.filter_by(id=groupID).\
+        filter(Group.users.any(user_id=current_user.id, group_id=groupID)).first_or_404()
 
     # Render ThreadForm
     form = ThreadForm()
@@ -241,7 +240,7 @@ def create_thread(groupID):
     # GET request for create thread
     return render_template('posts.html', title=' | Forum', form=form)
 
-@app.route('/group/<int:groupID>/thread/<int:threadID>/delete/<int:postID>')
+@app.route('/group/<int:groupID>/forum/thread/<int:threadID>/delete/<int:postID>')
 def delete_post(groupID, threadID, postID):
     # Check validity of link access first
     post = validate_post_link(groupID,threadID,postID)
@@ -252,7 +251,7 @@ def delete_post(groupID, threadID, postID):
     flash('Post deleted')
     return redirect(url_for('forum_post', groupID=groupID,threadID=threadID))
 
-@app.route('/group/<groupID>/thread/<threadID>/edit/<postID>', methods=['GET','POST'])
+@app.route('/group/<int:groupID>/forum/thread/<int:threadID>/edit/<int:postID>', methods=['GET','POST'])
 def edit_post(groupID,threadID,postID):
     # Check validity of link access first
     post = validate_post_link(groupID,threadID,postID)
