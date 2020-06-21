@@ -3,23 +3,11 @@
 <link rel="stylesheet" href="../static/content/createstyle.css">
 {% endblock %}
 {% block content %}
-<div class="create-container">
-    <div class="create-left">
-        <form class="create-form">
-           
-            <h1>Create A New Class</h1>
-
-            <input required type="text" placeholder="Class Name">
-            <button type="submit" class="create-btn">Create Class</button>
-        
-        </form>
-    </div>
-
-    <div class="create-ctr">
+<div class="create-class-wrapper">
+    <div class="create-container">
         <form action="" method="post" novalidate class="create-form">
             {{ form.hidden_tag() }}
-            <h1>Create A New Question</h1>
-
+            <h1>Create A New Quiz</h1>
             {{ form.topic(placeholder="Select Topic", class_="center") }}
             {{ form.qn(size=32, placeholder="Input Question") }}
             {{ form.op1(size=32, placeholder="Option 1") }}
@@ -27,8 +15,9 @@
             {{ form.op3(size=32, placeholder="Option 3") }}
             {{ form.op4(size=32, placeholder="Option 4") }}
             {{ form.corrOp(placeholder="Correct Option") }}
-            {{ form.img(class_="create-btn") }}
-            {{ form.submit(class_="create-btn") }}
+            {{ form.img }}
+            {{ form.submit(class_="submit-btn") }}
+            {{ form.complete(class_="submit-btn") }}
             <!--<select required>
         <option value="" disabled selected hidden>Select Topic</option>
         <option value="">Geometry</option>
@@ -49,17 +38,6 @@
     </select>
     <button type="button" class="create-btn">Attach Image</button>
     <button type="submit" class="create-btn">Create Question</button>-->
-
-        </form>
-    </div>
-
-    <div class="create-right"> 
-        <form class="create-form">
-            <h1>Create A New Quiz</h1>
-
-            <input type="text" placeholder="Quiz Name">
-            <button type="submit" class="create-btn">Create Quiz</button>
-        
         </form>
     </div>
 </div>

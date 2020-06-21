@@ -1,5 +1,7 @@
 from PIL import Image
 from app import app
+from string import ascii_letters, digits
+from random import choice
 import secrets
 import os
 
@@ -18,3 +20,6 @@ def update_image(form_image):
     new_image.save(image_path)
     return image_filename
 
+def set_code(n):
+    return ''.join(choice(ascii_letters + digits) for i in range(n))
+        

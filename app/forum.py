@@ -41,23 +41,23 @@ def create_thread(user, group, title, content):
     db.session.add(post)
     db.session.commit()
 
-def add_test_forum():
-    clear_test_forum()
-    user = User.query.first()
-    group = create_group(user, "first")
-    add_participant(user, group)
-    create_thread(user, group, "first thread", "first post")
+#def add_test_forum():
+#    clear_test_forum()
+#    user = User.query.first()
+#    group = create_group(user, "first")
+#    add_participant(user, group)
+#    create_thread(user, group, "first thread", "first post")
 
-def clear_test_forum():
-    g = Group.query.all()
-    ug = UserGroup.query.all()
-    t = Thread.query.all()
-    p = Post.query.all()
-    g.extend(ug)
-    g.extend(t)
-    g.extend(p)
-    for i in g:
-        db.session.delete(i)
-    db.session.commit()
+#def clear_test_forum():
+#    g = Group.query.all()
+#    ug = UserGroup.query.all()
+#    t = Thread.query.all()
+#    p = Post.query.all()
+#    g.extend(ug)
+#    g.extend(t)
+#    g.extend(p)
+#    for i in g:
+#        db.session.delete(i)
+#    db.session.commit()
 
-add_test_forum()
+#add_test_forum()
