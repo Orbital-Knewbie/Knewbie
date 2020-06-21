@@ -57,14 +57,9 @@ class NewPasswordForm(FlaskForm):
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Update Password')
 
-class CreateClass(FlaskForm):
-    className = StringField('Class Name', validators=[DataRequired()])
+class CreateName(FlaskForm):
+    name = StringField('Title', validators=[DataRequired()])
     submit = SubmitField('Create Class')
-
-class CreateQuiz(FlaskForm):
-    quizName = StringField('Quiz Title', validators=[DataRequired()])
-    submit = SubmitField('Create Quiz')
-
 
 class CreateQuestion(FlaskForm):
     topic = SelectField('Select Topic', choices=[('nth', 'Select Topic'), ('Est', 'Estimation'), ('Geo', 'Geometry'), ('Model', 'Model')], validators=[DataRequired()])

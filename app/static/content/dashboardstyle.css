@@ -253,14 +253,14 @@ img {
     background: var(--GREY);
 }
 
-.split-container h1 {
+/*.split-container h1 {
   font-size: 4rem;
   position: absolute;
   left: 50%;
   top: 40%;
   transform: translateX(-50%);
   white-space: nowrap;
-}
+}*/
 
 .left h1 {
     color: var(--LIGHTPURPLE);

@@ -32,7 +32,7 @@
     font-size: 5rem;
 }
 
-.create-form {
+.create-form, .create-form-1 {
     position: absolute;
     text-align: center;
     top: 50%;
@@ -43,11 +43,10 @@
 
 }
 
-.create-form input {
+.create-form input, .create-form-1 input {
     display: block;
     outline: none;
     border: none;
-    background-color: rgba(255, 255, 255, 0.2);
     width: 250px;
     border-radius: 0.4rem;
     padding: 10px 15px;
@@ -59,19 +58,38 @@
     transition-duration: 0.25s;
 }
 
-input:hover {
+.create-form input {
     background-color: rgba(255, 255, 255, 0.4);
 }
 
-input:focus,
-input:active {
+.create-form-1 input {
+    background-color: rgba(170, 7, 107, 0.3);
+}
+
+.create-form input:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.create-form input:focus,
+.create-form input:active {
     background-color: var(--OFFWHITE);
     color: var(--LIGHTPURPLE);
     width: 300px;
 }
 
-input::placeholder {
+.create-form-1 input:focus,
+.create-form-1 input:active {
+    background-color: var(--LIGHTPURPLE);
     color: var(--OFFWHITE);
+    width: 300px;
+}
+
+.create-form input::placeholder {
+    color: var(--OFFWHITE);
+}
+
+.create-form-1 input::placeholder {
+    color: var(--LIGHTPURPLE);
 }
 
 select {

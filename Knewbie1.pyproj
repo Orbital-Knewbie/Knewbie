@@ -121,7 +121,6 @@
     <Content Include="app\templates\leaderboard.html" />
     <Content Include="app\templates\sidebar.html" />
     <Content Include="app\templates\createclasssuccess.html" />
-    <Content Include="app\templates\createquiz.html" />
     <Content Include="app\templates\createquizsuccess.html" />
     <Content Include="app\templates\dashboard.html" />
     <Content Include="app\templates\email\activate.txt" />
@@ -149,7 +148,6 @@
     <Content Include="app\templates\register.html" />
     <Content Include="app\templates\unconfirmed.html" />
     <Content Include="app\templates\contact.html" />
-    <Content Include="app\templates\createclass.html" />
     <Content Include="app\templates\forum.html" />
     <Content Include="app\templates\deactivate.html" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.png" />
