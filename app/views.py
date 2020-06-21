@@ -9,7 +9,7 @@ from app.models import User, Question, Option, Answer, Response, UserGroup, Grou
 from app.forms import *
 from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer
 from app.email import register, resend_conf, send_contact_email, send_reset_email, send_deactivate_email
-from app.profile import update_image
+from app.profile import update_image, set_code
 from app.forum import validate_group_link, save_post
 from app.token import confirm_token
 from app.decorator import check_confirmed
@@ -43,6 +43,12 @@ def dashboard():
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
     return render_template('dashboard.html', image_file=image_file)
 
+@app.route('/leaderboard')
+def leaderboard():
+    """Renders the leaderboard page."""
+    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    return render_template('leaderboard.html', image_file=image_file, title=' | Leaderboard')
+
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
     """Renders the settings page."""
@@ -65,7 +71,9 @@ def settings():
 @app.route('/settings/knewbieID')
 def settings_knewbie_id():
     """Routing to update Knewbie ID"""
-    current_user.knewbie_id = current_user.set_knewbie_id()
+    temp = set_code(8)
+    while User.query.filter_by(knewbie_id=temp).first() != User:
+        temp = set_code(8)
     db.session.commit()
     flash('Your profile has been successfully updated!', 'success')
     return redirect(url_for('settings'))
@@ -86,7 +94,10 @@ def createclass():
     """Renders the create class page for educators."""
     form = CreateClass()
     if form.validate_on_submit():
-        Group.name = form.className.data
+        group = Group(name=form.className.data)
+        db.session.add(group)
+        classCode = set_number_code(6)
+        db.session.add(classCode)
         db.session.commit()
         return redirect(url_for('createclasssuccess'))
     return render_template('createclass.html', title=' | Create Class', form=form)
@@ -94,7 +105,6 @@ def createclass():
 @app.route('/createclasssuccess', methods=['GET'])
 def createclasssuccess():
     """Renders the create class was a success page for educators."""
-    form = CreateClass()
     return render_template('createclasssuccess.html', title=' | Create Class', form=form)
 
 @app.route('/createquiz', methods=['GET', 'POST'])
@@ -106,10 +116,13 @@ def createquiz():
 @app.route('/createquizsuccess', methods=['GET'])
 def createquizsuccess():
     """Renders the create quiz was a success page for educators."""
-    form = CreateQuiz()
     return render_template('createquizsuccess.html', title=' | Create Quiz', form=form)
 
-
+@app.route('/class', methods=['GET'])
+def classes():
+    """Renders the class page."""
+    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    return render_template('sidebar.html', image_file=image_file, title=' | Class')
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():

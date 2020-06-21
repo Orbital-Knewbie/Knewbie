@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.sidebar {
+  background-image: linear-gradient(135deg, var(--LIGHTPURPLE), var(--PURPLE));
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  z-index: 10;
+}
+
+.sidebar .pic {
+  display: block;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 2.5rem auto;
+  text-align: center;
+}
+
+.sidebar h4 {
+  color: var(--OFFWHITE);
+  margin: 0 0 1rem 0;
+  font-size: 2.5rem;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+}
+
+.sidebar p {
+  color: var(--OFFWHITE);
+  font-size: 1.6rem;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+}
+
+.sidebar a {
+  color: var(--OFFWHITE);
+  display: block;
+  width: 100%;
+  line-height: 6rem;
+  text-decoration: none;
+  padding-left: 3.5rem;
+  font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.sidebar a:hover{
+  background: var(--GREY);
+  color: var(--LIGHTPURPLE);
+}
+
+.sidebar i{
+  padding: 1rem;
+}
+
+.separator {
+    margin: 10px 35px;
+    height: 1px;
+    background: var(--DARKPURPLE);
+}

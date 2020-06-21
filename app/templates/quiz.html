@@ -5,30 +5,21 @@
 {% block content %}
 <div class="quiz-container">
     <div id="quiz" class="justify-center flex-column">
-        <!--<h1>QUIZ TITLE</h1>-->
+        <h1>QUIZ TITLE</h1>
         <h2 id="question">{{question}}</h2>
-        <!--<div class="options-container">
-        <p class="options-prefix">A</p>
-        <p class="options">0</p>
-    </div>
-    <div class="options-container">
-        <p class="options-prefix">B</p>
-        <p class="options">2</p>
-    </div>
-    <div class="options-container">
-        <p class="options-prefix">C</p>
-        <p class="options">1</p>
-    </div>
-    <div class="options-container">
-        <p class="options-prefix">D</p>
-        <p class="options">3</p>
-    </div>-->
+
         <form action="/quiz" target="result" method="post">
             <ol>
                 {% for o in options %}
-                <li>
-                    <input type="radio" name="option" value="{{o}}"> {{options[o]}}
-                </li><br />
+                <li class="options-container" id="options-container">
+                    <p class="options-prefix">{{o}}</p>
+                    <label>
+                        <input type="radio" class="options" name="option" id="{{o}}" value="{{o}}">
+                        <span>{{options[o]}}</span>
+                    </label>
+                </li>
+                <br />
+
                 {% endfor %}
             </ol>
             <p><input class="submit-btn" type="submit" value="SUBMIT"></p>
@@ -36,10 +27,4 @@
     </div>
 
 </div>
-
-
-<!--<div id="quiz"></div>
-<button id="submit">Submit Quiz</button>
-<div id="results"></div>
-<script src="../static/scripts/quiz.js"></script>-->
 {% endblock %}

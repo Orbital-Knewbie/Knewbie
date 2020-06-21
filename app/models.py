@@ -1,5 +1,3 @@
-import string
-import random
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from app import db, login, app
 from flask_login import UserMixin
@@ -39,11 +37,6 @@ class User(UserMixin, db.Model):
         except:
             return None
         return User.query.get(user_id)
-
-    def set_knewbie_id(self):
-        lettersAndDigits = string.ascii_letters + string.digits
-        self.knewbie_id =  ''.join((random.choice(lettersAndDigits) for i in range(8)))
-        return self.knewbie_id
 
 
 class Question(db.Model):
