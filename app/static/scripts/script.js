@@ -16,28 +16,6 @@ $(document).ready(function () {
   gsap.fromTo('.login-form', {opacity: 0}, {duration: 3, delay: 0.5, opacity: 1});
   gsap.fromTo('.menu', {opacity: 0}, {duration: 2, delay: 0.5, opacity: 1});
   gsap.fromTo('.gradient-textbox', {yPercent: 40, opacity: 0}, {duration: 1, delay: 0.8, yPercent: -50, opacity: 1});
-
-    // Split Screen
-    const left = document.querySelector(".left");
-    const right = document.querySelector(".right");
-    const container = document.querySelector(".split-container");
-
-    left.addEventListener("mouseenter", () => {
-        container.classList.add("hover-left");
-    });
-
-    left.addEventListener("mouseleave", () => {
-        container.classList.remove("hover-left");
-    });
-
-    right.addEventListener("mouseenter", () => {
-        container.classList.add("hover-right");
-    });
-
-    right.addEventListener("mouseleave", () => {
-        container.classList.remove("hover-right");
-    });
-
 });
 
 //SMOOTHSCROLL FOR NAVBAR

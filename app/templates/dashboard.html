@@ -1,6 +1,7 @@
 ﻿{% extends "base.html" %}
 {% block style %}
 <link rel="stylesheet" href="../static/content/dashboardstyle.css">
+<link href="../static/content/createstyle.css" rel="stylesheet" />
 {% endblock %}
 {% block content %}
 <nav class="sidebar">
@@ -21,8 +22,8 @@
             <h2>{{ current_user.firstName }} {{ current_user.lastName }}</h2>
             {% if current_user.urole == 'student' %}
             <p>Knewbie ID: {{ current_user.knewbie_id }} </p>
-            {% endif %}
             <a href="{{ url_for('progressreport') }}" class="btn">Progress Report</a>
+            {% endif %}
         </div>
     </section>
 
@@ -33,7 +34,11 @@
                 <div class="card-background"></div>
                 <img src="../static/resources/images/Student.svg" class="quiz-symbol">
                 <h2>Class 1</h2>
+                {% if current_user.urole == 'student' %}
                 <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
+                {% elif current_user.urole == 'educator' %}
+                <a href="{{ url_for('quiz') }}" class="btn">View Quiz</a>
+                {% endif %}
             </div>
 
 
@@ -41,21 +46,33 @@
                 <div class="card-background"></div>
                 <img src="../static/resources/images/Teacher.svg" class="quiz-symbol">
                 <h2>Class 2</h2>
+                {% if current_user.urole == 'student' %}
                 <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
+                {% elif current_user.urole == 'educator' %}
+                <a href="{{ url_for('quiz') }}" class="btn">View Quiz</a>
+                {% endif %}
             </div>
 
             <div class="card">
                 <div class="card-background"></div>
                 <img src="../static/resources/images/Contact.svg" class="quiz-symbol">
                 <h2>Class 3</h2>
+                {% if current_user.urole == 'student' %}
                 <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
+                {% elif current_user.urole == 'educator' %}
+                <a href="{{ url_for('quiz') }}" class="btn">View Quiz</a>
+                {% endif %}
             </div>
 
             <div class="card">
                 <div class="card-background"></div>
                 <img src="../static/resources/images/Teacher.svg" class="quiz-symbol">
                 <h2>Class 4</h2>
+                {% if current_user.urole == 'student' %}
                 <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
+                {% elif current_user.urole == 'educator' %}
+                <a href="{{ url_for('quiz') }}" class="btn">View Quiz</a>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -102,7 +119,7 @@
         </div>
     </section>
 
-    <section class="box" id="mockquiz">
+    <section class="box" id="mockquiz" style="padding-bottom: 2rem;">
         <h1>Mock Quizzes</h1>
         <div class="card-wrapper">
             <div class="card">
@@ -130,15 +147,23 @@
 
     {% elif current_user.urole == 'educator' %}
     <!-- SPLIT SCREEN -->
-    <div class="split-container" id="login-page">
-        <div class="split left">
-            <h1>Create A New Class</h1>
-            <a href="#" class="split-btn" id="std-login">Click Here</a>
+    <div class="split-container">
+        <div class="split left">           
+            <form action="" method="post" novalidate class="create-form-1">
+                {{ form.hidden_tag() }}
+                <h1>Create A New Class</h1>
+                {{ form.name(size=32, class_="input", placeholder="Quiz Title") }}
+                {{ form.submit(class_="submit-btn") }}
+            </form>
         </div>
 
-        <div class="split right">
-            <h1>Create A New Question</h1>
-            <a href="#" class="split-btn" id="tcr-login">Click Here</a>
+        <div class="split right">            
+            <form action="" method="post" novalidate class="create-form">
+                {{ form.hidden_tag() }}
+                <h1>Create A New Quiz</h1>
+                {{ form.name(size=32, class_="input", placeholder="Quiz Title") }}
+                {{ form.submit(class_="submit-btn") }}
+            </form>
         </div>
     </div>
     {% endif %}

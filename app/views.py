@@ -9,7 +9,7 @@ from app.models import User, Question, Option, Response, Group, Thread, Post, Pr
 from app.forms import *
 from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer
 from app.email import register, resend_conf, send_contact_email, send_reset_email, send_deactivate_email
-from app.profile import update_image
+from app.profile import update_image, set_code
 from app.forum import validate_group_link, save_post, validate_post_link, get_post_users
 from app.token import confirm_token
 from app.decorator import check_confirmed
@@ -32,7 +32,7 @@ def home():
         user = User.query.filter_by(email=form.email.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
-            return redirect(url_for('home'))
+            return redirect(url_for('login'))
         login_user(user)
         return redirect(url_for('dashboard'))
     return render_template('index.html', form=form)
@@ -40,8 +40,15 @@ def home():
 @app.route('/dashboard')
 def dashboard():
     """Renders the dashboard page."""
+    form = CreateName()
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
-    return render_template('dashboard.html', image_file=image_file)
+    return render_template('dashboard.html', image_file=image_file, form=form)
+
+@app.route('/leaderboard')
+def leaderboard():
+    """Renders the leaderboard page."""
+    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    return render_template('leaderboard.html', image_file=image_file, title=' | Leaderboard')
 
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
@@ -65,7 +72,9 @@ def settings():
 @app.route('/settings/knewbieID')
 def settings_knewbie_id():
     """Routing to update Knewbie ID"""
-    current_user.knewbie_id = current_user.set_knewbie_id()
+    temp = set_code(8)
+    while User.query.filter_by(knewbie_id=temp).first() is not None:
+        temp = set_code(8)
     db.session.commit()
     flash('Your profile has been successfully updated!', 'success')
     return redirect(url_for('settings'))
@@ -81,13 +90,64 @@ def progressreport():
     """Renders the report page."""
     return render_template('report.html', title=' | Progress Report')
 
-@app.route('/create', methods=['GET', 'POST'])
-def create():
-    """Renders the create page for educators."""
-    form = CreateQnForm()
-    return render_template('create.html', title=' | Create', form=form)
+#@app.route('/createclass', methods=['GET', 'POST'])
+#def createclass():
+#    """Renders the create class page for educators."""
+#    form = CreateName()
+#    if form.validate_on_submit():
+#        temp = set_code(6)
+#        while Group.query.filter_by(classCode=temp).first() is not None:
+#            temp = set_code(6)
+#        group = Group(name=form.name.data, classCode=temp)
+#        db.session.add(group)
+#        db.session.commit()
+#        return redirect(url_for('createclasssuccess'))
+#    return render_template('createclass.html', title=' | Create Class', form=form)
 
+@app.route('/createclasssuccess', methods=['GET'])
+def createclasssuccess():
+    """Renders the create class was a success page for educators."""
+    return render_template('createclasssuccess.html', title=' | Create Class')
 
+#@app.route('/createquiz', methods=['GET', 'POST'])
+#def createquiz():
+#    """Renders the create quiz page for educators."""
+#    form = CreateName()
+#    if form.validate_on_submit():
+#        #quiz = Quiz(name=form.name)
+#        #db.session.add(quiz)
+#        #db.session.commit()
+#        return redirect(url_for('createqn'))
+#    return render_template('createquiz.html', title=' | Create Quiz', form=form)
+
+@app.route('/createnewquestion', methods=['GET', 'POST'])
+def createqn():
+    """Renders the add questions page for educators."""
+    form = CreateQuestion()
+    #if form.validate_on_submit():
+        # Commit inputs to database
+    return render_template('createqn.html', title=' | Create Quiz', form=form)
+
+@app.route('/createquizsuccess', methods=['GET'])
+def createquizsuccess():
+    """Renders the create quiz was a success page for educators."""
+    return render_template('createquizsuccess.html', title=' | Create Quiz')
+
+@app.route('/class', methods=['GET'])
+def classes():
+    """Renders the class page."""
+    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    return render_template('sidebar.html', image_file=image_file, title=' | Class')
+
+@app.route('/class/changecode')
+def update_class_code(groupID):
+    """Routing to update Class Code"""
+    temp = set_code(6)
+    while Group.query.filter_by(classCode=temp).first() is not None:
+        temp = set_code(6)
+    db.session.commit()
+    flash('Your class code has been successfully updated!', 'success')
+    return redirect(url_for('class'))
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -158,7 +218,6 @@ def resend():
     resend_conf(current_user)
     return redirect(url_for('unconfirmed'))
 
-# Lone login page probably not needed, should be on homepage
 @app.route('/login', methods=['GET','POST'])
 def login():
     if current_user.is_authenticated:
