@@ -5,9 +5,10 @@ Routes and views for the flask application.
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
-from app.models import User, Question, Option, Response, Group, Thread, Post, Proficiency
+from app.models import User, Question, Option, Response, Group, Thread, Post, Proficiency, Quiz
 from app.forms import *
 from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer
+from app.questions import add_quiz, add_question, add_question_quiz, get_topic
 from app.email import register, resend_conf, send_contact_email, send_reset_email, send_deactivate_email
 from app.profile import update_image, set_code
 from app.forum import validate_group_link, save_post, validate_post_link, get_post_users
@@ -40,9 +41,10 @@ def home():
 @app.route('/dashboard')
 def dashboard():
     """Renders the dashboard page."""
-    form = CreateName()
+    classForm = CreateName(prefix='class')
+    quizForm = CreateName(prefix='quiz')
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
-    return render_template('dashboard.html', image_file=image_file, form=form)
+    return render_template('dashboard.html', image_file=image_file, classForm=classForm, quizForm=quizForm)
 
 @app.route('/leaderboard')
 def leaderboard():
@@ -90,61 +92,75 @@ def progressreport():
     """Renders the report page."""
     return render_template('report.html', title=' | Progress Report')
 
-#@app.route('/createclass', methods=['GET', 'POST'])
-#def createclass():
-#    """Renders the create class page for educators."""
-#    form = CreateName()
-#    if form.validate_on_submit():
-#        temp = set_code(6)
-#        while Group.query.filter_by(classCode=temp).first() is not None:
-#            temp = set_code(6)
-#        group = Group(name=form.name.data, classCode=temp)
-#        db.session.add(group)
-#        db.session.commit()
-#        return redirect(url_for('createclasssuccess'))
-#    return render_template('createclass.html', title=' | Create Class', form=form)
+@app.route('/class', methods=['POST'])
+def createclass():
+    """Renders the create class page for educators."""
+    classForm = CreateName(prefix='class')
+    quizForm = CreateName(prefix='quiz')
+    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    if classForm.validate_on_submit():
+        temp = set_code(6)
+        while Group.query.filter_by(classCode=temp).first() is not None:
+            temp = set_code(6)
+        group = Group(name=classForm.name.data, classCode=temp)
+        db.session.add(group)
+        db.session.commit()
+        return redirect(url_for('createclasssuccess', groupID=group.id))
+    return render_template('dashboard.html', image_file=image_file, classForm=classForm, quizForm=quizForm)
 
-@app.route('/createclasssuccess', methods=['GET'])
-def createclasssuccess():
+@app.route('/class/<int:groupID>/success')
+def createclasssuccess(groupID):
     """Renders the create class was a success page for educators."""
+    group = validate_group_link(groupID)
     return render_template('createclasssuccess.html', title=' | Create Class')
 
-#@app.route('/createquiz', methods=['GET', 'POST'])
-#def createquiz():
-#    """Renders the create quiz page for educators."""
-#    form = CreateName()
-#    if form.validate_on_submit():
-#        #quiz = Quiz(name=form.name)
-#        #db.session.add(quiz)
-#        #db.session.commit()
-#        return redirect(url_for('createqn'))
-#    return render_template('createquiz.html', title=' | Create Quiz', form=form)
+@app.route('/quiz', methods=['POST'])
+def createquiz():
+    """Renders the create quiz page for educators."""
+    classForm = CreateName(prefix='class')
+    quizForm = CreateName(prefix='quiz')
+    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    if quizForm.validate_on_submit():
+        quiz = add_quiz(current_user, quizForm.name.data)
+        return redirect(url_for('createqn', quizID=quiz.id))
+    return render_template('dashboard.html', image_file=image_file, classForm=classForm, quizForm=quizForm)
 
-@app.route('/createnewquestion', methods=['GET', 'POST'])
-def createqn():
+@app.route('/quiz/<int:quizID>/question', methods=['GET', 'POST'])
+def createqn(quizID):
     """Renders the add questions page for educators."""
+    quiz = validate_quiz_link(quizID)
     form = CreateQuestion()
-    #if form.validate_on_submit():
-        # Commit inputs to database
+    if form.validate_on_submit():
+         #Commit inputs to database
+         options = (form.op1.data, form.op2.data, form.op3.data, form.op4.data)
+         topic = get_topic(form.topic.data)
+         question = add_question(form.qn.data, options, form.corrOp.data, topic.id)
+         add_question_quiz(quiz, question)
+         if form.complete.data:
+             return redirect(url_for('createquizsuccess'), quizID=quizID)
     return render_template('createqn.html', title=' | Create Quiz', form=form)
 
-@app.route('/createquizsuccess', methods=['GET'])
-def createquizsuccess():
+@app.route('/quiz/<int:quizID>/success', methods=['GET'])
+def createquizsuccess(quizID):
     """Renders the create quiz was a success page for educators."""
     return render_template('createquizsuccess.html', title=' | Create Quiz')
 
-@app.route('/class', methods=['GET'])
-def classes():
-    """Renders the class page."""
-    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
-    return render_template('sidebar.html', image_file=image_file, title=' | Class')
+#@app.route('/class', methods=['GET'])
+#def classes():
+#    """Renders the class page."""
+#    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+#    return render_template('sidebar.html', image_file=image_file, title=' | Class')
 
-@app.route('/class/changecode')
+@app.route('/class/<int:groupID>/code')
 def update_class_code(groupID):
     """Routing to update Class Code"""
+    group = validate_group_link(groupID)
+    if current_user.urole != 'educator':
+        return render_template('error404.html'), 404
     temp = set_code(6)
     while Group.query.filter_by(classCode=temp).first() is not None:
         temp = set_code(6)
+    group.classCode = temp
     db.session.commit()
     flash('Your class code has been successfully updated!', 'success')
     return redirect(url_for('class'))
@@ -238,8 +254,8 @@ def logout():
     return redirect(url_for('home'))
 
 
-# Routes for Group Forum
-@app.route('/group/<int:groupID>/forum')
+# Routes for Class Forum
+@app.route('/class/<int:groupID>/forum')
 #@login_required
 def forum(groupID):
     group = validate_group_link(groupID)
@@ -248,7 +264,7 @@ def forum(groupID):
     threads = Thread.query.filter_by(groupID=groupID).all()
     return render_template('forum.html', title=' | Forum', groupID=groupID, threads=threads)
 
-@app.route('/group/<int:groupID>/forum/thread/<int:threadID>', methods=['GET', 'POST'])
+@app.route('/class/<int:groupID>/forum/thread/<int:threadID>', methods=['GET', 'POST'])
 def forum_post(groupID, threadID):
     # Check validity of link access first
     group = validate_group_link(groupID)
@@ -269,7 +285,7 @@ def forum_post(groupID, threadID):
     # GET request for forum thread
     return render_template('posts.html', title=' | Forum', thread=thread,posts=posts, form=form, users=users)
 
-@app.route('/group/<int:groupID>/forum/thread', methods=['GET','POST'])
+@app.route('/class/<int:groupID>/forum/thread', methods=['GET','POST'])
 def create_thread(groupID):
     # Check validity of link access first
     group = validate_group_link(groupID)
@@ -289,7 +305,7 @@ def create_thread(groupID):
     # GET request for create thread
     return render_template('posts.html', title=' | Forum', form=form)
 
-@app.route('/group/<int:groupID>/forum/thread/<int:threadID>/delete/<int:postID>')
+@app.route('/class/<int:groupID>/forum/thread/<int:threadID>/delete/<int:postID>')
 def delete_post(groupID, threadID, postID):
     # Check validity of link access first
     post = validate_post_link(groupID,threadID,postID)
@@ -300,7 +316,7 @@ def delete_post(groupID, threadID, postID):
     flash('Post deleted')
     return redirect(url_for('forum_post', groupID=groupID,threadID=threadID))
 
-@app.route('/group/<int:groupID>/forum/thread/<int:threadID>/edit/<int:postID>', methods=['GET','POST'])
+@app.route('/class/<int:groupID>/forum/thread/<int:threadID>/edit/<int:postID>', methods=['GET','POST'])
 def edit_post(groupID,threadID,postID):
     # Check validity of link access first
     post = validate_post_link(groupID,threadID,postID)

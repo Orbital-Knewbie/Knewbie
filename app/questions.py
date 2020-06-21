@@ -312,6 +312,13 @@ def add_topic(name):
     topic = Topic(name=name)
     db.session.add(topic)
     db.session.commit()
+    return topic
+
+def get_topic(name):
+    topic = Topic.query.filter_by(name=name).first()
+    if topic is None:
+        topic = add_topic(name)
+    return topic
 
 def add_question(qn_text, options, answer, topic):
     '''Adds a question to the database
@@ -387,6 +394,7 @@ def add_quiz(user, name):
     quiz = Quiz(userID=user.id, name=name)
     db.session.add(quiz)
     db.session.commit()
+    return quiz
 
 def add_question_quiz(quiz, question):
     quiz.questions.append(question)
@@ -433,3 +441,7 @@ def get_question_quiz(quiz):
         opt_txt = {option.id : option.option for option in options}
         d[question] = {'options' : opt_txt, 'answer' : question.answerID}
     return d
+
+
+def validate_quiz_link(quizID):
+    return Quiz.query.filter_by(id=quizID,userID=current_user.id).first_or_404()

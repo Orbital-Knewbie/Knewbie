@@ -149,20 +149,20 @@
     <!-- SPLIT SCREEN -->
     <div class="split-container">
         <div class="split left">           
-            <form action="" method="post" novalidate class="create-form-1">
-                {{ form.hidden_tag() }}
+            <form action="{{ url_for('createclass') }}" method="post" novalidate class="create-form-1">
+                {{ classForm.hidden_tag() }}
                 <h1>Create A New Class</h1>
-                {{ form.name(size=32, class_="input", placeholder="Quiz Title") }}
-                {{ form.submit(class_="submit-btn") }}
+                {{ classForm.name(size=32, class_="input", placeholder="Class Name") }}
+                {{ classForm.submit(class_="submit-btn") }}
             </form>
         </div>
 
         <div class="split right">            
-            <form action="" method="post" novalidate class="create-form">
-                {{ form.hidden_tag() }}
+            <form action="{{ url_for('createquiz') }}" method="post" novalidate class="create-form">
+                {{ quizForm.hidden_tag() }}
                 <h1>Create A New Quiz</h1>
-                {{ form.name(size=32, class_="input", placeholder="Quiz Title") }}
-                {{ form.submit(class_="submit-btn") }}
+                {{ quizForm.name(size=32, class_="input", placeholder="Quiz Title") }}
+                {{ quizForm.submit(class_="submit-btn") }}
             </form>
         </div>
     </div>

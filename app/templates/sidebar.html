@@ -19,7 +19,7 @@
     <div class="separator"></div>
     {% if current_user.urole == 'educator' %}
     <a href="#"><i class="fas fa-users"></i><span>Edit Participants</span></a>
-    <a href="{{ url_for('update_class_code') }}"><i class="fas fa-font"></i><span>Change Class Code</span></a>
+    <a href="{{ url_for('update_class_code', groupID=groupID) }}"><i class="fas fa-font"></i><span>Change Class Code</span></a>
     <div class="separator"></div>
     {% endif %}
     <a href="{{ url_for('contact') }}"><i class="fas fa-cogs"></i><span>Settings</span></a>
