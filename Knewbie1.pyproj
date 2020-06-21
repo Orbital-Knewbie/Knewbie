@@ -117,6 +117,7 @@
     <Content Include="app\static\resources\images\Logo.svg" />
     <Content Include="app\static\content\style.css" />
     <Content Include="app\templates\changepassword.html" />
+    <Content Include="app\templates\createqn.html" />
     <Content Include="app\templates\leaderboard.html" />
     <Content Include="app\templates\sidebar.html" />
     <Content Include="app\templates\createclasssuccess.html" />

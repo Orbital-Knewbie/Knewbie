@@ -5,7 +5,7 @@ Routes and views for the flask application.
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
-from app.models import User, Question, Option, Answer, Response, UserGroup, Group, Thread, Post, Proficiency
+from app.models import User, Question, Option, Answer, Response, UserGroup, Group, Quiz, Thread, Post, Proficiency
 from app.forms import *
 from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer
 from app.email import register, resend_conf, send_contact_email, send_reset_email, send_deactivate_email
@@ -94,10 +94,11 @@ def createclass():
     """Renders the create class page for educators."""
     form = CreateClass()
     if form.validate_on_submit():
-        group = Group(name=form.className.data)
+        temp = set_code(6)
+        while Group.query.filter_by(classCode=temp).first() is not None:
+            temp = set_code(6)
+        group = Group(name=form.className.data, classCode=temp)
         db.session.add(group)
-        classCode = set_code(6)
-        db.session.add(classCode)
         db.session.commit()
         return redirect(url_for('createclasssuccess'))
     return render_template('createclass.html', title=' | Create Class', form=form)
@@ -105,26 +106,31 @@ def createclass():
 @app.route('/createclasssuccess', methods=['GET'])
 def createclasssuccess():
     """Renders the create class was a success page for educators."""
-    return render_template('createclasssuccess.html', title=' | Create Class', form=form)
+    return render_template('createclasssuccess.html', title=' | Create Class')
 
 @app.route('/createquiz', methods=['GET', 'POST'])
 def createquiz():
     """Renders the create quiz page for educators."""
     form = CreateQuiz()
+    if form.validate_on_submit():
+        #quiz = Quiz(name=form.quizName)
+        #db.session.add(quiz)
+        #db.session.commit()
+        return redirect(url_for('createqn'))
     return render_template('createquiz.html', title=' | Create Quiz', form=form)
 
-@app.route('/createnewquiz', methods=['POST'])
-def createnewquiz():
-    """Routing for creating a new quiz."""
-    form = CreateQuiz()
+@app.route('/createnewquestion', methods=['GET', 'POST'])
+def createqn():
+    """Renders the add questions page for educators."""
+    form = CreateQuestion()
     #if form.validate_on_submit():
         # Commit inputs to database
-    return render_template('createquiz.html', title=' | Create Quiz', form=form)
+    return render_template('createqn.html', title=' | Create Quiz', form=form)
 
 @app.route('/createquizsuccess', methods=['GET'])
 def createquizsuccess():
     """Renders the create quiz was a success page for educators."""
-    return render_template('createquizsuccess.html', title=' | Create Quiz', form=form)
+    return render_template('createquizsuccess.html', title=' | Create Quiz')
 
 @app.route('/class', methods=['GET'])
 def classes():
@@ -132,8 +138,8 @@ def classes():
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
     return render_template('sidebar.html', image_file=image_file, title=' | Class')
 
-@app.route('/class/newID')
-def update_class_code():
+@app.route('/class/')
+def update_class_code(groupID):
     """Routing to update Class Code"""
     temp = set_code(6)
     while Group.query.filter_by(classCode=temp).first() is not None:

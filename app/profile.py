@@ -20,6 +20,6 @@ def update_image(form_image):
     new_image.save(image_path)
     return image_filename
 
-def set_code(self, n):
-        return ''.join(choice(ascii_letters + digits) for i in range(n))
+def set_code(n):
+    return ''.join(choice(ascii_letters + digits) for i in range(n))
         

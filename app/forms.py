@@ -61,8 +61,12 @@ class CreateClass(FlaskForm):
     className = StringField('Class Name', validators=[DataRequired()])
     submit = SubmitField('Create Class')
 
-
 class CreateQuiz(FlaskForm):
+    quizName = StringField('Quiz Title', validators=[DataRequired()])
+    submit = SubmitField('Create Quiz')
+
+
+class CreateQuestion(FlaskForm):
     topic = SelectField('Select Topic', choices=[('nth', 'Select Topic'), ('Est', 'Estimation'), ('Geo', 'Geometry'), ('Model', 'Model')], validators=[DataRequired()])
     qn = StringField('Input Question', validators=[DataRequired()])
     op1 = StringField('Option 1', validators=[DataRequired()])
@@ -71,7 +75,8 @@ class CreateQuiz(FlaskForm):
     op4 = StringField('Option 4', validators=[DataRequired()])
     corrOp = SelectField('Correct Option', choices=[('nth', 'Select Correct Option'), ('Op1', 'Option 1'), ('Op2', 'Option 2'), ('Op3', 'Option 3'), ('Op4', 'Option 4')], validators=[DataRequired()])
     img = MultipleFileField('Attach Image')
-    submit = SubmitField('Create Quiz')
+    submit = SubmitField('Save and Add New Question')
+    complete = SubmitField('Save and Complete Quiz')
 
 class UpdateProfileForm(FlaskForm):
     firstName = StringField('First Name', validators=[DataRequired()])

@@ -76,11 +76,6 @@ class Group(db.Model):
     name = db.Column(db.String(64))
     classCode = db.Column(db.String(6), nullable=True, unique=True)
 
-    def set_class_code(self):
-        lettersAndDigits = string.ascii_letters + string.digits
-        self.classCode = ''.join((random.choice(lettersAndDigits) for i in range(6)))
-        return self.classCode
-
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userID = db.Column(db.Integer)
