@@ -1,5 +1,5 @@
 # Knewbie
-Web Application built using Flask and React
+Knewbie is a Web Application built using Flask and makes use of machine learning to provide tailored educational content.
 
 ## Getting Started
 
@@ -14,7 +14,3 @@ Please refer to the [Developer Practices Guide](/docs/DevPractices.md) for the S
 
 ## User & Developer Guides
 Please refer to the appropriate [User Guide (Educator)](docs/UserGuide-Educator.md) or [User Guide (Student)](docs/UserGuide-Students.md) and [Developer Guide](/docs/DeveloperGuide.md) for guidance in using the web application.
-
-## Built With
-
-* [Flask](https://flask.palletsprojects.com/en/1.1.x/) - The web framework used
