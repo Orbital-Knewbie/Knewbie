@@ -5,7 +5,9 @@ This document serves to inform on the Project Management and Technical Developme
 &nbsp; &nbsp; [1.1. Scrum (Agile Model)](#scrum)<br>
 &nbsp; &nbsp; [1.2. Kanban Boards](#kanban)<br>
 &nbsp; &nbsp; [1.3. UML Diagrams](#uml)<br>
-&nbsp; &nbsp; [1.4. Testing](#testing)<br>
+&nbsp; &nbsp; [1.4. Code Review](#code)<br>
+&nbsp; &nbsp; [1.5. Testing](#testing)<br>
+&nbsp; &nbsp; [1.6. Qualitative Evaluation](#eval)<br>
 [2. Technical Development](#tech)<br>
 &nbsp; &nbsp; [2.1. Flask](#flask)<br>
 &nbsp; &nbsp; [2.2. Model View Controller (MVC)](#mvc)<br>
@@ -33,7 +35,20 @@ For most people, reading long lines of text to explain a concept can be downrigh
 This project also then uses [UML Diagrams](https://en.wikipedia.org/wiki/Unified_Modeling_Language) to explain the flow of the logic which can be found in abundance in the [Developer Guide](/docs/DeveloperGuide.md).
 Explanations of some of the Diagrams used can also be found in the [Documentation section](/docs/DeveloperGuide.md#doc)
 
-### 1.4 Testing <a name="testing">
+### 1.4 Version Control & Code Review <a name="code">
+In a software development project, [version control](https://en.wikipedia.org/wiki/Version_control) is highly essential in making sure that the history of code development is logged.
+Bugs and features can pop up in the process of upgrading and adding features in the project, so making sure that is possible to retrieve an older, working version of the code is important.
+Git is the common and obvious choice to do so, and GitHub is highly convenient site to host the version control. 
+The team also makes use of the [Pull Requests (PRs)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) 
+and [Code Review](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-reviews) present in GitHub to protect the main code located in the master branch.
+With two members, in the team, there is implicit review of code that one member is attempting to merge in the PR by the other member.
+The advantage in conducting the code reviews is that there is more than one person involved in detecting any problems or bugs faced, ensuring higher quality code.
+
+### 1.5 Testing <a name="testing">
+Python's own `unittest` module can be used for Unit Testing.
+
+### 1.6 Qualitative Evaluation <a name="eval">
+Heuristic Evaluation - using Nielsen Heuristics - will be used and Cognitive Walkthrough will be included.
 
 ## 2. Technical Development <a name="tech">
 ### 2.1 Flask <a name="flask">

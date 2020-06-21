@@ -1,5 +1,3 @@
-import string
-import random
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from app import db, login, app
 from flask_login import UserMixin
@@ -51,11 +49,6 @@ class User(UserMixin, db.Model):
         except:
             return None
         return User.query.get(user_id)
-
-    def set_knewbie_id(self):
-        lettersAndDigits = string.ascii_letters + string.digits
-        self.knewbie_id =  ''.join((random.choice(lettersAndDigits) for i in range(8)))
-        return self.knewbie_id
 
 questionquiz = db.Table('questionquiz', \
     db.Column('question_id', db.Integer, db.ForeignKey('question.id'), primary_key=True), \
@@ -109,12 +102,6 @@ class Group(db.Model):
     classCode = db.Column(db.String(6), nullable=True, unique=True)
     threads = db.relationship('Thread', backref='group')
     quizzes = db.relationship('Quiz', secondary=groupquiz, backref='groups')
-
-    def set_class_code(self):
-        lettersAndDigits = string.ascii_letters + string.digits
-        self.classCode = ''.join((random.choice(lettersAndDigits) for i in range(6)))
-        return self.classCode
-
 
 class Thread(db.Model):
     id = db.Column(db.Integer, primary_key=True)
