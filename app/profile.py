@@ -22,3 +22,4 @@ def update_image(form_image):
 
 def set_code(self, n):
         return ''.join(choice(ascii_letters + digits) for i in range(n))
+        

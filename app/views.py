@@ -72,7 +72,7 @@ def settings():
 def settings_knewbie_id():
     """Routing to update Knewbie ID"""
     temp = set_code(8)
-    while User.query.filter_by(knewbie_id=temp).first() != User:
+    while User.query.filter_by(knewbie_id=temp).first() is not None:
         temp = set_code(8)
     db.session.commit()
     flash('Your profile has been successfully updated!', 'success')
@@ -96,7 +96,7 @@ def createclass():
     if form.validate_on_submit():
         group = Group(name=form.className.data)
         db.session.add(group)
-        classCode = set_number_code(6)
+        classCode = set_code(6)
         db.session.add(classCode)
         db.session.commit()
         return redirect(url_for('createclasssuccess'))
@@ -113,6 +113,14 @@ def createquiz():
     form = CreateQuiz()
     return render_template('createquiz.html', title=' | Create Quiz', form=form)
 
+@app.route('/createnewquiz', methods=['POST'])
+def createnewquiz():
+    """Routing for creating a new quiz."""
+    form = CreateQuiz()
+    #if form.validate_on_submit():
+        # Commit inputs to database
+    return render_template('createquiz.html', title=' | Create Quiz', form=form)
+
 @app.route('/createquizsuccess', methods=['GET'])
 def createquizsuccess():
     """Renders the create quiz was a success page for educators."""
@@ -123,6 +131,16 @@ def classes():
     """Renders the class page."""
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
     return render_template('sidebar.html', image_file=image_file, title=' | Class')
+
+@app.route('/class/newID')
+def update_class_code():
+    """Routing to update Class Code"""
+    temp = set_code(6)
+    while Group.query.filter_by(classCode=temp).first() is not None:
+        temp = set_code(6)
+    db.session.commit()
+    flash('Your class code has been successfully updated!', 'success')
+    return redirect(url_for('class'))
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():

@@ -71,7 +71,7 @@ class CreateQuiz(FlaskForm):
     op4 = StringField('Option 4', validators=[DataRequired()])
     corrOp = SelectField('Correct Option', choices=[('nth', 'Select Correct Option'), ('Op1', 'Option 1'), ('Op2', 'Option 2'), ('Op3', 'Option 3'), ('Op4', 'Option 4')], validators=[DataRequired()])
     img = MultipleFileField('Attach Image')
-    submit_qn = SubmitField('Add Another Question')
+    submit = SubmitField('Create Quiz')
 
 class UpdateProfileForm(FlaskForm):
     firstName = StringField('First Name', validators=[DataRequired()])

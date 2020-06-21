@@ -16,8 +16,8 @@
             {{ form.op4(size=32, placeholder="Option 4") }}
             {{ form.corrOp(placeholder="Correct Option") }}
             {{ form.img }}
-            <a href="{{ url_for('createquiz') }}" class="route2-btn">Add Another Question</a>
-            <a href="{{ url_for('createquizsuccess') }}" class="route2-btn">Submit Quiz</a>
+            <a href="{{ url_for('createnewquiz') }}" class="route2-btn">Add Another Question</a>
+            {{ form.submit(class_="submit-btn") }}
             <!--<select required>
                 <option value="" disabled selected hidden>Select Topic</option>
                 <option value="">Geometry</option>
