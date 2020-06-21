@@ -97,11 +97,18 @@ class Response(db.Model):
     qnID = db.Column(db.Integer, db.ForeignKey('question.id'))
 
 
+groupquiz = db.Table('groupquiz', \
+    db.Column('group_id', db.Integer, db.ForeignKey('group.id'), primary_key=True), \
+    db.Column('quiz_id', db.Integer, db.ForeignKey('quiz.id'), primary_key=True)
+)
+
+
 class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
     classCode = db.Column(db.String(6), nullable=True, unique=True)
     threads = db.relationship('Thread', backref='group')
+    quizzes = db.relationship('Quiz', secondary=groupquiz, backref='groups')
 
     def set_class_code(self):
         lettersAndDigits = string.ascii_letters + string.digits

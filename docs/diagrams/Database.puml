@@ -1,6 +1,6 @@
 @startuml
 ' avoid problems with angled crows feet
-skinparam linetype ortho
+' skinparam linetype ortho
 
 entity User {
 *id
@@ -93,6 +93,12 @@ userID
 name
 }
 
+entity GroupQuiz {
+*id
+--
+groupID
+quizID
+}
 
 entity QuestionQuiz {
 *id
@@ -128,6 +134,9 @@ Question ||--|{ QuestionQuiz
 QuestionQuiz }|--|| Quiz
 Question }|--|| Topic
 Proficiency }|--|| Topic
+
+Group ||--|{ GroupQuiz
+GroupQuiz }|--|| Quiz
 
 
 @enduml

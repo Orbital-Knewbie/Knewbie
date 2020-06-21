@@ -402,3 +402,11 @@ def remove_question(question):
     for q in responses:
         db.session.delete(q)
     db.session.commit()
+
+def remove_question_quiz(question, quiz):
+    quiz.questions.remove(question)
+    db.session.commit()
+
+def add_quiz_group(group, quiz):
+    group.quizzes.append(quiz)
+    db.session.commit()
