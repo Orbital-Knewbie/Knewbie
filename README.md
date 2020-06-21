@@ -1,5 +1,5 @@
 # Knewbie
-Knewbie is a Web Application built using Flask and makes use of machine learning to provide tailored educational content.
+Knewbie is a Web Application built using Flask and makes use of machine learning (Computerized Adaptive Testing) to provide tailored educational content.
 
 ## Getting Started
 
