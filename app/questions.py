@@ -399,8 +399,8 @@ def remove_question(question):
     db.session.delete(question)
     for o in options:
         db.session.delete(o)
-    for q in responses:
-        db.session.delete(q)
+    for r in responses:
+        db.session.delete(r)
     db.session.commit()
 
 def remove_question_quiz(question, quiz):
@@ -410,3 +410,26 @@ def remove_question_quiz(question, quiz):
 def add_quiz_group(group, quiz):
     group.quizzes.append(quiz)
     db.session.commit()
+
+def get_question_quiz(quiz):
+    '''Gets dictionary of questions belonging to a quiz
+    Format - 
+    {question_txt :
+        {
+            {options :
+                {optionID : option_txt, 
+                ...}
+            ,
+            answer : optionID}
+        },
+    ...
+    }
+    '''
+    d = {}
+    questions = quiz.questions
+    for question in questions:
+        options = question.options
+        options = shuffle(options)
+        opt_txt = {option.id : option.option for option in options}
+        d[question] = {'options' : opt_txt, 'answer' : question.answerID}
+    return d

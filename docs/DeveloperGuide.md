@@ -110,7 +110,7 @@ The Sequence Diagram below shows the interactions within the Controller componen
 Fig #. Interactions within Controller Component for `register`
 
 ### 2.5 Database <a name="database"></a>
-The database design is centered around the users, quizzes, and forum posts. The *Entity-Relationship Diagram* below showcases the attributes and relationships used.
+The database design is centered around the users, quizzes, and forum posts. The *Entity-Relationship (ER) Diagram* below showcases the attributes and relationships used.
 
 ![Database](diagrams/Database.png)<br>
 Fig #. Database Design
@@ -152,11 +152,13 @@ Fig #. Interactions of Components for a ContactForm
 
 #### 3.1.4 Classes
 Both Students and Educators can be part of Classes. Classes are created to let Educators monitor their students progress collectively, and also can allow interaction between Educators and Students as well as Students with other Students using the forum.
-A simple demonstration of a Student-Educator relationship, along with the Classes is shown in the Entity-Relationship Diagram below.
+A simple demonstration of a Student-Educator relationship, along with the Classes is shown in the ER Diagram below.
 Note that the User properties were omitted for brevity - the full database design can still be found earlier in the [Database section](#database).
 
 ![Student Educator Classes](diagrams/UserEntity.png)<br>
 Fig #. Relationship of Student-Educator-Class
+
+In the creation of a Class, the Educator will input a name and click a button leading to it being saved in the database. Further information can be found in the User Guide (Educator).
 
 Interactions between are part of peer learning and can enhance the knowledge gained from the platform. 
 The forum created for each class will allow for the clarification of questions students may have.
@@ -172,8 +174,25 @@ Below is the Sequence Diagram in completing a quiz.
 Fig #. Interactions of Components for a Quiz submission
 
 #### 3.2.2 Create Quiz (Educator only)
-In addition to tailored content, Educators can also create their own `Question` for their own Class
+In addition to tailored content, Educators can also create their own `Question` for their own Class. The ER Diagram below zooms in on the relationships used in the creation of quizzes by an Educator.
+
+![Educator Quiz](diagrams/QuizEntity.png)<br>
+Fig #. Relationships of Educators and Quizzes
+
+In creating a Quiz, and its questions, the interactions can be shown in the following Sequence Diagram.
+
+{Create Quiz Sequence} <br>
+Fig #. Interactions of Components for a Quiz Creation
+
+When attempting a quiz created by an educator, it is different from the general quiz mentioned in the earlier Section 3.2.1. 
+In this case, there is no adaptive testing, so the questions are given as they were added by the educator.
+The User Guide (Educator) demonstrates the creation of such a quiz, and the User Guide (Student) showcases attempting the quiz.
+To the Student, both quizzes are similar in front-end design. The only difference is the back-end implementation of retrieving the next question.
+
+
+
 ### 3.3 Adaptive Testing <a name="adaptive"></a>
+Separate to quizzes created by an Educator, the platform also s
 [Computerized Adaptive Testing (CAT)](https://en.wikipedia.org/wiki/Computerized_adaptive_testing) is a form of test that adapts to the user's ability. 
 [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) provides a means to do so, 
 and this project has decided on the use of the CatSim Python package. [More information can be found on their main documentation.](https://douglasrizzo.com.br/catsim/)
@@ -187,7 +206,8 @@ Each item administered - MCQ Math questions in this case - will have 4 main para
 
 More information on the parameters can be found on [CatSim's documentation](https://douglasrizzo.com.br/catsim/introduction.html). 
 
-The general idea used when administering questions can be seen in the following flowchart. This algorithm is used in every quiz that will be taken by a student.
+The general idea used when administering questions can be seen in the following flowchart. This algorithm is used in the general quizzes that will be taken by a student.
+Educator-created quizzes do not use this feature and are detailed in the [earlier section](#quiz).
 
 ![Adaptive Testing](diagrams/AdaptiveFlowchart.png)<br>
 Fig #. Flowchart of general adaptive testing algorithm used

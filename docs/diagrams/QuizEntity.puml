@@ -1,0 +1,62 @@
+@startuml
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+
+entity User_Educator {
+*id
+--
+name
+urole="educator"
+}
+
+
+entity Group {
+*id
+--
+name
+}
+
+entity UserGroup {
+*id
+--
+groupID
+userID
+}
+
+entity Quiz {
+*id
+--
+userID
+name
+}
+
+entity GroupQuiz {
+*id
+--
+groupID
+quizID
+}
+
+entity QuestionQuiz {
+*id
+--
+quizID
+questionID
+}
+
+entity Question {
+*id
+--
+question
+}
+
+User_Educator ||--|{ UserGroup
+Group ||--|{ UserGroup
+User_Educator ||--|{ Quiz
+Quiz ||--|{ GroupQuiz
+GroupQuiz }|--|| Group
+Quiz ||--|{ QuestionQuiz
+QuestionQuiz }|--|| Question
+
+@enduml

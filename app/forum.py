@@ -65,3 +65,12 @@ def clear_test_forum():
     db.session.commit()
 
 add_test_forum()
+
+def get_post_users(posts):
+    '''Return user names as userID, name pairs in a dictionary'''
+    users = {}
+    for post in posts:
+        if post.userID in users: continue
+        user = User.query.filter_by(id=post.userID).first()
+        users[post.userID] = ' '.join((user.firstName,user.lastName))
+    return users

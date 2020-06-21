@@ -10,7 +10,7 @@ from app.forms import *
 from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer
 from app.email import register, resend_conf, send_contact_email, send_reset_email, send_deactivate_email
 from app.profile import update_image
-from app.forum import validate_group_link, save_post, validate_post_link
+from app.forum import validate_group_link, save_post, validate_post_link, get_post_users
 from app.token import confirm_token
 from app.decorator import check_confirmed
 from app.cat import Student
@@ -192,21 +192,12 @@ def forum(groupID):
 @app.route('/group/<int:groupID>/forum/thread/<int:threadID>', methods=['GET', 'POST'])
 def forum_post(groupID, threadID):
     # Check validity of link access first
-    groupID, threadID = int(groupID), int(threadID)
     group = validate_group_link(groupID)
-    if group is None:
-        return redirect(url_for('dashboard'))
-    thread = Thread.query.filter_by(id=threadID).first_or_404()
-    if thread.groupID != groupID:
-        return render_template('error404.html'), 404
+    thread = Thread.query.filter_by(groupID=groupID,id=threadID).first_or_404()
 
     # Render Posts and PostForm
     posts = Post.query.filter_by(threadID=threadID).all()
-    users = {}
-    for post in posts:
-        if post.userID in users: continue
-        user = User.query.filter_by(id=post.userID).first()
-        users[post.userID] = ' '.join((user.firstName,user.lastName))
+    users = get_post_users(posts)
 
     form = PostForm()
 
@@ -243,7 +234,7 @@ def create_thread(groupID):
 def delete_post(groupID, threadID, postID):
     # Check validity of link access first
     post = validate_post_link(groupID,threadID,postID)
-    if current_user.id != post.userID and current_user.urole != 'educator':
+    if post is None:
         return render_template('error404.html'), 404
     db.session.delete(post)
     db.session.commit()

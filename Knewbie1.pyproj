@@ -166,6 +166,7 @@
     <Content Include="docs\diagrams\QuizSequence.puml" />
     <Content Include="docs\diagrams\ContactSequence.puml" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.puml" />
+    <Content Include="docs\diagrams\QuizEntity.puml" />
     <Content Include="docs\diagrams\UserEntity.png" />
     <Content Include="docs\diagrams\UserEntity.puml" />
     <Content Include="docs\diagrams\View.png" />
