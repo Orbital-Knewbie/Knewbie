@@ -418,7 +418,7 @@ def add_quiz_group(group, quiz):
     group.quizzes.append(quiz)
     db.session.commit()
 
-def get_question_quiz(quiz):
+def get_question_quiz(quiz, pre_shuffle=False):
     '''Gets dictionary of questions belonging to a quiz
     Format - 
     {question_txt :
@@ -435,10 +435,12 @@ def get_question_quiz(quiz):
     d = {}
     questions = quiz.questions
     for question in questions:
+        qn_txt = question.question
         options = question.options
-        options = shuffle(options)
+        if pre_shuffle:
+            shuffle(options)
         opt_txt = {option.id : option.option for option in options}
-        d[question] = {'options' : opt_txt, 'answer' : question.answerID}
+        d[qn_txt] = {'options' : opt_txt, 'answer' : question.answerID}
     return d
 
 

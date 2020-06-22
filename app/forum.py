@@ -2,6 +2,7 @@ from flask import redirect, url_for
 from flask_login import current_user
 from app import db
 from app.models import Group, Post, Thread, User, Quiz
+from app.profile import set_class_code
 from datetime import datetime
 
 def validate_group_link(groupID):
@@ -27,6 +28,7 @@ def save_post(form, threadID):
 
 def create_group(user, name):
     group = Group(name=name)
+    set_class_code(group)
     add_participant(user, group)
     
     db.session.commit()

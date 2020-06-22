@@ -1,6 +1,6 @@
 from PIL import Image
 from app import app
-from app.models import User
+from app.models import User, Group
 from string import ascii_letters, digits
 from random import choice
 import secrets
@@ -30,3 +30,10 @@ def set_knewbie_id(user):
         code = set_code(8)
     user.knewbie_id = code
     return user
+
+def set_class_code(group):
+    code = set_code(6)
+    while Group.query.filter_by(classCode=code).first():
+        code = set_code(6)
+    group.classCode = code
+    return group

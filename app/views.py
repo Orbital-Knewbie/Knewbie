@@ -7,7 +7,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
 from app.models import User, Question, Option, Response, Group, Thread, Post, Proficiency, Quiz
 from app.forms import *
-from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer
+from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer, get_question_quiz
 from app.questions import add_quiz, add_question, add_question_quiz, get_topic, validate_quiz_link, get_leaderboard
 from app.email import register, resend_conf, send_contact_email, send_reset_email, send_deactivate_email
 from app.profile import update_image, set_code
@@ -52,7 +52,7 @@ def leaderboard(groupID):
     group = validate_group_link(groupID)
     users = get_leaderboard(groupID)
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
-    return render_template('leaderboard.html', image_file=image_file, title=' | Leaderboard', users=users, groupID=groupID)
+    return render_template('leaderboard.html', image_file=image_file, title=' | Leaderboard', users=users, group=group)
 
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
@@ -103,10 +103,8 @@ def createclass():
     quizForm = CreateName(prefix='quiz')
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
     if classForm.validate_on_submit():
-        temp = set_code(6)
-        while Group.query.filter_by(classCode=temp).first() is not None:
-            temp = set_code(6)
-        group = Group(name=classForm.name.data, classCode=temp)
+        group = Group(name=classForm.name.data)
+        set_class_code(group)
         group.users.append(current_user)
         db.session.add(group)
         db.session.commit()
@@ -118,6 +116,15 @@ def createclasssuccess(groupID):
     """Renders the create class was a success page for educators."""
     group = validate_group_link(groupID)
     return render_template('createclasssuccess.html', title=' | Create Class', group=group)
+
+@app.route('/quiz/<int:quizID>')
+def preview_quiz(quizID):
+    """Renders the create class was a success page for educators."""
+    if not current_user.check_educator():
+        return render_template('error404.html'), 404
+    quiz = validate_quiz_link(quizID)
+    questions = get_question_quiz(quiz)
+    return render_template('classquizzes.html', title=' | Create Class', questions=questions)
 
 @app.route('/quiz', methods=['POST'])
 def createquiz():
@@ -154,7 +161,7 @@ def createqn(quizID):
 @app.route('/quiz/<int:quizID>/success', methods=['GET'])
 def createquizsuccess(quizID):
     """Renders the create quiz was a success page for educators."""
-    return render_template('createquizsuccess.html', title=' | Create Quiz')
+    return render_template('createquizsuccess.html', title=' | Create Quiz', quizID=quizID)
 
 #@app.route('/class', methods=['GET'])
 #def classes():
@@ -168,10 +175,7 @@ def update_class_code(groupID):
     group = validate_group_link(groupID)
     if current_user.urole != 'educator':
         return render_template('error404.html'), 404
-    temp = set_code(6)
-    while Group.query.filter_by(classCode=temp).first() is not None:
-        temp = set_code(6)
-    group.classCode = temp
+    set_class_code(group)
     db.session.commit()
     flash('Your class code has been successfully updated!', 'success')
     return redirect(url_for('class'))

@@ -59,13 +59,13 @@ def register(form, role):
     user = User(firstName=form.firstName.data, lastName=form.lastName.data, email=form.email.data, urole=role, confirmed=False)
     user.set_password(form.password.data)
     if role == 'student':
-        user.set_knewbie_id()
+        set_knewbie_id(user)
     db.session.add(user)
     db.session.commit()
     confirm_url = get_confirm_url(user)
     send_conf_email(user, confirm_url)
         
-    #login_user(user)
+    login_user(user)
 
     flash('A confirmation email has been sent via email.', 'success')
     #flash('Congratulations, you are now a registered user!')
