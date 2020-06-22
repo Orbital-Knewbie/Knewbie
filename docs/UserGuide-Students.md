@@ -10,6 +10,7 @@
 &nbsp; &nbsp; &nbsp; &nbsp; [3.3.1. Joining A Class](#view)<br>
 &nbsp; &nbsp; &nbsp; &nbsp; [3.3.2. Leaderboard](#score)<br>
 &nbsp; &nbsp; [3.4. Quizzes](#quiz)<br>
+&nbsp; &nbsp; [3.5. Profile Customization](#profile)<br>
 [4. Frequently Asked Questions (FAQ)](#faq)
 
 ## <a name="intro">1. Introduction</a><br>
@@ -64,7 +65,14 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 ![Knewbie ID on the homepage](images/UniqueIDhome.png)
 
-&nbsp; &nbsp; &nbsp; &nbsp; 4. Keep your unique id confidential or only to people you want to share your progress with (i.e your parents)
+&nbsp; &nbsp; &nbsp; &nbsp; 4. Keep your unique id confidential or only to people you want to share your progress with (i.e your parents).
+
+&nbsp; &nbsp; &nbsp; &nbsp; 5. The progress report will show the fopllowing three graphs. 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. Overall progress over time, which gets updated with every quiz (inside of classes or outside) completed. 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. Difficulty progress over time, which shows a percentage of the questions answered correctly, depending on the difficulty. 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. Topical Progress, which displays your proficiency based on the respective topics. 
+
+![Progress Report](images/ProgressReport.png)
 
 ### <a name="class"> &nbsp; &nbsp; 3.3. Classes</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; 1. When you have logged in to your acocunt, you will be able to view all your enrolled classes from your dashboard.
@@ -82,12 +90,14 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 ![Student Dashboard](images/JoinClass.png)
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. You are now enrolled in the class and can access the questions/topics assigned specifically by your educators.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. You are now enrolled in the class and can access any quizzes assigned specifically to your class by your educators as well as all of our existing quizzes (which will be tailored to your proficiency level).
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. You are able to ask questions on the forum in which teachers can respond to.
 
 #### <a name="score"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.2. Leaderboard</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You can view the progress report of your classmates for the specific class.
+
+![Leaderboard](images/Leaderboard.png)
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. You can contact classmates good at particular topics to assist you. 
 
@@ -109,6 +119,29 @@ Knewbie is an educational platform that provides tailored content to suit the in
 &nbsp; &nbsp; &nbsp; &nbsp; 5. Based on your current ability, questions will be recommended in a way to ensure you improve.
 
 &nbsp; &nbsp; &nbsp; &nbsp; 6. You can access your progress report through your dashboard, or as detailed [here](#id).
+
+### <a name="profile"> &nbsp; &nbsp; 3.5. Profile Customization</a><br>
+1. You will be able to change certain features from your profile. When you are logged in, you will be able to access the settings page from the sidebar directly from your various classes or your dashboard.
+
+2. In the default settings page, you can make changes to your first name, last name, profile picture (avatar) and even request for a change in Knewbie ID in case it has been compromised. Do remember to click on save.
+
+![Profile Section of Settings](images/Settings_Default.png)
+
+3. In your account tab is where you can change your password, or email associated with your Knewbie Account.
+
+![Account Section of Settings](images/Settings_Account.png)
+
+4. It is also where you can deactivate your account. This action is irrevocable.
+
+5. Clicking on it will bring you to a page where you would need to input your email to confirm deactivation of your account. .
+
+![Deactivate Account](images/Deactivate.png)
+
+6. Upon entering your email, a link will be sent to the email you enterd.
+
+![Email to Deactivate Account](images/Deactivate_Email.png)
+
+7. The email will contain a link to confirm your deactivation. The link will last for 10 minutes, and only if you click on the link will you be able to officially deactviate your account
 
 ## <a name="faq">4. Frequently Asked Questions (FAQ)</a><br>
 1. You can access the list of FAQ through the link at the footer (bottom of every page), the navigation bar, or through this link. (not up yet)
