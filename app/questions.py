@@ -492,3 +492,18 @@ def get_level_proficiency(user):
             correct = tuple(filter(lambda x: x.is_correct(), diff))
             prof_lvl.append(correct/len(diff))
     return prof_lvl
+
+def get_topic_proficiencies(user):
+    '''Returns a list of proficiency levels for each topic
+    Given in the range 0-1 for each topic
+    [(topic1, 0.33),(topic2,0.99),...]'''
+    r=Response.query.filter_by(userID=user.id)
+    prof_lvl = []
+    for topic in Topic.query.all():
+        curr_prof = r.filter(Question.topicID==topic.id).all()
+        if not curr_prof:
+            prof_lvl.append((topic.name, 0))
+        else:
+            correct = tuple(filter(lambda x:x.is_correct(), curr_prof))
+            prof_lvl.append((topic.name, correct))
+    return prof_lvl
