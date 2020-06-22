@@ -192,7 +192,7 @@ To the Student, both quizzes are similar in front-end design. The only differenc
 
 
 ### 3.3 Adaptive Testing <a name="adaptive"></a>
-Separate to quizzes created by an Educator, the platform also s
+Separate to quizzes created by an Educator, the platform also supports the following feature which allows tailored content in the quizzes.
 [Computerized Adaptive Testing (CAT)](https://en.wikipedia.org/wiki/Computerized_adaptive_testing) is a form of test that adapts to the user's ability. 
 [Item Response Theory (IRT)](https://en.wikipedia.org/wiki/Item_response_theory) provides a means to do so, 
 and this project has decided on the use of the CatSim Python package. [More information can be found on their main documentation.](https://douglasrizzo.com.br/catsim/)
