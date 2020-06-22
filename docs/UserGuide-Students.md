@@ -12,7 +12,7 @@
 &nbsp; &nbsp; [3.4. Quizzes](#quiz)<br>
 &nbsp; &nbsp; [3.5. Profile Customization](#customize)<br>
 &nbsp; &nbsp; &nbsp; &nbsp; [3.5.1. Profile Settings](#profile)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [3.5.1. Account Settings](#account)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.5.2. Account Settings](#account)<br>
 [4. Frequently Asked Questions (FAQ)](#faq)
 
 ## <a name="intro">1. Introduction</a><br>
@@ -92,9 +92,11 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 ![Student Dashboard](images/JoinClass.png)
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. You are now enrolled in the class and can access any quizzes assigned specifically to your class by your educators as well as all of our existing quizzes (which will be tailored to your proficiency level).
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. You are now enrolled in the class.
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. You are able to ask questions on the forum in which teachers can respond to.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. You can access any quizzes assigned specifically to your class by your educators as well as all of our existing tailored quizzes.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6. You are able to ask questions on the forum in which teachers can respond to.
 
 #### <a name="score"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.2. Leaderboard</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You can view the progress report of your classmates for the specific class.
@@ -104,6 +106,8 @@ Knewbie is an educational platform that provides tailored content to suit the in
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. You can contact classmates good at particular topics to assist you. 
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. The leaderboard is not meant to be competetive but so you know who to approach for help!
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. The leaderboard is sorted based on overall proficiency.
 
 ### <a name="quiz"> &nbsp; &nbsp; 3.4. Quizzes</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; 1. When you have logged in to your acocunt, you will be able to view all the quizzes from your dashboard.
@@ -124,28 +128,34 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 ### <a name="customize"> &nbsp; &nbsp; 3.5. Profile Customization</a><br>
 #### <a name="profile"> &nbsp; &nbsp; &nbsp; &nbsp; 3.5.1. Profile Settings</a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You will be able to change certain features from your profile. When you are logged in, you will be able to access the settings page from the sidebar directly from your various classes or your dashboard.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You will be able to change certain features from your profile. 
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. In the default settings page, you can make changes to your first name, last name, profile picture (avatar) and even request for a change in Knewbie ID in case it has been compromised. Do remember to click on save.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. When logged in, you can access the settings page from the sidebar directly from your various classes or your dashboard.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. In the default settings page, you can make changes to your first name, last name, profile picture (avatar). Do remember to click on save.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. You can request for a new Knewbie ID in case it has been compromised.
 
 ![Profile Section of Settings](images/Settings_Default.png)
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. In your account tab is where you can change your password, or email associated with your Knewbie Account.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. The account tab is where you can change your password, or email associated with your Knewbie Account.
 
-#### <a name="account"> &nbsp; &nbsp; &nbsp; &nbsp; 3.5.1. Account Settings</a><br>
+#### <a name="account"> &nbsp; &nbsp; &nbsp; &nbsp; 3.5.2. Account Settings</a><br>
 ![Account Section of Settings](images/Settings_Account.png)
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. It is also where you can deactivate your account. This action is irrevocable.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. It is also where you can deactivate your account. This action is irrevocable.
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. Clicking on it will bring you to a page where you would need to input your email to confirm deactivation of your account. .
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. Clicking on it will bring you to a page where you would need to input your email to confirm deactivation of your account.
 
 ![Deactivate Account](images/Deactivate.png)
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6. Upon entering your email, a link will be sent to the email you enterd.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. Upon entering your email, a link will be sent to the email you enterd.
 
 ![Email to Deactivate Account](images/Deactivate_Email.png)
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7. The email will contain a link to confirm your deactivation. The link will last for 10 minutes, and only if you click on the link will you be able to officially deactviate your account
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. The email will contain a link to confirm your deactivation. The link will last for 10 minutes.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. Your account will officially be deactivated upon clicking on the link.
 
 ## <a name="faq">4. Frequently Asked Questions (FAQ)</a><br>
 1. You can access the list of FAQ through the link at the footer (bottom of every page), the navigation bar, or through this link. (not up yet)
