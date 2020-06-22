@@ -1,4 +1,4 @@
-# Knewbie - User Guide
+# Knewbie - Student's User Guide
 
 ### Table of Contents
 [1. Introduction](#intro)  
