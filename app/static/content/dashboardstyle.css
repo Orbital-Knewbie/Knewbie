@@ -264,10 +264,12 @@ img {
 
 .left h1 {
     color: var(--LIGHTPURPLE);
+    font-size: 3.6rem;
 }
 
 .right h1 {
     color: var(--OFFWHITE);
+    font-size: 3.6rem;
 }
 
 

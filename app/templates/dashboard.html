@@ -155,7 +155,7 @@
 
     {% elif current_user.urole == 'educator' %}
     <!-- SPLIT SCREEN -->
-    <div class="split-container">
+    <div class="split-container" id="create">
         <div class="split left">           
             <form action="{{ url_for('createclass') }}" method="post" class="create-form-1">
                 {{ classForm.hidden_tag() }}
