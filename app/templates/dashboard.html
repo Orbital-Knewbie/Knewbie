@@ -147,12 +147,12 @@
 
     {% elif current_user.urole == 'educator' %}
     <!-- SPLIT SCREEN -->
-    <div class="split-container">
+    <div class="split-container" id="create">
         <div class="split left">           
             <form action="" method="post" novalidate class="create-form-1">
                 {{ form.hidden_tag() }}
                 <h1>Create A New Class</h1>
-                {{ form.name(size=32, class_="input", placeholder="Quiz Title") }}
+                {{ form.name(size=32, class_="input", placeholder="Class Title") }}
                 {{ form.submit(class_="submit-btn") }}
             </form>
         </div>
@@ -162,7 +162,7 @@
                 {{ form.hidden_tag() }}
                 <h1>Create A New Quiz</h1>
                 {{ form.name(size=32, class_="input", placeholder="Quiz Title") }}
-                {{ form.submit(class_="submit-btn") }}
+                {{ form.submit(class_="submit-btn", placeholder="Create Quiz") }}
             </form>
         </div>
     </div>
