@@ -10,7 +10,9 @@
 &nbsp; &nbsp; &nbsp; &nbsp; [3.3.1. Joining A Class](#view)<br>
 &nbsp; &nbsp; &nbsp; &nbsp; [3.3.2. Leaderboard](#score)<br>
 &nbsp; &nbsp; [3.4. Quizzes](#quiz)<br>
-&nbsp; &nbsp; [3.5. Profile Customization](#profile)<br>
+&nbsp; &nbsp; [3.5. Profile Customization](#customize)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.5.1. Profile Settings](#profile)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.5.1. Account Settings](#account)<br>
 [4. Frequently Asked Questions (FAQ)](#faq)
 
 ## <a name="intro">1. Introduction</a><br>
@@ -59,7 +61,7 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 ![Knewbie ID](images/UniqueID.png)
 
-&nbsp; &nbsp; &nbsp; &nbsp; 2. To access your progress report without logging in, on the homepage, navigate to the [Knewbie ID section (at the bottom of the page)]. (link not up yet)
+&nbsp; &nbsp; &nbsp; &nbsp; 2. To access your progress report without logging in, the [Knewbie ID section] is at the bottom of the homepage. (link not up yet)
 
 &nbsp; &nbsp; &nbsp; &nbsp; 3. Enter your Knewbie ID to retrieve your progress report.
 
@@ -67,10 +69,10 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; 4. Keep your unique id confidential or only to people you want to share your progress with (i.e your parents).
 
-&nbsp; &nbsp; &nbsp; &nbsp; 5. The progress report will show the fopllowing three graphs. 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. Overall progress over time, which gets updated with every quiz (inside of classes or outside) completed. 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. Difficulty progress over time, which shows a percentage of the questions answered correctly, depending on the difficulty. 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. Topical Progress, which displays your proficiency based on the respective topics. 
+&nbsp; &nbsp; &nbsp; &nbsp; 5. The progress report will show the fopllowing three graphs. <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Overall progress over time, which gets updated with every quiz (inside of classes or outside) completed. <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Difficulty progress over time, which shows a percentage of the questions answered correctly, depending on the difficulty. <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Topical Progress, which displays your proficiency based on the respective topics. 
 
 ![Progress Report](images/ProgressReport.png)
 
@@ -120,28 +122,30 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; 6. You can access your progress report through your dashboard, or as detailed [here](#id).
 
-### <a name="profile"> &nbsp; &nbsp; 3.5. Profile Customization</a><br>
-1. You will be able to change certain features from your profile. When you are logged in, you will be able to access the settings page from the sidebar directly from your various classes or your dashboard.
+### <a name="customize"> &nbsp; &nbsp; 3.5. Profile Customization</a><br>
+#### <a name="profile"> &nbsp; &nbsp; &nbsp; &nbsp; 3.5.1. Profile Settings</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You will be able to change certain features from your profile. When you are logged in, you will be able to access the settings page from the sidebar directly from your various classes or your dashboard.
 
-2. In the default settings page, you can make changes to your first name, last name, profile picture (avatar) and even request for a change in Knewbie ID in case it has been compromised. Do remember to click on save.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. In the default settings page, you can make changes to your first name, last name, profile picture (avatar) and even request for a change in Knewbie ID in case it has been compromised. Do remember to click on save.
 
 ![Profile Section of Settings](images/Settings_Default.png)
 
-3. In your account tab is where you can change your password, or email associated with your Knewbie Account.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. In your account tab is where you can change your password, or email associated with your Knewbie Account.
 
+#### <a name="account"> &nbsp; &nbsp; &nbsp; &nbsp; 3.5.1. Account Settings</a><br>
 ![Account Section of Settings](images/Settings_Account.png)
 
-4. It is also where you can deactivate your account. This action is irrevocable.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. It is also where you can deactivate your account. This action is irrevocable.
 
-5. Clicking on it will bring you to a page where you would need to input your email to confirm deactivation of your account. .
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. Clicking on it will bring you to a page where you would need to input your email to confirm deactivation of your account. .
 
 ![Deactivate Account](images/Deactivate.png)
 
-6. Upon entering your email, a link will be sent to the email you enterd.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6. Upon entering your email, a link will be sent to the email you enterd.
 
 ![Email to Deactivate Account](images/Deactivate_Email.png)
 
-7. The email will contain a link to confirm your deactivation. The link will last for 10 minutes, and only if you click on the link will you be able to officially deactviate your account
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7. The email will contain a link to confirm your deactivation. The link will last for 10 minutes, and only if you click on the link will you be able to officially deactviate your account
 
 ## <a name="faq">4. Frequently Asked Questions (FAQ)</a><br>
 1. You can access the list of FAQ through the link at the footer (bottom of every page), the navigation bar, or through this link. (not up yet)
