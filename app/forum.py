@@ -8,6 +8,9 @@ from datetime import datetime
 def validate_group_link(groupID):
     return Group.query.filter_by(id=groupID).filter(Group.users.any(id=current_user.id)).first_or_404()
 
+def validate_code_link(classCode):
+    return Group.query.filter_by(classCode=classCode).first_or_404()
+
 def validate_post_link(groupID, threadID, postID):
     # Check validity of link access first
     group = validate_group_link(groupID)

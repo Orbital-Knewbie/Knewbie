@@ -87,10 +87,13 @@
 
     {% if current_user.urole == 'student' %}
     <section class="box" id="joinclass">
-        <h1>Join A Class</h1>
         <div class="details">
-            <h2>John Doe</h2>
-            <p>Unique ID: {{ current_user.knewbie_id }} </p>
+            <form action="{{ url_for('joinclass') }}" method="post" class="create-form-1">
+                {{ joinForm.hidden_tag() }}
+                <h1>Join A Class</h1>
+                {{ joinForm.name(size=32, class_="input", placeholder="Class Code") }}
+                {{ joinForm.submit(class_="submit-btn") }}
+            </form>
         </div>
     </section>
 

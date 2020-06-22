@@ -11,7 +11,7 @@ from app.questions import get_question_options, submit_response, get_student_cat
 from app.questions import add_quiz, add_question, add_question_quiz, get_topic, validate_quiz_link, get_leaderboard
 from app.email import register, resend_conf, send_contact_email, send_reset_email, send_deactivate_email
 from app.profile import update_image, set_code
-from app.forum import validate_group_link, save_post, validate_post_link, get_post_users
+from app.forum import validate_group_link, save_post, validate_post_link, get_post_users, validate_code_link, add_participant
 from app.token import confirm_token
 from app.decorator import check_confirmed
 from app.cat import Student
@@ -39,14 +39,17 @@ def home():
     return render_template('index.html', form=form)
 
 @app.route('/dashboard')
+@login_required
 def dashboard():
     """Renders the dashboard page."""
+    joinForm = CreateName(prefix='join')
     classForm = CreateName(prefix='class')
     quizForm = CreateName(prefix='quiz')
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
-    return render_template('dashboard.html', image_file=image_file, classForm=classForm, quizForm=quizForm)
+    return render_template('dashboard.html', image_file=image_file, classForm=classForm, quizForm=quizForm, joinForm=joinForm)
 
 @app.route('/class/<int:groupID>/leaderboard')
+@login_required
 def leaderboard(groupID):
     """Renders the leaderboard page."""
     group = validate_group_link(groupID)
@@ -55,6 +58,7 @@ def leaderboard(groupID):
     return render_template('leaderboard.html', image_file=image_file, title=' | Leaderboard', users=users, group=group)
 
 @app.route('/settings', methods=['GET', 'POST'])
+@login_required
 def settings():
     """Renders the settings page."""
     form = UpdateProfileForm()
@@ -74,6 +78,7 @@ def settings():
     return render_template('settings.html', title=' | Settings', image_file=image_file, form=form)
 
 @app.route('/settings/knewbieID')
+@login_required
 def settings_knewbie_id():
     """Routing to update Knewbie ID"""
     temp = set_code(8)
@@ -94,7 +99,19 @@ def progressreport():
     """Renders the report page."""
     return render_template('report.html', title=' | Progress Report')
 
-@app.route('/class', methods=['POST'])
+@app.route('/class/join', methods=['POST'])
+@login_required
+def joinclass():
+    joinForm = CreateName(prefix='join')
+    if joinForm.validate_on_submit():
+        classCode = joinForm.name.data
+        group = validate_code_link(classCode)
+        add_participant(current_user, group)
+        return redirect(url_for('forum', groupID=group.id))
+    return render_template('dashboard.html', image_file=image_file, joinForm=joinForm)
+
+@app.route('/class/create', methods=['POST'])
+@login_required
 def createclass():
     """Renders the create class page for educators."""
     if not current_user.check_educator():
@@ -112,12 +129,14 @@ def createclass():
     return render_template('dashboard.html', image_file=image_file, classForm=classForm, quizForm=quizForm)
 
 @app.route('/class/<int:groupID>/success')
+@login_required
 def createclasssuccess(groupID):
     """Renders the create class was a success page for educators."""
     group = validate_group_link(groupID)
     return render_template('createclasssuccess.html', title=' | Create Class', group=group)
 
 @app.route('/quiz/<int:quizID>')
+@login_required
 def preview_quiz(quizID):
     """Renders the create class was a success page for educators."""
     if not current_user.check_educator():
@@ -126,7 +145,8 @@ def preview_quiz(quizID):
     questions = get_question_quiz(quiz)
     return render_template('classquizzes.html', title=' | Create Class', questions=questions)
 
-@app.route('/quiz', methods=['POST'])
+@app.route('/quiz/create', methods=['POST'])
+@login_required
 def createquiz():
     """Renders the create quiz page for educators."""
     if not current_user.check_educator():
@@ -140,6 +160,7 @@ def createquiz():
     return render_template('dashboard.html', image_file=image_file, classForm=classForm, quizForm=quizForm)
 
 @app.route('/quiz/<int:quizID>/question', methods=['GET', 'POST'])
+@login_required
 def createqn(quizID):
     """Renders the add questions page for educators."""
     if not current_user.check_educator():
@@ -159,6 +180,7 @@ def createqn(quizID):
     return render_template('createqn.html', title=' | Create Quiz', form=form, quizID=quizID)
 
 @app.route('/quiz/<int:quizID>/success', methods=['GET'])
+@login_required
 def createquizsuccess(quizID):
     """Renders the create quiz was a success page for educators."""
     return render_template('createquizsuccess.html', title=' | Create Quiz', quizID=quizID)
@@ -170,6 +192,7 @@ def createquizsuccess(quizID):
 #    return render_template('sidebar.html', image_file=image_file, title=' | Class')
 
 @app.route('/class/<int:groupID>/code')
+@login_required
 def update_class_code(groupID):
     """Routing to update Class Code"""
     group = validate_group_link(groupID)
@@ -352,7 +375,6 @@ def edit_post(groupID,threadID,postID):
 # Routes for Quiz
 @app.route('/quiz', methods=['GET', 'POST'])
 @login_required
-@check_confirmed
 def quiz():
     # userID, theta (proficiency), Admistered Items (AI), response vector
     id = current_user.id
@@ -374,7 +396,6 @@ def quiz():
 
 @app.route('/result')
 @login_required
-@check_confirmed
 def result():
     id = current_user.id
     #prof, student = get_student_cat(id)
@@ -386,6 +407,7 @@ def result():
 
 # Routes to reset password
 @app.route("/resetpassword", methods=['GET', 'POST'])
+@login_required
 def request_reset_password():
      if current_user.is_authenticated:
         return redirect(url_for('quiz'))
@@ -398,6 +420,7 @@ def request_reset_password():
      return render_template('resetpassword.html', title=' | Reset Password', form=form)
 
 @app.route("/resetpassword/<token>", methods=['GET', 'POST'])
+@login_required
 def reset_password(token):
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
