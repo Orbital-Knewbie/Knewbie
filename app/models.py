@@ -92,6 +92,9 @@ class Response(db.Model):
     optID = db.Column(db.Integer, db.ForeignKey('option.id'))
     qnID = db.Column(db.Integer, db.ForeignKey('question.id'))
 
+    def is_correct(self):
+        return self.question.answerID == self.optID
+
 
 groupquiz = db.Table('groupquiz', \
     db.Column('group_id', db.Integer, db.ForeignKey('group.id'), primary_key=True), \
