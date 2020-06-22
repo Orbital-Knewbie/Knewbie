@@ -1,4 +1,4 @@
-# Knewbie - User Guide
+# Knewbie - Educator's User Guide
 
 ### Table of Contents
 [1. Introduction](#intro)  
@@ -7,9 +7,13 @@
 &nbsp; &nbsp; [3.1. Reset Password](#pw)<br>
 &nbsp; &nbsp; [3.2. Classes](#class)<br>
 &nbsp; &nbsp; &nbsp; &nbsp; [3.2.1. Creating A Class](#create)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [3.2.2. Creating A Question](#qn)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [3.2.3. Leaderboard](#score)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [3.2.4 Progress Report](#id)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.2.2. Creating A Quiz](#qn)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.2.3. Leaderboard/Progress Report](#score)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.2.4. Edit Participants List](#edit)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.2.5. Change Class Code](#code)<br>
+&nbsp; &nbsp; [3.3. Profile Customization](#customize)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.3.1. Profile Settings](#profile)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.3.2. Account Settings](#account)<br>
 [4. Frequently Asked Questions (FAQ)](#faq)
 
 ## <a name="intro">1. Introduction</a><br>
@@ -66,25 +70,86 @@ Knewbie is an educational platform that provides tailored content to suit the in
 &nbsp; &nbsp; &nbsp; &nbsp; 2. When you first begin, you will not have any classes.
 
 #### <a name="create"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.1. Creating A Class</a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. To create a class, click on the create option on the sidebar. You will be taken to another page.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. To create a class, scroll down to the bottom of your dashboard, or click on create under the dashboard.
 
-![Create Page](images/Create.png)
+![Create Section](images/Create.png)
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. Include all the relevant details under the 'Create A Class' heading and click on the create class button.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. Enter a class name under the 'Create A Class' heading and click on the create button.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. A unique class code and passcode will be displayed. Share both information with the students you would like to participate in the class.
 
-#### <a name="qn"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.2. Creating A Question</a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. Similarly to creating a class, to create a question, click on the create option on the sidebar. You will be taken to another page.
+![Create Class Success](images/Class_Success.png)
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. Include all the relevant details under the 'Create A Question' heading and click on the create question button.
+#### <a name="qn"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.2. Creating A Quiz</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. Similarly to creating a class, you can create a quiz which can be assigned to various classes which is under your purview.
 
-#### <a name="score"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.3. Leaderboard</a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You will be able to view the individual progress report of the students in your class. This only includes the scores from questions assigned and attempted within the class.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. Enter a class name under the 'Create A Class' heading and click on the create button.
 
-#### <a name="id"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.4 Progress Report</a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You will be able to view the individual progress report of the students in your class. This includes the scores from questions and quizzes attempted outside of the class.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. You will be taken to a new page to create the questions in your quiz.
 
+![Create Quiz Questions](images/Create_Qn.png)
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. Currently we only support MCQs. Any question you submit will be stored in our database and may appear in our tailored content.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. Input all the relevant fields, add an image if required and click on 'Save and add a new question'.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6. If this is the last question in the quiz, click on 'Save and complete quiz'.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7. Upon successful creation, you will be redirected to a page where you can preview your quiz and make relevant changes if needed.
+
+![Create Quiz Success](images/Quiz_Success.png)
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8. On the same page you are able to assign the quiz to the classes you have as well, or even create a new quiz.
+
+#### <a name="score"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.3. Leaderboard/Progress Report</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You will be able to view the individual progress report of all the students in your class. This includes the scores from quizzes attempted within and outtside of the class.
+
+![Leaderboard](images/Leaderboard.png)
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. The leaderboard is sorted based on overall proficiency.
+
+#### <a name="edit"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.4. Edit Participants List</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. As an educator, you can edit the participants list.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. You can manually add or remove participants.
+
+#### <a name="code"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.5. Change Class Code</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. As an educator, you can request to change the class code.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. Use this feature sparingly and only if you suspect that your class has been encroached.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. To change the class code, just click on 'Change Class Code' which can be found on the class' sidebar.
+
+![Change Class Code](images/Change_Code.png)
+
+### <a name="customize"> &nbsp; &nbsp; 3.3. Profile Customization</a><br>
+#### <a name="profile"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.1. Profile Settings</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You will be able to change certain features from your profile. 
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. When logged in, you can access the settings page from the sidebar directly from your various classes or your dashboard.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. In the default settings page, you can make changes to your first name, last name, profile picture (avatar). Do remember to click on save.
+
+![Profile Section of Settings](images/Settings_Default_Edu.png)
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. The account tab is where you can change your password, or email associated with your Knewbie Account.
+
+#### <a name="account"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.2. Account Settings</a><br>
+![Account Section of Settings](images/Settings_Account.png)
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. It is also where you can deactivate your account. This action is irrevocable.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. Clicking on it will bring you to a page where you would need to input your email to confirm deactivation of your account.
+
+![Deactivate Account](images/Deactivate.png)
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. Upon entering your email, a link will be sent to the email you enterd.
+
+![Email to Deactivate Account](images/Deactivate_Email.png)
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. The email will contain a link to confirm your deactivation. The link will last for 10 minutes.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. Your account will officially be deactivated upon clicking on the link.
 
 ## <a name="faq">4. Frequently Asked Questions (FAQ)</a><br>
 1. You can access the list of FAQ through the link at the footer (bottom of every page), the navigation bar, or through this link. (not up yet)
