@@ -171,7 +171,10 @@ add_qn(org_qns)
 
 def insert_qns():
     '''Inserts questions formatted as a json file
-    {<number>:{'answer':<extra text><answer>,'option_texts':<extra text><options>, 'question_text':<extra text><question><extra text>}}
+    {<number>:
+    {'answer':<extra text><answer>,
+    'option_texts':<extra text><options>, 
+    'question_text':<extra text><question><extra text>}}
     all are strings
     '''
     path = 'app/static/resources/questions'
@@ -307,12 +310,7 @@ def create_student_prof(userID):
     db.session.commit()
     return prof
 
-def add_topic(name):
-    '''Adds a topic to the database'''
-    topic = Topic(name=name)
-    db.session.add(topic)
-    db.session.commit()
-    return topic
+
 
 def get_topic(name):
     topic = Topic.query.filter_by(name=name).first()
@@ -349,13 +347,14 @@ def add_question(qn_text, options, answer, topic):
             optID = o.id
             #ans = Answer(question=qn,option=o)
             question.answerID = optID
-            db.session.add(ans)
+            db.session.flush()
     db.session.commit()
     return question
 
 def get_proficiencies(userID):
     '''Return list of (timestamp, proficiency) in chronological order'''
-    profs = Proficiency.query.filter_by(userID=userID,topicID=1).order_by(Proficiency.timestamp.asc()).all()
+    profs = Proficiency.query.filter_by(userID=userID,topicID=1). \
+        order_by(Proficiency.timestamp.asc()).all()
     return [(prof.timestamp, prof.theta) for prof in profs]
 
 def get_curr_prof(userID):
@@ -445,3 +444,31 @@ def get_question_quiz(quiz):
 
 def validate_quiz_link(quizID):
     return Quiz.query.filter_by(id=quizID,userID=current_user.id).first_or_404()
+
+
+def add_topic(name):
+    '''Adds a topic to the database'''
+    topic = Topic(name=name)
+    db.session.add(topic)
+    db.session.commit()
+    return topic
+
+def remove_topics():
+    topics = Topic.query.all()
+    for t in topics:
+        db.session.delete(t)
+    db.session.commit()
+
+def add_test_topics():
+    remove_topics()
+    if Topic.query.all(): return
+    topics = ('General', 'Estimation', 'Geometry', 'Model')
+    for topic in topics:
+        add_topic(topic)
+
+add_test_topics()
+
+
+def get_leaderboard(groupID):
+    return User.query.filter_by(urole='student'). \
+        filter(User.groups.any(id=groupID)).order_by(User.curr_theta.desc()).all()

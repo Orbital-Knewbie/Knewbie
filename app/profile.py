@@ -1,5 +1,6 @@
 from PIL import Image
 from app import app
+from app.models import User
 from string import ascii_letters, digits
 from random import choice
 import secrets
@@ -22,4 +23,10 @@ def update_image(form_image):
 
 def set_code(n):
     return ''.join(choice(ascii_letters + digits) for i in range(n))
-        
+
+def set_knewbie_id(user):
+    code = set_code(8)
+    while User.query.filter_by(knewbie_id=code).first():
+        code = set_code(8)
+    user.knewbie_id = code
+    return user

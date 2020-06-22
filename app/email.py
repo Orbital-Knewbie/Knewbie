@@ -4,6 +4,7 @@ from flask_login import login_user
 from app import app, db, mail
 from app.models import User
 from app.token import generate_confirmation_token
+from app.profile import set_knewbie_id
 
 
 def send_email(subject, sender, recipients, text_body, html_body):
@@ -77,11 +78,17 @@ def resend_conf(user):
 
 
 def add_user():
+    remove_users()
     if User.query.all(): return
-    user = User(firstName='test',lastName='test',email='testflask202005@gmail.com', urole='student',confirmed=True)
+    user = User(firstName='test',lastName='test',email='testflask202005@gmail.com', urole='educator',confirmed=True)
     user.set_password('test')
-    user.set_knewbie_id()
+    set_knewbie_id(user)
     db.session.add(user)
+    db.session.commit()
+
+def remove_users():
+    for u in User.query.all():
+        db.session.delete(u)
     db.session.commit()
 
 add_user()

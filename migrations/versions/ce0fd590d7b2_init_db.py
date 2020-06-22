@@ -1,8 +1,8 @@
 """init db
 
-Revision ID: aa37f7215b67
+Revision ID: ce0fd590d7b2
 Revises: 
-Create Date: 2020-06-20 23:53:00.331342
+Create Date: 2020-06-22 17:11:29.276651
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'aa37f7215b67'
+revision = 'ce0fd590d7b2'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -96,6 +96,13 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], name=op.f('fk_usergroup_user_id_user')),
     sa.PrimaryKeyConstraint('user_id', 'group_id', name=op.f('pk_usergroup'))
     )
+    op.create_table('groupquiz',
+    sa.Column('group_id', sa.Integer(), nullable=False),
+    sa.Column('quiz_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['group_id'], ['group.id'], name=op.f('fk_groupquiz_group_id_group')),
+    sa.ForeignKeyConstraint(['quiz_id'], ['quiz.id'], name=op.f('fk_groupquiz_quiz_id_quiz')),
+    sa.PrimaryKeyConstraint('group_id', 'quiz_id', name=op.f('pk_groupquiz'))
+    )
     op.create_table('option',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('qnID', sa.Integer(), nullable=True),
@@ -139,6 +146,7 @@ def downgrade():
     op.drop_table('questionquiz')
     op.drop_table('post')
     op.drop_table('option')
+    op.drop_table('groupquiz')
     op.drop_table('usergroup')
     op.drop_table('thread')
     op.drop_table('quiz')

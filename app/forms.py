@@ -4,7 +4,7 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Le
 from flask_login import current_user
 
 from flask_wtf.file import FileAllowed
-from app.models import User
+from app.models import User, Topic
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
@@ -59,19 +59,21 @@ class NewPasswordForm(FlaskForm):
 
 class CreateName(FlaskForm):
     name = StringField('Title', validators=[DataRequired()])
-    submit = SubmitField('Create Class')
+    submit = SubmitField('Create')
 
 class CreateQuestion(FlaskForm):
-    topic = SelectField('Select Topic', choices=[('nth', 'Select Topic'), ('Est', 'Estimation'), ('Geo', 'Geometry'), ('Model', 'Model')], validators=[DataRequired()])
+    topic = SelectField('Select Topic', choices=[(0, 'Select Topic'), \
+        *[(topic.id, topic.name) for topic in Topic.query.all()]], validators=[DataRequired()], coerce=int)
     qn = StringField('Input Question', validators=[DataRequired()])
     op1 = StringField('Option 1', validators=[DataRequired()])
     op2 = StringField('Option 2', validators=[DataRequired()])
     op3 = StringField('Option 3', validators=[DataRequired()])
     op4 = StringField('Option 4', validators=[DataRequired()])
-    corrOp = SelectField('Correct Option', choices=[('nth', 'Select Correct Option'), ('Op1', 'Option 1'), ('Op2', 'Option 2'), ('Op3', 'Option 3'), ('Op4', 'Option 4')], validators=[DataRequired()])
+    corrOp = SelectField('Correct Option', choices=[(0, 'Select Correct Option'), \
+        (1, 'Option 1'), (2, 'Option 2'), (3, 'Option 3'), (4, 'Option 4')], validators=[DataRequired()], coerce=int)
     img = MultipleFileField('Attach Image')
-    submit = SubmitField(label='submit','Save and Add New Question')
-    complete = SubmitField(label='complete','Save and Complete Quiz')
+    submit = SubmitField('Save and Add New Question')
+    complete = SubmitField('Save and Complete Quiz')
 
 class UpdateProfileForm(FlaskForm):
     firstName = StringField('First Name', validators=[DataRequired()])

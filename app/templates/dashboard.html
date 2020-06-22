@@ -30,7 +30,15 @@
     <section class="box" id="viewclass">
         <h1>View Your Classes</h1>
         <div class="card-wrapper">
+            {% for class in current_user.groups %}
             <div class="card">
+                <div class="card-background"></div>
+                <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
+                <h2>Class {{ class.name }}</h2>
+                <a href="{{ url_for('forum', groupID=class.id) }}" class="btn">View Class</a>
+            </div>
+            {% endfor %}
+            <!--<div class="card">
                 <div class="card-background"></div>
                 <img src="../static/resources/images/Student.svg" class="quiz-symbol">
                 <h2>Class 1</h2>
@@ -73,7 +81,7 @@
                 {% elif current_user.urole == 'educator' %}
                 <a href="{{ url_for('quiz') }}" class="btn">View Quiz</a>
                 {% endif %}
-            </div>
+            </div>-->
         </div>
     </section>
 
@@ -82,7 +90,7 @@
         <h1>Join A Class</h1>
         <div class="details">
             <h2>John Doe</h2>
-            <p>Unique ID: </p>
+            <p>Unique ID: {{ current_user.knewbie_id }} </p>
         </div>
     </section>
 
@@ -149,7 +157,7 @@
     <!-- SPLIT SCREEN -->
     <div class="split-container">
         <div class="split left">           
-            <form action="{{ url_for('createclass') }}" method="post" novalidate class="create-form-1">
+            <form action="{{ url_for('createclass') }}" method="post" class="create-form-1">
                 {{ classForm.hidden_tag() }}
                 <h1>Create A New Class</h1>
                 {{ classForm.name(size=32, class_="input", placeholder="Class Name") }}
@@ -158,7 +166,7 @@
         </div>
 
         <div class="split right">            
-            <form action="{{ url_for('createquiz') }}" method="post" novalidate class="create-form">
+            <form action="{{ url_for('createquiz') }}" method="post" class="create-form">
                 {{ quizForm.hidden_tag() }}
                 <h1>Create A New Quiz</h1>
                 {{ quizForm.name(size=32, class_="input", placeholder="Quiz Title") }}

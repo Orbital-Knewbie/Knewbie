@@ -40,6 +40,9 @@ class User(UserMixin, db.Model):
     def reset_token(self, expiryTime = 600):
         s = Serializer(app.config['SECRET_KEY'], expiryTime)
         return s.dumps({'user_id': self.id}).decode('utf-8')
+
+    def check_educator(self):
+        return self.urole == 'educator'
     
     @staticmethod
     def verify_reset_token(token):

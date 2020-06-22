@@ -74,7 +74,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="migrations\env.py" />
-    <Compile Include="migrations\versions\aa37f7215b67_init_db.py" />
+    <Compile Include="migrations\versions\ce0fd590d7b2_init_db.py" />
     <Compile Include="run.py" />
     <Compile Include="tests\test_1.py">
       <SubType>Code</SubType>
@@ -153,6 +153,7 @@
     <Content Include="app\templates\contact.html" />
     <Content Include="app\templates\forum.html" />
     <Content Include="app\templates\deactivate.html" />
+    <Content Include="app\templates\_formhelpers.html" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.png" />
     <Content Include="docs\diagrams\Architecture.png" />
     <Content Include="docs\diagrams\ArchitectureSequence.png" />

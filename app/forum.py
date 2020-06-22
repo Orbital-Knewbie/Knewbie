@@ -1,7 +1,7 @@
 from flask import redirect, url_for
 from flask_login import current_user
 from app import db
-from app.models import Group, Post, Thread, User
+from app.models import Group, Post, Thread, User, Quiz
 from datetime import datetime
 
 def validate_group_link(groupID):
@@ -58,8 +58,10 @@ def clear_test_forum():
     g = Group.query.all()
     t = Thread.query.all()
     p = Post.query.all()
+    q = Quiz.query.all()
     g.extend(t)
     g.extend(p)
+    g.extend(q)
     for i in g:
         db.session.delete(i)
     db.session.commit()

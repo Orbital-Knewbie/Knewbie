@@ -8,7 +8,7 @@ from app import app, db, mail
 from app.models import User, Question, Option, Response, Group, Thread, Post, Proficiency, Quiz
 from app.forms import *
 from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer
-from app.questions import add_quiz, add_question, add_question_quiz, get_topic
+from app.questions import add_quiz, add_question, add_question_quiz, get_topic, validate_quiz_link, get_leaderboard
 from app.email import register, resend_conf, send_contact_email, send_reset_email, send_deactivate_email
 from app.profile import update_image, set_code
 from app.forum import validate_group_link, save_post, validate_post_link, get_post_users
@@ -46,11 +46,13 @@ def dashboard():
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
     return render_template('dashboard.html', image_file=image_file, classForm=classForm, quizForm=quizForm)
 
-@app.route('/leaderboard')
-def leaderboard():
+@app.route('/class/<int:groupID>/leaderboard')
+def leaderboard(groupID):
     """Renders the leaderboard page."""
+    group = validate_group_link(groupID)
+    users = get_leaderboard(groupID)
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
-    return render_template('leaderboard.html', image_file=image_file, title=' | Leaderboard')
+    return render_template('leaderboard.html', image_file=image_file, title=' | Leaderboard', users=users, groupID=groupID)
 
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
@@ -95,6 +97,8 @@ def progressreport():
 @app.route('/class', methods=['POST'])
 def createclass():
     """Renders the create class page for educators."""
+    if not current_user.check_educator():
+        return render_template('error404.html'), 404
     classForm = CreateName(prefix='class')
     quizForm = CreateName(prefix='quiz')
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
@@ -103,6 +107,7 @@ def createclass():
         while Group.query.filter_by(classCode=temp).first() is not None:
             temp = set_code(6)
         group = Group(name=classForm.name.data, classCode=temp)
+        group.users.append(current_user)
         db.session.add(group)
         db.session.commit()
         return redirect(url_for('createclasssuccess', groupID=group.id))
@@ -112,11 +117,13 @@ def createclass():
 def createclasssuccess(groupID):
     """Renders the create class was a success page for educators."""
     group = validate_group_link(groupID)
-    return render_template('createclasssuccess.html', title=' | Create Class')
+    return render_template('createclasssuccess.html', title=' | Create Class', group=group)
 
 @app.route('/quiz', methods=['POST'])
 def createquiz():
     """Renders the create quiz page for educators."""
+    if not current_user.check_educator():
+        return render_template('error404.html'), 404
     classForm = CreateName(prefix='class')
     quizForm = CreateName(prefix='quiz')
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
@@ -128,17 +135,21 @@ def createquiz():
 @app.route('/quiz/<int:quizID>/question', methods=['GET', 'POST'])
 def createqn(quizID):
     """Renders the add questions page for educators."""
+    if not current_user.check_educator():
+        return render_template('error404.html'), 404
     quiz = validate_quiz_link(quizID)
     form = CreateQuestion()
     if form.validate_on_submit():
-         #Commit inputs to database
-         options = (form.op1.data, form.op2.data, form.op3.data, form.op4.data)
-         topic = get_topic(form.topic.data)
-         question = add_question(form.qn.data, options, form.corrOp.data, topic.id)
-         add_question_quiz(quiz, question)
-         if form.complete.data:
-             return redirect(url_for('createquizsuccess'), quizID=quizID)
-    return render_template('createqn.html', title=' | Create Quiz', form=form)
+        #Commit inputs to database
+        options = (form.op1.data, form.op2.data, form.op3.data, form.op4.data)
+        topic = get_topic(form.topic.data)
+        question = add_question(form.qn.data, options, int(form.corrOp.data), topic.id)
+        add_question_quiz(quiz, question)
+        if form.complete.data:
+            return redirect(url_for('createquizsuccess', quizID=quizID))
+        return redirect(url_for('createqn', quizID=quizID))
+
+    return render_template('createqn.html', title=' | Create Quiz', form=form, quizID=quizID)
 
 @app.route('/quiz/<int:quizID>/success', methods=['GET'])
 def createquizsuccess(quizID):

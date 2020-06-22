@@ -1,23 +1,33 @@
-﻿{% extends "base.html" %}
+﻿{% from "_formhelpers.html" import render_error %}
+{% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="../static/content/createstyle.css">
+<link rel="stylesheet" href="{{url_for('static', filename='content/createstyle.css')}}">
 {% endblock %}
 {% block content %}
 <div class="create-class-wrapper">
     <div class="create-container">
-        <form action="" method="post" novalidate class="create-form">
+        <form action="" method="post" class="create-form">
             {{ form.hidden_tag() }}
             <h1>Create A New Quiz</h1>
             {{ form.topic(placeholder="Select Topic", class_="center") }}
+            {{ render_error(form.topic) }}
             {{ form.qn(size=32, placeholder="Input Question") }}
+            {{ render_error(form.qn) }}
             {{ form.op1(size=32, placeholder="Option 1") }}
+            {{ render_error(form.op1) }}
             {{ form.op2(size=32, placeholder="Option 2") }}
+            {{ render_error(form.op2) }}
             {{ form.op3(size=32, placeholder="Option 3") }}
+            {{ render_error(form.op3) }}
             {{ form.op4(size=32, placeholder="Option 4") }}
+            {{ render_error(form.op4) }}
             {{ form.corrOp(placeholder="Correct Option") }}
-            {{ form.img }}
+            {{ render_error(form.corrOp) }}
+            {{ form.img() }}
+            {{ render_error(form.img) }}
             {{ form.submit(class_="submit-btn") }}
             {{ form.complete(class_="submit-btn") }}
+
             <!--<select required>
         <option value="" disabled selected hidden>Select Topic</option>
         <option value="">Geometry</option>
