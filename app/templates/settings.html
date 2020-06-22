@@ -29,9 +29,11 @@
                                 <div class="image-btn" style="margin-bottom: 1rem;">
                                     {{ form.image(class_="create-btn") }}
                                 </div>
+                                {% if current_user.urole == 'student' %}
                                 <div>
                                     <a href="{{ url_for('settings_knewbie_id') }}" class="home-btn">Request A New Knewbie ID</a>
                                 </div>
+                                {% endif %}
                             </fieldset>
                         </div>
                     </li>

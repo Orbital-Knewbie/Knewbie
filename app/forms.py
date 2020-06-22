@@ -59,7 +59,7 @@ class NewPasswordForm(FlaskForm):
 
 class CreateName(FlaskForm):
     name = StringField('Title', validators=[DataRequired()])
-    submit = SubmitField('Create Class')
+    submit = SubmitField('Create')
 
 class CreateQuestion(FlaskForm):
     topic = SelectField('Select Topic', choices=[('nth', 'Select Topic'), ('Est', 'Estimation'), ('Geo', 'Geometry'), ('Model', 'Model')], validators=[DataRequired()])
