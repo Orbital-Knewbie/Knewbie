@@ -1,5 +1,5 @@
 ﻿{% block style %}
-<link rel="stylesheet" href="../static/content/leaderboardstyle.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='content/leaderboardstyle.css') }}">
 {% endblock %}
 {% block content %}
 {% include "sidebar.html" %}
@@ -7,8 +7,17 @@
     <header class="leaderboard-heading">
         <h1 class="leaderboard-title"><span>Class Leaderboard</span></h1>
     </header>
-
+    
     <main class="leaderboard-table">
+        <!--{% for user in users %}
+    <article class="leaderboard-row">
+        <h1>{{loop.index}}.</h1>
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="{{ user.firstName }} {{ user.lastName }}" class="leaderboard-img">
+        <span class="leaderboard-name">{{ user.firstName }} {{ user.lastName }}</span>
+        <a href="#" class="btn">Progress Report</a>
+    </article>
+    {% endfor %}-->
+
         <article class="leaderboard-row">
             <h1>1.</h1>
             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mark Zuckerberg" class="leaderboard-img">
@@ -65,5 +74,6 @@
             <a href="#" class="btn">Progress Report</a>
         </article>
     </main>
+    
 </div>
 {% endblock %}

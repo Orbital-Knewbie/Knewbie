@@ -4,6 +4,7 @@ from flask_login import login_user
 from app import app, db, mail
 from app.models import User
 from app.token import generate_confirmation_token
+from app.profile import set_knewbie_id
 
 
 def send_email(subject, sender, recipients, text_body, html_body):
@@ -58,13 +59,13 @@ def register(form, role):
     user = User(firstName=form.firstName.data, lastName=form.lastName.data, email=form.email.data, urole=role, confirmed=False)
     user.set_password(form.password.data)
     if role == 'student':
-        user.set_knewbie_id()
+        set_knewbie_id(user)
     db.session.add(user)
     db.session.commit()
     confirm_url = get_confirm_url(user)
     send_conf_email(user, confirm_url)
         
-    #login_user(user)
+    login_user(user)
 
     flash('A confirmation email has been sent via email.', 'success')
     #flash('Congratulations, you are now a registered user!')
@@ -74,3 +75,20 @@ def resend_conf(user):
     confirm_url = get_confirm_url(user)
     send_conf_email(user, confirm_url)
     flash('A new confirmation email has been sent.', 'success')
+
+
+def add_user():
+    remove_users()
+    if User.query.all(): return
+    user = User(firstName='test',lastName='test',email='testflask202005@gmail.com', urole='educator',confirmed=True)
+    user.set_password('test')
+    set_knewbie_id(user)
+    db.session.add(user)
+    db.session.commit()
+
+def remove_users():
+    for u in User.query.all():
+        db.session.delete(u)
+    db.session.commit()
+
+add_user()

@@ -1,6 +1,8 @@
 from app import db
-from app.models import Question, Option, Answer, Response, Proficiency, Topic
+from app.models import Question, Option, Response, Proficiency, Topic, Group, User, Quiz
 from app.cat import Student
+
+from flask_login import current_user
 
 from random import choice, shuffle
 from datetime import datetime
@@ -126,9 +128,9 @@ def clear_questions():
     for q in Option.query.all():
         db.session.delete(q)
         db.session.commit()
-    for q in Answer.query.all():
-        db.session.delete(q)
-        db.session.commit()
+    #for q in Answer.query.all():
+    #    db.session.delete(q)
+    #    db.session.commit()
 
 def clear_responses():
     for r in Response.query.all():
@@ -159,9 +161,8 @@ def add_qn(org_qns):
             db.session.add(opt)
             if b:
                 db.session.flush()
-                optID = opt.id
-                ans = Answer(qnID=qid, optID=optID)
-                db.session.add(ans)
+                qn.answerID = opt.id
+                
                 b=False
             
             db.session.commit()
@@ -170,7 +171,10 @@ add_qn(org_qns)
 
 def insert_qns():
     '''Inserts questions formatted as a json file
-    {<number>:{'answer':<extra text><answer>,'option_texts':<extra text><options>, 'question_text':<extra text><question><extra text>}}
+    {<number>:
+    {'answer':<extra text><answer>,
+    'option_texts':<extra text><options>, 
+    'question_text':<extra text><question><extra text>}}
     all are strings
     '''
     path = 'app/static/resources/questions'
@@ -196,16 +200,16 @@ def insert_qns():
                 question = Question(question=qn_text, discrimination=item[0], \
                     difficulty=item[1], guessing=item[2], upper=item[3], topicID=1)
                 db.session.add(question)
-
-                qid = Question.query.filter_by(question=qn_text).first().id
+                db.session.flush()
+                qid = question.id
 
                 for opt in options:
                     o = Option(qnID=qid, option=opt[1])
                     db.session.add(o)
                     if opt[0] == answer:
-                        optID = Option.query.filter_by(option=opt[1]).first().id
-                        ans = Answer(qnID=qid, optID=optID)
-                        db.session.add(ans)
+                        db.session.flush()
+                        optID = o.id
+                        question.answerID = optID
 
                 db.session.commit()
 
@@ -215,10 +219,10 @@ def test_insert_qns():
     questions = Question.query.all()
     for q in questions:
         options = Option.query.filter_by(qnID=q.id)
-        answer = Answer.query.filter_by(qnID=q.id).first()
+        answer = q.answerID
         print(q.question)
         for o in options:
-            if o.id == answer.optID:
+            if o.id == answer:
                 ans_opt = o
             print(o.option)
 
@@ -257,10 +261,17 @@ def submit_response(id, form):
 
     # Update topic proficiency
     qn = Question.query.filter_by(id=qnID).first()
-    topicID = qn.topicID if qn.topicID else 1
-    prof, topic_student = get_student_cat(id, topicID)
+    if qn.topicID > 1:
+        update_proficiency(qn.id, qn.topicID)
+    update_proficiency(qn.id)
+
+def update_proficiency(qnID, topicID=1):
+    qn = Question.query.filter_by(id=qnID).first()
+    prof, topic_student = get_student_cat(current_user.id, topicID)
     topic_student.update()
     prof.theta = topic_student.theta
+    if topicID == 1:
+        current_user.curr_theta = topic_student.theta
     db.session.commit()
 
 def add_proficiency(id):
@@ -291,32 +302,36 @@ def create_student_prof(userID):
         add_topic("first")
     topics = db.session.query(Topic.id).all()
     student_cat = Student(userID)
-    for topic, in topics:
+    current_user.curr_theta = student_cat.theta
+    for topic, in topics:            
         prof = Proficiency(userID=userID, timestamp=datetime.now(), 
                            theta=student_cat.theta, topicID=topic)
         db.session.add(prof)
     db.session.commit()
     return prof
 
-def add_topic(name):
-    '''Adds a topic to the database'''
-    topic = Topic(name=name)
-    db.session.add(topic)
-    db.session.commit()
 
-def add_question(qn_text, options, answer):
+
+def get_topic(name):
+    topic = Topic.query.filter_by(name=name).first()
+    if topic is None:
+        topic = add_topic(name)
+    return topic
+
+def add_question(qn_text, options, answer, topic):
     '''Adds a question to the database
     Input
     qn_text : str
     options : seq of str
     answer : int (1 to 4)
+    topic : int
     '''
     # Generate item parameters from CatSim
     item = generate_item_bank(1)[0]
 
     # Add question
     question = Question(question=qn_text, discrimination=item[0], \
-        difficulty=item[1], guessing=item[2], upper=item[3])
+        difficulty=item[1], guessing=item[2], upper=item[3], topicID = topic)
     db.session.add(question)
     db.session.flush()
 
@@ -330,13 +345,16 @@ def add_question(qn_text, options, answer):
         db.session.flush()
         if answer == 0:
             optID = o.id
-            ans = Answer(optID=optID,qnID=qnID)
-            db.session.add(ans)
+            #ans = Answer(question=qn,option=o)
+            question.answerID = optID
+            db.session.flush()
     db.session.commit()
+    return question
 
 def get_proficiencies(userID):
     '''Return list of (timestamp, proficiency) in chronological order'''
-    profs = Proficiency.query.filter_by(userID=userID,topicID=1).order_by(Proficiency.timestamp.asc()).all()
+    profs = Proficiency.query.filter_by(userID=userID,topicID=1). \
+        order_by(Proficiency.timestamp.asc()).all()
     return [(prof.timestamp, prof.theta) for prof in profs]
 
 def get_curr_prof(userID):
@@ -352,10 +370,12 @@ def get_response_answer(id):
     correct = 0
     for r in responses:
         qnID = r.qnID
-        qn_txt = Question.query.filter_by(id=qnID).first().question
+        qn = Question.query.filter_by(id=qnID).first()
+        qn_txt = qn.question
         opt = Option.query.filter_by(qnID=qnID).all()
         opt_txt = []
-        ans = Answer.query.filter_by(qnID=qnID).first().optID
+        #ans = Answer.query.filter_by(qnID=qnID).first().optID
+        ans = qn.answerID
         for i in range(len(opt)):
             opt_txt.append(opt[i].option)
             if opt[i].id == ans:
@@ -368,3 +388,89 @@ def get_response_answer(id):
 
     print(d)
     return correct, d
+
+def add_quiz(user, name):
+    quiz = Quiz(userID=user.id, name=name)
+    db.session.add(quiz)
+    db.session.commit()
+    return quiz
+
+def add_question_quiz(quiz, question):
+    quiz.questions.append(question)
+    db.session.commit()
+
+def remove_question(question):
+    options = question.options
+    responses = question.responses
+    question.quizzes = []
+    db.session.delete(question)
+    for o in options:
+        db.session.delete(o)
+    for r in responses:
+        db.session.delete(r)
+    db.session.commit()
+
+def remove_question_quiz(question, quiz):
+    quiz.questions.remove(question)
+    db.session.commit()
+
+def add_quiz_group(group, quiz):
+    group.quizzes.append(quiz)
+    db.session.commit()
+
+def get_question_quiz(quiz, pre_shuffle=False):
+    '''Gets dictionary of questions belonging to a quiz
+    Format - 
+    {question_txt :
+        {
+            {options :
+                {optionID : option_txt, 
+                ...}
+            ,
+            answer : optionID}
+        },
+    ...
+    }
+    '''
+    d = {}
+    questions = quiz.questions
+    for question in questions:
+        qn_txt = question.question
+        options = question.options
+        if pre_shuffle:
+            shuffle(options)
+        opt_txt = {option.id : option.option for option in options}
+        d[qn_txt] = {'options' : opt_txt, 'answer' : question.answerID}
+    return d
+
+
+def validate_quiz_link(quizID):
+    return Quiz.query.filter_by(id=quizID,userID=current_user.id).first_or_404()
+
+
+def add_topic(name):
+    '''Adds a topic to the database'''
+    topic = Topic(name=name)
+    db.session.add(topic)
+    db.session.commit()
+    return topic
+
+def remove_topics():
+    topics = Topic.query.all()
+    for t in topics:
+        db.session.delete(t)
+    db.session.commit()
+
+def add_test_topics():
+    remove_topics()
+    if Topic.query.all(): return
+    topics = ('General', 'Estimation', 'Geometry', 'Model')
+    for topic in topics:
+        add_topic(topic)
+
+add_test_topics()
+
+
+def get_leaderboard(groupID):
+    return User.query.filter_by(urole='student'). \
+        filter(User.groups.any(id=groupID)).order_by(User.curr_theta.desc()).all()

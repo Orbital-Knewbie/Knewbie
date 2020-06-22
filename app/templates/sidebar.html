@@ -1,6 +1,6 @@
 ﻿{% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="../static/content/sidebarstyle.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='content/sidebarstyle.css') }}">
 {% endblock %}
 {% block content %}
 <div class="sidebar">
@@ -11,15 +11,15 @@
         <p>Knewbie ID: {{ current_user.knewbie_id }} </p>
         {% endif %}
     </div>
-    <h2>Class code: number</h2>
+    <h2>Class code: {{ group.classCode }}</h2>
     <a href="#" style="margin-top: 2rem;"><i class="fas fa-bell"></i><span>Notifications</span></a>
     <a href="#"><i class="fas fa-edit"></i><span>Quizzes</span></a>
-    <a href="#"><i class="fas fa-comments"></i><span>Forum</span></a>
-    <a href="{{ url_for('leaderboard') }}"><i class="fas fa-list"></i><span>Leaderboard</span></a>
+    <a href="{{ url_for('forum', groupID=group.id) }}"><i class="fas fa-comments"></i><span>Forum</span></a>
+    <a href="{{ url_for('leaderboard', groupID=group.id) }}"><i class="fas fa-list"></i><span>Leaderboard</span></a>
     <div class="separator"></div>
     {% if current_user.urole == 'educator' %}
     <a href="#"><i class="fas fa-users"></i><span>Edit Participants</span></a>
-    <a href="{{ url_for('update_class_code') }}"><i class="fas fa-font"></i><span>Change Class Code</span></a>
+    <a href="{{ url_for('update_class_code', groupID=group.id) }}"><i class="fas fa-font"></i><span>Change Class Code</span></a>
     <div class="separator"></div>
     {% endif %}
     <a href="{{ url_for('settings') }}"><i class="fas fa-cogs"></i><span>Settings</span></a>

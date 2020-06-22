@@ -11,10 +11,10 @@ wsgi_app = app.wsgi_app
 
 @app.shell_context_processor
 def make_shell_context():
-    return {'db': db, 'User': User, 'Question' : Question, 'Answer': Answer, 
-            'Option' : Option, 'Response' : Response, 'UserGroup' : UserGroup,
+    return {'db': db, 'User': User, 'Question' : Question, 
+            'Option' : Option, 'Response' : Response,
             'Group' : Group, 'Post' : Post, 'Thread' : Thread, 
-            'Proficiency' : Proficiency, 'QuestionQuiz' : QuestionQuiz,
+            'Proficiency' : Proficiency,
             'Quiz' : Quiz, 'Topic' : Topic}
 
 with app.app_context():

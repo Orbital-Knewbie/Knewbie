@@ -17,6 +17,7 @@
     <Name>Knewbie1</Name>
     <RootNamespace>Knewbie1</RootNamespace>
     <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+    <TestFramework>unittest</TestFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +46,9 @@
     <Compile Include="app\decorator.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\group.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\profile.py">
       <SubType>Code</SubType>
     </Compile>
@@ -70,12 +74,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="migrations\env.py" />
-    <Compile Include="migrations\versions\88c831d8fa3c_proficiency.py" />
-    <Compile Include="migrations\versions\92b7ff614ece_init_db.py" />
-    <Compile Include="migrations\versions\c20ddc19ef83_.py" />
-    <Compile Include="migrations\versions\421de422462f_.py" />
-    <Compile Include="migrations\versions\a565ea52cf5e_init_db.py" />
+    <Compile Include="migrations\versions\ce0fd590d7b2_init_db.py" />
     <Compile Include="run.py" />
+    <Compile Include="tests\test_1.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
@@ -118,6 +121,7 @@
     <Content Include="app\static\content\style.css" />
     <Content Include="app\templates\changepassword.html" />
     <Content Include="app\templates\createqn.html" />
+    <Content Include="app\templates\classquizzes.html" />
     <Content Include="app\templates\leaderboard.html" />
     <Content Include="app\templates\sidebar.html" />
     <Content Include="app\templates\createclasssuccess.html" />
@@ -150,6 +154,7 @@
     <Content Include="app\templates\contact.html" />
     <Content Include="app\templates\forum.html" />
     <Content Include="app\templates\deactivate.html" />
+    <Content Include="app\templates\_formhelpers.html" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.png" />
     <Content Include="docs\diagrams\Architecture.png" />
     <Content Include="docs\diagrams\ArchitectureSequence.png" />
@@ -169,6 +174,7 @@
     <Content Include="docs\diagrams\QuizSequence.puml" />
     <Content Include="docs\diagrams\ContactSequence.puml" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.puml" />
+    <Content Include="docs\diagrams\QuizEntity.puml" />
     <Content Include="docs\diagrams\UserEntity.png" />
     <Content Include="docs\diagrams\UserEntity.puml" />
     <Content Include="docs\diagrams\View.png" />
@@ -204,7 +210,6 @@
     <Content Include="docs\DevPractices.md" />
     <Content Include="docs\UserGuide-Educator.md" />
     <Content Include="migrations\alembic.ini" />
-    <Content Include="migrations\env.pyc" />
     <Content Include="migrations\README" />
     <Content Include="migrations\script.py.mako" />
     <Content Include="README.md" />
@@ -237,9 +242,10 @@
     <Folder Include="app\templates\errors\" />
     <Folder Include="docs\diagrams\" />
     <Folder Include="docs\images\" />
+    <Folder Include="docs\" />
     <Folder Include="migrations\" />
     <Folder Include="migrations\versions\" />
-    <Folder Include="docs\" />
+    <Folder Include="tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 

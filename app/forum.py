@@ -1,63 +1,80 @@
+from flask import redirect, url_for
 from flask_login import current_user
 from app import db
-from app.models import Group, UserGroup, Post, Thread, User
+from app.models import Group, Post, Thread, User, Quiz
+from app.profile import set_class_code
 from datetime import datetime
 
 def validate_group_link(groupID):
-    group = Group.query.filter_by(id=groupID).first_or_404()
-    if UserGroup.query.filter_by(userID=current_user.id, groupID=groupID).first() is not None:
-        return group
+    return Group.query.filter_by(id=groupID).filter(Group.users.any(id=current_user.id)).first_or_404()
 
-def save_post(form):
-    post = Post(userID=current_user.id, threadID=threadID, 
-                    timestamp=datetime.datetime.now(), 
-                    title=form.title, content=form.post)
+def validate_post_link(groupID, threadID, postID):
+    # Check validity of link access first
+    group = validate_group_link(groupID)
+    if group is None:
+        return 
+    thread = Thread.query.filter_by(id=threadID,groupID=groupID).first_or_404()
+    post = Post.query.filter_by(id=postID,threadID=threadID).first_or_404()
+    if current_user.id != post.userID and current_user.urole != 'educator':
+        return 
+    return post
+
+def save_post(form, threadID):
+    post = Post(user=current_user, threadID=threadID, 
+                timestamp=datetime.now(), content=form.post.data)
     db.session.add(post)
     db.session.commit()
 
 
 def create_group(user, name):
     group = Group(name=name)
-    db.session.add(group)
-    db.session.flush()
+    set_class_code(group)
     add_participant(user, group)
     
     db.session.commit()
     return group
 
 def add_participant(user, group):
-    usergroup = UserGroup(userID=user.id,groupID=group.id)
-    db.session.add(usergroup)
-    db.session.commit()
-    return usergroup
+    group.users.append(user)
+    db.session.add(group)
 
 def create_thread(user, group, title, content):
-    thread = Thread(groupID=group.id,timestamp=datetime.now(), title=title)
+    thread = Thread(group=group,timestamp=datetime.now(), title=title)
     db.session.add(thread)
     db.session.flush()
 
-    post = Post(userID=user.id, threadID=thread.id, timestamp=datetime.now(), content=content)
+    post = Post(user=user, thread=thread, timestamp=datetime.now(), content=content)
     
     db.session.add(post)
     db.session.commit()
 
-#def add_test_forum():
-#    clear_test_forum()
-#    user = User.query.first()
-#    group = create_group(user, "first")
-#    add_participant(user, group)
-#    create_thread(user, group, "first thread", "first post")
+def add_test_forum():
+    clear_test_forum()
+    user = User.query.first()
+    if user is None: return
+    group = create_group(user, "first")
+    add_participant(user, group)
+    create_thread(user, group, "first thread", "first post")
 
-#def clear_test_forum():
-#    g = Group.query.all()
-#    ug = UserGroup.query.all()
-#    t = Thread.query.all()
-#    p = Post.query.all()
-#    g.extend(ug)
-#    g.extend(t)
-#    g.extend(p)
-#    for i in g:
-#        db.session.delete(i)
-#    db.session.commit()
+def clear_test_forum():
+    g = Group.query.all()
+    t = Thread.query.all()
+    p = Post.query.all()
+    q = Quiz.query.all()
+    g.extend(t)
+    g.extend(p)
+    g.extend(q)
+    for i in g:
+        db.session.delete(i)
+    db.session.commit()
 
-#add_test_forum()
+add_test_forum()
+
+def get_post_users(posts):
+    '''Return user names as userID, name pairs in a dictionary'''
+    users = {}
+    for post in posts:
+        if post.userID in users: continue
+        user = User.query.filter_by(id=post.userID).first()
+        users[post.userID] = ' '.join((user.firstName,user.lastName))
+    return users

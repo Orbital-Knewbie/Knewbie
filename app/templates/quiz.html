@@ -1,6 +1,6 @@
 ﻿{% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="../static/content/quizstyle.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='content/quizstyle.css') }}">
 {% endblock %}
 {% block content %}
 <div class="quiz-container">
@@ -12,7 +12,7 @@
             <ol>
                 {% for o in options %}
                 <li class="options-container" id="options-container">
-                    <p class="options-prefix">{{o}}</p>
+                    <p class="options-prefix">{{loop.index}}</p>
                     <label>
                         <input type="radio" class="options" name="option" id="{{o}}" value="{{o}}">
                         <span>{{options[o]}}</span>

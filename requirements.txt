@@ -33,7 +33,6 @@ psycopg2-binary==2.8.5
 pycparser==2.20
 PyJWT==1.7.1
 pyparsing==2.4.7
-pysqlite3==0.4.3
 python-dateutil==2.8.1
 python-editor==1.0.4
 requests==2.23.0

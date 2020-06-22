@@ -1,4 +1,4 @@
-from app.models import User, Question, Option, Answer, Response
+from app.models import User, Question, Option, Response
 from app import db
 
 from catsim.simulation import *
@@ -49,7 +49,7 @@ class Student(object):
         
         self.theta = new_theta
 
-        return item_index
+        return item_index + 1
 
     def get_next_question(self):
         '''Get the next Question to be administered to the Student'''
@@ -83,4 +83,4 @@ class Student(object):
         if self.topic == 1:
             return Question.query.all()
         else:
-            return Question.query.filter_by(topic=self.topic).all()
+            return Question.query.filter_by(topicID=self.topic).all()
