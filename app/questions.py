@@ -474,3 +474,21 @@ add_test_topics()
 def get_leaderboard(groupID):
     return User.query.filter_by(urole='student'). \
         filter(User.groups.any(id=groupID)).order_by(User.curr_theta.desc()).all()
+
+
+def get_level_proficiency(user):
+    '''Returns a list of proficiency levels for each difficulty range
+    Given in the range 0-1 for each difficulty
+    [easy_level, med_level, hard_level]'''
+    r=Response.query.filter_by(userID=user.id)
+    easy = r.filter(Question.difficulty < -1.33).all()
+    med = r.filter(Question.difficulty.between(-1.33,1.33)).all()
+    hard = r.filter(Question.difficulty > 1.33).all()
+    prof_lvl = []
+    for diff in (easy,med,hard):
+        if not diff:
+            prof_lvl.append(0)
+        else:
+            correct = tuple(filter(lambda x: x.is_correct(), diff))
+            prof_lvl.append(correct/len(diff))
+    return prof_lvl
