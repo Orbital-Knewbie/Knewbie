@@ -42,29 +42,31 @@ def home():
 @app.route('/progressreport/<int:knewbie_id>', methods=['GET','POST'])
 def get_report():
     """Renders the class page for students/educators."""
-    loginForm = CreateName(prefix='login')
-    codeForm = CreateName(prefix='code')
+    loginForm = LoginForm(prefix='login')
+    codeForm = CodeForm(prefix='code')
     if codeForm.validate_on_submit():
         code = User.query.filter_by(knewbie_id=codeForm.code.data).first()
         if code is None:
             flash('Invalid code')
             return redirect(url_for('home'))
-    return redirect(url_for('progressreport'))
+        return redirect(url_for('progressreport', knewbieID=codeForm.code.data))
+    return render_template('index.html', loginForm=loginForm, codeForm=codeForm)
 
 @app.route('/dashboard')
 def dashboard():
     """Renders the dashboard page."""
     codeForm = CodeForm(prefix='code')
-    classForm = CreateName(prefix='class')
-    quizForm = CreateName(prefix='quiz')
+    classForm = NameForm(prefix='class')
+    quizForm = NameForm(prefix='quiz')
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
     return render_template('dashboard.html', image_file=image_file, classForm=classForm, quizForm=quizForm, codeForm=codeForm)
 
+@app.route('/class/join', methods=['POST'])
 def join_class():
     """Allows users to join a class in which they have access to the codes."""
     codeForm = CodeForm(prefix='code')
-    classForm = CreateName(prefix='class')
-    quizForm = CreateName(prefix='quiz')
+    classForm = NameForm(prefix='class')
+    quizForm = NameForm(prefix='quiz')
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
     if codeForm.validate_on_submit():
         groupCode = Group.query.filter_by(classCode=codeForm.code.data).first()
@@ -120,7 +122,7 @@ def faq():
     return render_template('faq.html', title=' | FAQ')
 
 @app.route('/progressreport/<int:knewbie_id>')
-def progressreport(code):
+def progressreport(knewbie_id):
     """Renders the report page."""
     id = User.query.filter_by(knewbie_id=code).first()
     if id is None:
@@ -133,8 +135,8 @@ def createclass():
     """Renders the create class page for educators."""
     if not current_user.check_educator():
         return render_template('error404.html'), 404
-    classForm = CreateName(prefix='class')
-    quizForm = CreateName(prefix='quiz')
+    classForm = NameForm(prefix='class')
+    quizForm = NameForm(prefix='quiz')
     codeForm = CodeForm(prefix='code')
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
     if classForm.validate_on_submit():
@@ -386,7 +388,7 @@ def edit_post(groupID,threadID,postID):
     return render_template('posts.html', title=' | Forum', form=form, editpost=post)
 
 # Routes to delete class
-@app.route("/delete/class", methods=['GET', 'POST'])
+@app.route('class/delete', methods=['GET', 'POST'])
 @login_required
 def delete_class():
      form = DeleteClassForm()

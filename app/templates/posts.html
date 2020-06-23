@@ -1,3 +1,4 @@
+﻿{% from "_formhelpers.html" import render_error %}
 ﻿{% extends "base.html" %}
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='content/poststyle.css') }}">
@@ -38,17 +39,13 @@
                     {% if form.title %}
                     {{ form.title() }}
                     {{ form.title.label }}
-                    {% for error in form.title.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
+                    {% render_error(form.title) %}
                     {% endif %}
                     <div class="underline"></div>
                 </div>
                 <div class="input-container">
                      {{ form.post(cols=37, rows=8, class_="textarea", placeholder="Enter your message!") }}
-                     {% for error in form.post.errors %}
-                     <span style="color: red;">[{{ error }}]</span>
-                     {% endfor %}
+                     {% render_error(form.post) %}
                 </div>
                 {{ form.submit(class_="post-btn") }}
             </form>
