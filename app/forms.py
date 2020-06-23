@@ -61,6 +61,9 @@ class CreateName(FlaskForm):
     name = StringField('Title', validators=[DataRequired()])
     submit = SubmitField('Create')
 
+class CodeForm(FlaskForm):
+    code = StringField('Enter Code', validators=[DataRequired()])
+
 class CreateQuestion(FlaskForm):
     topic = SelectField('Select Topic', choices=[(0, 'Select Topic'), \
         *[(topic.id, topic.name) for topic in Topic.query.all()]], validators=[DataRequired()], coerce=int)
