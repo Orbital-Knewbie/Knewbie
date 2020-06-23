@@ -1,3 +1,4 @@
+﻿{% from "_formhelpers.html" import render_error %}
 ﻿{% extends "base.html" %}
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='content/deactstyle.css') }}">
@@ -8,9 +9,7 @@
     <h1>Delete Class</h1>
     <div class="input-field">
         {{ form.code(size=32, placeholder="Class Code") }}
-        <p>{% for error in form.code.errors %}</p>
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
+        {{ render_error(form.code) }}
     </div>
     <p>All information associated with the class will be deleted and the action is irrevocable.</p>
     <p>To confirm deletion, enter the class code.</p>
