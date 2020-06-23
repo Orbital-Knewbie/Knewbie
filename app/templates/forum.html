@@ -21,7 +21,7 @@
     {% for thread in threads %}
     <div class="post-title">
         <a href="{{ url_for('forum_post', groupID=groupID, threadID=thread.id) }} ">
-            <h1>{{thread.title}}</h1>
+            <h1>{{post.title}}</h1>
             <h4>Thread content maybe?</h4>
         </a>
     </div>

@@ -126,6 +126,7 @@
     <Content Include="app\templates\classquizzes.html" />
     <Content Include="app\templates\deleteclass.html" />
     <Content Include="app\templates\leaderboard.html" />
+    <Content Include="app\templates\participants.html" />
     <Content Include="app\templates\sidebar.html" />
     <Content Include="app\templates\createclasssuccess.html" />
     <Content Include="app\templates\createquizsuccess.html" />

@@ -399,6 +399,19 @@ def delete_class():
 #    I will leave the backend to you xD
 #    return render_template('dashboard.html')
 
+# Routes to edit participants list
+@app.route("/class/participants", methods=['GET', 'POST'])
+@login_required
+def edit_participants(groupID):
+    group = validate_group_link(groupID)
+    users = get_leaderboard(groupID)
+    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+     #form = DeleteClassForm()
+     #if form.validate_on_submit():
+     #    code = Group.query.filter_by(classCode = form.code.data).first()
+     #    return redirect(url_for('delete_class_confirm'))
+    return render_template('participants.html', title=' | Edit Participants', users=users, group=group)
+
 
 # Routes for Quiz
 @app.route('/quiz', methods=['GET', 'POST'])

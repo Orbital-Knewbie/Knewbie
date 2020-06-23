@@ -8,14 +8,14 @@ body {
 }
 
 .post-heading {
-    padding: 2rem 0;
+    padding: 1rem 0;
     text-align: center;
     letter-spacing: 2px;
 }
 
 .post-heading h1 {
-    margin: 4.5rem 0 1rem 0;
-    font-size: 4rem;
+    margin: 1rem 0 1.5rem 0;
+    font-size: 3rem;
     font-weight: 300;
 }
 
@@ -23,7 +23,7 @@ body {
     position: relative;
     max-width: 460px;
     width: 100%;
-    margin: 0 auto 100px;
+    margin: 3rem auto 0 auto;
 }
 
 .post-form {
@@ -42,7 +42,6 @@ body {
     border-left: 5px solid var(--LIGHTPURPLE);
     color: var(--LIGHTPURPLE);
     padding: 1rem 0;
-    margin-bottom: 3rem;
     font-size: 2rem;
     font-weight: 500;
     text-transform: uppercase;
