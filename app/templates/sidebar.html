@@ -10,8 +10,8 @@
         {% if current_user.urole == 'student' %}
         <p>Knewbie ID: {{ current_user.knewbie_id }} </p>
         {% endif %}
+        <h2>Class code: {{ group.classCode }}</h2>
     </div>
-    <h2>Class code: {{ group.classCode }}</h2>
     <a href="#" style="margin-top: 2rem;"><i class="fas fa-bell"></i><span>Notifications</span></a>
     <a href="#"><i class="fas fa-edit"></i><span>Quizzes</span></a>
     <a href="{{ url_for('forum', groupID=group.id) }}"><i class="fas fa-comments"></i><span>Forum</span></a>
@@ -20,6 +20,8 @@
     {% if current_user.urole == 'educator' %}
     <a href="#"><i class="fas fa-users"></i><span>Edit Participants</span></a>
     <a href="{{ url_for('update_class_code', groupID=group.id) }}"><i class="fas fa-font"></i><span>Change Class Code</span></a>
+    <div class="separator"></div>
+    <a href="{{ url_for('delete_class') }}"><i class="fas fa-trash"></i><span>Delete Class</span></a>
     <div class="separator"></div>
     {% endif %}
     <a href="{{ url_for('settings') }}"><i class="fas fa-cogs"></i><span>Settings</span></a>

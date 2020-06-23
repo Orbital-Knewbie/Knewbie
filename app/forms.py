@@ -111,3 +111,7 @@ class PostForm(FlaskForm):
 
 class ThreadForm(PostForm):
     title = StringField('Title', validators=[DataRequired()])
+
+class DeleteClassForm(FlaskForm):
+    code = StringField('Class Code', validators=[DataRequired()])
+    submit = SubmitField('DELETE CLASS')

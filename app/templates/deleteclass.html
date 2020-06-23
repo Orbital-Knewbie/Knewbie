@@ -5,15 +5,15 @@
 {% block content %}
 <form class="deact-form" action="" method="post">
     {{ form.hidden_tag() }}
-    <h1>Deactivate Account</h1>
+    <h1>Delete Class</h1>
     <div class="input-field">
-        {{ form.email(size=32, placeholder="Email") }}
-        <p>{% for error in form.email.errors %}</p>
+        {{ form.code(size=32, placeholder="Class Code") }}
+        <p>{% for error in form.code.errors %}</p>
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
     </div>
-    <p>All information associated with your account will be deleted and the action is irrevocable.</p>
-    <p>To confirm deactivation, enter your email.</p>
+    <p>All information associated with the class will be deleted and the action is irrevocable.</p>
+    <p>To confirm deletion, enter the class code.</p>
     {{ form.submit(class_="deact-btn") }}
 </form>
 {% endblock %}

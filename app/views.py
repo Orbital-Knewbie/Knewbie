@@ -277,7 +277,8 @@ def forum(groupID):
     if group is None:
         return redirect(url_for('dashboard'))
     threads = Thread.query.filter_by(groupID=groupID).all()
-    return render_template('forum.html', title=' | Forum', groupID=groupID, threads=threads)
+    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    return render_template('forum.html', title=' | Forum', groupID=groupID, threads=threads, group=group, image_file=image_file)
 
 @app.route('/class/<int:groupID>/forum/thread/<int:threadID>', methods=['GET', 'POST'])
 def forum_post(groupID, threadID):
@@ -348,6 +349,21 @@ def edit_post(groupID,threadID,postID):
         return redirect(url_for('forum_post', groupID=groupID,threadID=threadID))
 
     return render_template('posts.html', title=' | Forum', form=form, editpost=post)
+
+# Routes to delete class
+@app.route("/delete/class", methods=['GET', 'POST'])
+@login_required
+def delete_class():
+     form = DeleteClassForm()
+     if form.validate_on_submit():
+         code = Group.query.filter_by(classCode = form.code.data).first()
+         return redirect(url_for('delete_class_confirm'))
+     return render_template('deleteclass.html', title=' | Deactivate Account', form=form)
+
+#def delete_class_confirm():
+#    I will leave the backend to you xD
+#    return render_template('dashboard.html')
+
 
 # Routes for Quiz
 @app.route('/quiz', methods=['GET', 'POST'])
