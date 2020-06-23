@@ -1,6 +1,6 @@
 ﻿{% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='content/dashboardstyle.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='content/poststyle.css') }}">
 {% endblock %}
 {% block content %}
 <div>
@@ -16,7 +16,7 @@
         <h2> {{ users[post.userID] }} said:</h2>
         {% if current_user.id == post.userID or current_user.urole == 'educator' %}
         <a href="{{url_for('delete_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}}">Delete Post</a>
-        <a href="{{url_for('edit_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}} ">Edit Post</a>
+        <a href="{{url_for('edit_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}}">Edit Post</a>
         {% endif %}
 
         <div> {{ post.content }} </div>
@@ -25,25 +25,34 @@
 
     {% endif %}
     {% endif %}
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {% if form.title %}
-            {{ form.title.label }}<br>
-            {{ form.title() }}<br>
-            {% for error in form.title.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-            {% endif %}
+    <div class="post-heading">
+        <h1>Create A New Post</h1>
+    </div>
 
-            {{ form.post.label }}<br>
-            {{ form.post(cols=32, rows=4) }}<br>
-            {% for error in form.post.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
-
+    <div class="form-container">
+        <div class="post-form">
+            <h1 class="form-heading">Post An Announcement/Question!</h1>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <div class="input-container">
+                    {% if form.title %}
+                    {{ form.title() }}
+                    {{ form.title.label }}
+                    {% for error in form.title.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                    {% endif %}
+                    <div class="underline"></div>
+                </div>
+                <div class="input-container">
+                     {{ form.post(cols=37, rows=8, class_="textarea", placeholder="Enter your message!") }}
+                     {% for error in form.post.errors %}
+                     <span style="color: red;">[{{ error }}]</span>
+                     {% endfor %}
+                </div>
+                {{ form.submit(class_="post-btn") }}
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

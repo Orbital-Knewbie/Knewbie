@@ -1,6 +1,6 @@
 ﻿{% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="../static/content/deactstyle.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='content/deactstyle.css') }}">
 {% endblock %}
 {% block content %}
 <form class="deact-form" action="" method="post">

@@ -110,7 +110,7 @@ class UpdateProfileForm(FlaskForm):
 
 class PostForm(FlaskForm):
     post = TextAreaField('Say something', validators=[DataRequired()])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Post')
 
 class ThreadForm(PostForm):
     title = StringField('Title', validators=[DataRequired()])

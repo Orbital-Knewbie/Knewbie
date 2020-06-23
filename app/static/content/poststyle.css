@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+body {
+    background: var(--OFFWHITE);
+    color: var(--LIGHTPURPLE);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+}
+
+.post-heading {
+    padding: 2rem 0;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.post-heading h1 {
+    margin: 4.5rem 0 1rem 0;
+    font-size: 4rem;
+    font-weight: 300;
+}
+
+.form-container {
+    position: relative;
+    max-width: 460px;
+    width: 100%;
+    margin: 0 auto 100px;
+}
+
+.post-form {
+    position: relative;
+    background: white;
+    border-radius: 0.4rem;
+    padding: 5rem 0 3.2rem 0;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.form-heading {
+    position: relative;
+    z-index: 1;
+    border-left: 5px solid var(--LIGHTPURPLE);
+    color: var(--LIGHTPURPLE);
+    padding: 1rem 0;
+    margin-bottom: 3rem;
+    font-size: 2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.input-container {
+    position: relative;
+    margin: 0 6rem 5rem;
+}
+
+.input-container input {
+    outline: none;
+    z-index: 1;
+    position: relative;
+    background: none;
+    width: 100%;
+    height: 40px;
+    border: 0;
+    color: var(--LIGHTPURPLE);
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.input-container label {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    color: var(--GREY);
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 60px;
+    transition: 0.4s ease;
+}
+
+.input-container input:focus ~ label, .input-container input:valid ~ label {
+    color: var(--PURPLE);
+    transform: translate(-12%, -40%) scale(0.85);
+}
+
+
+.input-container .underline {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: var(--GREY);
+    width: 100%;
+    height: 1px;
+}
+
+.input-container .underline:before {
+    content: '';
+    position: absolute;
+    background: linear-gradient(to right, var(--LIGHTPURPLE), var(--PURPLE));
+    width: 0;
+    height: 3px;
+    transition: .4s ease;
+}
+
+.input-container input:focus ~ .underline:before {
+    width: 100%;
+}
+
+.input-container .underline:before {
+    right: 0%;
+}
+
+.textarea {
+    color: var(--LIGHTPURPLE);
+    resize: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem;
+}
+
+.post-btn {
+    display: inline-block;
+    position: relative;
+    margin: 1rem auto;
+    padding: 1rem 4rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border: none;
+    border-radius: .4rem;
+    background: var(--LIGHTPURPLE);
+    color: var(--OFFWHITE);
+    box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
+    outline: none;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+.post-btn:hover {
+    background: var(--OFFWHITE);
+    border: 1px solid var(--LIGHTPURPLE);
+    color: var(--LIGHTPURPLE);
+}
+
+.post-btn:active {
+    transform: scale(0.95);
+}
