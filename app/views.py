@@ -7,8 +7,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db, mail
 from app.models import User, Question, Option, Response, Group, Thread, Post, Proficiency, Quiz
 from app.forms import *
-from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer, get_question_quiz
-from app.questions import add_quiz, add_question, add_question_quiz, get_topic, validate_quiz_link, get_leaderboard
+from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer, get_question_quiz, edit_question
+from app.questions import add_quiz, add_question, add_question_quiz, get_topic, validate_quiz_link, get_leaderboard, validate_qn_link
 from app.email import register, resend_conf, send_contact_email, send_reset_email, send_deactivate_email
 from app.profile import update_image, set_code
 from app.forum import validate_group_link, save_post, validate_post_link, get_post_users, validate_code_link, add_participant
@@ -152,7 +152,7 @@ def preview_quiz(quizID):
         return render_template('error404.html'), 404
     quiz = validate_quiz_link(quizID)
     questions = get_question_quiz(quiz)
-    return render_template('classquizzes.html', title=' | Create Class', questions=questions)
+    return render_template('classquizzes.html', title=' | Create Class', questions=questions, quiz=quiz)
 
 @app.route('/quiz/create', methods=['POST'])
 @login_required
@@ -179,8 +179,7 @@ def createqn(quizID):
     if form.validate_on_submit():
         #Commit inputs to database
         options = (form.op1.data, form.op2.data, form.op3.data, form.op4.data)
-        topic = get_topic(form.topic.data)
-        question = add_question(form.qn.data, options, int(form.corrOp.data), topic.id)
+        question = add_question(form.qn.data, options, form.corrOp.data, form.topic.data)
         add_question_quiz(quiz, question)
         if form.complete.data:
             return redirect(url_for('createquizsuccess', quizID=quizID))
@@ -199,24 +198,24 @@ def editqn(qnID):
 
     if request.method == 'GET':
         topic = get_topic(qn.topicID)
-        form.topic.data = topic
+        topicID = topic.id if topic else 0
+        form.topic.data = topicID
         form.qn.data = qn.question
         options = [option.option for option in qn.options]
         form.op1.data, form.op2.data, form.op3.data, form.op4.data = options
         for i in range(len(options)):
-            if options[i].id == qn.answerID:
+            if qn.options[i].id == qn.answerID:
                 form.corrOp.data = i + 1
                 break
 
     if form.validate_on_submit():
         #Commit inputs to database
         options = (form.op1.data, form.op2.data, form.op3.data, form.op4.data)
-        topic = get_topic(form.topic.data)
-        edit_question(question, form.qn.data, options, form.corrOp.data, topic.id)
+        edit_question(qn, form.qn.data, options, form.corrOp.data, form.topic.data)
+        flash('Question Edited Successfully!')
+        return redirect(url_for('dashboard'))
 
-        return redirect(url_for('createquizsuccess', quizID=quizID))
-
-    return render_template('createqn.html', title=' | Create Quiz', form=form, quizID=quizID, edit=True)
+    return render_template('createqn.html', title=' | Create Quiz', form=form, edit=True)
 
 @app.route('/quiz/<int:quizID>/success', methods=['GET'])
 @login_required

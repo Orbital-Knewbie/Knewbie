@@ -312,11 +312,9 @@ def create_student_prof(userID):
 
 
 
-def get_topic(name):
-    topic = Topic.query.filter_by(name=name).first()
-    if topic is None:
-        topic = add_topic(name)
-    return topic
+def get_topic(id):
+    return Topic.query.filter_by(id=id).first()
+
 
 def add_question(qn_text, options, answer, topicID):
     '''Adds a question to the database

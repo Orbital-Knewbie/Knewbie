@@ -8,7 +8,11 @@
     <div class="create-container">
         <form action="" method="post" class="create-form">
             {{ form.hidden_tag() }}
+            {% if edit %}
+            <h1>Edit Question</h1>
+            {% else %}
             <h1>Create A New Quiz</h1>
+            {% endif %}
             {{ form.topic(placeholder="Select Topic", class_="center") }}
             {{ render_error(form.topic) }}
             {{ form.qn(size=32, placeholder="Input Question") }}
@@ -25,12 +29,10 @@
             {{ render_error(form.corrOp) }}
             {{ form.img() }}
             {{ render_error(form.img) }}
-            {% if edit %}
-            {{ form.submit(label='Save',class_="submit-btn") }}
-            {% else %}
+            {% if not edit %}
             {{ form.submit(class_="submit-btn") }}
-            {{ form.complete(class_="submit-btn") }}
             {% endif %}
+            {{ form.complete(class_="submit-btn") }}
             <!--<select required>
         <option value="" disabled selected hidden>Select Topic</option>
         <option value="">Geometry</option>
