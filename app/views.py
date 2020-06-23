@@ -95,9 +95,18 @@ def faq():
     return render_template('faq.html', title=' | FAQ')
 
 @app.route('/progressreport')
-def progressreport():
+@app.route('/progressreport/<knewbieID>')
+def progressreport(knewbieID=None):
     """Renders the report page."""
-    return render_template('report.html', title=' | Progress Report')
+    if knewbieID is None:
+        if not current_user.is_authenticated:
+            return redirect(url_for('login'))
+        elif current_user.urole == 'educator':
+            return redirect(url_for('dashboard'))
+        user = current_user
+    else:
+        user = User.query.filter_by(knewbie_id=knewbieID).first_or_404()
+    return render_template('report.html', title=' | Progress Report', user=user)
 
 @app.route('/class/join', methods=['POST'])
 @login_required
@@ -178,6 +187,36 @@ def createqn(quizID):
         return redirect(url_for('createqn', quizID=quizID))
 
     return render_template('createqn.html', title=' | Create Quiz', form=form, quizID=quizID)
+
+@app.route('/question/<int:qnID>/edit', methods=['GET', 'POST'])
+@login_required
+def editqn(qnID):
+    """Renders the edit questions page for educators."""
+    if not current_user.check_educator():
+        return render_template('error404.html'), 404
+    qn = validate_qn_link(qnID, current_user.id)
+    form = CreateQuestion()
+
+    if request.method == 'GET':
+        topic = get_topic(qn.topicID)
+        form.topic.data = topic
+        form.qn.data = qn.question
+        options = [option.option for option in qn.options]
+        form.op1.data, form.op2.data, form.op3.data, form.op4.data = options
+        for i in range(len(options)):
+            if options[i].id == qn.answerID:
+                form.corrOp.data = i + 1
+                break
+
+    if form.validate_on_submit():
+        #Commit inputs to database
+        options = (form.op1.data, form.op2.data, form.op3.data, form.op4.data)
+        topic = get_topic(form.topic.data)
+        edit_question(question, form.qn.data, options, form.corrOp.data, topic.id)
+
+        return redirect(url_for('createquizsuccess', quizID=quizID))
+
+    return render_template('createqn.html', title=' | Create Quiz', form=form, quizID=quizID, edit=True)
 
 @app.route('/quiz/<int:quizID>/success', methods=['GET'])
 @login_required

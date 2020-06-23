@@ -25,9 +25,12 @@
             {{ render_error(form.corrOp) }}
             {{ form.img() }}
             {{ render_error(form.img) }}
+            {% if edit %}
+            {{ form.submit(label='Save',class_="submit-btn") }}
+            {% else %}
             {{ form.submit(class_="submit-btn") }}
             {{ form.complete(class_="submit-btn") }}
-
+            {% endif %}
             <!--<select required>
         <option value="" disabled selected hidden>Select Topic</option>
         <option value="">Geometry</option>

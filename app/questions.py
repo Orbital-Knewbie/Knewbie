@@ -318,7 +318,7 @@ def get_topic(name):
         topic = add_topic(name)
     return topic
 
-def add_question(qn_text, options, answer, topic):
+def add_question(qn_text, options, answer, topicID):
     '''Adds a question to the database
     Input
     qn_text : str
@@ -331,7 +331,7 @@ def add_question(qn_text, options, answer, topic):
 
     # Add question
     question = Question(question=qn_text, discrimination=item[0], \
-        difficulty=item[1], guessing=item[2], upper=item[3], topicID = topic)
+        difficulty=item[1], guessing=item[2], upper=item[3], topicID = topicID)
     db.session.add(question)
     db.session.flush()
 
@@ -348,6 +348,17 @@ def add_question(qn_text, options, answer, topic):
             #ans = Answer(question=qn,option=o)
             question.answerID = optID
             db.session.flush()
+    db.session.commit()
+    return question
+
+def edit_question(question, qn_text, options, answer, topicID):
+    question.question = qn_text
+    question.topicID = topicID
+    for i in range(len(options)):
+        curr_option = question.options[i]
+        curr_option.option = options[i]
+        if answer == i + 1:
+            question.answerID = curr_option.id
     db.session.commit()
     return question
 
@@ -447,6 +458,8 @@ def get_question_quiz(quiz, pre_shuffle=False):
 def validate_quiz_link(quizID):
     return Quiz.query.filter_by(id=quizID,userID=current_user.id).first_or_404()
 
+def validate_qn_link(qnID, userID):
+    return Question.query.filter_by(id=qnID).filter(Question.quizzes.any(userID=userID)).first_or_404()
 
 def add_topic(name):
     '''Adds a topic to the database'''

@@ -9,6 +9,7 @@ def get_sorted_students(groupID):
 
 def add_group(name):
     group = Group(name=name)
+    set_class_code(group)
     db.session.add(group)
     db.session.commit()
 
