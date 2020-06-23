@@ -1,6 +1,7 @@
+{% from "_formhelpers.html" import render_error %}
 {% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="../static/content/homepagestyle.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='/content/homepagestyle.css') }}">
 {% endblock %}
 {% block content %}
 <section class="gradient" id="home-page">
@@ -10,20 +11,16 @@
         <a href="{{ url_for('reg') }}" class="home-btn" id="signupnow">REGISTER!</a>
     </div>
     <div class="gradient-clipped">
-        <form class="login-form" action="" method="post" novalidate>
+        <form class="login-form" action="" method="post">
             {{ form.hidden_tag() }}
             <h2 class="sign-in">Sign In</h2>
             <div class="input-field">
                 {{ form.email(size=32, placeholder="Email") }}
-                <p>{% for error in form.email.errors %}</p>
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
+                {{ render_error(form.email) }}
             </div>
             <div class="input-field">
                 {{ form.password(size=32, placeholder="Password") }}
-                <p>{% for error in form.password.errors %}</p>
-                <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
+                {{ render_error(form.password) }}
             </div>
             {{ form.submit(class_="signIn-btn") }}
             <div class="bottom-text">

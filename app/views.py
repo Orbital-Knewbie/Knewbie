@@ -112,6 +112,7 @@ def progressreport(knewbieID=None):
 @login_required
 def joinclass():
     joinForm = CreateName(prefix='join')
+    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
     if joinForm.validate_on_submit():
         classCode = joinForm.name.data
         group = validate_code_link(classCode)
