@@ -9,6 +9,7 @@
 &nbsp; &nbsp; [3.3. Classes](#class)<br>
 &nbsp; &nbsp; &nbsp; &nbsp; [3.3.1. Joining A Class](#view)<br>
 &nbsp; &nbsp; &nbsp; &nbsp; [3.3.2. Leaderboard](#score)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.3.3. Forum](#forum)<br>
 &nbsp; &nbsp; [3.4. Quizzes](#quiz)<br>
 &nbsp; &nbsp; [3.5. Profile Customization](#customize)<br>
 &nbsp; &nbsp; &nbsp; &nbsp; [3.5.1. Profile Settings](#profile)<br>
@@ -94,9 +95,13 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. You are now enrolled in the class.
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. You can access any quizzes assigned specifically to your class by your educators as well as all of our existing tailored quizzes.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. Every class has a sidebar for ease of access to the various features.
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6. You are able to ask questions on the forum in which teachers can respond to.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6. From the sidebar you can access the [forum](#forum), [quizzes](#quiz), [leaderboard](#score), [settings](#customize).
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7. You can access any quizzes assigned specifically to your class by your educators as well as all of our [existing tailored quizzes.](#quiz)
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8. You are able to ask questions on the [forum](#forum) in which teachers can respond to.
 
 #### <a name="score"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.2. Leaderboard</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You can view the progress report of your classmates for the specific class.
@@ -108,6 +113,27 @@ Knewbie is an educational platform that provides tailored content to suit the in
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. The leaderboard is not meant to be competetive but so you know who to approach for help!
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. The leaderboard is sorted based on overall proficiency.
+
+#### <a name="forum"> &nbsp; &nbsp; &nbsp; &nbsp; 3.3.3. Forum</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. Every class comes with a Forum.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. You are free to use the forum to clarify your doubts or reach out to your educator.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. The main forum page will display the timestamp of the last post the number of posts as well as the title of the threads.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. Students will be able to post a new threads and reply to clarify doubts.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. To create a new thread, you have to click on the 'Create A New Thread' button near the top of the page.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6. You will be taken to a new page where you need to input the title of the thread and the message.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7. Clicking on post will make your post live.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8. To view the content of a thread from the forum, you have to click on the thread title.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 9. You will be able to view the message along with all the other replies.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 10. You will also be able to post a reply, or edit and delete your posts.
 
 ### <a name="quiz"> &nbsp; &nbsp; 3.4. Quizzes</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; 1. When you have logged in to your acocunt, you will be able to view all the quizzes from your dashboard.
@@ -132,7 +158,7 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. When logged in, you can access the settings page from the sidebar directly from your various classes or your dashboard.
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. In the default settings page, you can make changes to your first name, last name, profile picture (avatar). Do remember to click on save.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. In the default settings page, you can make changes to your first name, last name, profile picture (avatar). Click 'SAVE'.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. You can request for a new Knewbie ID in case it has been compromised.
 
