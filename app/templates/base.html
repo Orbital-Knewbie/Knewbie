@@ -35,18 +35,17 @@
 
         <nav class="navbar">
             <ul class="list">
-                {% if current_user.is_authenticated and current_user.urole == 'student' %}
+                {% if current_user.is_authenticated %}
                 <li class="navitem"><a href="{{ url_for('dashboard') }}" class="link">Home</a></li>
                 <li class="navitem"><a href="{{ url_for('dashboard', _anchor='viewclass') }}" class="link">View Classes</a></li>
+                {% if current_user.urole == 'student' %}
                 <li class="navitem"><a href="{{ url_for('dashboard', _anchor='joinclass') }}" class="link">Join A Class</a></li>
                 <li class="navitem"><a href="{{ url_for('dashboard', _anchor='topicalquiz') }}" class="link">Topical Quizzes</a></li>
                 <li class="navitem"><a href="{{ url_for('dashboard', _anchor='mockquiz') }}" class="link">Mock Quizzes</a></li>
-                <li class="navitem"><a href="{{ url_for('logout') }}" class="link">Sign Out</a></li>
-                {% elif current_user.is_authenticated and current_user.urole == 'educator' %}
-                <li class="navitem"><a href="{{ url_for('dashboard') }}" class="link">Home</a></li>
-                <li class="navitem"><a href="{{ url_for('dashboard', _anchor='viewclass') }}" class="link">View Classes</a></li>
+                {% elif current_user.urole == 'educator' %}
                 <li class="navitem"><a href="{{ url_for('dashboard', _anchor='createclass') }}" class="link">Create A Class</a></li>
                 <li class="navitem"><a href="{{ url_for('dashboard', _anchor='createquestion') }}" class="link">Create Questions</a></li>
+                {% endif %}
                 <li class="navitem"><a href="{{ url_for('logout') }}" class="link">Sign Out</a></li>
                 {% else %}
                 <li class="navitem"><a href="{{ url_for('home') }}" class="link">Home</a></li>
