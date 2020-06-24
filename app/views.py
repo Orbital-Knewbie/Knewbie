@@ -388,7 +388,7 @@ def edit_post(groupID,threadID,postID):
     return render_template('posts.html', title=' | Forum', form=form, editpost=post)
 
 # Routes to delete class
-@app.route('class/delete', methods=['GET', 'POST'])
+@app.route('/class/delete', methods=['GET', 'POST'])
 @login_required
 def delete_class():
      form = DeleteClassForm()

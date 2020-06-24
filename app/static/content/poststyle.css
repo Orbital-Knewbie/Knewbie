@@ -7,6 +7,117 @@ body {
     font-size: 1rem;
 }
 
+/* HEADING FOR THREAD */
+
+.thread-title {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2.5fr 1fr 1fr;
+    grid-template-areas: ". back title delete .";
+/*    margin-left: 250px;*/
+    margin-top: 3rem;
+}
+
+.thread-title a, .post-content a {
+    text-decoration: none;
+    color: var(--DARKPURPLE);
+    transition: ease-in-out 0.2s;
+}
+
+.thread-title a:hover {
+    transform: scale(1.05);
+    color: var(--LIGHTPURPLE);
+}
+
+.thread-title-text {
+    grid-area: title;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 5rem;
+}
+
+.thread-back {
+    grid-area: back;
+    font-size: 1.8rem;
+    text-align: right;
+    padding: 1.6rem 0;
+}
+
+.thread-back i {
+    font-size: 2.5rem;
+    padding: 2rem 0;
+    transform: translateY(4px);
+}
+
+.thread-delete {
+    grid-area: delete;
+    font-size: 1.8rem;
+    padding: 1.6rem 0;
+    text-align: left;
+}
+
+.thread-delete i, .thread-back i {
+    padding: 1rem;
+}
+
+/* THREAD CONTENT */
+.post-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr auto auto 1fr;
+    grid-template-areas: ". name edit delete-post ."
+                         ". content content content .";
+    margin-top: 3rem;
+}
+
+.name {
+    grid-area: name;
+    text-transform: uppercase;
+    font-size: 2.2rem;
+    background: white;
+    padding: 1rem;
+    border-top-left-radius: 0.4rem;
+}
+
+.post-edit {
+    grid-area: edit;
+    text-align: right;
+    background: white;
+    padding: 1.5rem 1rem;
+    grid-template-columns: min-content auto
+}
+
+.post-delete {
+    grid-area: delete-post;
+    text-align: left;
+    background: white;
+    padding: 1.5rem 1rem;
+    border-top-right-radius: 0.4rem;
+}
+
+.post-content a {
+    font-size: 1.4rem;
+}
+
+.post-content a:hover {
+    transform: translateY(-5px) scale(1.1);
+    color: var(--LIGHTPURPLE);
+    transition: ease-in-out 0.3s;
+}
+
+.post-edit i, .post-delete i {
+    padding: 0 0.5rem 0 2rem;
+}
+
+.content {
+    grid-area: content;
+    padding: 1rem;
+    font-size: 1.7rem;
+    background: var(--LIGHTPURPLE);
+    color: var(--OFFWHITE);
+    border-bottom-left-radius: 0.4rem;
+    border-bottom-right-radius: 0.4rem;
+}
+
+/* MESSAGE DISPLAY */
 .post-heading {
     padding: 1rem 0;
     text-align: center;
@@ -14,7 +125,7 @@ body {
 }
 
 .post-heading h1 {
-    margin: 1rem 0 1.5rem 0;
+    margin-top: 1rem;
     font-size: 3rem;
     font-weight: 300;
 }
@@ -34,6 +145,7 @@ body {
     box-sizing: border-box;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.3);
     text-align: center;
+    margin-bottom: 80px;
 }
 
 .form-heading {
@@ -49,7 +161,7 @@ body {
 
 .input-container {
     position: relative;
-    margin: 0 6rem 5rem;
+    margin: 5rem 6rem 5rem;
 }
 
 .input-container input {
@@ -80,7 +192,6 @@ body {
     color: var(--PURPLE);
     transform: translate(-12%, -40%) scale(0.85);
 }
-
 
 .input-container .underline {
     position: absolute;

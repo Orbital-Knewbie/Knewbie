@@ -112,7 +112,7 @@ class StringFormMixin():
     string = StringField('String', validators=[DataRequired()])
 
 class CodeForm(FlaskForm, StringFormMixin):
-    submit = SubmitField('See Progress Report`)
+    submit = SubmitField('View Progress Report')
 
 class NameForm(FlaskForm, StringFormMixin): 
     submit = SubmitField('Create')

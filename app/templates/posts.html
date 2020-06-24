@@ -6,22 +6,23 @@
 {% block content %}
 <div>
     {% if thread %}
-    <a href="{{url_for('forum', groupID=thread.groupID)}}">Back</a>
-
-    <h1> {{ thread.title }} </h1>
-    <a href="#">Delete Thread</a>
+    <div class="thread-title">
+        <a class="thread-back" href="{{url_for('forum', groupID=thread.groupID)}}"><i class="far fa-arrow-alt-circle-left"></i>Back To Forum</a>
+        <h1 class="thread-title-text"> {{ thread.title }} </h1>
+        <a class="thread-delete" href="#"><i class="fas fa-trash-alt"></i>Delete Thread</a>
+    </div>
     {% if not editpost %}
 
     {% for post in posts %}
-    <div>
-        <h2> {{ users[post.userID] }} said:</h2>
+    <div class="post-content">
+        <h2 class="name">{{ users[post.userID] }}</h2>
         {% if current_user.id == post.userID or current_user.urole == 'educator' %}
-        <a href="{{url_for('delete_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}}">Delete Post</a>
-        <a href="{{url_for('edit_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}}">Edit Post</a>
+        <a class="post-delete" href="{{url_for('delete_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}}"><i class="fas fa-trash-alt"></i>Delete Post</a>
+        <a class="post-edit" href="{{url_for('edit_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}}"><i class="far fa-edit"></i>Edit Post</a>
         {% endif %}
 
-        <div> {{ post.content }} </div>
-    </div> <br />
+        <div class="content"> {{ post.content }} </div>
+    </div>
     {% endfor %}
 
     {% endif %}
@@ -42,14 +43,13 @@
                 <div class="input-container">
                     {{ form.title() }}
                     {{ form.title.label }}
-                    {% render_error(form.title) %}
-                    {% endif %}
+                    <!--render_error(form.title)--> 
                     <div class="underline"></div>
                 </div>
                 {% endif %}
                 <div class="input-container">
                      {{ form.post(cols=37, rows=8, class_="textarea", placeholder="Enter your message!") }}
-                     {% render_error(form.post) %}
+                     <!--render_error(form.post)-->
                 </div>
                 {{ form.submit(class_="post-btn") }}
             </form>
