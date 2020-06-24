@@ -167,7 +167,8 @@ def preview_quiz(quizID):
         return render_template('error404.html'), 404
     quiz = validate_quiz_link(quizID)
     questions = get_question_quiz(quiz)
-    return render_template('previewquiz.html', title=' | Create Class', questions=questions, quiz=quiz)
+    form = DeleteForm()
+    return render_template('previewquiz.html', title=' | Create Class', questions=questions, quiz=quiz, form=form)
 
 @app.route('/quiz/create', methods=['POST'])
 @login_required
@@ -190,7 +191,7 @@ def createqn(quizID):
     if not current_user.check_educator():
         return render_template('error404.html'), 404
     quiz = validate_quiz_link(quizID)
-    form = CreateQuestion()
+    form = QuestionForm()
     if form.validate_on_submit():
         #Commit inputs to database
         options = (form.op1.data, form.op2.data, form.op3.data, form.op4.data)
@@ -202,6 +203,19 @@ def createqn(quizID):
 
     return render_template('createqn.html', title=' | Create Quiz', form=form, quizID=quizID)
 
+@app.route('/quiz/<int:quizID>/question/<int:qnID>/delete', methods=['POST'])
+@login_required
+def deleteqn(quizID, qnID):
+    """Renders the add questions page for educators."""
+    if not current_user.check_educator():
+        return render_template('error404.html'), 404
+    quiz = validate_quiz_link(quizID)
+    qn = validate_qn_link(qnID, current_user.id)
+    form = DeleteForm()
+    if form.validate_on_submit():
+        remove_question_quiz(qn, quiz)
+        return redirect(url_for('preview_quiz', quizID=quizID))
+
 @app.route('/question/<int:qnID>/edit', methods=['GET', 'POST'])
 @login_required
 def editqn(qnID):
@@ -209,7 +223,7 @@ def editqn(qnID):
     if not current_user.check_educator():
         return render_template('error404.html'), 404
     qn = validate_qn_link(qnID, current_user.id)
-    form = CreateQuestion()
+    form = QuestionForm()
 
     if request.method == 'GET':
         topic = get_topic(qn.topicID)

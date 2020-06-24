@@ -57,7 +57,7 @@ class NewPasswordForm(FlaskForm):
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Update Password')
 
-class CreateQuestion(FlaskForm):
+class QuestionForm(FlaskForm):
     topic = SelectField('Select Topic', choices=[(0, 'Select Topic'), \
         *[(topic.id, topic.name) for topic in Topic.query.all()]], validators=[DataRequired()], coerce=int)
     qn = StringField('Input Question', validators=[DataRequired()])
