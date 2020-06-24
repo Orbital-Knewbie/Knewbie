@@ -1,10 +1,9 @@
 ﻿{% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="../static/content/deactstyle.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='content/deactstyle.css') }}">
 {% endblock %}
 {% block content %}
-<!-- LOGIN FORM -->
-<form class="deact-form" action="" method="post" novalidate>
+<form class="deact-form" action="" method="post">
     {{ form.hidden_tag() }}
     <h1>Deactivate Account</h1>
     <div class="input-field">

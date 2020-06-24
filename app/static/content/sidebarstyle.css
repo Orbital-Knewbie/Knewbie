@@ -69,7 +69,7 @@ body{
 }
 
 .separator {
-    margin: 10px 35px;
+    margin: 0.2rem 3rem;
     height: 1px;
     background: var(--DARKPURPLE);
 }

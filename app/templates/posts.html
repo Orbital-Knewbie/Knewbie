@@ -1,49 +1,59 @@
+﻿{% from "_formhelpers.html" import render_error %}
 ﻿{% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='content/dashboardstyle.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='content/poststyle.css') }}">
 {% endblock %}
 {% block content %}
 <div>
     {% if thread %}
-    <a href="{{url_for('forum', groupID=thread.groupID)}}">Back</a>
-
-    <h1> {{ thread.title }} </h1>
-    <a href="#">Delete Thread</a>
+    <div class="thread-title">
+        <a class="thread-back" href="{{url_for('forum', groupID=thread.groupID)}}"><i class="far fa-arrow-alt-circle-left"></i>Back To Forum</a>
+        <h1 class="thread-title-text"> {{ thread.title }} </h1>
+        <a class="thread-delete" href="#"><i class="fas fa-trash-alt"></i>Delete Thread</a>
+    </div>
     {% if not editpost %}
 
     {% for post in posts %}
-    <div>
-        <h2> {{ users[post.userID] }} said:</h2>
+    <div class="post-content">
+        <h2 class="name">{{ users[post.userID] }}</h2>
         {% if current_user.id == post.userID or current_user.urole == 'educator' %}
-        <a href="{{url_for('delete_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}}">Delete Post</a>
-        <a href="{{url_for('edit_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}} ">Edit Post</a>
+        <a class="post-delete" href="{{url_for('delete_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}}"><i class="fas fa-trash-alt"></i>Delete Post</a>
+        <a class="post-edit" href="{{url_for('edit_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}}"><i class="far fa-edit"></i>Edit Post</a>
         {% endif %}
 
-        <div> {{ post.content }} </div>
-    </div> <br />
+        <div class="content"> {{ post.content }} </div>
+    </div>
     {% endfor %}
 
     {% endif %}
     {% endif %}
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {% if form.title %}
-            {{ form.title.label }}<br>
-            {{ form.title() }}<br>
-            {% for error in form.title.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-            {% endif %}
 
-            {{ form.post.label }}<br>
-            {{ form.post(cols=32, rows=4) }}<br>
-            {% for error in form.post.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
+    
 
+    <div class="form-container">
+        <div class="post-form">
+            <h1 class="form-heading">Post An Announcement/Question!</h1>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                {% if form.title %}
+                <div class="post-heading">
+                    <h1>Create A New Post</h1>
+                </div>
+
+                <div class="input-container">
+                    {{ form.title() }}
+                    {{ form.title.label }}
+                    <!--render_error(form.title)--> 
+                    <div class="underline"></div>
+                </div>
+                {% endif %}
+                <div class="input-container">
+                     {{ form.post(cols=37, rows=8, class_="textarea", placeholder="Enter your message!") }}
+                     <!--render_error(form.post)-->
+                </div>
+                {{ form.submit(class_="post-btn") }}
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

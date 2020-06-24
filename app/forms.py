@@ -57,10 +57,6 @@ class NewPasswordForm(FlaskForm):
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Update Password')
 
-class CreateName(FlaskForm):
-    name = StringField('Title', validators=[DataRequired()])
-    submit = SubmitField('Create')
-
 class CreateQuestion(FlaskForm):
     topic = SelectField('Select Topic', choices=[(0, 'Select Topic'), \
         *[(topic.id, topic.name) for topic in Topic.query.all()]], validators=[DataRequired()], coerce=int)
@@ -107,7 +103,19 @@ class UpdateProfileForm(FlaskForm):
 
 class PostForm(FlaskForm):
     post = TextAreaField('Say something', validators=[DataRequired()])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Post')
 
 class ThreadForm(PostForm):
     title = StringField('Title', validators=[DataRequired()])
+
+class StringFormMixin():
+    string = StringField('String', validators=[DataRequired()])
+
+class CodeForm(FlaskForm, StringFormMixin):
+    submit = SubmitField('View Progress Report')
+
+class NameForm(FlaskForm, StringFormMixin): 
+    submit = SubmitField('Create')
+
+class DeleteClassForm(FlaskForm, StringFormMixin):
+    submit = SubmitField('Delete Class')
