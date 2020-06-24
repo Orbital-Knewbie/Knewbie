@@ -3,13 +3,10 @@ from flask_login import current_user
 from app import db
 from app.models import Group, Post, Thread, User, Quiz
 from app.profile import set_class_code
+from app.group import validate_group_link, add_user
 from datetime import datetime
 
-def validate_group_link(groupID):
-    return Group.query.filter_by(id=groupID).filter(Group.users.any(id=current_user.id)).first_or_404()
 
-def validate_code_link(classCode):
-    return Group.query.filter_by(classCode=classCode).first_or_404()
 
 def validate_post_link(groupID, threadID, postID):
     # Check validity of link access first
@@ -32,14 +29,10 @@ def save_post(form, threadID):
 def create_group(user, name):
     group = Group(name=name)
     set_class_code(group)
-    add_participant(user, group)
+    add_user(group, user)
     
     db.session.commit()
     return group
-
-def add_participant(user, group):
-    group.users.append(user)
-    db.session.add(group)
 
 def create_thread(user, group, title, content):
     thread = Thread(group=group,timestamp=datetime.now(), title=title)
@@ -51,12 +44,18 @@ def create_thread(user, group, title, content):
     db.session.add(post)
     db.session.commit()
 
+def remove_thread(thread):
+    for p in Post.query.filter_by(threadID=thread.id).all():
+        db.session.delete(p)
+    db.session.delete(thread)
+    db.session.commit()
+
 def add_test_forum():
     clear_test_forum()
     user = User.query.first()
     if user is None: return
     group = create_group(user, "first")
-    add_participant(user, group)
+    add_user(group, user)
     create_thread(user, group, "first thread", "first post")
 
 def clear_test_forum():

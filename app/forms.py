@@ -109,7 +109,7 @@ class ThreadForm(PostForm):
     title = StringField('Title', validators=[DataRequired()])
 
 class StringFormMixin():
-    string = StringField('String', validators=[DataRequired()])
+    title = StringField('String', validators=[DataRequired()])
 
 class CodeForm(FlaskForm, StringFormMixin):
     submit = SubmitField('View Progress Report')
@@ -119,3 +119,6 @@ class NameForm(FlaskForm, StringFormMixin):
 
 class DeleteClassForm(FlaskForm, StringFormMixin):
     submit = SubmitField('Delete Class')
+
+class DeleteForm(FlaskForm):
+    submit = SubmitField('Delete')

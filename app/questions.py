@@ -261,8 +261,9 @@ def submit_response(id, form):
 
     # Update topic proficiency
     qn = Question.query.filter_by(id=qnID).first()
-    if qn.topicID > 1:
-        update_proficiency(qn.id, qn.topicID)
+    topicID = qn.topicID if qn.topicID else 1
+    if topicID > 1:
+        update_proficiency(qn.id, topicID)
     update_proficiency(qn.id)
 
 def update_proficiency(qnID, topicID=1):
@@ -370,11 +371,13 @@ def get_curr_prof(userID):
     '''Returns current proficiency of the user'''
     return get_proficiencies(userID)[-1][1]
 
-def get_response_answer(id):
+def get_response_answer(id, quizID=None):
     '''Returns number of correct responses, 
     and dictionary with question : [options, response, answer]'''
-
-    responses = Response.query.filter_by(userID=id).all()
+    if quizID is None:
+        responses = Response.query.filter_by(userID=id).all()
+    else:
+        responses = Response.query.filter_by(userID=id).filter(Question.quizzes.any(id=quizID)).all()
     d={}
     correct = 0
     for r in responses:
@@ -452,6 +455,24 @@ def get_question_quiz(quiz, pre_shuffle=False):
         d[qn_txt] = {'options' : opt_txt, 'answer' : question.answerID}
     return d
 
+def get_question(quiz, n, pre_shuffle=False):
+    '''Gets nth question from a quiz'''
+    questions = quiz.questions
+    if n < 0 or n >= len(questions):
+        return None
+    d = []
+    question = questions[n]
+    qn_txt = question.question
+    options = question.options
+    if pre_shuffle:
+        shuffle(options)
+    opt_txt = {option.id : option.option for option in options}
+    d.append(qn_txt)
+    d.append(opt_txt)
+    return d
+
+def validate_quiz_stu(quizID):
+    return Quiz.query.filter_by(id=quizID).first_or_404()
 
 def validate_quiz_link(quizID):
     return Quiz.query.filter_by(id=quizID,userID=current_user.id).first_or_404()

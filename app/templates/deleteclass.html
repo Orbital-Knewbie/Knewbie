@@ -8,8 +8,8 @@
     {{ form.hidden_tag() }}
     <h1>Delete Class</h1>
     <div class="input-field">
-        {{ form.code(size=32, placeholder="Class Code") }}
-        {{ render_error(form.code) }}
+        {{ form.title(size=32, placeholder="Class Code") }}
+        {{ render_error(form.title) }}
     </div>
     <p>All information associated with the class will be deleted and the action is irrevocable.</p>
     <p>To confirm deletion, enter the class code.</p>

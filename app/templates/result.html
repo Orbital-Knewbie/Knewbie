@@ -1,0 +1,40 @@
+﻿{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='content/quizstyle.css') }}">
+{% endblock %}
+{% block content %}
+<div class="quiz-container">
+    <div id="quiz" class="justify-center flex-column">
+        <h1>Score: <u> {{ correct }}/{{ questions | length }}</u></h1>
+        {% if quiz %}
+        <h1>{{ quiz.name }}</h1>
+        {% else %}
+        <h1>General Quiz</h1>
+        {% endif %}
+        {% for q in questions %}
+        <h2 id="question">{{q}}</h2>
+        <ol>
+            {% for opt in questions[q][0] %}
+            <li class="options-container" id="options-container">
+                <p class="options-prefix">{{loop.index}}</p>
+                <label>
+                    <input type="radio" class="options" name="option" id="{{loop.index}}" value="{{opt}}">
+                    <span>{{opt}}</span>
+                </label>
+            </li>
+            <br />
+
+            {% endfor %}
+
+        </ol>
+        <h3>Your Answer: Option {{ questions[q][2] + 1}} </h3>
+        {% if questions[q][1] == questions[q][2] %}
+        (correct)
+        {% else %}
+        (wrong)
+        {% endif %}
+        {% endfor %}
+    </div>
+
+</div>
+<a href="{{ url_for('dashboard') }}">Back Home</a>
+{% endblock %}

@@ -129,7 +129,7 @@
     <Content Include="app\static\content\style.css" />
     <Content Include="app\templates\changepassword.html" />
     <Content Include="app\templates\createqn.html" />
-    <Content Include="app\templates\classquizzes.html" />
+    <Content Include="app\templates\previewquiz.html" />
     <Content Include="app\templates\deleteclass.html" />
     <Content Include="app\templates\leaderboard.html" />
     <Content Include="app\templates\participants.html" />
@@ -164,6 +164,7 @@
     <Content Include="app\templates\contact.html" />
     <Content Include="app\templates\forum.html" />
     <Content Include="app\templates\deactivate.html" />
+    <Content Include="app\templates\result.html" />
     <Content Include="app\templates\_formhelpers.html" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.png" />
     <Content Include="docs\diagrams\Architecture.png" />
