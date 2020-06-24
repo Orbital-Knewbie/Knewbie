@@ -159,10 +159,26 @@ def createclasssuccess(groupID):
     group = validate_group_link(groupID)
     return render_template('createclasssuccess.html', title=' | Create Class', group=group)
 
+@app.route('/class/<int:groupID>/user', methods=['POST'])
+@login_required
+def adduserclass(groupID):
+    """Renders the create class page for educators."""
+    if not current_user.check_educator():
+        return render_template('error404.html'), 404
+    group = validate_group_link(groupID)
+    form = JoinForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(knewbie_id=form.title.data).first_or_404()
+        if add_user(group, user):
+            flash('User added')
+        else:
+            flash('User already in Class')
+        return redirect(url_for('forum', groupID=groupID))
+
 @app.route('/quiz/<int:quizID>')
 @login_required
 def preview_quiz(quizID):
-    """Renders the create class was a success page for educators."""
+    """Renders the preview quiz page for educators."""
     if not current_user.check_educator():
         return render_template('error404.html'), 404
     quiz = validate_quiz_link(quizID)

@@ -23,8 +23,10 @@ def add_group(name):
     db.session.commit()
 
 def add_user(group, user):
+    if user in group.users: return #prevent duplicates
     group.users.append(user)
     db.session.commit()
+    return group
 
 def remove_user(group, user):
     group.users.remove(user)

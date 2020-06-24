@@ -408,6 +408,7 @@ def add_quiz(user, name):
     return quiz
 
 def add_question_quiz(quiz, question):
+    if question in quiz: return
     quiz.questions.append(question)
     db.session.commit()
 
@@ -427,6 +428,7 @@ def remove_question_quiz(question, quiz):
     db.session.commit()
 
 def add_quiz_group(group, quiz):
+    if quiz in group.quizzes: return
     group.quizzes.append(quiz)
     db.session.commit()
 

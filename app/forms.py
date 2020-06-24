@@ -122,3 +122,6 @@ class DeleteClassForm(FlaskForm, StringFormMixin):
 
 class DeleteForm(FlaskForm):
     submit = SubmitField('Delete')
+
+class JoinForm(FlaskForm, StringFormMixin):
+    submit = SubmitField('Add to Class')
