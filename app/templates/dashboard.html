@@ -91,7 +91,7 @@
             <form action="{{ url_for('joinclass') }}" method="post" class="create-form-1">
                 {{ joinForm.hidden_tag() }}
                 <h1>Join A Class</h1>
-                {{ joinForm.name(size=32, class_="input", placeholder="Class Code") }}
+                {{ joinForm.title(size=32, class_="input", placeholder="Class Code") }}
                 {{ joinForm.submit(class_="submit-btn") }}
             </form>
         </div>
@@ -163,7 +163,7 @@
             <form action="{{ url_for('createclass') }}" method="post" class="create-form-1">
                 {{ classForm.hidden_tag() }}
                 <h1>Create A New Class</h1>
-                {{ classForm.name(size=32, class_="input", placeholder="Class Name") }}
+                {{ classForm.title(size=32, class_="input", placeholder="Class Name") }}
                 {{ classForm.submit(class_="submit-btn") }}
             </form>
         </div>
@@ -172,7 +172,7 @@
             <form action="{{ url_for('createquiz') }}" method="post" class="create-form">
                 {{ quizForm.hidden_tag() }}
                 <h1>Create A New Quiz</h1>
-                {{ quizForm.name(size=32, class_="input", placeholder="Quiz Title") }}
+                {{ quizForm.title(size=32, class_="input", placeholder="Quiz Title") }}
                 {{ quizForm.submit(class_="submit-btn") }}
             </form>
         </div>
