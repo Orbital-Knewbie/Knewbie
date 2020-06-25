@@ -168,7 +168,7 @@ def createclasssuccess(groupID):
 def adduserclass(groupID):
     """Renders the create class page for educators."""
     if not current_user.check_educator():
-        return render_template('error404.html'), 404
+        return render_template('error403.html'), 403
     group = validate_group_link(groupID)
     form = JoinForm()
     if form.validate_on_submit():
@@ -184,7 +184,7 @@ def adduserclass(groupID):
 def preview_quiz(quizID):
     """Renders the preview quiz page for educators."""
     if not current_user.check_educator():
-        return render_template('error404.html'), 404
+        return render_template('error403.html'), 403
     quiz = validate_quiz_link(quizID)
     questions = get_question_quiz(quiz)
     form = DeleteForm()
@@ -195,7 +195,7 @@ def preview_quiz(quizID):
 def createquiz():
     """Renders the create quiz page for educators."""
     if not current_user.check_educator():
-        return render_template('error404.html'), 404
+        return render_template('error403.html'), 403
     classForm = NameForm(prefix='class')
     quizForm = NameForm(prefix='quiz')
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
@@ -209,7 +209,7 @@ def createquiz():
 def createqn(quizID):
     """Renders the add questions page for educators."""
     if not current_user.check_educator():
-        return render_template('error404.html'), 404
+        return render_template('error403.html'), 403
     quiz = validate_quiz_link(quizID)
     form = QuestionForm()
     if form.validate_on_submit():
@@ -228,7 +228,7 @@ def createqn(quizID):
 def deleteqn(quizID, qnID):
     """Renders the add questions page for educators."""
     if not current_user.check_educator():
-        return render_template('error404.html'), 404
+        return render_template('error403.html'), 403
     quiz = validate_quiz_link(quizID)
     qn = validate_qn_link(qnID, current_user.id)
     form = DeleteForm()
@@ -241,7 +241,7 @@ def deleteqn(quizID, qnID):
 def editqn(qnID):
     """Renders the edit questions page for educators."""
     if not current_user.check_educator():
-        return render_template('error404.html'), 404
+        return render_template('error403.html'), 403
     qn = validate_qn_link(qnID, current_user.id)
     form = QuestionForm()
 
@@ -504,7 +504,7 @@ def delete_class(groupID):
 @login_required
 def edit_participants(groupID):
     if not current_user.check_educator():
-        return render_template('error404.html'), 404
+        return render_template('error403.html'), 403
     group = validate_group_link(groupID)
     users = get_leaderboard(groupID)
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
@@ -515,7 +515,7 @@ def edit_participants(groupID):
 def delete_participant(groupID, userID):
     form = DeleteForm()
     if not current_user.check_educator():
-        return render_template('error404.html'), 404
+        return render_template('error403.html'), 403
     group = validate_group_link(groupID)
     user = validate_user_link(groupID, userID)
     if form.validate_on_submit():
