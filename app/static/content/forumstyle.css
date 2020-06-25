@@ -6,8 +6,7 @@ main {
     grid-template-columns: 1fr 2.5fr 1fr 1fr 1fr;
     grid-template-areas: 
         "header header header header header" 
-        ". title-header title-count title-time ."
-        ". title count time .";
+        ". title-header title-count title-time .";
     margin-left: 250px;
 }
 
@@ -36,40 +35,10 @@ main {
     text-decoration: none;
 }
 
-.post-title {
-    grid-area: title;
-    padding: 1rem 1rem 1rem 3rem;
-    background: var(--OFFWHITE);
-    box-shadow: 0 2px 2px -2px gray;
-}
 
-.post-title a {
-    text-decoration: none;
-    text-transform: uppercase;
-    font-family: 'Open Sans', sans-serif;
-    color: var(--LIGHTPURPLE);
-}
-
-.post-title a:hover {
-    text-decoration: underline;
-}
-
-.post-count {
-    grid-area: count;
-    color: var(--LIGHTPURPLE);
-    padding: 1rem;
-    text-align: center;
-    background: var(--OFFWHITE);
-    box-shadow: 0 2px 2px -2px gray;
-}
-
-.time-stamp {
-    grid-area: time;
-    color: var(--LIGHTPURPLE);
-    padding: 1rem;
-    text-align: center;
-    background: var(--OFFWHITE);
-    box-shadow: 0 2px 2px -2px gray;
+.create-thread {
+    margin-top: 50px;
+    margin-left: 250px;
 }
 
 .forum-title {
@@ -97,7 +66,60 @@ main {
     border-top-right-radius: 0.4rem;
 }
 
-.create-thread {
-    margin-top: 50px;
+/* THREAD LINKS */
+
+.threads-grid {
+    display: grid;
+    grid-template-columns: 1fr 2.5fr 1fr 1fr 1fr;
+    grid-template-areas: ". title count time .";
     margin-left: 250px;
+}
+
+.post-title {
+    grid-area: title;
+    padding: 1rem 1rem 1rem 3rem;
+    box-shadow: 0 2px 2px -2px gray;
+}
+
+.post-title a {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;
+    
+}
+
+.post-title a:hover {
+    text-decoration: underline;
+}
+
+.post-count {
+    grid-area: count;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 2px -2px gray;
+}
+
+.time-stamp {
+    grid-area: time;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 2px -2px gray;
+}
+
+.odd {
+    background: var(--OFFWHITE);
+    color: var(--LIGHTPURPLE);
+}
+
+.odd a {
+    color: var(--LIGHTPURPLE);
+}
+
+.even {
+    background: var(--DARKPURPLE);
+    color: white;
+}
+
+.even a {
+    color: white;
 }
