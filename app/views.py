@@ -86,6 +86,7 @@ def contact():
 # confirm
 # unconfirmed
 # resend
+# login
 # logout
 @app.route('/register')
 def reg():
@@ -101,7 +102,10 @@ def regstu():
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
     if stuForm.validate_on_submit():
-        return register(stuForm, 'student')
+        register(stuForm, 'student')
+        login_user(current_user)
+        flash('A confirmation email has been sent via email.', 'success')
+        return redirect(url_for('unconfirmed'))
     return render_template('register.html', title=' | Register', stuForm=stuForm, eduForm=eduForm)
 
 @app.route('/register/educator', methods=['POST'])
@@ -109,7 +113,10 @@ def regedu():
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
     if eduForm.validate_on_submit():
-        return register(eduForm, 'educator')
+        register(eduForm, 'educator')
+        login_user(current_user)
+        flash('A confirmation email has been sent via email.', 'success')
+        return redirect(url_for('unconfirmed'))
     return render_template('register.html', title=' | Register', stuForm=stuForm, eduForm=eduForm)
 
 @app.route('/confirm/<token>')
@@ -132,13 +139,15 @@ def confirm_email(token):
 @login_required
 def unconfirmed():
     if current_user.confirmed:
-        return redirect(url_for('home'))
+        return redirect(url_for('dashboard'))
     flash('Please confirm your account!', 'warning')
     return render_template('unconfirmed.html', title=' | Log In')
 
 @app.route('/resend')
 @login_required
 def resend():
+    if current_user.confirmed:
+        return redirect(url_for('dashboard'))
     resend_conf(current_user)
     return redirect(url_for('unconfirmed'))
 
@@ -174,7 +183,7 @@ def dashboard():
     joinForm = CodeForm(prefix='code')
     classForm = NameForm(prefix='class')
     quizForm = NameForm(prefix='quiz')
-    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    image_file = get_image_file(current_user)
     return render_template('dashboard.html', image_file=image_file, classForm=classForm, quizForm=quizForm, joinForm=joinForm)
 
 @app.route('/settings', methods=['GET', 'POST'])
@@ -194,7 +203,7 @@ def settings():
     elif request.method == 'GET':
         form.firstName.data = current_user.firstName
         form.lastName.data = current_user.lastName
-    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    image_file = get_image_file(current_user)
     return render_template('settings.html', title=' | Settings', image_file=image_file, form=form)
 
 @app.route('/settings/knewbieID')
@@ -202,7 +211,7 @@ def settings():
 def settings_knewbie_id():
     """Routing to update Knewbie ID"""
     if not current_user.check_student():
-        return render_template('error403.html'), 403
+        return render_template('errors/error403.html'), 403
     temp = set_code(8)
     while User.query.filter_by(knewbie_id=temp).first() is not None:
         temp = set_code(8)
@@ -215,7 +224,7 @@ def settings_knewbie_id():
 @login_required
 def request_reset_password():
     if current_user.is_authenticated:
-        return redirect(url_for('quiz'))
+        return redirect(url_for('dashboard'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email = form.email.data).first_or_404()
@@ -278,7 +287,7 @@ def joinclass():
     joinForm = CodeForm(prefix='code')
     classForm = NameForm(prefix='class')
     quizForm = NameForm(prefix='quiz')
-    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    image_file = get_image_file(current_user)
     if joinForm.validate_on_submit():
         classCode = joinForm.title.data
         group = validate_code_link(classCode)
@@ -291,13 +300,13 @@ def joinclass():
 def createclass():
     """Renders the create class page for educators."""
     if not current_user.check_educator():
-        return render_template('error403.html'), 403
+        return render_template('errors/error403.html'), 403
     classForm = NameForm(prefix='class')
     quizForm = NameForm(prefix='quiz')
     codeForm = CodeForm(prefix='code')
-    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    image_file = get_image_file(current_user)
     if classForm.validate_on_submit():
-        add_group(classForm.title.data)
+        add_group(current_user, classForm.title.data)
         return redirect(url_for('createclasssuccess', groupID=group.id))
     return render_template('dashboard.html', image_file=image_file, codeForm=codeForm, classForm=classForm, quizForm=quizForm)
 
@@ -314,8 +323,8 @@ def createclass():
 def createclasssuccess(groupID):
     """Renders the create class was a success page for educators."""
     if not current_user.check_educator():
-        return render_template('error403.html'), 403
-    group = validate_group_link(groupID)
+        return render_template('errors/error403.html'), 403
+    group = validate_group_link(current_user, groupID)
     return render_template('createclasssuccess.html', title=' | Create Class', group=group)
 
 @app.route('/class/<int:groupID>/user', methods=['POST'])
@@ -323,8 +332,8 @@ def createclasssuccess(groupID):
 def adduserclass(groupID):
     """Renders the create class page for educators."""
     if not current_user.check_educator():
-        return render_template('error403.html'), 403
-    group = validate_group_link(groupID)
+        return render_template('errors/error403.html'), 403
+    group = validate_group_link(current, groupID)
     form = JoinForm()
     if form.validate_on_submit():
         user = User.query.filter_by(knewbie_id=form.title.data).first_or_404()
@@ -338,9 +347,9 @@ def adduserclass(groupID):
 @login_required
 def leaderboard(groupID):
     """Renders the leaderboard page."""
-    group = validate_group_link(groupID)
+    group = validate_group_link(current_user, groupID)
     users = get_sorted_students(groupID)
-    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    image_file = get_image_file(current_user)
     return render_template('leaderboard.html', image_file=image_file, title=' | Leaderboard', users=users, group=group)
 
 @app.route('/class/<int:groupID>/code')
@@ -348,9 +357,9 @@ def leaderboard(groupID):
 def update_class_code(groupID):
     """Routing to update Class Code"""
     if not current_user.check_educator():
-        return render_template('error403.html'), 403
+        return render_template('errors/error403.html'), 403
 
-    group = validate_group_link(groupID)
+    group = validate_group_link(current_user, groupID)
     set_class_code(group)
     db.session.commit()
     flash('Your class code has been successfully updated!', 'success')
@@ -361,7 +370,7 @@ def update_class_code(groupID):
 @login_required
 def delete_class(groupID):
     if not current_user.check_educator():
-        return render_template('error403.html'), 403
+        return render_template('errors/error403.html'), 403
     form = DeleteClassForm()
     if form.validate_on_submit():
         group = Group.query.filter_by(id=groupID, classCode = form.title.data).first_or_404()
@@ -376,19 +385,19 @@ def delete_class(groupID):
 @login_required
 def edit_participants(groupID):
     if not current_user.check_educator():
-        return render_template('error403.html'), 403
-    group = validate_group_link(groupID)
+        return render_template('errors/error403.html'), 403
+    group = validate_group_link(current_user, groupID)
     users = get_sorted_students(groupID)
-    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    image_file = get_image_file(current_user)
     form = DeleteForm()
     return render_template('participants.html', title=' | Edit Participants', image_file=image_file, users=users, group=group, form=form)
 
 @app.route('/class/<int:groupID>/participants/<int:userID>/delete', methods=['POST'])
 def delete_participant(groupID, userID):
     form = DeleteForm()
-    if not current_user.check_educator():
-        return render_template('error403.html'), 403
-    group = validate_group_link(groupID)
+    if not current_user.check_educator() or current_user.id == userID:
+        return render_template('errors/error403.html'), 403
+    group = validate_group_link(current_user, groupID)
     user = validate_user_link(groupID, userID)
     if form.validate_on_submit():
         remove_user(group, user)
@@ -406,24 +415,24 @@ def delete_participant(groupID, userID):
 @app.route('/class/<int:groupID>/forum')
 #@login_required
 def forum(groupID):
-    group = validate_group_link(groupID)
+    group = validate_group_link(current_user, groupID)
     if group is None:
         return redirect(url_for('dashboard'))
     threads = Thread.query.filter_by(groupID=groupID).all()
-    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    image_file = get_image_file(current_user)
     return render_template('forum.html', title=' | Forum', groupID=groupID, threads=threads, group=group, image_file=image_file)
 
 @app.route('/class/<int:groupID>/forum/thread', methods=['GET','POST'])
 def create_thread(groupID):
     # Check validity of link access first
-    group = validate_group_link(groupID)
+    group = validate_group_link(current_user, groupID)
 
     # Render ThreadForm
     form = ThreadForm()
 
     # POST request for new thread
     if form.validate_on_submit():
-        add_thread(current_user, group, form.title.data, form.content.data)     
+        sad(current_user, group, form.title.data, form.content.data)     
         return redirect(url_for('forum_post', groupID=groupID, threadID=thread.id))
 
     # GET request for create thread
@@ -432,7 +441,7 @@ def create_thread(groupID):
 @app.route('/class/<int:groupID>/forum/thread/<int:threadID>', methods=['GET', 'POST'])
 def forum_post(groupID, threadID):
     # Check validity of link access first
-    group = validate_group_link(groupID)
+    group = validate_group_link(current_user, groupID)
     thread = Thread.query.filter_by(groupID=groupID,id=threadID).first_or_404()
 
     # Render Posts and PostForm
@@ -445,7 +454,7 @@ def forum_post(groupID, threadID):
 
     # POST request for new post
     if postForm.validate_on_submit():
-        save_post(postForm.content.data, threadID)
+        save_post(current_user, postForm.content.data, threadID)
         return redirect(url_for('forum_post',groupID=groupID,threadID=threadID))
     
     # GET request for forum thread
@@ -455,9 +464,9 @@ def forum_post(groupID, threadID):
 def delete_thread(groupID, threadID):
     # Check validity of link access first
     if not current_user.check_educator():
-        return render_template('error403.html'), 403
+        return render_template('errors/error403.html'), 403
 
-    group = validate_group_link(groupID)
+    group = validate_group_link(current_user, groupID)
     thread = Thread.query.filter_by(groupID=groupID,id=threadID).first_or_404()
 
     postForm = PostForm()
@@ -472,9 +481,9 @@ def delete_thread(groupID, threadID):
 @app.route('/class/<int:groupID>/forum/thread/<int:threadID>/<int:postID>/delete', methods=['POST'])
 def delete_post(groupID, threadID, postID):
     # Check validity of link access first
-    post = validate_post_link(groupID,threadID,postID)
+    post = validate_post_link(current_user, groupID,threadID,postID)
     if post is None:
-        return render_template('error403.html'), 403
+        return render_template('errors/error403.html'), 403
     postForm = PostForm()
     delThreadForm = DeleteForm(prefix="thread")
     delPostForm = DeleteForm(prefix="post")
@@ -485,9 +494,9 @@ def delete_post(groupID, threadID, postID):
 @app.route('/class/<int:groupID>/forum/thread/<int:threadID>/<int:postID>/edit', methods=['GET','POST'])
 def edit_post(groupID,threadID,postID):
     # Check validity of link access first
-    post = validate_post_link(groupID,threadID,postID)
+    post = validate_post_link(current_user, groupID,threadID,postID)
     if post is None:
-        return render_template('error403.html'), 403
+        return render_template('errors/error403.html'), 403
 
     form = PostForm()
     if request.method == 'GET':
@@ -513,10 +522,10 @@ def edit_post(groupID,threadID,postID):
 def createquiz():
     """Renders the create quiz page for educators."""
     if not current_user.check_educator():
-        return render_template('error403.html'), 403
+        return render_template('errors/error403.html'), 403
     classForm = NameForm(prefix='class')
     quizForm = NameForm(prefix='quiz')
-    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
+    image_file = get_image_file(current_user)
     if quizForm.validate_on_submit():
         quiz = add_quiz(current_user, quizForm.title.data)
         return redirect(url_for('createqn', quizID=quiz.id))
@@ -527,7 +536,7 @@ def createquiz():
 def createquizsuccess(quizID):
     """Renders the create quiz was a success page for educators."""
     if not current_user.check_educator():
-        return render_template('error403.html'), 403
+        return render_template('errors/error403.html'), 403
 
     return render_template('createquizsuccess.html', title=' | Create Quiz', quizID=quizID)
 
@@ -536,8 +545,8 @@ def createquizsuccess(quizID):
 def preview_quiz(quizID):
     """Renders the preview quiz page for educators."""
     if not current_user.check_educator():
-        return render_template('error403.html'), 403
-    quiz = validate_quiz_link(quizID)
+        return render_template('errors/error403.html'), 403
+    quiz = validate_quiz_link(current_user, quizID)
     questions = get_questions_quiz(quiz)
     form = DeleteForm()
     return render_template('previewquiz.html', title=' | Create Class', questions=questions, quiz=quiz, form=form)
@@ -547,7 +556,7 @@ def preview_quiz(quizID):
 def createqn(quizID):
     """Renders the add questions page for educators."""
     if not current_user.check_educator():
-        return render_template('error403.html'), 403
+        return render_template('errors/error403.html'), 403
     quiz = validate_quiz_link(quizID)
     form = QuestionForm()
     if form.validate_on_submit():
@@ -566,7 +575,7 @@ def createqn(quizID):
 def deleteqn(quizID, qnID):
     """Renders the add questions page for educators."""
     if not current_user.check_educator():
-        return render_template('error403.html'), 403
+        return render_template('errors/error403.html'), 403
     quiz = validate_quiz_link(quizID)
     qn = validate_qn_link(qnID, current_user.id)
     form = DeleteForm()
@@ -579,7 +588,7 @@ def deleteqn(quizID, qnID):
 def editqn(qnID):
     """Renders the edit questions page for educators."""
     if not current_user.check_educator():
-        return render_template('error403.html'), 403
+        return render_template('errors/error403.html'), 403
     qn = validate_qn_link(qnID, current_user.id)
     form = QuestionForm()
 
@@ -628,7 +637,7 @@ def quiz():
 
     # If submitting an attempted question
     elif request.method == 'POST':
-        submit_response(id, request.form)
+        submit_response(current_user, request.form)
         return redirect(url_for('quiz'))
 
 @app.route('/quiz/<int:quizID>/<int:qnNum>', methods=['GET','POST'])
@@ -636,7 +645,7 @@ def quiz():
 def edu_quiz(quizID, qnNum):
     '''Renders user-created quiz'''
     if not current_user.check_student():
-        return render_template('error403.html'), 403
+        return render_template('errors/error403.html'), 403
     quiz = validate_quiz_stu(quizID)
 
     if len(quiz.questions) < qnNum:
@@ -657,7 +666,7 @@ def edu_quiz(quizID, qnNum):
 @login_required
 def result(quizID=None):
     if not current_user.check_student():
-        return render_template('error403.html'), 403
+        return render_template('errors/error403.html'), 403
     quiz = None
     if quizID:
         quiz = validate_quiz_stu(quizID)

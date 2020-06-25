@@ -55,6 +55,7 @@
     <Compile Include="app\forum.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\tests\test_groups.py" />
     <Compile Include="app\tests\__init__.py">
       <SubType>Code</SubType>
     </Compile>

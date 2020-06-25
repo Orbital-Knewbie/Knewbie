@@ -1,10 +1,9 @@
-from flask_login import current_user
 from app import db
 from app.models import User, Group
 from app.profile import set_code
 
-def validate_group_link(groupID):
-    return Group.query.filter_by(id=groupID).filter(Group.users.any(id=current_user.id)).first_or_404()
+def validate_group_link(user, groupID):
+    return Group.query.filter_by(id=groupID).filter(Group.users.any(id=user.id)).first_or_404()
 
 def validate_code_link(classCode):
     return Group.query.filter_by(classCode=classCode).first_or_404()
@@ -23,10 +22,10 @@ def set_class_code(group):
     group.classCode = code
     return group
 
-def add_group(name):
+def add_group(user, name):
     group = Group(name=name)
     set_class_code(group)
-    add_user(group, current_user)
+    add_user(group, user)
     db.session.add(group)
     db.session.commit()
     return group

@@ -1,4 +1,3 @@
-from flask_login import current_user
 from app import db
 from app.models import Question, Option, Response, Proficiency, Topic, Group, User, Quiz
 from app.cat import Student
@@ -97,7 +96,7 @@ def get_student_cat(userID, topicID=1):
     student = Student(userID, topicID, prof.theta, AI, responses)
     return prof, student
 
-def submit_response(userID, form):
+def submit_response(user, form):
     '''Submit Question Response to Database'''
     # Get the submitted Option
     optID = form.get('option')
@@ -105,7 +104,7 @@ def submit_response(userID, form):
     qnID = option.qnID
 
     # Create a Response entry
-    response = Response(userID=userID,optID=option.id,qnID=option.qnID)
+    response = Response(userID=user.id,optID=option.id,qnID=option.qnID)
 
     # Save to DB
     db.session.add(response)
@@ -115,16 +114,16 @@ def submit_response(userID, form):
     qn = Question.query.filter_by(id=qnID).first()
     topicID = qn.topicID if qn.topicID else 1
     if topicID > 1:
-        update_proficiency(topicID)
-    update_proficiency()
+        update_proficiency(user, topicID)
+    update_proficiency(user)
 
-def update_proficiency(topicID=1):
+def update_proficiency(user, topicID=1):
     '''Updates user proficiency given a topic'''
-    prof, topic_student = get_student_cat(current_user.id, topicID)
+    prof, topic_student = get_student_cat(user.id, topicID)
     topic_student.update()
     prof.theta = topic_student.theta
     if topicID == 1:
-        current_user.curr_theta = topic_student.theta
+        user.curr_theta = topic_student.theta
     db.session.commit()
 
 def add_proficiency(userID):
@@ -135,20 +134,20 @@ def add_proficiency(userID):
     db.session.add(new_prof)
     db.session.commit()
 
-def create_student_prof(userID):
+def create_student_prof(user):
     '''Creates a proficiency entity for a student'''
     if not Topic.query.all():
         add_topic("first")
     topics = db.session.query(Topic.id).all()
 
     # Initialize CAT random theta for student 
-    student_cat = Student(userID)
-    current_user.curr_theta = student_cat.theta
+    student_cat = Student(user.id)
+    user.curr_theta = student_cat.theta
 
     overall_prof = None
     # Add a Proficiency for each topic in the database
     for topic, in topics:            
-        prof = Proficiency(userID=userID, timestamp=datetime.now(), 
+        prof = Proficiency(userID=user.id, timestamp=datetime.now(), 
                            theta=student_cat.theta, topicID=topic)
         db.session.add(prof)
         if topic == 1:
@@ -322,9 +321,9 @@ def validate_quiz_stu(quizID):
     '''Validates a quizID link'''
     return Quiz.query.filter_by(id=quizID).first_or_404()
 
-def validate_quiz_link(quizID):
+def validate_quiz_link(user, quizID):
     '''Validates a quizID link belonging to an educator'''
-    return Quiz.query.filter_by(id=quizID,userID=current_user.id).first_or_404()
+    return Quiz.query.filter_by(id=quizID,userID=user.id).first_or_404()
 
 def validate_qn_link(qnID, userID):
     '''Validates question link belonging to an educator'''

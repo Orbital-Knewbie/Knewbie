@@ -1,5 +1,4 @@
 from flask import flash, redirect, url_for
-from flask_login import login_user
 from app import app, db
 from app.models import User, Group, Response, Question, Topic
 from app.email import get_confirm_url, send_conf_email
@@ -21,16 +20,14 @@ def register(form, role):
     confirm_url = get_confirm_url(user)
     send_conf_email(user, confirm_url)
         
-    login_user(user)
-
-    flash('A confirmation email has been sent via email.', 'success')
-    return redirect(url_for('unconfirmed'))
 
 def confirm_user(user):
     '''Confirm a user account'''
     user.confirmed = True
     user.confirmed_on = datetime.now()
     db.session.commit()
+
+
 
 def update_image(form_image):
     """To rename & resize image"""
@@ -88,3 +85,8 @@ def get_topic_proficiencies(user):
             correct = tuple(filter(lambda x:x.is_correct(), curr_prof))
             prof_lvl.append((topic.name, correct))
     return prof_lvl
+
+def get_image_file(user):
+    image_uri = user.image_file if user.is_authenticated else 'profileimg.jpg'
+    return url_for('static', filename='resources/images/profile_pics/' + image_uri)
+    
