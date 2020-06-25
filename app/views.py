@@ -2,7 +2,7 @@
 Routes and views for the flask application.
 """
 
-from flask import render_template, request, jsonify, flash, redirect, url_for
+from flask import render_template, request, flash, redirect, url_for, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 from flask_mail import Message
 from app import app, db, mail
@@ -10,8 +10,9 @@ from app.models import User, Question, Option, Response, Group, Thread, Post, Pr
 from app.forms import *
 from app.email import *
 from app.profile import *
-from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer, get_question_quiz, edit_question
-from app.questions import add_quiz, add_question, add_question_quiz, get_topic, validate_quiz_link, validate_qn_link, validate_quiz_stu
+from app.questions import get_student_cat, submit_response, get_response_answer, get_question # quiz attempts
+from app.questions import add_quiz, add_question, add_question_quiz, get_questions_quiz, edit_question # quiz making
+from app.questions import validate_quiz_link, validate_qn_link, validate_quiz_stu # validation
 from app.group import *
 from app.forum import *
 from app.token import confirm_token
@@ -537,7 +538,7 @@ def preview_quiz(quizID):
     if not current_user.check_educator():
         return render_template('error403.html'), 403
     quiz = validate_quiz_link(quizID)
-    questions = get_question_quiz(quiz)
+    questions = get_questions_quiz(quiz)
     form = DeleteForm()
     return render_template('previewquiz.html', title=' | Create Class', questions=questions, quiz=quiz, form=form)
 
@@ -622,7 +623,7 @@ def quiz():
 
     # If attempting the quiz, get the next unanswered question to display
     if request.method == 'GET':
-        question, options = get_question_options(student)
+        question, options = student.get_question_options()
         return render_template('quiz.html', question=question, options=options)
 
     # If submitting an attempted question
@@ -643,7 +644,7 @@ def edu_quiz(quizID, qnNum):
 
     # If attempting the quiz, get the question to display
     if request.method == 'GET':
-        question, options = get_question_quiz(quiz, qnNum - 1)
+        question, options = get_question(quiz, qnNum - 1)
         return render_template('quiz.html', quizID=quizID, question=question, options=options)
 
     # If submitting an attempted question

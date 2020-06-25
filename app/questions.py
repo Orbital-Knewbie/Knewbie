@@ -3,9 +3,11 @@ from app import db
 from app.models import Question, Option, Response, Proficiency, Topic, Group, User, Quiz
 from app.cat import Student
 
+# this function generates an item bank, in case the user cannot provide one
+from catsim.cat import generate_item_bank
+
 from random import choice, shuffle
 from datetime import datetime
-from catsim.cat import generate_item_bank
 
 import glob, os, json
 
@@ -95,20 +97,6 @@ def get_student_cat(userID, topicID=1):
     student = Student(userID, topicID, prof.theta, AI, responses)
     return prof, student
 
-def get_question_options(student):
-    '''Retrieve Question and Option from Database, for tailored testing'''
-    # Get the Question
-    qnid = student.get_next_question()
-    question = Question.query.filter_by(id=qnid).first()
-    qn_txt = question.question
-
-    # Get the Options
-    options_query = Option.query.filter_by(qnID=qnid).all()
-    shuffle(options_query)
-    options = {x.id : x.option for x in options_query}
-
-    return qn_txt, options
-
 def submit_response(userID, form):
     '''Submit Question Response to Database'''
     # Get the submitted Option
@@ -139,7 +127,7 @@ def update_proficiency(topicID=1):
         current_user.curr_theta = topic_student.theta
     db.session.commit()
 
-def add_proficiency(id):
+def add_proficiency(userID):
     '''Add timestamped proficiency entity, done every completed quiz'''
     prof, student = get_student_cat(userID)
     new_prof = Proficiency(userID=userID, timestamp=datetime.now(), 
@@ -152,14 +140,21 @@ def create_student_prof(userID):
     if not Topic.query.all():
         add_topic("first")
     topics = db.session.query(Topic.id).all()
+
+    # Initialize CAT random theta for student 
     student_cat = Student(userID)
     current_user.curr_theta = student_cat.theta
+
+    overall_prof = None
+    # Add a Proficiency for each topic in the database
     for topic, in topics:            
         prof = Proficiency(userID=userID, timestamp=datetime.now(), 
                            theta=student_cat.theta, topicID=topic)
         db.session.add(prof)
+        if topic == 1:
+            overall_prof = prof
     db.session.commit()
-    return prof
+    return overall_prof
 
 def get_topic(topicID):
     return Topic.query.filter_by(id=topicID).first()
@@ -255,7 +250,7 @@ def add_quiz(user, name):
 
 def add_question_quiz(quiz, question):
     '''Adds a question to an educator created quiz'''
-    if question in quiz: return
+    if question in quiz.questions: return
     quiz.questions.append(question)
     db.session.commit()
 
@@ -282,7 +277,7 @@ def add_quiz_group(group, quiz):
     group.quizzes.append(quiz)
     db.session.commit()
 
-def get_question_quiz(quiz, pre_shuffle=False):
+def get_questions_quiz(quiz, pre_shuffle=False):
     '''Gets dictionary of questions belonging to a quiz
     Format - 
     {question_txt :
