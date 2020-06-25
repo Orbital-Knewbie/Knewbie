@@ -8,7 +8,11 @@
         <h1>QUIZ TITLE</h1>
         <h2 id="question">{{question}}</h2>
 
-        <form action="/quiz" target="result" method="post">
+        {% if edu %}
+        <form action="{{ url_for('edu_quiz', quizID=quizID) }}" method="post">
+        {% else %}
+        <form action="{{ url_for('quiz') }}" target="result" method="post">
+        {% endif %}
             <ol>
                 {% for o in options %}
                 <li class="options-container" id="options-container">

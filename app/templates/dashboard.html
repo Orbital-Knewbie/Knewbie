@@ -1,7 +1,7 @@
 ﻿{% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="../static/content/dashboardstyle.css">
-<link href="../static/content/createstyle.css" rel="stylesheet" />
+<link rel="stylesheet" href="{{ url_for('static', filename='/content/dashboardstyle.css') }}">
+<link href="{{ url_for('static', filename='/content/createstyle.css') }}" rel="stylesheet" />
 {% endblock %}
 {% block content %}
 <nav class="sidebar">
@@ -38,59 +38,18 @@
                 <a href="{{ url_for('forum', groupID=class.id) }}" class="btn">View Class</a>
             </div>
             {% endfor %}
-            <!--<div class="card">
-                <div class="card-background"></div>
-                <img src="../static/resources/images/Student.svg" class="quiz-symbol">
-                <h2>Class 1</h2>
-                {% if current_user.urole == 'student' %}
-                <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
-                {% elif current_user.urole == 'educator' %}
-                <a href="{{ url_for('quiz') }}" class="btn">View Quiz</a>
-                {% endif %}
-            </div>
-
-
-            <div class="card">
-                <div class="card-background"></div>
-                <img src="../static/resources/images/Teacher.svg" class="quiz-symbol">
-                <h2>Class 2</h2>
-                {% if current_user.urole == 'student' %}
-                <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
-                {% elif current_user.urole == 'educator' %}
-                <a href="{{ url_for('quiz') }}" class="btn">View Quiz</a>
-                {% endif %}
-            </div>
-
-            <div class="card">
-                <div class="card-background"></div>
-                <img src="../static/resources/images/Contact.svg" class="quiz-symbol">
-                <h2>Class 3</h2>
-                {% if current_user.urole == 'student' %}
-                <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
-                {% elif current_user.urole == 'educator' %}
-                <a href="{{ url_for('quiz') }}" class="btn">View Quiz</a>
-                {% endif %}
-            </div>
-
-            <div class="card">
-                <div class="card-background"></div>
-                <img src="../static/resources/images/Teacher.svg" class="quiz-symbol">
-                <h2>Class 4</h2>
-                {% if current_user.urole == 'student' %}
-                <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
-                {% elif current_user.urole == 'educator' %}
-                <a href="{{ url_for('quiz') }}" class="btn">View Quiz</a>
-                {% endif %}
-            </div>-->
         </div>
     </section>
 
     {% if current_user.urole == 'student' %}
     <section class="box" id="joinclass">
-        <h1>Join A Class</h1>
         <div class="details">
-            <h2>John Doe</h2>
-            <p>Unique ID: {{ current_user.knewbie_id }} </p>
+            <form action="{{ url_for('joinclass') }}" method="post" class="create-form-1">
+                {{ joinForm.hidden_tag() }}
+                <h1>Join A Class</h1>
+                {{ joinForm.title(size=32, class_="input", placeholder="Class Code") }}
+                {{ joinForm.submit(class_="submit-btn") }}
+            </form>
         </div>
     </section>
 
@@ -154,22 +113,35 @@
     </section>
 
     {% elif current_user.urole == 'educator' %}
+    <section class="box" id="viewquizzes">
+        <h1>Preview Your Quizzes</h1>
+        <div class="card-wrapper">
+            {% for quiz in current_user.quizzes %}
+            <div class="card">
+                <div class="card-background"></div>
+                <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
+                <h2>Quiz {{ quiz.name }}</h2>
+                <a href="{{ url_for('preview_quiz', quizID=quiz.id) }}" class="btn">Preview Quiz</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
     <!-- SPLIT SCREEN -->
     <div class="split-container" id="create">
-        <div class="split left">           
+        <div class="split left">
             <form action="{{ url_for('createclass') }}" method="post" class="create-form-1">
                 {{ classForm.hidden_tag() }}
                 <h1>Create A New Class</h1>
-                {{ classForm.name(size=32, class_="input", placeholder="Class Name") }}
+                {{ classForm.title(size=32, class_="input", placeholder="Class Name") }}
                 {{ classForm.submit(class_="submit-btn") }}
             </form>
         </div>
 
-        <div class="split right">            
+        <div class="split right">
             <form action="{{ url_for('createquiz') }}" method="post" class="create-form">
                 {{ quizForm.hidden_tag() }}
                 <h1>Create A New Quiz</h1>
-                {{ quizForm.name(size=32, class_="input", placeholder="Quiz Title") }}
+                {{ quizForm.title(size=32, class_="input", placeholder="Quiz Title") }}
                 {{ quizForm.submit(class_="submit-btn") }}
             </form>
         </div>
