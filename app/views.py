@@ -108,6 +108,8 @@ def settings():
 @login_required
 def settings_knewbie_id():
     """Routing to update Knewbie ID"""
+    if not current_user.check_student():
+        return render_template('error403.html'), 403
     temp = set_code(8)
     while User.query.filter_by(knewbie_id=temp).first() is not None:
         temp = set_code(8)
@@ -142,7 +144,7 @@ def joinclass():
 def createclass():
     """Renders the create class page for educators."""
     if not current_user.check_educator():
-        return render_template('error404.html'), 404
+        return render_template('error403.html'), 403
     classForm = NameForm(prefix='class')
     quizForm = NameForm(prefix='quiz')
     codeForm = CodeForm(prefix='code')
@@ -156,6 +158,8 @@ def createclass():
 @login_required
 def createclasssuccess(groupID):
     """Renders the create class was a success page for educators."""
+    if not current_user.check_educator():
+        return render_template('error403.html'), 403
     group = validate_group_link(groupID)
     return render_template('createclasssuccess.html', title=' | Create Class', group=group)
 
@@ -262,25 +266,23 @@ def editqn(qnID):
 
     return render_template('createqn.html', title=' | Create Quiz', form=form, edit=True)
 
-@app.route('/quiz/<int:quizID>/success', methods=['GET'])
+@app.route('/quiz/<int:quizID>/success')
 @login_required
 def createquizsuccess(quizID):
     """Renders the create quiz was a success page for educators."""
-    return render_template('createquizsuccess.html', title=' | Create Quiz', quizID=quizID)
+    if not current_user.check_educator():
+        return render_template('error403.html'), 403
 
-#@app.route('/class', methods=['GET'])
-#def classes():
-#    """Renders the class page."""
-#    image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
-#    return render_template('sidebar.html', image_file=image_file, title=' | Class')
+    return render_template('createquizsuccess.html', title=' | Create Quiz', quizID=quizID)
 
 @app.route('/class/<int:groupID>/code')
 @login_required
 def update_class_code(groupID):
     """Routing to update Class Code"""
+    if not current_user.check_educator():
+        return render_template('error403.html'), 403
+
     group = validate_group_link(groupID)
-    if current_user.urole != 'educator':
-        return render_template('error404.html'), 404
     set_class_code(group)
     db.session.commit()
     flash('Your class code has been successfully updated!', 'success')
@@ -413,6 +415,9 @@ def forum_post(groupID, threadID):
 @app.route('/class/<int:groupID>/forum/thread/<int:threadID>/delete', methods=['POST'])
 def delete_thread(groupID, threadID):
     # Check validity of link access first
+    if not current_user.check_educator():
+        return render_template('error403.html'), 403
+
     group = validate_group_link(groupID)
     thread = Thread.query.filter_by(groupID=groupID,id=threadID).first_or_404()
 
@@ -483,13 +488,15 @@ def edit_post(groupID,threadID,postID):
 @app.route('/class/<int:groupID>/delete', methods=['GET','POST'])
 @login_required
 def delete_class(groupID):
-     form = DeleteClassForm()
-     if form.validate_on_submit():
-         group = Group.query.filter_by(id=groupID, classCode = form.title.data).first_or_404()
-         remove_group(group)
-         flash('Class deleted')
-         return redirect(url_for('dashboard'))
-     return render_template('deleteclass.html', title=' | Deactivate Account', form=form)
+    if not current_user.check_educator():
+        return render_template('error403.html'), 403
+    form = DeleteClassForm()
+    if form.validate_on_submit():
+        group = Group.query.filter_by(id=groupID, classCode = form.title.data).first_or_404()
+        remove_group(group)
+        flash('Class deleted')
+        return redirect(url_for('dashboard'))
+    return render_template('deleteclass.html', title=' | Deactivate Account', form=form)
 
 
 # Routes to edit participants list
@@ -542,6 +549,8 @@ def quiz():
 @app.route('/quiz/<int:quizID>/<int:qnNum>', methods=['GET','POST'])
 @login_required
 def edu_quiz(quizID, qnNum):
+    if not current_user.check_student():
+        return render_template('error403.html'), 403
     quiz = validate_quiz_stu(quizID)
     d = get_question_quiz(quiz, qnNum - 1)
 
@@ -562,6 +571,8 @@ def edu_quiz(quizID, qnNum):
 @app.route('/quiz/result')
 @login_required
 def result(quizID=None):
+    if not current_user.check_student():
+        return render_template('error403.html'), 403
     quiz = None
     if quizID:
         quiz = validate_quiz_stu(quizID)
