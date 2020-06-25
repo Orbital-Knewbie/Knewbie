@@ -170,9 +170,10 @@ def adduserclass(groupID):
     if not current_user.check_educator():
         return render_template('error403.html'), 403
     group = validate_group_link(groupID)
-    form = JoinForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(knewbie_id=form.title.data).first_or_404()
+    joinForm = JoinForm()
+    deleteForm = DeleteForm()
+    if joinForm.validate_on_submit():
+        user = User.query.filter_by(knewbie_id=joinForm.title.data).first_or_404()
         if add_user(group, user):
             flash('User added')
         else:
@@ -500,7 +501,7 @@ def delete_class(groupID):
 
 
 # Routes to edit participants list
-@app.route("/class/<int:groupID>/participants")
+@app.route("/class/<int:groupID>/participants", methods=['GET','POST'])
 @login_required
 def edit_participants(groupID):
     if not current_user.check_educator():
@@ -508,12 +509,14 @@ def edit_participants(groupID):
     group = validate_group_link(groupID)
     users = get_leaderboard(groupID)
     image_file = url_for('static', filename='resources/images/profile_pics/' + current_user.image_file)
-    form = DeleteForm()
-    return render_template('participants.html', title=' | Edit Participants', image_file=image_file, users=users, group=group, form=form)
+    joinForm = JoinForm()
+    deleteForm = DeleteForm()
+    return render_template('participants.html', title=' | Edit Participants', groupID=groupID, image_file=image_file, users=users, group=group, deleteForm=deleteForm, joinForm=joinForm)
 
 @app.route('/class/<int:groupID>/participants/<int:userID>/delete', methods=['POST'])
 def delete_participant(groupID, userID):
-    form = DeleteForm()
+    joinForm = JoinForm()
+    deleteForm = DeleteForm()
     if not current_user.check_educator():
         return render_template('error403.html'), 403
     group = validate_group_link(groupID)
@@ -521,7 +524,7 @@ def delete_participant(groupID, userID):
     if form.validate_on_submit():
         remove_user(group, user)
         flash('User deleted')
-        return redirect(url_for('edit_participants',groupID=groupID))
+        return redirect(url_for('edit_participants', groupID=groupID))
     
 
 # Routes for Quiz
