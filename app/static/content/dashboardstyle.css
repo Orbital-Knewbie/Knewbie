@@ -9,82 +9,6 @@ body {
     background: var(--OFFWHITE);
 }
 
-/* SIDEBAR */
-
-.sidebar a {
-    color: var(--GREY);
-    text-decoration: none;
-    font-size: 2rem;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.sidebar {
-    position: fixed;
-    top: 40px;
-    z-index: 20;
-}
-
-.sidebar ul {
-    padding: 0;
-    transform: translate(-250px, 0);
-}
-
-.sidebar ul li {
-    display: block;
-    margin: 5px;
-    background: rgba(170, 7, 107, 0.3);
-    width: 300px;
-    text-align: right;
-    padding: 10px;
-    border-radius: 0 30px 30px 0;
-    transition: all .75s;
-}
-
-.sidebar ul li:hover {
-    background: var(--LIGHTPURPLE);
-    transition: all .75s;
-}
-
-.sidebar ul li:first-child:hover {
-    transform: translate(150px, 0);
-}
-
-.sidebar ul li:last-child:hover {
-    transform: translate(130px, 0);
-}
-
-.sidebar ul li:nth-child(2):hover {
-    transform: translate(100px, 0);
-}
-
-.sidebar ul li:nth-child(3):hover {
-    transform: translate(65px, 0);
-}
-
-.sidebar ul li:hover a {
-    color: var(--OFFWHITE);
-}
-
-.sidebar ul li:hover i {
-    color: var(--LIGHTPURPLE);
-    background: var(--OFFWHITE);
-    transform: rotate(360deg);
-    transition: all .75s;
-}
-
-.sidebar ul li i {
-    margin-left: 10px;
-    color: rgba(26, 1, 25, .7);
-    background: var(--OFFWHITE);
-    padding: 0.6rem;
-    border-radius: 50%;
-    width: 4rem;
-    height: 4rem;
-    transform: rotate(0deg);
-    text-align: center;
-    font-size: 2.5rem;
-}
-
 /* MAIN BODY */
 
 .box {
@@ -253,15 +177,6 @@ img {
     background: var(--GREY);
 }
 
-/*.split-container h1 {
-  font-size: 4rem;
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-}*/
-
 .left h1 {
     color: var(--LIGHTPURPLE);
     font-size: 3.6rem;
@@ -271,7 +186,6 @@ img {
     color: var(--OFFWHITE);
     font-size: 3.6rem;
 }
-
 
 .split-btn {
   display: inline-block;
