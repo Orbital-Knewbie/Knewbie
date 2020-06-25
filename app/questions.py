@@ -505,11 +505,6 @@ def add_test_topics():
 add_test_topics()
 
 
-def get_leaderboard(groupID):
-    return User.query.filter_by(urole='student'). \
-        filter(User.groups.any(id=groupID)).order_by(User.curr_theta.desc()).all()
-
-
 def get_level_proficiency(user):
     '''Returns a list of proficiency levels for each difficulty range
     Given in the range 0-1 for each difficulty

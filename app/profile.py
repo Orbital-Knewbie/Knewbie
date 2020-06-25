@@ -1,10 +1,29 @@
-from PIL import Image
-from app import app
+from flask import flash, redirect, url_for
+from flask_login import login_user
+from app import app, db
 from app.models import User, Group
+from app.email import get_confirm_url, send_conf_email
+
+from PIL import Image
 from string import ascii_letters, digits
 from random import choice
-import secrets
-import os
+import secrets, os
+
+def register(form, role):
+    '''Registers a User given form data'''
+    user = User(firstName=form.firstName.data, lastName=form.lastName.data, email=form.email.data, urole=role, confirmed=False)
+    user.set_password(form.password.data)
+    if role == 'student':
+        set_knewbie_id(user)
+    db.session.add(user)
+    db.session.commit()
+    confirm_url = get_confirm_url(user)
+    send_conf_email(user, confirm_url)
+        
+    login_user(user)
+
+    flash('A confirmation email has been sent via email.', 'success')
+    return redirect(url_for('unconfirmed'))
 
 def update_image(form_image):
     """To rename & resize image"""
@@ -30,10 +49,3 @@ def set_knewbie_id(user):
         code = set_code(8)
     user.knewbie_id = code
     return user
-
-def set_class_code(group):
-    code = set_code(6)
-    while Group.query.filter_by(classCode=code).first():
-        code = set_code(6)
-    group.classCode = code
-    return group

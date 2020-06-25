@@ -1,4 +1,4 @@
-from flask import redirect, url_for
+from flask import redirect, url_for, flash
 from flask_login import current_user
 from app import db
 from app.models import Group, Post, Thread, User, Quiz
@@ -19,27 +19,24 @@ def validate_post_link(groupID, threadID, postID):
         return 
     return post
 
-def save_post(form, threadID):
+def save_post(content, threadID):
     post = Post(user=current_user, threadID=threadID, 
-                timestamp=datetime.now(), content=form.post.data)
+                timestamp=datetime.now(), content=content)
     db.session.add(post)
     db.session.commit()
+    flash('Your post is now live!')
 
-
-def create_group(user, name):
-    group = Group(name=name)
-    set_class_code(group)
-    add_user(group, user)
-    
+def remove_post(post):
+    db.session.delete(post)
     db.session.commit()
-    return group
+    flash('Post deleted')
 
-def create_thread(user, group, title, content):
+def add_thread(user, group, title, content):
     thread = Thread(group=group,timestamp=datetime.now(), title=title)
     db.session.add(thread)
     db.session.flush()
 
-    post = Post(user=user, thread=thread, timestamp=datetime.now(), content=content)
+    save_post(content, thread.id)
     
     db.session.add(post)
     db.session.commit()
@@ -50,6 +47,17 @@ def remove_thread(thread):
     db.session.delete(thread)
     db.session.commit()
 
+def get_post_users(posts):
+    '''Return user names as userID, name pairs in a dictionary'''
+    users = {}
+    for post in posts:
+        if post.userID in users: continue
+        user = User.query.filter_by(id=post.userID).first()
+        users[post.userID] = ' '.join((user.firstName,user.lastName))
+    return users
+
+###########################
+# To move to Unit Testing #
 def add_test_forum():
     clear_test_forum()
     user = User.query.first()
@@ -72,11 +80,3 @@ def clear_test_forum():
 
 add_test_forum()
 
-def get_post_users(posts):
-    '''Return user names as userID, name pairs in a dictionary'''
-    users = {}
-    for post in posts:
-        if post.userID in users: continue
-        user = User.query.filter_by(id=post.userID).first()
-        users[post.userID] = ' '.join((user.firstName,user.lastName))
-    return users
