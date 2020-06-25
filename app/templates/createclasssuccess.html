@@ -8,7 +8,6 @@
         <h1>Class was successfully created!</h1>
         <h1>Class code: <span>{{ group.classCode }}</span></h1>
         <a href="{{ url_for('forum', groupID=group.id) }}" class="route-btn">Go To Class</a>
-        <a href="{{ url_for('dashboard') }}" class="route-btn">Create A New Class</a>
         <a href="{{ url_for('dashboard') }}" class="route-btn">Home</a>
         <p>Please share the class code with only the parties you want to add to the class.</p>
     </div>

@@ -9,8 +9,10 @@
 &nbsp; &nbsp; &nbsp; &nbsp; [3.2.1. Creating A Class](#create)<br>
 &nbsp; &nbsp; &nbsp; &nbsp; [3.2.2. Creating A Quiz](#qn)<br>
 &nbsp; &nbsp; &nbsp; &nbsp; [3.2.3. Leaderboard/Progress Report](#score)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [3.2.4. Edit Participants List](#edit)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [3.2.5. Change Class Code](#code)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.2.4. Forum](#forum)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.2.5. Edit Participants List](#edit)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.2.6. Change Class Code](#code)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [3.2.7. Delete Class](#delete)<br>
 &nbsp; &nbsp; [3.3. Profile Customization](#customize)<br>
 &nbsp; &nbsp; &nbsp; &nbsp; [3.3.1. Profile Settings](#profile)<br>
 &nbsp; &nbsp; &nbsp; &nbsp; [3.3.2. Account Settings](#account)<br>
@@ -108,17 +110,53 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. The leaderboard is sorted based on overall proficiency.
 
-#### <a name="edit"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.4. Edit Participants List</a><br>
+#### <a name="forum"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.4. Forum</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. Every class comes with a Forum.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. You are free to use the forum to post announcements, instructions and any other message you deem to be necessary.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. The main forum page will display the timestamp of the last post the number of posts as well as the title of the threads.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. Students will be able to post a new threads and reply to clarify doubts.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. As an educator and class creator, you have the right to delete any thread or post you deem inappropriate.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6. To create a new thread, you have to click on the 'Create A New Thread' button near the top of the page.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7. You will be taken to a new page where you need to input the title of the thread and the message.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8. Clicking on post will make your post live.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 9. To view the content of a thread from the forum, you have to click on the thread title.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 10. You will be able to view the message along with all the other replies.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 11. You will also be able to post a reply, or edit your posts.
+
+#### <a name="edit"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.5. Edit Participants List</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. As an educator, you can edit the participants list.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. You can manually add or remove participants.
 
-#### <a name="code"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.5. Change Class Code</a><br>
+#### <a name="code"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.6. Change Class Code</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. As an educator, you can request to change the class code.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. Use this feature sparingly and only if you suspect that your class has been encroached.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. To change the class code, just click on 'Change Class Code' which can be found on the class' sidebar.
+
+#### <a name="delete"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.7. Delete Class</a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. As an educator, you can delete the class.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. Use this feature sparingly and only if you are sure you do not need the class any longer.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. This action is irrevocable.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. To delete the class, just click on 'Delete Class' which can be found on the class' sidebar.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. You will be redirected and asked to input your class code which could be found on the sidebar of your class.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6. Upon confirmation of the request, all information associated with the class will be deleted.
 
 ![Change Class Code](images/Change_Code.png)
 
@@ -128,7 +166,7 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. When logged in, you can access the settings page from the sidebar directly from your various classes or your dashboard.
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. In the default settings page, you can make changes to your first name, last name, profile picture (avatar). Do remember to click on save.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. In the default settings page, you can make changes to your first name, last name, profile picture (avatar). Click 'SAVE'.
 
 ![Profile Section of Settings](images/Settings_Default_Edu.png)
 

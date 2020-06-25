@@ -48,7 +48,10 @@ The advantage in conducting the code reviews is that there is more than one pers
 Python's own `unittest` module can be used for Unit Testing.
 
 ### 1.6 Qualitative Evaluation <a name="eval">
-Heuristic Evaluation - using Nielsen Heuristics - will be used and Cognitive Walkthrough will be included.
+A Cognitive Walkthrough by the development team was done and to complement the walkthrough, a self/expert evaluation was used. Heuristic Evaluation - using [Nielsen Heuristics](https://www.nngroup.com/articles/ten-usability-heuristics/) - was used during the evaluation. Details on the 10 heuristics can be found on the link. 
+Some of the heuristics the team managed to address were to make the application match the real world, providing user control and freedom, consistency, error prevention, minimalistic design, error recovery, and finally help and documentation. The walkthroughs served to allow the developers to further improve on Knewbie to make a better user experience.
+  
+The team also collected user feedback through a survey. The questionnaire can be accesed through this [link](https://forms.gle/JtSU6TJ2DVuC1wHv7). Users were made to access the user guides (both educator and student versions) and experience the Knewbie web application before attempting the survey. They were made to provide feedback on the quality of the user guides and the website.
 
 ## 2. Technical Development <a name="tech">
 ### 2.1 Flask <a name="flask">

@@ -43,6 +43,9 @@ class User(UserMixin, db.Model):
 
     def check_educator(self):
         return self.urole == 'educator'
+
+    def check_student(self):
+        return self.urole == 'student'
     
     @staticmethod
     def verify_reset_token(token):
