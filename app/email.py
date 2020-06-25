@@ -59,7 +59,7 @@ def resend_conf(user):
 
 ###########################
 # To move to Unit Testing #
-def add_user():
+def add_test_user():
     remove_users()
     if User.query.all(): return
     user = User(firstName='test',lastName='test',email='testflask202005@gmail.com', urole='educator',confirmed=True)
@@ -73,4 +73,4 @@ def remove_users():
         db.session.delete(u)
     db.session.commit()
 
-add_user()
+add_test_user()

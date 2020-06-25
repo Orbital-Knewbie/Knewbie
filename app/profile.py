@@ -1,12 +1,13 @@
 from flask import flash, redirect, url_for
 from flask_login import login_user
 from app import app, db
-from app.models import User, Group
+from app.models import User, Group, Response, Question, Topic
 from app.email import get_confirm_url, send_conf_email
 
 from PIL import Image
 from string import ascii_letters, digits
 from random import choice
+from datetime import datetime
 import secrets, os
 
 def register(form, role):
@@ -24,6 +25,12 @@ def register(form, role):
 
     flash('A confirmation email has been sent via email.', 'success')
     return redirect(url_for('unconfirmed'))
+
+def confirm_user(user):
+    '''Confirm a user account'''
+    user.confirmed = True
+    user.confirmed_on = datetime.now()
+    db.session.commit()
 
 def update_image(form_image):
     """To rename & resize image"""
@@ -49,3 +56,35 @@ def set_knewbie_id(user):
         code = set_code(8)
     user.knewbie_id = code
     return user
+
+def get_level_proficiency(user):
+    '''Returns a list of proficiency levels for each difficulty range
+    Given in the range 0-1 for each difficulty
+    [easy_level, med_level, hard_level]'''
+    r=Response.query.filter_by(userID=user.id)
+    easy = r.filter(Question.difficulty < -1.33).all()
+    med = r.filter(Question.difficulty.between(-1.33,1.33)).all()
+    hard = r.filter(Question.difficulty > 1.33).all()
+    prof_lvl = []
+    for diff in (easy,med,hard):
+        if not diff:
+            prof_lvl.append(0)
+        else:
+            correct = tuple(filter(lambda x: x.is_correct(), diff))
+            prof_lvl.append(correct/len(diff))
+    return prof_lvl
+
+def get_topic_proficiencies(user):
+    '''Returns a list of proficiency levels for each topic
+    Given in the range 0-1 for each topic
+    [(topic1, 0.33),(topic2,0.99),...]'''
+    r=Response.query.filter_by(userID=user.id)
+    prof_lvl = []
+    for topic in Topic.query.all():
+        curr_prof = r.filter(Question.topicID==topic.id).all()
+        if not curr_prof:
+            prof_lvl.append((topic.name, 0))
+        else:
+            correct = tuple(filter(lambda x:x.is_correct(), curr_prof))
+            prof_lvl.append((topic.name, correct))
+    return prof_lvl

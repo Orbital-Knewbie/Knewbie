@@ -4,22 +4,19 @@ Routes and views for the flask application.
 
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
+from flask_mail import Message
 from app import app, db, mail
 from app.models import User, Question, Option, Response, Group, Thread, Post, Proficiency, Quiz
 from app.forms import *
+from app.email import *
+from app.profile import *
 from app.questions import get_question_options, submit_response, get_student_cat, get_response_answer, get_question_quiz, edit_question
 from app.questions import add_quiz, add_question, add_question_quiz, get_topic, validate_quiz_link, validate_qn_link, validate_quiz_stu
-from app.email import resend_conf, send_contact_email, send_reset_email, send_deactivate_email
-from app.profile import register, update_image, set_knewbie_id, set_class_code
-from app.forum import *
 from app.group import *
+from app.forum import *
 from app.token import confirm_token
 from app.decorator import check_confirmed
 from app.cat import Student
-from flask_mail import Message
-import json, datetime
-import os
-import secrets
 
 
 # Route for main page functionalities
@@ -126,10 +123,7 @@ def confirm_email(token):
     if user.confirmed:
         flash('Account already confirmed. Please login.', 'success')
     else:
-        user.confirmed = True
-        user.confirmed_on = datetime.datetime.now()
-        db.session.add(user)
-        db.session.commit()
+        confirm_user(user)
         flash('You have confirmed your account. Thanks!', 'success')
     return redirect(url_for('home'))
 
@@ -506,7 +500,7 @@ def edit_post(groupID,threadID,postID):
     return render_template('posts.html', title=' | Forum', postForm=form, editpost=post)
 
 
-# Routes for quizzes
+# Routes for quiz administration
 # create
 # /<int:quizID>
 # success
@@ -576,7 +570,7 @@ def deleteqn(quizID, qnID):
     qn = validate_qn_link(qnID, current_user.id)
     form = DeleteForm()
     if form.validate_on_submit():
-        remove_question_quiz(qn, quiz)
+        remove_question_quiz(quiz, qn)
         return redirect(url_for('preview_quiz', quizID=quizID))
 
 @app.route('/question/<int:qnID>/edit', methods=['GET', 'POST'])
@@ -589,8 +583,7 @@ def editqn(qnID):
     form = QuestionForm()
 
     if request.method == 'GET':
-        topic = get_topic(qn.topicID)
-        topicID = topic.id if topic else 0
+        topicID = qn.topicID if qn.topicID else 0
         form.topic.data = topicID
         form.qn.data = qn.question
         options = [option.option for option in qn.options]
@@ -610,7 +603,7 @@ def editqn(qnID):
     return render_template('createqn.html', title=' | Create Quiz', form=form, edit=True)
 
 
-# Routes for Quiz
+# Routes for Quiz attempts
 # quiz
 # quiz/<int:quizID>/<int:qnNum>
 # quiz/result
@@ -644,14 +637,13 @@ def edu_quiz(quizID, qnNum):
     if not current_user.check_student():
         return render_template('error403.html'), 403
     quiz = validate_quiz_stu(quizID)
-    d = get_question_quiz(quiz, qnNum - 1)
 
     if len(quiz.questions) < qnNum:
         return redirect(url_for('result', quizID=quizID))
 
-    # If attempting the quiz, get the next unanswered question to display
+    # If attempting the quiz, get the question to display
     if request.method == 'GET':
-        question, options = d
+        question, options = get_question_quiz(quiz, qnNum - 1)
         return render_template('quiz.html', quizID=quizID, question=question, options=options)
 
     # If submitting an attempted question
