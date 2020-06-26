@@ -1,13 +1,12 @@
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from app import db, login, app
 from flask_login import UserMixin
+from app import db, login, app
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
 
 usergroup = db.Table('usergroup', \
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True), \
     db.Column('group_id', db.Integer, db.ForeignKey('group.id'), primary_key=True)
 )
-
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -63,7 +62,7 @@ questionquiz = db.Table('questionquiz', \
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.String(255), index=True, unique=True)
+    question = db.Column(db.String(255))
     discrimination = db.Column(db.Float)
     difficulty = db.Column(db.Float)
     guessing = db.Column(db.Float)
@@ -98,12 +97,10 @@ class Response(db.Model):
     def is_correct(self):
         return self.question.answerID == self.optID
 
-
 groupquiz = db.Table('groupquiz', \
     db.Column('group_id', db.Integer, db.ForeignKey('group.id'), primary_key=True), \
     db.Column('quiz_id', db.Integer, db.ForeignKey('quiz.id'), primary_key=True)
 )
-
 
 class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -118,7 +115,6 @@ class Thread(db.Model):
     title = db.Column(db.String(120))
     posts = db.relationship('Post', backref='thread')
     groupID = db.Column(db.Integer, db.ForeignKey('group.id'))
-
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)

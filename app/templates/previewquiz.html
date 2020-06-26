@@ -5,20 +5,25 @@
 <div class="quiz-container">
     <div id="quiz" class="justify-center flex-column">
         <h1>{{ quiz.name }}</h1>
-
-        {% for q in questions %}
-        <h2 id="question">{{q}}</h2>
-        <form action="{{ url_for('deleteqn', quizID=quiz.id, q.id) }}" method="post" class="create-form">
-            {{ form.hidden_tag() }}
-            {{ form.submit() }}
+        <form action="{{ url_for('deletequiz', quizID=quiz.id) }}" method="post" class="create-form">
+            {{ delQuizForm.hidden_tag() }}
+            {{ delQuizForm.submit() }}
         </form>
+
+        {% for qnID in questions %}
+        <h2 id="question">{{ questions[qnID]['question'] }}</h2>
+        <form action="{{ url_for('deleteqn', quizID=quiz.id, qnID=qnID) }}" method="post" class="create-form">
+            {{ delQnForm.hidden_tag() }}
+            {{ delQnForm.submit() }}
+        </form>
+        <a href="{{ url_for('editqn', qnID=qnID) }}"> Edit </a>
         <ol>
-            {% for optID, opt in questions[q]['options'].items() %}
+            {% for optID, opt in questions[qnID]['options'].items() %}
             <li class="options-container" id="options-container">
                 <p class="options-prefix">{{loop.index}}</p>
                 <label>
                     <input type="radio" class="options" name="option" id="{{optID}}" value="{{optID}}">
-                    {% if optID == questions[q]['answer'] %}
+                    {% if optID == questions[qnID]['answer'] %}
                     <span>Answer: {{opt}}</span>
                     {% else %}
                     <span>{{opt}}</span>
