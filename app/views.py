@@ -297,14 +297,16 @@ def deactivate_account(token):
 def joinclass():
     if current_user.check_educator():
         return redirect(url_for('dashboard'))
-    joinForm = CodeForm(prefix='code')
+    joinForm = JoinClassForm(prefix='join')
     classForm = NameForm(prefix='class')
     quizForm = NameForm(prefix='quiz')
     image_file = get_image_file(current_user)
     if joinForm.validate_on_submit():
         classCode = joinForm.title.data
         group = validate_code_link(classCode)
-        add_user(group, current_user)
+        group_add = add_user(group, current_user)
+        if group_add is None:
+            flash('You are already in the class.')
         return redirect(url_for('forum', groupID=group.id))
     return render_template('dashboard.html', image_file=image_file, classForm=classForm, quizForm=quizForm, joinForm=joinForm)
 
@@ -316,7 +318,7 @@ def createclass():
         return render_template('errors/error403.html'), 403
     classForm = NameForm(prefix='class')
     quizForm = NameForm(prefix='quiz')
-    codeForm = CodeForm(prefix='code')
+    joinForm = JoinClassForm(prefix='join')
     image_file = get_image_file(current_user)
     if classForm.validate_on_submit():
         group = add_group(current_user, classForm.title.data)
