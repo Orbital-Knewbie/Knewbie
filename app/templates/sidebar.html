@@ -13,7 +13,7 @@
         <h2>Class code: {{ group.classCode }}</h2>
     </div>
     <a href="#" style="margin-top: 2rem;"><i class="fas fa-bell"></i><span>Notifications</span></a>
-    <a href="#"><i class="fas fa-edit"></i><span>Quizzes</span></a>
+    <a href="{{ url_for('classquiz', groupID=group.id) }}"><i class="fas fa-edit"></i><span>Quizzes</span></a>
     <a href="{{ url_for('forum', groupID=group.id) }}"><i class="fas fa-comments"></i><span>Forum</span></a>
     <a href="{{ url_for('leaderboard', groupID=group.id) }}"><i class="fas fa-list"></i><span>Leaderboard</span></a>
     {% if current_user.urole == 'educator' %}

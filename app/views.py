@@ -721,7 +721,7 @@ def result(quizID=None):
     correct, questions = get_response_answer(current_user, quizID)
     return render_template('result.html', questions=questions, correct=correct, quiz=quiz)
 
-@app.route('/class/<int:groupID>/classquiz')
+@app.route('/class/<int:groupID>/quizzes')
 @login_required
 def classquiz(groupID):
     group = validate_group_link(current_user, groupID)
