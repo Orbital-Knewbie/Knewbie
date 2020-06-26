@@ -136,7 +136,7 @@ class Proficiency(db.Model):
         # Retrieve stored responses from DB
         responses = Response.query.filter_by(userID=self.userID).all()
         # Get only topic relevant responses
-        if self.topicID != 1:
+        if self.topic.name != 'General':
             responses = list(filter(lambda x: x.question.topicID == self.topicID, responses))
 
         questions = [response.question for response in responses]
@@ -160,7 +160,7 @@ class Quiz(db.Model):
 class Topic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
-    proficiencies = db.relationship('Proficiency')
+    proficiencies = db.relationship('Proficiency', backref='topic')
 
 @login.user_loader
 def load_user(id):
