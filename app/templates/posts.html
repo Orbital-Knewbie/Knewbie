@@ -60,8 +60,8 @@
                 </div>
                 {% endif %}
                 <div class="input-container">
-                    {{ postForm.post(cols=37, rows=8, class_="textarea", placeholder="Enter your message!") }}
-                    <!--render_error(form.post)-->
+                    {{ postForm.content(cols=37, rows=8, class_="textarea", placeholder="Enter your message!") }}
+                    <!--render_error(form.content)-->
                 </div>
                 {{ postForm.submit(class_="post-btn") }}
             </form>

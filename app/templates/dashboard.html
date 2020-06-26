@@ -50,7 +50,19 @@
     <section class="box" id="topicalquiz">
         <h1>Topical Quizzes</h1>
         <div class="card-wrapper">
+            {% for topic in topics %}
             <div class="card">
+                <div class="card-background"></div>
+                <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
+                <h2>{{ topic.name }}</h2>
+                {% if questions %}
+                <a href="{{ url_for('result') }}" class="btn">View Result</a>
+                {% else %}
+                <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <!--<div class="card">
                 <div class="card-background"></div>
                 <img src="../static/resources/images/Student.svg" class="quiz-symbol">
                 <h2>Geometry</h2>
@@ -76,7 +88,7 @@
                 <img src="../static/resources/images/Teacher.svg" class="quiz-symbol">
                 <h2>Test</h2>
                 <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
-            </div>
+            </div>-->
         </div>
     </section>
 

@@ -19,6 +19,7 @@ def register(form, role):
     db.session.commit()
     confirm_url = get_confirm_url(user)
     send_conf_email(user, confirm_url)
+    return user
         
 
 def confirm_user(user):
@@ -53,6 +54,12 @@ def set_knewbie_id(user):
         code = set_code(8)
     user.knewbie_id = code
     return user
+
+def get_proficiencies(user):
+    '''Return list of (timestamp, proficiency) in chronological order'''
+    profs = Proficiency.query.filter_by(userID=user.id,topicID=1). \
+        order_by(Proficiency.timestamp.asc()).all()
+    return [(prof.timestamp, prof.theta) for prof in profs]
 
 def get_level_proficiency(user):
     '''Returns a list of proficiency levels for each difficulty range

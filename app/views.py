@@ -10,7 +10,7 @@ from app.models import User, Question, Option, Response, Group, Thread, Post, Pr
 from app.forms import *
 from app.email import *
 from app.profile import *
-from app.questions import get_student_cat, submit_response, get_response_answer, get_question # quiz attempts
+from app.questions import get_student_cat, submit_response, get_response_answer, get_question, get_all_topics # quiz attempts
 from app.questions import add_quiz, add_question, add_question_quiz, get_questions_quiz, edit_question, remove_question_quiz, remove_quiz # quiz making
 from app.questions import validate_quiz_link, validate_qn_link, validate_quiz_stu # validation
 from app.group import *
@@ -103,8 +103,8 @@ def regstu():
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
     if stuForm.validate_on_submit():
-        register(stuForm, 'student')
-        login_user(current_user)
+        user = register(stuForm, 'student')
+        login_user(user)
         flash('A confirmation email has been sent via email.', 'success')
         return redirect(url_for('unconfirmed'))
     return render_template('register.html', title=' | Register', stuForm=stuForm, eduForm=eduForm)
@@ -114,8 +114,8 @@ def regedu():
     stuForm = RegistrationForm(prefix='stu')
     eduForm = RegistrationForm(prefix='edu')
     if eduForm.validate_on_submit():
-        register(eduForm, 'educator')
-        login_user(current_user)
+        user = register(eduForm, 'educator')
+        login_user(user)
         flash('A confirmation email has been sent via email.', 'success')
         return redirect(url_for('unconfirmed'))
     return render_template('register.html', title=' | Register', stuForm=stuForm, eduForm=eduForm)
@@ -193,7 +193,11 @@ def dashboard():
     classForm = NameForm(prefix='class')
     quizForm = NameForm(prefix='quiz')
     image_file = get_image_file(current_user)
-    return render_template('dashboard.html', image_file=image_file, classForm=classForm, quizForm=quizForm, joinForm=joinForm)
+    topics = get_all_topics()
+    questions = None
+    if current_user.check_student():
+        correct, questions = get_response_answer(current_user)
+    return render_template('dashboard.html', image_file=image_file, classForm=classForm, quizForm=quizForm, joinForm=joinForm, topics=topics, questions=questions)
 
 @app.route('/settings', methods=['GET', 'POST'])
 @login_required
@@ -405,7 +409,7 @@ def edit_participants(groupID):
     image_file = get_image_file(current_user)
     joinForm = JoinForm()
     deleteForm = DeleteForm()
-    return render_template('participants.html', title=' | Edit Participants', groupID=groupID, image_file=image_file, users=users, deleteForm=deleteForm, joinForm=joinForm)
+    return render_template('participants.html', title=' | Edit Participants', group=group, image_file=image_file, users=users, deleteForm=deleteForm, joinForm=joinForm)
 
 @app.route('/class/<int:groupID>/participants/<int:userID>/delete', methods=['POST'])
 def delete_participant(groupID, userID):
@@ -449,7 +453,7 @@ def create_thread(groupID):
 
     # POST request for new thread
     if form.validate_on_submit():
-        sad(current_user, group, form.title.data, form.content.data)     
+        thread = add_thread(current_user, group, form.title.data, form.content.data)     
         return redirect(url_for('forum_post', groupID=groupID, threadID=thread.id))
 
     # GET request for create thread
@@ -517,10 +521,10 @@ def edit_post(groupID,threadID,postID):
 
     form = PostForm()
     if request.method == 'GET':
-        form.post.data=post.content
+        form.content.data=post.content
 
     if form.validate_on_submit():
-        post.content = form.post.data
+        post.content = form.content.data
         db.session.commit()
         return redirect(url_for('forum_post', groupID=groupID,threadID=threadID))
 
@@ -659,9 +663,8 @@ def editqn(qnID):
 @login_required
 def quiz():
     '''Renders tailored quiz'''
-    # userID, theta (proficiency), Admistered Items (AI), response vector
-    id = current_user.id
-    prof, student = get_student_cat(id)
+    # Gets a student CAT object for the user
+    prof, student = get_student_cat(current_user)
 
     # If enough questions already attempted, go to result
     if student.stop():
@@ -707,5 +710,5 @@ def result(quizID=None):
     quiz = None
     if quizID:
         quiz = validate_quiz_stu(quizID)
-    correct, questions = get_response_answer(current_user.id, quizID)
+    correct, questions = get_response_answer(current_user, quizID)
     return render_template('result.html', questions=questions, correct=correct, quiz=quiz)
