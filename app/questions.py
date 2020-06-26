@@ -150,7 +150,7 @@ def create_student_prof(user):
         prof = Proficiency(userID=user.id, timestamp=datetime.now(), 
                            theta=student_cat.theta, topicID=topic)
         db.session.add(prof)
-        if topic == 1:
+        if overall_prof is None:
             overall_prof = prof
     db.session.commit()
     return overall_prof
