@@ -345,6 +345,23 @@ def add_topic(name):
 
 ###########################
 # To move to Unit Testing #
+
+def remove_topics():
+    '''Removes all topics from the database'''
+    topics = Topic.query.all()
+    for t in topics:
+        db.session.delete(t)
+    db.session.commit()
+
+def add_test_topics():
+    remove_topics()
+    if Topic.query.all(): return
+    topics = ('General', 'Estimation', 'Geometry', 'Model')
+    for topic in topics:
+        add_topic(topic)
+
+add_test_topics()
+
 org_qns = {
     "Fill in the blank: 423 x 1000 = ____ x 10": {
         "answers": [
@@ -491,18 +508,3 @@ def test_insert_qns():
 #test_insert_qns()
 
 
-def remove_topics():
-    '''Removes all topics from the database'''
-    topics = Topic.query.all()
-    for t in topics:
-        db.session.delete(t)
-    db.session.commit()
-
-def add_test_topics():
-    remove_topics()
-    if Topic.query.all(): return
-    topics = ('General', 'Estimation', 'Geometry', 'Model')
-    for topic in topics:
-        add_topic(topic)
-
-add_test_topics()
