@@ -63,7 +63,16 @@ def progressreport(knewbieID=None):
         user = current_user
     else:
         user = User.query.filter_by(knewbie_id=knewbieID).first_or_404()
+        get_data(user)
     return render_template('report.html', title=' | Progress Report', user=user)
+
+#Get data from database to be used in chart.js
+@app.route('/progressreport/get_data')
+def get_data(user):
+    diff_prof = get_level_proficiency(user)
+    topical_prof = get_topic_proficiencies(user)
+    overall_prof = get_proficiencies(user)
+    return flask.jsonify({'payload':json.dumps({'topical_prof':topical_prof, 'diff_prof':diff_prof, 'overall_prof':overall_prof})})
 
 @app.route('/dashboard')
 @login_required
