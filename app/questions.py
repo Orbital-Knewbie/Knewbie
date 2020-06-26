@@ -82,18 +82,18 @@ def insert_qns(path):
 
                 db.session.commit()
 
-def get_student_cat(userID, topicID=1):
+def get_student_cat(user, topicID=1):
     '''Returns proficiency, student (CAT object) given a userID and optional topicID
     Defaults to overall proficiency (topicID=1)'''
 
-    prof = Proficiency.query.filter_by(userID=userID,topicID=topicID)
+    prof = Proficiency.query.filter_by(userID=user.id,topicID=topicID)
     if not prof.all():
-        prof = create_student_prof(userID)
+        prof = create_student_prof(user)
     else:
         prof = prof.order_by(Proficiency.timestamp.desc()).first()
     AI, responses = prof.get_AI_responses()
 
-    student = Student(userID, topicID, prof.theta, AI, responses)
+    student = Student(user.id, topicID, prof.theta, AI, responses)
     return prof, student
 
 def submit_response(user, form):
@@ -119,17 +119,17 @@ def submit_response(user, form):
 
 def update_proficiency(user, topicID=1):
     '''Updates user proficiency given a topic'''
-    prof, topic_student = get_student_cat(user.id, topicID)
+    prof, topic_student = get_student_cat(user, topicID)
     topic_student.update()
     prof.theta = topic_student.theta
     if topicID == 1:
         user.curr_theta = topic_student.theta
     db.session.commit()
 
-def add_proficiency(userID):
+def add_proficiency(user):
     '''Add timestamped proficiency entity, done every completed quiz'''
-    prof, student = get_student_cat(userID)
-    new_prof = Proficiency(userID=userID, timestamp=datetime.now(), 
+    prof, student = get_student_cat(user)
+    new_prof = Proficiency(userID=user.id, timestamp=datetime.now(), 
                            theta=student.theta, topicID=1)
     db.session.add(new_prof)
     db.session.commit()
@@ -154,6 +154,9 @@ def create_student_prof(user):
             overall_prof = prof
     db.session.commit()
     return overall_prof
+
+def get_all_topics():
+    return Topic.query.all()
 
 def get_topic(topicID):
     return Topic.query.filter_by(id=topicID).first()
@@ -201,13 +204,8 @@ def edit_question(question, qn_text, options, answer, topicID):
     db.session.commit()
     return question
 
-def get_proficiencies(userID):
-    '''Return list of (timestamp, proficiency) in chronological order'''
-    profs = Proficiency.query.filter_by(userID=userID,topicID=1). \
-        order_by(Proficiency.timestamp.asc()).all()
-    return [(prof.timestamp, prof.theta) for prof in profs]
 
-def get_response_answer(id, quizID=None):
+def get_response_answer(user, quizID=None):
     '''Given userID, optional quizID
     Returns number of correct responses, 
     and dictionary with format
@@ -215,9 +213,9 @@ def get_response_answer(id, quizID=None):
     ans_num and res_num given as int 1-4
     '''
     if quizID is None:
-        responses = Response.query.filter_by(userID=id).all()
+        responses = Response.query.filter_by(userID=user.id).all()
     else:
-        responses = Response.query.filter_by(userID=id).filter(Question.quizzes.any(id=quizID)).all()
+        responses = Response.query.filter_by(userID=user.id).filter(Question.quizzes.any(id=quizID)).all()
     d={}
     correct = 0
     for r in responses:

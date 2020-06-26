@@ -22,6 +22,7 @@ def save_post(user, content, threadID):
     db.session.add(post)
     db.session.commit()
     flash('Your post is now live!')
+    return post
 
 def remove_post(post):
     db.session.delete(post)
@@ -33,10 +34,11 @@ def add_thread(user, group, title, content):
     db.session.add(thread)
     db.session.flush()
 
-    save_post(user, content, thread.id)
+    post = save_post(user, content, thread.id)
     
     db.session.add(post)
     db.session.commit()
+    return thread
 
 def remove_thread(thread):
     for p in Post.query.filter_by(threadID=thread.id).all():

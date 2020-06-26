@@ -9,7 +9,7 @@
     </header>
 
     <div class="add-user">
-        <form class="deact-form" action="{{ url_for('adduserclass', groupID=groupID) }}" method="post">
+        <form class="deact-form" action="{{ url_for('adduserclass', groupID=group.id) }}" method="post">
             {{ joinForm.hidden_tag() }}
             <a><i class="fas fa-user-plus"></i>Add User</a>
             <div class="input-field">
@@ -25,7 +25,7 @@
             <h1>{{loop.index}}.</h1>
             <img src="{{ user.image_file }}" alt="{{ user.firstName }} {{ user.lastName }}" class="leaderboard-img">
             <span class="leaderboard-name">{{ user.firstName }} {{ user.lastName }}</span>
-            <form action="{{ url_for('delete_participant', groupID=groupID, userID=user.id) }}" method="post" class="create-form">
+            <form action="{{ url_for('delete_participant', groupID=group.id, userID=user.id) }}" method="post" class="create-form">
                 {{ deleteForm.hidden_tag() }}
                 {{ deleteForm.submit(class_="edit-btn") }}
             </form>
