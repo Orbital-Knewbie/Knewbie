@@ -414,6 +414,7 @@ def edit_participants(groupID):
     return render_template('participants.html', title=' | Edit Participants', group=group, image_file=image_file, users=users, deleteForm=deleteForm, joinForm=joinForm)
 
 @app.route('/class/<int:groupID>/participants/<int:userID>/delete', methods=['POST'])
+@login_required
 def delete_participant(groupID, userID):
     if not current_user.check_educator() or current_user.id == userID:
         return render_template('errors/error403.html'), 403
@@ -436,7 +437,7 @@ def delete_participant(groupID, userID):
 # forum/thread/<int:threadID>/<int:postID>/edit
 @app.route('/class/<int:groupID>')
 @app.route('/class/<int:groupID>/forum')
-#@login_required
+@login_required
 def forum(groupID):
     group = validate_group_link(current_user, groupID)
     if group is None:
@@ -446,6 +447,7 @@ def forum(groupID):
     return render_template('forum.html', title=' | Forum', groupID=groupID, threads=threads, group=group, image_file=image_file)
 
 @app.route('/class/<int:groupID>/forum/thread', methods=['GET','POST'])
+@login_required
 def create_thread(groupID):
     # Check validity of link access first
     group = validate_group_link(current_user, groupID)
@@ -462,6 +464,7 @@ def create_thread(groupID):
     return render_template('posts.html', title=' | Forum', postForm=form)
 
 @app.route('/class/<int:groupID>/forum/thread/<int:threadID>', methods=['GET', 'POST'])
+@login_required
 def forum_post(groupID, threadID):
     # Check validity of link access first
     group = validate_group_link(current_user, groupID)
@@ -484,6 +487,7 @@ def forum_post(groupID, threadID):
     return render_template('posts.html', title=' | Forum', thread=thread,posts=posts, postForm=postForm, delThreadForm=delThreadForm, delPostForm=delPostForm, users=users)
 
 @app.route('/class/<int:groupID>/forum/thread/<int:threadID>/delete', methods=['POST'])
+@login_required
 def delete_thread(groupID, threadID):
     # Check validity of link access first
     if not current_user.check_educator():
@@ -502,6 +506,7 @@ def delete_thread(groupID, threadID):
         return redirect(url_for('forum', groupID=groupID))
 
 @app.route('/class/<int:groupID>/forum/thread/<int:threadID>/<int:postID>/delete', methods=['POST'])
+@login_required
 def delete_post(groupID, threadID, postID):
     # Check validity of link access first
     post = validate_post_link(current_user, groupID,threadID,postID)
@@ -515,6 +520,7 @@ def delete_post(groupID, threadID, postID):
         return redirect(url_for('forum_post', groupID=groupID,threadID=threadID))
 
 @app.route('/class/<int:groupID>/forum/thread/<int:threadID>/<int:postID>/edit', methods=['GET','POST'])
+@login_required
 def edit_post(groupID,threadID,postID):
     # Check validity of link access first
     post = validate_post_link(current_user, groupID,threadID,postID)
@@ -716,6 +722,7 @@ def result(quizID=None):
     return render_template('result.html', questions=questions, correct=correct, quiz=quiz)
 
 @app.route('/class/<int:groupID>/classquiz')
+@login_required
 def classquiz(groupID):
     group = validate_group_link(current_user, groupID)
     image_file = get_image_file(current_user)

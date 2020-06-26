@@ -17,16 +17,19 @@ naming_convention = {
     "pk": "pk_%(table_name)s"
 }
 
+
+
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app=app, metadata=MetaData(naming_convention=naming_convention))
-db.create_all()
 migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
 mail = Mail(app)
 
-from app import views, models
+from app import models
+db.create_all()
+from app import views
 from app.errors.handlers import errors
 
 app.register_blueprint(errors)

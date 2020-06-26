@@ -78,7 +78,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="migrations\env.py" />
-    <Compile Include="migrations\versions\145684050a10_init_db.py" />
     <Compile Include="run.py" />
     <Compile Include="app\tests\test_users.py">
       <SubType>Code</SubType>
