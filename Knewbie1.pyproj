@@ -49,6 +49,9 @@
     <Compile Include="app\group.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="install.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\profile.py">
       <SubType>Code</SubType>
     </Compile>
