@@ -39,7 +39,7 @@
     <div class="query-form">
         <form class="login-form" action="{{ url_for('get_report') }}" method="post">
             {{ codeForm.hidden_tag() }}
-            {{ codeForm.title()}}
+            {{ codeForm.title(class_="border-bottom", placeholder="Knewbie ID")}}
             {{ render_error(codeForm.title) }}
             {{ codeForm.submit(class_="signIn-btn")}}
         </form>
