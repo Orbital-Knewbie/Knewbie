@@ -1,0 +1,34 @@
+﻿{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='content/quizstyle.css') }}">
+{% endblock %}
+{% block content %}
+{% include "sidebar.html" %}
+<div class="quiz-container">
+    <div id="quiz" class="justify-center flex-column">
+        <h1>QUIZ TITLE</h1>
+        <h2 id="question">{{question}}</h2>
+
+        {% if edu %}
+        <form action="{{ url_for('edu_quiz', quizID=quizID) }}" method="post">
+            {% else %}
+            <form action="{{ url_for('quiz') }}" target="result" method="post">
+                {% endif %}
+                <ol>
+                    {% for o in options %}
+                    <li class="options-container" id="options-container">
+                        <p class="options-prefix">{{loop.index}}</p>
+                        <label>
+                            <input type="radio" class="options" name="option" id="{{o}}" value="{{o}}">
+                            <span>{{options[o]}}</span>
+                        </label>
+                    </li>
+                    <br />
+
+                    {% endfor %}
+                </ol>
+                <p><input class="submit-btn" type="submit" value="SUBMIT"></p>
+            </form>
+    </div>
+
+</div>
+{% endblock %}

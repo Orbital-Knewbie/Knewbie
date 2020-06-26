@@ -712,3 +712,9 @@ def result(quizID=None):
         quiz = validate_quiz_stu(quizID)
     correct, questions = get_response_answer(current_user, quizID)
     return render_template('result.html', questions=questions, correct=correct, quiz=quiz)
+
+@app.route('/class/<int:groupID>/classquiz')
+def classquiz(groupID):
+    group = validate_group_link(current_user, groupID)
+    image_file = get_image_file(current_user)
+    return render_template('classquiz.html', title=' | Quiz', group=group, image_file=image_file)
