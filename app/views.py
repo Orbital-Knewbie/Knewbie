@@ -63,6 +63,7 @@ def progressreport(knewbieID=None):
         user = current_user
     else:
         user = User.query.filter_by(knewbie_id=knewbieID).first_or_404()
+        get_data(user)
     return render_template('report.html', title=' | Progress Report', user=user)
 
 @app.route('/faq')
@@ -176,11 +177,19 @@ def logout():
 # settings
 # resetpassword
 # deactivate
+#Get data from database to be used in chart.js
+@app.route('/progressreport/get_data')
+def get_data(user):
+    diff_prof = get_level_proficiency(user)
+    topical_prof = get_topic_proficiencies(user)
+    overall_prof = get_proficiencies(user)
+    return flask.jsonify({'payload':json.dumps({'topical_prof':topical_prof, 'diff_prof':diff_prof, 'overall_prof':overall_prof})})
+
 @app.route('/dashboard')
 @login_required
 def dashboard():
     """Renders the dashboard page."""
-    joinForm = CodeForm(prefix='code')
+    joinForm = JoinClassForm(prefix='join')
     classForm = NameForm(prefix='class')
     quizForm = NameForm(prefix='quiz')
     image_file = get_image_file(current_user)
@@ -703,3 +712,9 @@ def result(quizID=None):
         quiz = validate_quiz_stu(quizID)
     correct, questions = get_response_answer(current_user, quizID)
     return render_template('result.html', questions=questions, correct=correct, quiz=quiz)
+
+@app.route('/class/<int:groupID>/classquiz')
+def classquiz(groupID):
+    group = validate_group_link(current_user, groupID)
+    image_file = get_image_file(current_user)
+    return render_template('classquiz.html', title=' | Quiz', group=group, image_file=image_file)

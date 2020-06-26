@@ -62,6 +62,63 @@ img {
     color: var(--PURPLE);
 }
 
+.join {
+    display: block;
+    outline: none;
+    border: none;
+    width: 250px;
+    border-radius: 0.4rem;
+    padding: 10px 15px;
+    margin: 2rem auto;
+    display: block;
+    text-align: center;
+    font-size: 1.4rem;
+    color: var(--OFFWHITE);
+    transition-duration: 0.25s;
+    background-color: rgba(170, 7, 107, 0.3);
+}
+
+.join:focus,
+.join:active {
+    background-color: var(--LIGHTPURPLE);
+    color: var(--OFFWHITE);
+    width: 300px;
+}
+
+.join::placeholder {
+    color: var(--LIGHTPURPLE);
+}
+
+
+.join-btn:hover {
+    background: var(--OFFWHITE);
+    border: 1px solid var(--LIGHTPURPLE);
+    color: var(--LIGHTPURPLE);
+}
+
+.join-btn:active {
+    transform: scale(0.98);
+}
+
+.join-btn {
+    display: inline-flex;
+    background: var(--LIGHTPURPLE);
+    color: var(--OFFWHITE);
+    position: relative;
+    margin-bottom: 1rem;
+    padding: 1rem 4rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border: none;
+    border-radius: .4rem;
+    box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
+    outline: none;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
 .btn {
     font-weight: bold;
     display: inline-block;

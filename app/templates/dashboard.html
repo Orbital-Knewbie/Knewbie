@@ -35,12 +35,15 @@
     {% if current_user.urole == 'student' %}
     <section class="box" id="joinclass">
         <div class="details">
-            <form action="{{ url_for('joinclass') }}" method="post" class="create-form-1">
+            <h1>Join A Class</h1>
+            <form action="{{ url_for('joinclass') }}" method="post">
                 {{ joinForm.hidden_tag() }}
-                <h1>Join A Class</h1>
-                {{ joinForm.title(size=32, class_="input", placeholder="Class Code") }}
-                {{ joinForm.submit(class_="submit-btn") }}
+                {{ joinForm.title(size=32, class_="join", placeholder="Class Code") }}
+                {{ joinForm.submit(class_="join-btn") }}
             </form>
+        </div>
+        <div class="details">
+            
         </div>
     </section>
 
@@ -89,7 +92,7 @@
         </div>
     </section>
 
-    <section class="box" id="mockquiz" style="padding-bottom: 2rem;">
+    <section class="box" id="mockquiz" style="margin-bottom: 5rem;">
         <h1>Mock Quizzes</h1>
         <div class="card-wrapper">
             <div class="card">

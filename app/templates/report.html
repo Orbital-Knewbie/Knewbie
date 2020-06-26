@@ -1,7 +1,7 @@
 ﻿{% extends "base.html" %}
 {% block style %}
+<link rel="stylesheet" href="../static/content/reportstyle.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-<link rel="stylesheet" href="{{ url_for('static', filename='content/reportstyle.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -26,6 +26,22 @@
     Chart.defaults.global.defaultFontSize = 18;
     Chart.defaults.global.defaultFontColor = '#420341';
 
+    var topical_prof;
+    var difficulty_prof;
+    var overall_prof;
+
+    $.ajax({
+        url: "/get_data",
+        type: "get",
+        data: { vals: '' },
+        success: function (response) {
+            full_data = JSON.parse(response.payload);
+            topical_prof = full_data['topical_prof'];
+            difficulty_prof = full_data['diff_prof'];
+            overall_prof = full_data['overall_prof'];
+        }
+    });
+
 
     var lineChart = new Chart(myChart, {
         type: 'line',
@@ -33,14 +49,7 @@
             labels: ['Boston', 'Worcester', 'SPringfield', 'Lowell', 'Cambridge', 'New Bedford'],
             datasets: [{
                 label: 'Population',
-                data: [
-                    617594,
-                    181045,
-                    153060,
-                    106519,
-                    105162,
-                    95072
-                ],
+                data: overall_prof,
                 backgroundColor: [ //borderWidth, borderColor, hoverBorderWidth, hoverBorderColor
                     'rgba(170, 7, 107, 0.1)',
                     'rgba(170, 7, 107, 0.1)',
@@ -87,7 +96,7 @@
         type: 'polarArea',
         data: {
             datasets: [{
-                data: [10, 20, 30],
+                data: difficulty_prof,
                 backgroundColor: [
                     'rgba(170, 7, 107, 0.2)',
                     'rgba(170, 7, 107, 0.4)',
@@ -117,7 +126,7 @@
     data: {
         datasets: [{
             label: 'Topical Proficiency',
-            data: [10, 20, 30, 50, 60, 40],
+            data: topical_prof,
             backgroundColor: 'rgba(170, 7, 107, 0.2)',
             borderColor: 'rgba(170, 7, 107, 0.6)',
             pointBackgroundColor: 'rgba(170, 7, 107, 0.6)',
