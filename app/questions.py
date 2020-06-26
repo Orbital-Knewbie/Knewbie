@@ -242,10 +242,17 @@ def get_response_answer(id, quizID=None):
 
 def add_quiz(user, name):
     '''Adds educator created quiz'''
+    if Quiz.query.filter_by(userID=user.id, name=name).first():
+        return
     quiz = Quiz(userID=user.id, name=name)
     db.session.add(quiz)
     db.session.commit()
     return quiz
+
+def remove_quiz(quiz):
+    quiz.questions = []
+    db.session.delete(quiz)
+    db.session.commit()
 
 def add_question_quiz(quiz, question):
     '''Adds a question to an educator created quiz'''
@@ -293,12 +300,13 @@ def get_questions_quiz(quiz, pre_shuffle=False):
     d = {}
     questions = quiz.questions
     for question in questions:
+        qnID = question.id
         qn_txt = question.question
         options = question.options
         if pre_shuffle:
             shuffle(options)
         opt_txt = {option.id : option.option for option in options}
-        d[qn_txt] = {'options' : opt_txt, 'answer' : question.answerID}
+        d[qnID] = {'question' : qn_txt, 'options' : opt_txt, 'answer' : question.answerID}
     return d
 
 def get_question(quiz, n, pre_shuffle=False):

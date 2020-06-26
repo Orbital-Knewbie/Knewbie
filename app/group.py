@@ -23,6 +23,8 @@ def set_class_code(group):
     return group
 
 def add_group(user, name):
+    if Group.query.filter_by(name=name).filter(Group.users.any(id=user.id)).first():
+        return
     group = Group(name=name)
     set_class_code(group)
     add_user(group, user)

@@ -1,9 +1,8 @@
 from flask import redirect, url_for, flash
 from app import db
 from app.models import Group, Post, Thread, User, Quiz
-from app.group import set_class_code, validate_group_link, add_user
+from app.group import validate_group_link
 from datetime import datetime
-
 
 
 def validate_post_link(user, groupID, threadID, postID):
@@ -54,3 +53,7 @@ def get_post_users(posts):
         users[post.userID] = ' '.join((user.firstName,user.lastName))
     return users
 
+def remove_all_threads(group):
+    threads = Thread.query.filter_by(groupID=group.id).all()
+    for thread in threads:
+        remove_thread(thread)

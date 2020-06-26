@@ -62,7 +62,7 @@ questionquiz = db.Table('questionquiz', \
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.String(255), index=True, unique=True)
+    question = db.Column(db.String(255))
     discrimination = db.Column(db.Float)
     difficulty = db.Column(db.Float)
     guessing = db.Column(db.Float)

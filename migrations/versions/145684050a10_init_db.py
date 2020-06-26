@@ -1,8 +1,8 @@
 """init db
 
-Revision ID: ce0fd590d7b2
+Revision ID: 145684050a10
 Revises: 
-Create Date: 2020-06-22 17:11:29.276651
+Create Date: 2020-06-26 16:16:33.000670
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ce0fd590d7b2'
+revision = '145684050a10'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -71,9 +71,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['topicID'], ['topic.id'], name=op.f('fk_question_topicID_topic')),
     sa.PrimaryKeyConstraint('id', name=op.f('pk_question'))
     )
-    with op.batch_alter_table('question', schema=None) as batch_op:
-        batch_op.create_index(batch_op.f('ix_question_question'), ['question'], unique=True)
-
     op.create_table('quiz',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userID', sa.Integer(), nullable=True),
@@ -150,9 +147,6 @@ def downgrade():
     op.drop_table('usergroup')
     op.drop_table('thread')
     op.drop_table('quiz')
-    with op.batch_alter_table('question', schema=None) as batch_op:
-        batch_op.drop_index(batch_op.f('ix_question_question'))
-
     op.drop_table('question')
     op.drop_table('proficiency')
     with op.batch_alter_table('user', schema=None) as batch_op:

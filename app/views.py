@@ -11,7 +11,7 @@ from app.forms import *
 from app.email import *
 from app.profile import *
 from app.questions import get_student_cat, submit_response, get_response_answer, get_question # quiz attempts
-from app.questions import add_quiz, add_question, add_question_quiz, get_questions_quiz, edit_question # quiz making
+from app.questions import add_quiz, add_question, add_question_quiz, get_questions_quiz, edit_question, remove_question_quiz, remove_quiz # quiz making
 from app.questions import validate_quiz_link, validate_qn_link, validate_quiz_stu # validation
 from app.group import *
 from app.forum import *
@@ -306,7 +306,10 @@ def createclass():
     codeForm = CodeForm(prefix='code')
     image_file = get_image_file(current_user)
     if classForm.validate_on_submit():
-        add_group(current_user, classForm.title.data)
+        group = add_group(current_user, classForm.title.data)
+        if group is None:
+            flash('You have already created a Class with this name. Please choose a different name.', 'warning')
+            return redirect(url_for('dashboard'))
         return redirect(url_for('createclasssuccess', groupID=group.id))
     return render_template('dashboard.html', image_file=image_file, codeForm=codeForm, classForm=classForm, quizForm=quizForm)
 
@@ -327,21 +330,6 @@ def createclasssuccess(groupID):
     group = validate_group_link(current_user, groupID)
     return render_template('createclasssuccess.html', title=' | Create Class', group=group)
 
-@app.route('/class/<int:groupID>/user', methods=['POST'])
-@login_required
-def adduserclass(groupID):
-    """Renders the create class page for educators."""
-    if not current_user.check_educator():
-        return render_template('errors/error403.html'), 403
-    group = validate_group_link(current, groupID)
-    form = JoinForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(knewbie_id=form.title.data).first_or_404()
-        if add_user(group, user):
-            flash('User added')
-        else:
-            flash('User already in Class')
-        return redirect(url_for('forum', groupID=groupID))
 
 @app.route('/class/<int:groupID>/leaderboard')
 @login_required
@@ -374,11 +362,28 @@ def delete_class(groupID):
     form = DeleteClassForm()
     if form.validate_on_submit():
         group = Group.query.filter_by(id=groupID, classCode = form.title.data).first_or_404()
+        remove_all_threads(group)
         remove_group(group)
         flash('Class deleted')
         return redirect(url_for('dashboard'))
     return render_template('deleteclass.html', title=' | Deactivate Account', form=form)
 
+@app.route('/class/<int:groupID>/user', methods=['POST'])
+@login_required
+def adduserclass(groupID):
+    """Renders the create class page for educators."""
+    if not current_user.check_educator():
+        return render_template('errors/error403.html'), 403
+    group = validate_group_link(current, groupID)
+    joinForm = JoinForm()
+    deleteForm = DeleteForm()
+    if joinForm.validate_on_submit():
+        user = User.query.filter_by(knewbie_id=joinForm.title.data).first_or_404()
+        if add_user(group, user):
+            flash('User added')
+        else:
+            flash('User already in Class')
+        return redirect(url_for('forum', groupID=groupID))
 
 # Routes to edit participants list
 @app.route("/class/<int:groupID>/participants")
@@ -389,20 +394,23 @@ def edit_participants(groupID):
     group = validate_group_link(current_user, groupID)
     users = get_sorted_students(groupID)
     image_file = get_image_file(current_user)
-    form = DeleteForm()
-    return render_template('participants.html', title=' | Edit Participants', image_file=image_file, users=users, group=group, form=form)
+    joinForm = JoinForm()
+    deleteForm = DeleteForm()
+    return render_template('participants.html', title=' | Edit Participants', groupID=groupID, image_file=image_file, users=users, group=group, deleteForm=deleteForm, joinForm=joinForm)
 
 @app.route('/class/<int:groupID>/participants/<int:userID>/delete', methods=['POST'])
 def delete_participant(groupID, userID):
-    form = DeleteForm()
     if not current_user.check_educator() or current_user.id == userID:
         return render_template('errors/error403.html'), 403
     group = validate_group_link(current_user, groupID)
     user = validate_user_link(groupID, userID)
-    if form.validate_on_submit():
+
+    joinForm = JoinForm()
+    deleteForm = DeleteForm()
+    if deleteForm.validate_on_submit():
         remove_user(group, user)
         flash('User deleted')
-        return redirect(url_for('edit_participants',groupID=groupID))
+        return redirect(url_for('edit_participants', groupID=groupID))
 
 # Routes for Class Forum
 # forum
@@ -528,8 +536,26 @@ def createquiz():
     image_file = get_image_file(current_user)
     if quizForm.validate_on_submit():
         quiz = add_quiz(current_user, quizForm.title.data)
+        if quiz is None:
+            flash('You have already created a Quiz with this name. Please choose a different name.', 'warning')
+            return redirect(url_for('dashboard'))
         return redirect(url_for('createqn', quizID=quiz.id))
     return render_template('dashboard.html', image_file=image_file, classForm=classForm, quizForm=quizForm)
+
+@app.route('/quiz/<int:quizID>/delete', methods=['POST'])
+@login_required
+def deletequiz(quizID):
+    """Renders the create quiz page for educators."""
+    if not current_user.check_educator():
+        return render_template('errors/error403.html'), 403
+    quiz = validate_quiz_link(current_user, quizID)
+    delQuizForm = DeleteForm(prefix='quiz')
+    delQnForm = DeleteForm(prefix='qn')
+    if delQuizForm.validate_on_submit():
+        remove_quiz(quiz)
+        flash('Quiz deleted')
+        return redirect(url_for('dashboard'))
+
 
 @app.route('/quiz/<int:quizID>/success')
 @login_required
@@ -548,8 +574,9 @@ def preview_quiz(quizID):
         return render_template('errors/error403.html'), 403
     quiz = validate_quiz_link(current_user, quizID)
     questions = get_questions_quiz(quiz)
-    form = DeleteForm()
-    return render_template('previewquiz.html', title=' | Create Class', questions=questions, quiz=quiz, form=form)
+    delQuizForm = DeleteForm(prefix='quiz')
+    delQnForm = DeleteForm(prefix='qn')
+    return render_template('previewquiz.html', title=' | Create Class', questions=questions, quiz=quiz, delQuizForm=delQuizForm, delQnForm=delQnForm)
 
 @app.route('/quiz/<int:quizID>/question', methods=['GET', 'POST'])
 @login_required
@@ -557,7 +584,7 @@ def createqn(quizID):
     """Renders the add questions page for educators."""
     if not current_user.check_educator():
         return render_template('errors/error403.html'), 403
-    quiz = validate_quiz_link(quizID)
+    quiz = validate_quiz_link(current_user, quizID)
     form = QuestionForm()
     if form.validate_on_submit():
         #Commit inputs to database
@@ -576,10 +603,11 @@ def deleteqn(quizID, qnID):
     """Renders the add questions page for educators."""
     if not current_user.check_educator():
         return render_template('errors/error403.html'), 403
-    quiz = validate_quiz_link(quizID)
+    quiz = validate_quiz_link(current_user, quizID)
     qn = validate_qn_link(qnID, current_user.id)
-    form = DeleteForm()
-    if form.validate_on_submit():
+    delQuizForm = DeleteForm(prefix='quiz')
+    delQnForm = DeleteForm(prefix='qn')
+    if delQnForm.validate_on_submit():
         remove_question_quiz(quiz, qn)
         return redirect(url_for('preview_quiz', quizID=quizID))
 
