@@ -20,6 +20,7 @@ naming_convention = {
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app=app, metadata=MetaData(naming_convention=naming_convention))
+db.create_all()
 migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
