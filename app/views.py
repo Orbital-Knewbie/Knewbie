@@ -698,7 +698,7 @@ def edu_quiz(quizID, qnNum):
 
     # If submitting an attempted question
     elif request.method == 'POST':
-        submit_response(id, request.form)
+        submit_response(current_user, request.form)
         return redirect(url_for('edu_quiz'),quiz=quiz,qnNum=qnNum+1)
 
 @app.route('/quiz/<int:quizID>/result')
@@ -713,7 +713,7 @@ def result(quizID=None):
     correct, questions = get_response_answer(current_user, quizID)
     return render_template('result.html', questions=questions, correct=correct, quiz=quiz)
 
-@app.route('/class/<int:groupID>/classquiz')
+@app.route('/class/<int:groupID>/quizzes')
 def classquiz(groupID):
     group = validate_group_link(current_user, groupID)
     image_file = get_image_file(current_user)
