@@ -387,7 +387,7 @@ def adduserclass(groupID):
     """Renders the create class page for educators."""
     if not current_user.check_educator():
         return render_template('errors/error403.html'), 403
-    group = validate_group_link(current, groupID)
+    group = validate_group_link(current_user, groupID)
     joinForm = JoinForm()
     deleteForm = DeleteForm()
     if joinForm.validate_on_submit():
@@ -396,7 +396,7 @@ def adduserclass(groupID):
             flash('User added')
         else:
             flash('User already in Class')
-        return redirect(url_for('forum', groupID=groupID))
+        return redirect(url_for('edit_participants', groupID=groupID))
 
 # Routes to edit participants list
 @app.route("/class/<int:groupID>/participants")

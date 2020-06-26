@@ -23,7 +23,7 @@
         {% for user in users %}
         <article class="participant-row">
             <h1>{{loop.index}}.</h1>
-            <img src="{{ user.image_file }}" alt="{{ user.firstName }} {{ user.lastName }}" class="leaderboard-img">
+            <img src="{{ url_for('static', filename='resources/images/profile_pics/' + user.image_file) }}" alt="{{ user.firstName }} {{ user.lastName }}" class="leaderboard-img">
             <span class="leaderboard-name">{{ user.firstName }} {{ user.lastName }}</span>
             <form action="{{ url_for('delete_participant', groupID=group.id, userID=user.id) }}" method="post" class="create-form">
                 {{ deleteForm.hidden_tag() }}
