@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='content/quizstyle.css') }}">
 {% endblock %}
 {% block content %}
-<div class="quiz-container" style="overflow: scroll;">
+<div class="quiz-container" style="overflow-y: scroll; margin-bottom: 8rem;">
     <div id="quiz" class="justify-center flex-column" style="height: 80vh; width: 100vw; margin: 20rem;">
         <h1>Score: <u> {{ correct }}/{{ questions | length }}</u></h1>
         {% if quiz %}
@@ -34,8 +34,7 @@
             {% endif %}
         </div>
         {% endfor %}
+        <a href="{{ url_for('dashboard') }}" class="edit-btn" style="margin-bottom: 5rem;">Back Home</a>
     </div>
-
 </div>
-<a href="{{ url_for('dashboard') }}">Back Home</a>
 {% endblock %}

@@ -297,7 +297,7 @@ def deactivate_account(token):
 def joinclass():
     if current_user.check_educator():
         return redirect(url_for('dashboard'))
-    joinForm = CodeForm(prefix='code')
+    joinForm = JoinClassForm(prefix='join')
     classForm = NameForm(prefix='class')
     quizForm = NameForm(prefix='quiz')
     image_file = get_image_file(current_user)
