@@ -228,6 +228,7 @@
     <Content Include="README.md" />
     <Content Include="requirements.txt" />
     <Content Include="docs\UserGuide-Students.md" />
+    <Content Include="Procfile" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">
