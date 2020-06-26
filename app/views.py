@@ -189,7 +189,7 @@ def get_data(user):
 @login_required
 def dashboard():
     """Renders the dashboard page."""
-    joinForm = CodeForm(prefix='code')
+    joinForm = JoinClassForm(prefix='join')
     classForm = NameForm(prefix='class')
     quizForm = NameForm(prefix='quiz')
     image_file = get_image_file(current_user)
