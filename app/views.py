@@ -689,7 +689,7 @@ def edu_quiz(quizID, qnNum):
 
     # If submitting an attempted question
     elif request.method == 'POST':
-        submit_response(id, request.form)
+        submit_response(current_user, request.form)
         return redirect(url_for('edu_quiz'),quiz=quiz,qnNum=qnNum+1)
 
 @app.route('/quiz/<int:quizID>/result')
