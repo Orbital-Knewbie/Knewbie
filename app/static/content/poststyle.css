@@ -81,7 +81,7 @@ body {
     grid-area: edit;
     text-align: right;
     background: white;
-    padding: 1.5rem 1rem;
+    padding: 1rem;
     grid-template-columns: min-content auto
 }
 
@@ -105,6 +105,7 @@ body {
 
 .post-edit i, .post-delete i {
     padding: 0 0.5rem 0 2rem;
+    margin: 0.5rem;
 }
 
 .content {
@@ -115,6 +116,24 @@ body {
     color: var(--OFFWHITE);
     border-bottom-left-radius: 0.4rem;
     border-bottom-right-radius: 0.4rem;
+}
+
+/* DELETE BUTTONS */
+.post-delete input, .thread-delete input, .post-edit i {
+    display: inline-block;
+    position: relative;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border: none;
+    border-radius: .4rem;
+    background: var(--LIGHTPURPLE);
+    color: var(--OFFWHITE);
+    box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
+    outline: none;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
 }
 
 /* MESSAGE DISPLAY */

@@ -396,7 +396,7 @@ def edit_participants(groupID):
     image_file = get_image_file(current_user)
     joinForm = JoinForm()
     deleteForm = DeleteForm()
-    return render_template('participants.html', title=' | Edit Participants', groupID=groupID, image_file=image_file, users=users, group=group, deleteForm=deleteForm, joinForm=joinForm)
+    return render_template('participants.html', title=' | Edit Participants', groupID=groupID, image_file=image_file, users=users, deleteForm=deleteForm, joinForm=joinForm)
 
 @app.route('/class/<int:groupID>/participants/<int:userID>/delete', methods=['POST'])
 def delete_participant(groupID, userID):
