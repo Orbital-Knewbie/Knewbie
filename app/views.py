@@ -236,7 +236,6 @@ def settings_knewbie_id():
 
 # Routes to reset password
 @app.route("/resetpassword", methods=['GET', 'POST'])
-@login_required
 def request_reset_password():
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))
@@ -249,7 +248,6 @@ def request_reset_password():
     return render_template('resetpassword.html', title=' | Reset Password', form=form)
 
 @app.route("/resetpassword/<token>", methods=['GET', 'POST'])
-@login_required
 def reset_password(token):
     if current_user.is_authenticated:
         return redirect(url_for('dashboard'))

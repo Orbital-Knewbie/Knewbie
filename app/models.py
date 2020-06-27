@@ -148,7 +148,6 @@ class Proficiency(db.Model):
             AI.append(response.qnID - 1)
             qn = response.question
             resp_vector.append(qn.answerID == response.optID)
-        print((AI, resp_vector))
 
         return AI, resp_vector
 

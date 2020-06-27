@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/github/Orbital-Knewbie/Knewbie.png)](https://travis-ci.org/github/Orbital-Knewbie/Knewbie)
+[![codecov](https://codecov.io/gh/Orbital-Knewbie/Knewbie/branch/master/graph/badge.svg)](https://codecov.io/gh/Orbital-Knewbie/Knewbie)
+
 # Knewbie
 Knewbie is a Web Application built using Flask and makes use of machine learning (Computerized Adaptive Testing) to provide tailored educational content.
 
