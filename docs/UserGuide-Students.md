@@ -156,11 +156,17 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; 5. Based on your current ability, questions will be recommended in a way to ensure you improve.
 
-&nbsp; &nbsp; &nbsp; &nbsp; 6. At the end, you will get a feedback, displaying the questions you get right and wrong.
+&nbsp; &nbsp; &nbsp; &nbsp; 6. The quizzes on your dashboard excludes any quizzes assigned by your educators.
 
-&nbsp; &nbsp; &nbsp; &nbsp; 7. The correct answers will not be displayed so that you can re-attempt the quiz.
+&nbsp; &nbsp; &nbsp; &nbsp; 7. Those assigned by your educators can be accessed only within the respective classes.
 
-&nbsp; &nbsp; &nbsp; &nbsp; 8. You can access your progress report through your dashboard, or as detailed [here](#id).
+&nbsp; &nbsp; &nbsp; &nbsp; 8. Quizzes assigned by your educators will not make use of the  algorithm.
+
+&nbsp; &nbsp; &nbsp; &nbsp; 9. At the end, you will get a feedback, displaying the questions you get right and wrong.
+
+&nbsp; &nbsp; &nbsp; &nbsp; 10. The correct answers will not be displayed so that you can re-attempt the quiz.
+
+&nbsp; &nbsp; &nbsp; &nbsp; 11. You can access your progress report through your dashboard, or as detailed [here](#id).
 
 ### <a name="customize"> &nbsp; &nbsp; 3.5. Profile Customization</a><br>
 #### <a name="profile"> &nbsp; &nbsp; &nbsp; &nbsp; 3.5.1. Profile Settings</a><br>
