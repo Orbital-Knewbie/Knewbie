@@ -238,6 +238,7 @@
     <Content Include="requirements.txt" />
     <Content Include="docs\UserGuide-Students.md" />
     <Content Include="Procfile" />
+    <Content Include=".travis.yml" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">

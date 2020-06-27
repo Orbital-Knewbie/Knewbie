@@ -1,6 +1,7 @@
 # dotfiles
 .*
 !.gitignore
+!.travis.yml
 
 *~
 
