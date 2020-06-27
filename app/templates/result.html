@@ -1,9 +1,10 @@
-﻿{% block style %}
+﻿{% extends "base.html" %}
+{% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='content/quizstyle.css') }}">
 {% endblock %}
 {% block content %}
-<div class="quiz-container">
-    <div id="quiz" class="justify-center flex-column">
+<div class="quiz-container" style="overflow-y: scroll; margin-bottom: 8rem;">
+    <div id="quiz" class="justify-center flex-column" style="height: 80vh; width: 100vw; margin: 20rem;">
         <h1>Score: <u> {{ correct }}/{{ questions | length }}</u></h1>
         {% if quiz %}
         <h1>{{ quiz.name }}</h1>
@@ -21,20 +22,19 @@
                     <span>{{opt}}</span>
                 </label>
             </li>
-            <br />
-
             {% endfor %}
 
         </ol>
-        <h3>Your Answer: Option {{ questions[q][2] + 1}} </h3>
-        {% if questions[q][1] == questions[q][2] %}
-        (correct)
-        {% else %}
-        (wrong)
-        {% endif %}
+        <div style="margin-bottom: 5rem;">
+            <h3>Your Answer: Option {{ questions[q][2] + 1}} </h3>
+            {% if questions[q][1] == questions[q][2] %}
+            <p style="color: green;">(correct)</p>
+            {% else %}
+            <p style="color: red;">(wrong)</p>
+            {% endif %}
+        </div>
         {% endfor %}
+        <a href="{{ url_for('dashboard') }}" class="edit-btn" style="margin-bottom: 5rem;">Back Home</a>
     </div>
-
 </div>
-<a href="{{ url_for('dashboard') }}">Back Home</a>
 {% endblock %}

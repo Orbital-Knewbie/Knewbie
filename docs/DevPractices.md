@@ -45,7 +45,10 @@ With two members, in the team, there is implicit review of code that one member 
 The advantage in conducting the code reviews is that there is more than one person involved in detecting any problems or bugs faced, ensuring higher quality code.
 
 ### 1.5 Testing <a name="testing">
-Python's own `unittest` module can be used for Unit Testing.
+[![Build Status](https://travis-ci.org/Orbital-Knewbie/Knewbie.svg?branch=master)](https://travis-ci.org/Orbital-Knewbie/Knewbie)
+[![codecov](https://codecov.io/gh/Orbital-Knewbie/Knewbie/branch/master/graph/badge.svg)](https://codecov.io/gh/Orbital-Knewbie/Knewbie)
+It is important to ensure that the code continues to work even with constant updates. Python's own `unittest` module can be used for Unit Testing, Codecov measures code coverage, while Travis does Integration Tests.
+The [Developer Guide](/docs/DeveloperGuide.md#test) covers testing in greater detail.
 
 ### 1.6 Qualitative Evaluation <a name="eval">
 A Cognitive Walkthrough by the development team was done and to complement the walkthrough, a self/expert evaluation was used. Heuristic Evaluation - using [Nielsen Heuristics](https://www.nngroup.com/articles/ten-usability-heuristics/) - was used during the evaluation. Details on the 10 heuristics can be found on the link. 

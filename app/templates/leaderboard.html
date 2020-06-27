@@ -9,71 +9,14 @@
     </header>
     
     <main class="leaderboard-table">
-        <!--{% for user in users %}
-    <article class="leaderboard-row">
-        <h1>{{loop.index}}.</h1>
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="{{ user.firstName }} {{ user.lastName }}" class="leaderboard-img">
-        <span class="leaderboard-name">{{ user.firstName }} {{ user.lastName }}</span>
-        <a href="#" class="btn">Progress Report</a>
-    </article>
-    {% endfor %}-->
-
+        {% for user in users %}
         <article class="leaderboard-row">
-            <h1>1.</h1>
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mark Zuckerberg" class="leaderboard-img">
-            <span class="leaderboard-name">Mark Zuckerberg</span>
-            <a href="#" class="btn">Progress Report</a>
+            <h1>{{loop.index}}.</h1>
+            <img src="{{ url_for('static', filename='resources/images/profile_pics/' + user.image_file) }}" alt="{{ user.firstName }} {{ user.lastName }}" class="leaderboard-img">
+            <span class="leaderboard-name">{{ user.firstName }} {{ user.lastName }}</span>
+            <a href="{{ url_for('progressreport', knewbieID=user.knewbie_id) }}" class="btn">Progress Report</a>
         </article>
-
-        <article class="leaderboard-row">
-            <h1>2.</h1>
-            <img src="https://randomuser.me/api/portraits/men/97.jpg" alt="Dustin Moskovitz" class="leaderboard-img">
-            <span class="leaderboard-name">Dustin Moskovitz</span>
-            <a href="#" class="btn">Progress Report</a>
-        </article>
-
-        <article class="leaderboard-row">
-            <h1>3.</h1>
-            <img src="https://randomuser.me/api/portraits/women/17.jpg" alt="Elizabeth Holmes" class="leaderboard-img">
-            <span class="leaderboard-name">Elizabeth Holmes</span>
-            <a href="#" class="btn">Progress Report</a>
-        </article>
-
-        <article class="leaderboard-row">
-            <h1>4.</h1>
-            <img src="https://randomuser.me/api/portraits/men/37.jpg" alt="Evan Spiegel" class="leaderboard-img">
-            <span class="leaderboard-name">Evan Spiegel</span>
-            <a href="#" class="btn">Progress Report</a>
-        </article>
-
-        <article class="leaderboard-row">
-            <h1>5.</h1>
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mark Zuckerberg" class="leaderboard-img">
-            <span class="leaderboard-name">Mark Zuckerberg</span>
-            <a href="#" class="btn">Progress Report</a>
-        </article>
-
-        <article class="leaderboard-row">
-            <h1>6.</h1>
-            <img src="https://randomuser.me/api/portraits/men/97.jpg" alt="Dustin Moskovitz" class="leaderboard-img">
-            <span class="leaderboard-name">Dustin Moskovitz</span>
-            <a href="#" class="btn">Progress Report</a>
-        </article>
-
-        <article class="leaderboard-row">
-            <h1>7.</h1>
-            <img src="https://randomuser.me/api/portraits/women/17.jpg" alt="Elizabeth Holmes" class="leaderboard-img">
-            <span class="leaderboard-name">Elizabeth Holmes</span>
-            <a href="#" class="btn">Progress Report</a>
-        </article>
-
-        <article class="leaderboard-row">
-            <h1>8.</h1>
-            <img src="https://randomuser.me/api/portraits/men/37.jpg" alt="Evan Spiegel" class="leaderboard-img">
-            <span class="leaderboard-name">Evan Spiegel</span>
-            <a href="#" class="btn">Progress Report</a>
-        </article>
+        {% endfor %}
     </main>
-    
 </div>
 {% endblock %}

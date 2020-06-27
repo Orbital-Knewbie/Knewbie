@@ -2,142 +2,14 @@ from app import db
 from app.models import Question, Option, Response, Proficiency, Topic, Group, User, Quiz
 from app.cat import Student
 
-from flask_login import current_user
+# this function generates an item bank, in case the user cannot provide one
+from catsim.cat import generate_item_bank
 
 from random import choice, shuffle
 from datetime import datetime
-from catsim.cat import generate_item_bank
 
 import glob, os, json
 
-org_qns = {
-    "Fill in the blank: 423 x 1000 = ____ x 10": {
-        "answers": [
-            "42300",
-            "423",
-            "4230",
-            "423000"
-        ],
-        "difficulty": "Easy"
-    },
-    "Which of the following is closest to 1?": {
-        "answers": [
-            "4/5",
-            "1/2",
-            "2/3",
-            "3/4"
-        ],
-        "difficulty": "Easy"
-    },
-    "Which of the following is the same as 2010 g?": {
-        "answers": [
-            "2 kg 10 g",
-            "2 kg 1 g",
-            "20 kg 1 g",
-            "20 kg 10 g"
-        ],
-        "difficulty": "Easy"
-    },
-    "Find the value of (3y +1) / 4 , when y = 5": {
-        "answers": [
-            "4",
-            "9",
-            "8",
-            "5"
-        ],
-        "difficulty": "Easy"
-    },
-    "The ratio of Rachel's age to Samy's age is 7 : 6.  Rachel is 4 years older than Samy. What is Samy's age this year?": {
-        "answers": [
-            "24",
-            "10",
-            "11",
-            "28"
-        ],
-        "difficulty": "Easy"
-    },
-    "How many fifths are there in 2 3/5?": {
-        "answers": [
-            "13",
-            "11",
-            "3",
-            "6"
-        ],
-        "difficulty": "Easy"
-    },
-    "The sum of 1/2 and 2/5 is the same as ___.": {
-        "answers": [
-            "0.900",
-            "0.009",
-            "0.090",
-            "9.000"
-        ],
-        "difficulty": "Easy"
-    },
-    "What is the value of 36 + 24 / (9 - 3) + 2 x 5 ?": {
-        "answers": [
-            "50",
-            "51",
-            "60",
-            "66"
-        ],
-        "difficulty": "Easy"
-    },
-    "Sally has 100 marbles and her brother has 300 marbles. Express Sally's marbles as a percentage of the total number of marbles they have altogether.": {
-        "answers": [
-            "25%",
-            "33 1/3 %",
-            "300%",
-            "400%"
-        ],
-        "difficulty": "Easy"
-    },
-    "Mr Tan has an equal number of pens and pencils. He puts the pens in bundles of 8 and the pencils in bundles of 12. There are 15 bundles altogether. How many pens are there?": {
-        "answers": [
-            "72",
-            "24",
-            "48",
-            "96"
-        ],
-        "difficulty": "Hard"
-    },
-    "3 ones, 4 tenths and 7 thousandths is ___": {
-        "answers": [
-            "3.407",
-            "3.470",
-            "3.047",
-            "3.740"
-        ],
-        "difficulty": "Hard"
-    },
-    "Which of the following is equal to 0.25%?": {
-        "answers": [
-            "1/400",
-            "1/25",
-            "1/4",
-            "25"
-        ],
-        "difficulty": "Hard"
-    }
-}
-
-def clear_questions():
-    for q in Question.query.all():
-        db.session.delete(q)
-        db.session.commit()
-    for q in Option.query.all():
-        db.session.delete(q)
-        db.session.commit()
-    #for q in Answer.query.all():
-    #    db.session.delete(q)
-    #    db.session.commit()
-
-def clear_responses():
-    for r in Response.query.all():
-        db.session.delete(r)
-    db.session.commit()
-
-clear_responses()
 
 def add_qn(org_qns):
     '''Adds questions to the database, where questions are formatted to be in a dictionary
@@ -146,7 +18,6 @@ def add_qn(org_qns):
     <options> is list of str
     <difficulty> is float (not added yet)
     '''
-    clear_questions()
     if Question.query.all(): return
     for q in org_qns.keys():
         item = generate_item_bank(1)[0]
@@ -167,9 +38,8 @@ def add_qn(org_qns):
             
             db.session.commit()
 
-add_qn(org_qns)
 
-def insert_qns():
+def insert_qns(path):
     '''Inserts questions formatted as a json file
     {<number>:
     {'answer':<extra text><answer>,
@@ -177,7 +47,6 @@ def insert_qns():
     'question_text':<extra text><question><extra text>}}
     all are strings
     '''
-    path = 'app/static/resources/questions'
     qn_dict = {}
     for filename in glob.glob(os.path.join(path, '*.json')):
         print("===")
@@ -213,111 +82,86 @@ def insert_qns():
 
                 db.session.commit()
 
-def test_insert_qns():
-    '''To test insert_qns() works'''
-    insert_qns()
-    questions = Question.query.all()
-    for q in questions:
-        options = Option.query.filter_by(qnID=q.id)
-        answer = q.answerID
-        print(q.question)
-        for o in options:
-            if o.id == answer:
-                ans_opt = o
-            print(o.option)
+def get_student_cat(user, topicID=1):
+    '''Returns proficiency, student (CAT object) given a userID and optional topicID
+    Defaults to overall proficiency (topicID=1)'''
 
-        print("ANS" + o.option)
+    prof = Proficiency.query.filter_by(userID=user.id,topicID=topicID)
+    if not prof.all():
+        prof = create_student_prof(user)
+    else:
+        prof = prof.order_by(Proficiency.timestamp.desc()).first()
+    AI, responses = prof.get_AI_responses()
 
-#test_insert_qns()
+    student = Student(user.id, topicID, prof.theta, AI, responses)
+    return prof, student
 
-
-def get_question_options(student):
-    '''Retrieve Question and Option from Database'''
-    # Get the Question
-    qnid = student.get_next_question()
-    question = Question.query.filter_by(id=qnid).first()
-    qn_txt = question.question
-
-    # Get the Options
-    options_query = Option.query.filter_by(qnID=qnid).all()
-    shuffle(options_query)
-    options = {x.id : x.option for x in options_query}
-
-    return qn_txt, options
-
-def submit_response(id, form):
-    '''Submit Response to Database'''
+def submit_response(user, form):
+    '''Submit Question Response to Database'''
     # Get the submitted Option
     optID = form.get('option')
     option = Option.query.filter_by(id=optID).first()
     qnID = option.qnID
 
     # Create a Response entry
-    response = Response(userID=id,optID=option.id,qnID=option.qnID)
+    response = Response(userID=user.id,optID=option.id,qnID=option.qnID)
 
     # Save to DB
     db.session.add(response)
     db.session.commit()
 
-    # Update topic proficiency
+    # Update topic / overall proficiency
     qn = Question.query.filter_by(id=qnID).first()
     topicID = qn.topicID if qn.topicID else 1
     if topicID > 1:
-        update_proficiency(qn.id, topicID)
-    update_proficiency(qn.id)
+        update_proficiency(user, topicID)
+    update_proficiency(user)
 
-def update_proficiency(qnID, topicID=1):
-    qn = Question.query.filter_by(id=qnID).first()
-    prof, topic_student = get_student_cat(current_user.id, topicID)
+def update_proficiency(user, topicID=1):
+    '''Updates user proficiency given a topic'''
+    prof, topic_student = get_student_cat(user, topicID)
     topic_student.update()
     prof.theta = topic_student.theta
     if topicID == 1:
-        current_user.curr_theta = topic_student.theta
+        user.curr_theta = topic_student.theta
     db.session.commit()
 
-def add_proficiency(id):
+def add_proficiency(user):
     '''Add timestamped proficiency entity, done every completed quiz'''
-    prof, student = get_student_cat(userID)
-    new_prof = Proficiency(userID=userID, timestamp=datetime.now(), 
+    prof, student = get_student_cat(user)
+    new_prof = Proficiency(userID=user.id, timestamp=datetime.now(), 
                            theta=student.theta, topicID=1)
     db.session.add(new_prof)
     db.session.commit()
 
-def get_student_cat(userID, topicID=1):
-    '''Returns proficiency, student (CAT object) given a userID and optional topicID
-    Defaults to overall proficiency (topicID=1)'''
-
-    prof = Proficiency.query.filter_by(userID=userID,topicID=topicID)
-    if not prof.all():
-        prof = create_student_prof(userID)
-    else:
-        prof = prof.order_by(Proficiency.timestamp.desc()).first()
-    AI, responses = prof.get_AI_responses()
-
-    student = Student(userID, topicID, prof.theta, AI, responses)
-    return prof, student
-
-def create_student_prof(userID):
+def create_student_prof(user):
     '''Creates a proficiency entity for a student'''
     if not Topic.query.all():
         add_topic("first")
     topics = db.session.query(Topic.id).all()
-    student_cat = Student(userID)
-    current_user.curr_theta = student_cat.theta
+
+    # Initialize CAT random theta for student 
+    student_cat = Student(user.id)
+    user.curr_theta = student_cat.theta
+
+    overall_prof = None
+    # Add a Proficiency for each topic in the database
     for topic, in topics:            
-        prof = Proficiency(userID=userID, timestamp=datetime.now(), 
+        prof = Proficiency(userID=user.id, timestamp=datetime.now(), 
                            theta=student_cat.theta, topicID=topic)
         db.session.add(prof)
+        if overall_prof is None:
+            overall_prof = prof
     db.session.commit()
-    return prof
+    return overall_prof
 
+def get_all_topics():
+    return Topic.query.all()
 
+def get_topic(topicID):
+    return Topic.query.filter_by(id=topicID).first()
 
-def get_topic(id):
-    return Topic.query.filter_by(id=id).first()
-
-
-def add_question(qn_text, options, answer, topicID):
+def add_question(user, qn_text, options, answer, topicID):
     '''Adds a question to the database
     Input
     qn_text : str
@@ -330,7 +174,7 @@ def add_question(qn_text, options, answer, topicID):
 
     # Add question
     question = Question(question=qn_text, discrimination=item[0], \
-        difficulty=item[1], guessing=item[2], upper=item[3], topicID = topicID)
+        difficulty=item[1], guessing=item[2], upper=item[3], topicID = topicID, userID=user.id)
     db.session.add(question)
     db.session.flush()
 
@@ -344,7 +188,6 @@ def add_question(qn_text, options, answer, topicID):
         db.session.flush()
         if answer == 0:
             optID = o.id
-            #ans = Answer(question=qn,option=o)
             question.answerID = optID
             db.session.flush()
     db.session.commit()
@@ -361,23 +204,18 @@ def edit_question(question, qn_text, options, answer, topicID):
     db.session.commit()
     return question
 
-def get_proficiencies(userID):
-    '''Return list of (timestamp, proficiency) in chronological order'''
-    profs = Proficiency.query.filter_by(userID=userID,topicID=1). \
-        order_by(Proficiency.timestamp.asc()).all()
-    return [(prof.timestamp, prof.theta) for prof in profs]
 
-def get_curr_prof(userID):
-    '''Returns current proficiency of the user'''
-    return get_proficiencies(userID)[-1][1]
-
-def get_response_answer(id, quizID=None):
-    '''Returns number of correct responses, 
-    and dictionary with question : [options, response, answer]'''
+def get_response_answer(user, quizID=None):
+    '''Given userID, optional quizID
+    Returns number of correct responses, 
+    and dictionary with format
+    {question_txt : [[opt1_txt,...], ans_num, res_num], ...}
+    ans_num and res_num given as int 1-4
+    '''
     if quizID is None:
-        responses = Response.query.filter_by(userID=id).all()
+        responses = Response.query.filter_by(userID=user.id).all()
     else:
-        responses = Response.query.filter_by(userID=id).filter(Question.quizzes.any(id=quizID)).all()
+        responses = Response.query.filter_by(userID=user.id).filter(Question.quizzes.any(id=quizID)).all()
     d={}
     correct = 0
     for r in responses:
@@ -398,21 +236,35 @@ def get_response_answer(id, quizID=None):
             correct += 1
         d[qn_txt]=[opt_txt,ans_num,res_num]
 
-    print(d)
     return correct, d
 
 def add_quiz(user, name):
+    '''Adds educator created quiz'''
+    if Quiz.query.filter_by(userID=user.id, name=name).first():
+        return
     quiz = Quiz(userID=user.id, name=name)
     db.session.add(quiz)
     db.session.commit()
     return quiz
 
+def remove_quiz(quiz):
+    quiz.questions = []
+    db.session.delete(quiz)
+    db.session.commit()
+
 def add_question_quiz(quiz, question):
-    if question in quiz: return
+    '''Adds a question to an educator created quiz'''
+    if question in quiz.questions: return
     quiz.questions.append(question)
     db.session.commit()
 
+def remove_question_quiz(quiz, question):
+    '''Removes a question from a quiz (not database)'''
+    quiz.questions.remove(question)
+    db.session.commit()
+
 def remove_question(question):
+    '''Removes a question and its options from the database'''
     options = question.options
     responses = question.responses
     question.quizzes = []
@@ -423,16 +275,16 @@ def remove_question(question):
         db.session.delete(r)
     db.session.commit()
 
-def remove_question_quiz(question, quiz):
-    quiz.questions.remove(question)
-    db.session.commit()
-
 def add_quiz_group(group, quiz):
+    '''Adds a quiz to a class'''
     if quiz in group.quizzes: return
     group.quizzes.append(quiz)
     db.session.commit()
 
-def get_question_quiz(quiz, pre_shuffle=False):
+def get_quiz(group):
+    return Quiz.query.filter(Quiz.groups.any(id=group.id)).all()
+
+def get_questions_quiz(quiz, pre_shuffle=False):
     '''Gets dictionary of questions belonging to a quiz
     Format - 
     {question_txt :
@@ -449,21 +301,24 @@ def get_question_quiz(quiz, pre_shuffle=False):
     d = {}
     questions = quiz.questions
     for question in questions:
+        qnID = question.id
         qn_txt = question.question
         options = question.options
         if pre_shuffle:
             shuffle(options)
         opt_txt = {option.id : option.option for option in options}
-        d[qn_txt] = {'options' : opt_txt, 'answer' : question.answerID}
+        d[qnID] = {'question' : qn_txt, 'options' : opt_txt, 'answer' : question.answerID}
     return d
 
-def get_question(quiz, n, pre_shuffle=False):
+def get_question(user, quiz, n, pre_shuffle=False):
     '''Gets nth question from a quiz'''
     questions = quiz.questions
     if n < 0 or n >= len(questions):
         return None
     d = []
     question = questions[n]
+    if Response.query.filter_by(userID=user.id, qnID=question.id).first():
+        return None
     qn_txt = question.question
     options = question.options
     if pre_shuffle:
@@ -474,12 +329,15 @@ def get_question(quiz, n, pre_shuffle=False):
     return d
 
 def validate_quiz_stu(quizID):
+    '''Validates a quizID link'''
     return Quiz.query.filter_by(id=quizID).first_or_404()
 
-def validate_quiz_link(quizID):
-    return Quiz.query.filter_by(id=quizID,userID=current_user.id).first_or_404()
+def validate_quiz_link(user, quizID):
+    '''Validates a quizID link belonging to an educator'''
+    return Quiz.query.filter_by(id=quizID,userID=user.id).first_or_404()
 
 def validate_qn_link(qnID, userID):
+    '''Validates question link belonging to an educator'''
     return Question.query.filter_by(id=qnID).filter(Question.quizzes.any(userID=userID)).first_or_404()
 
 def add_topic(name):
@@ -489,55 +347,4 @@ def add_topic(name):
     db.session.commit()
     return topic
 
-def remove_topics():
-    topics = Topic.query.all()
-    for t in topics:
-        db.session.delete(t)
-    db.session.commit()
 
-def add_test_topics():
-    remove_topics()
-    if Topic.query.all(): return
-    topics = ('General', 'Estimation', 'Geometry', 'Model')
-    for topic in topics:
-        add_topic(topic)
-
-add_test_topics()
-
-
-def get_leaderboard(groupID):
-    return User.query.filter_by(urole='student'). \
-        filter(User.groups.any(id=groupID)).order_by(User.curr_theta.desc()).all()
-
-
-def get_level_proficiency(user):
-    '''Returns a list of proficiency levels for each difficulty range
-    Given in the range 0-1 for each difficulty
-    [easy_level, med_level, hard_level]'''
-    r=Response.query.filter_by(userID=user.id)
-    easy = r.filter(Question.difficulty < -1.33).all()
-    med = r.filter(Question.difficulty.between(-1.33,1.33)).all()
-    hard = r.filter(Question.difficulty > 1.33).all()
-    prof_lvl = []
-    for diff in (easy,med,hard):
-        if not diff:
-            prof_lvl.append(0)
-        else:
-            correct = tuple(filter(lambda x: x.is_correct(), diff))
-            prof_lvl.append(correct/len(diff))
-    return prof_lvl
-
-def get_topic_proficiencies(user):
-    '''Returns a list of proficiency levels for each topic
-    Given in the range 0-1 for each topic
-    [(topic1, 0.33),(topic2,0.99),...]'''
-    r=Response.query.filter_by(userID=user.id)
-    prof_lvl = []
-    for topic in Topic.query.all():
-        curr_prof = r.filter(Question.topicID==topic.id).all()
-        if not curr_prof:
-            prof_lvl.append((topic.name, 0))
-        else:
-            correct = tuple(filter(lambda x:x.is_correct(), curr_prof))
-            prof_lvl.append((topic.name, correct))
-    return prof_lvl

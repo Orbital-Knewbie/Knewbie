@@ -1,6 +1,7 @@
-from app.models import User, Question, Option, Response
 from app import db
+from app.models import User, Question, Option, Response
 
+# simulation package contains the Simulator and all abstract classes
 from catsim.simulation import *
 # initialization package contains different initial proficiency estimation strategies
 from catsim.initialization import *
@@ -11,7 +12,7 @@ from catsim.estimation import *
 # stopping package contains different stopping criteria for the CAT
 from catsim.stopping import *
 
-from random import choice
+from random import choice, shuffle
 import numpy
 
 # create a random proficiency initializer
@@ -81,6 +82,20 @@ class Student(object):
 
     def get_questions(self):
         if self.topic == 1:
-            return Question.query.all()
+            return Question.query.filter(Question.user.has(admin=True)).all()
         else:
-            return Question.query.filter_by(topicID=self.topic).all()
+            return Question.query.filter(Question.user.has(admin=True)).filter_by(topicID=self.topic).all()
+
+    def get_question_options(self):
+        '''Retrieve Question and Option from Database, for tailored testing'''
+        # Get the Question
+        qnid = self.get_next_question()
+        question = Question.query.filter_by(id=qnid).first()
+        qn_txt = question.question
+
+        # Get the Options
+        options_query = Option.query.filter_by(qnID=qnid).all()
+        shuffle(options_query)
+        options = {x.id : x.option for x in options_query}
+
+        return qn_txt, options

@@ -1,10 +1,34 @@
+from flask import flash, redirect, url_for
+from app import app, db
+from app.models import User, Group, Response, Question, Topic, Proficiency
+from app.email import get_confirm_url, send_conf_email
+
 from PIL import Image
-from app import app
-from app.models import User, Group
 from string import ascii_letters, digits
 from random import choice
-import secrets
-import os
+from datetime import datetime
+import secrets, os
+
+def register(form, role):
+    '''Registers a User given form data'''
+    user = User(firstName=form.firstName.data, lastName=form.lastName.data, email=form.email.data, urole=role, confirmed=False)
+    user.set_password(form.password.data)
+    if role == 'student':
+        set_knewbie_id(user)
+    db.session.add(user)
+    db.session.commit()
+    confirm_url = get_confirm_url(user)
+    send_conf_email(user, confirm_url)
+    return user
+        
+
+def confirm_user(user):
+    '''Confirm a user account'''
+    user.confirmed = True
+    user.confirmed_on = datetime.now()
+    db.session.commit()
+
+
 
 def update_image(form_image):
     """To rename & resize image"""
@@ -31,9 +55,48 @@ def set_knewbie_id(user):
     user.knewbie_id = code
     return user
 
-def set_class_code(group):
-    code = set_code(6)
-    while Group.query.filter_by(classCode=code).first():
-        code = set_code(6)
-    group.classCode = code
-    return group
+def get_proficiencies(user):
+    '''Return list of (timestamp, proficiency) in chronological order'''
+    profs = Proficiency.query.filter_by(userID=user.id,topicID=1). \
+        order_by(Proficiency.timestamp.asc()).all()
+    return [[prof.timestamp for prof in profs], [prof.theta for prof in profs]]
+
+def get_level_proficiency(user):
+    '''Returns a list of proficiency levels for each difficulty range
+    Given in the range 0-1 for each difficulty
+    [easy_level, med_level, hard_level]'''
+    rs=Response.query.filter_by(userID=user.id).all()
+    easy = [r for r in rs if r.question.difficulty < -1.33]
+    med = [r for r in rs if r.question.difficulty >= -1.33 and r.question.difficulty < 1.33]
+    hard = [r for r in rs if r.question.difficulty > 1.33]
+    #easy = r.filter(Question.difficulty < -1.33).all()
+    #med = r.filter(Question.difficulty.between(-1.33,1.33)).all()
+    #hard = r.filter(Question.difficulty > 1.33).all()
+    prof_lvl = []
+    for diff in (easy,med,hard):
+        if not diff:
+            prof_lvl.append(0)
+        else:
+            correct = tuple(filter(lambda x: x.is_correct(), diff))
+            prof_lvl.append(len(correct)/len(diff))
+    return prof_lvl
+
+def get_topic_proficiencies(user):
+    '''Returns a list of proficiency levels for each topic
+    Given in the range 0-1 for each topic
+    [(topic1, 0.33),(topic2,0.99),...]'''
+    r=Response.query.filter_by(userID=user.id)
+    prof_lvl = []
+    for topic in Topic.query.all():
+        curr_prof = r.filter(Question.topicID==topic.id).all()
+        if not curr_prof:
+            prof_lvl.append((topic.name, 0))
+        else:
+            correct = tuple(filter(lambda x:x.is_correct(), curr_prof))
+            prof_lvl.append((topic.name, len(correct)/len(curr_prof)))
+    return prof_lvl
+
+def get_image_file(user):
+    image_uri = user.image_file if user.is_authenticated else 'profileimg.jpg'
+    return url_for('static', filename='resources/images/profile_pics/' + image_uri)
+    

@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    padding: 0;
+    margin: 0;
+}
+
+
 /* MAIN PAGE */
  .gradient {
   width: 100%;
@@ -7,6 +17,8 @@
   background: linear-gradient(to right, var(--LIGHTPURPLE), var(--DARKPURPLE));
   background-size: cover;
   position: relative;
+  top: -12px;
+  margin-bottom: -12px;
 }
 
 .gradient::after {
@@ -52,7 +64,7 @@
 }
 
 .subtext {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: 400;
   letter-spacing: 0.5rem
 }
@@ -187,6 +199,7 @@ bottom-text p {
   background-size: cover;
   height: 100vh;
   width: 100%;
+  position: relative;
 }
 
 /* UNIQUE ID QUERY */
@@ -209,66 +222,35 @@ bottom-text p {
 .query-form {
   width: 20%;
   position: relative;
-  height: 50px;
+  height: 250px;
   background-color: var(--GREY);
   overflow: hidden;
   text-transform: uppercase;
 }
 
-.query-form input {
+.query-form .border-bottom {
   width: 100%;
   height: 100%;
   color: var(--LIGHTPURPLE);
-  padding: 20px auto 0 auto;
+  padding: 10px 5px;
   text-align: center;
-  border: none;
   outline: none;
   background-color: var(--GREY);
-  font-size: 2.5rem;
+  font-size: 2.2rem;
 }
 
-.query-form label {
-  position: absolute;
-  bottom: 0px;
-  left: 0%;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  border-bottom: 1px solid var(--DARKPURPLE);
+.border-bottom {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 3px solid var(--LIGHTPURPLE);
+    border-bottom-left-radius: 0.4rem;
+    border-bottom-right-radius: 0.4rem;
+    margin-bottom: 4rem;
 }
 
-.query-form label::after {
-  content: '';
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  border-bottom: 3px solid var(--LIGHTPURPLE);
-  bottom: -1px;
-  left: 0px;
-  transform: translateX(-100%);
-  transition: transform 0.5s ease;
-}
-
-.content-unique-id {
-  position: absolute;
-  font-size: 2.5rem;
-  bottom: 5px;
-  left: 0px;
-  transition: all 0.5s ease;
-  color: var(--LIGHTPURPLE);
-}
-
-.query-form input:focus + .label-unique-id .content-unqiue-id,
-.query-form input:valid + .label-unique-id .content-unique-id {
-  transform: translateY(-150%);
-  font-size: 2.5rem;
-  text-transform: uppercase;
-  color: var(--LIGHTPURPLE);
-}
-
-.query-form input:focus + .label-unique-id::after,
-.query-form input:valid + .label-unique-id::after {
-  transform: translateX(0%);
+.query-form input:placeholder {
+    color: var(--LIGHTPURPLE);
 }
 
 .submit-btn {
@@ -338,7 +320,7 @@ bottom-text p {
     transform: scale(0.95);
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1000px) {
   .gradient-clipped {
     width: 100%;
     height: 75vh;
@@ -349,6 +331,10 @@ bottom-text p {
     color: var(--LIGHTPURPLE);
     background-color: var(--GREY);
     outline-color: var(--LIGHTPURPLE);
+  }
+
+  .subtext {
+    font-size: 0.8rem;
   }
 }
 

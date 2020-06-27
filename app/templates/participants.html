@@ -8,75 +8,29 @@
         <h1 class="leaderboard-title"><span>Edit Participants</span></h1>
     </header>
 
-    <main class="leaderboard-table">
-        <!--{% for user in users %}
-        <article class="leaderboard-row">
+    <div class="add-user">
+        <form class="deact-form" action="{{ url_for('adduserclass', groupID=group.id) }}" method="post">
+            {{ joinForm.hidden_tag() }}
+            <a><i class="fas fa-user-plus"></i>Add User</a>
+            <div class="input-field">
+                {{ joinForm.title(size=32, class_="input", placeholder="Knewbie ID / Email") }}
+            </div>
+            {{ joinForm.submit(class_="edit-btn") }}
+        </form>
+    </div>
+
+    <main class="edit-table">
+        {% for user in users %}
+        <article class="participant-row">
             <h1>{{loop.index}}.</h1>
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="{{ user.firstName }} {{ user.lastName }}" class="leaderboard-img">
+            <img src="{{ url_for('static', filename='resources/images/profile_pics/' + user.image_file) }}" alt="{{ user.firstName }} {{ user.lastName }}" class="leaderboard-img">
             <span class="leaderboard-name">{{ user.firstName }} {{ user.lastName }}</span>
-            <form action="{{ url_for('delete_participant', groupID=groupID, userID=user.id) }}" method="post" class="create-form">
-                {{ form.hidden_tag() }}
-                {{ form.submit() }}
+            <form action="{{ url_for('delete_participant', groupID=group.id, userID=user.id) }}" method="post" class="create-form">
+                {{ deleteForm.hidden_tag() }}
+                {{ deleteForm.submit(class_="edit-btn") }}
             </form>
         </article>
-        {% endfor %}-->
-
-        <article class="leaderboard-row">
-            <h1>1.</h1>
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mark Zuckerberg" class="leaderboard-img">
-            <span class="leaderboard-name">Mark Zuckerberg</span>
-            <a href="#" class="btn">Delete</a>
-        </article>
-
-        <article class="leaderboard-row">
-            <h1>2.</h1>
-            <img src="https://randomuser.me/api/portraits/men/97.jpg" alt="Dustin Moskovitz" class="leaderboard-img">
-            <span class="leaderboard-name">Dustin Moskovitz</span>
-            <a href="#" class="btn">Delete</a>
-        </article>
-
-        <article class="leaderboard-row">
-            <h1>3.</h1>
-            <img src="https://randomuser.me/api/portraits/women/17.jpg" alt="Elizabeth Holmes" class="leaderboard-img">
-            <span class="leaderboard-name">Elizabeth Holmes</span>
-            <a href="#" class="btn">Delete</a>
-        </article>
-
-        <article class="leaderboard-row">
-            <h1>4.</h1>
-            <img src="https://randomuser.me/api/portraits/men/37.jpg" alt="Evan Spiegel" class="leaderboard-img">
-            <span class="leaderboard-name">Evan Spiegel</span>
-            <a href="#" class="btn">Delete</a>
-        </article>
-
-        <article class="leaderboard-row">
-            <h1>5.</h1>
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mark Zuckerberg" class="leaderboard-img">
-            <span class="leaderboard-name">Mark Zuckerberg</span>
-            <a href="#" class="btn">Delete</a>
-        </article>
-
-        <article class="leaderboard-row">
-            <h1>6.</h1>
-            <img src="https://randomuser.me/api/portraits/men/97.jpg" alt="Dustin Moskovitz" class="leaderboard-img">
-            <span class="leaderboard-name">Dustin Moskovitz</span>
-            <a href="#" class="btn">Delete</a>
-        </article>
-
-        <article class="leaderboard-row">
-            <h1>7.</h1>
-            <img src="https://randomuser.me/api/portraits/women/17.jpg" alt="Elizabeth Holmes" class="leaderboard-img">
-            <span class="leaderboard-name">Elizabeth Holmes</span>
-            <a href="#" class="btn">Delete</a>
-        </article>
-
-        <article class="leaderboard-row">
-            <h1>8.</h1>
-            <img src="https://randomuser.me/api/portraits/men/37.jpg" alt="Evan Spiegel" class="leaderboard-img">
-            <span class="leaderboard-name">Evan Spiegel</span>
-            <a href="#" class="btn">Delete</a>
-        </article>
-    </main>
-
+        {% endfor %}
+     </main>
 </div>
 {% endblock %}

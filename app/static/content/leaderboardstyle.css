@@ -34,17 +34,31 @@
   letter-spacing: 0.5rem;
 }
 
-.leaderboard-table {
+.leaderboard-table, .edit-table {
   background-color: var(--OFFWHITE);
   padding: 15px 15px 20px;
   display: grid;
-  margin-top: 130px;
   margin-bottom: 5rem;
+}
+
+.leaderboard-table {
+    margin-top: 130px;
 }
 
 .leaderboard-row {
     display: grid;
     grid-template-columns: 0.2fr 1fr 2.8fr 1fr;
+    align-items: center;
+    padding: 10px 20px 10px 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.6, 0.9, 0.7, 0.9), box-shadow 0.25s cubic-bezier(0.6, 0.9, 0.7, 0.9);
+    background-color: var(--OFFWHITE);
+}
+
+.participant-row {
+    display: grid;
+    grid-template-columns: 1fr 5fr 0.5fr;
     align-items: center;
     padding: 10px 20px 10px 20px;
     overflow: hidden;
@@ -60,7 +74,7 @@
     color: var(--LIGHTPURPLE);
 }
 
-.leaderboard-row:hover {
+.leaderboard-row:hover, .participant-row:hover {
   transform: scale(1.1);
   box-shadow: 0 9px 47px 11px rgba(51, 51, 51, 0.3);
 }
@@ -68,6 +82,7 @@
 .leaderboard-img {
   max-width: 100%;
   width: 80px;
+  height: 80px;
   border-radius: 50%;
 }
 
@@ -92,11 +107,11 @@ body {
     font-weight: bold;
     display: inline-block;
     font-size: 1.3rem;
+    padding: 1rem 4.2rem;
     letter-spacing: 1px;
     text-decoration: none;
     color: var(--OFFWHITE);
     background: var(--LIGHTPURPLE);
-    padding: 1rem 4.2rem;
     margin-top: 1rem;
     border-radius: .4rem;
     box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
@@ -106,7 +121,7 @@ body {
     z-index: 1;
 }
 
-.btn::after {
+.btn::after, .del-btn::after {
     content: '';
     position: absolute;
     top: 0;
@@ -124,6 +139,75 @@ body {
     transition: all .5s;
 }
 
+.edit-btn {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 1rem;
+    padding: 1rem 4rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border: none;
+    border-radius: .4rem;
+    background: var(--LIGHTPURPLE);
+    color: var(--OFFWHITE);
+    box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
+    outline: none;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+.edit-btn:hover {
+    background: var(--OFFWHITE);
+    border: 1px solid var(--LIGHTPURPLE);
+    color: var(--LIGHTPURPLE);
+}
+
+.edit-btn:active {
+    transform: scale(0.95);
+}
+
 .btn:active {
     transform: translateY(1.5px);
+}
+
+/* PARTICIPANTS LIST */
+.add-user {
+    margin-top: 150px;
+    text-align: center;
+    font-size: 3rem;
+}
+
+.add-user i {
+    padding: 2rem;
+}
+
+.add-user a {
+    color: var(--LIGHTPURPLE);
+    text-decoration: none;
+    cursor: default;
+}
+
+.input-field {
+    color: var(--LIGHTPURPLE);
+    outline: none;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.input-field input {
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    outline: none;
+    color: var(--LIGHTPURPLE);
+    border: none;
+    background: none;
+    border-bottom: 3px solid var(--LIGHTPURPLE);
+}
+
+.input-field input::placeholder {
+    color: var(--LIGHTPURPLE);
+    opacity: 0.6;
 }

@@ -1,0 +1,40 @@
+﻿{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='content/dashboardstyle.css') }}">
+{% endblock %}
+{% block content %}
+{% include "sidebar.html" %}
+<div class="quiz-container">
+    <section class="box" id="topicalquiz">
+        <h1>Class Quizzes</h1>
+        <div class="card-wrapper">
+            {% for quiz in quizzes %}
+            <div class="card">
+                <div class="card-background"></div>
+                <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
+                <h2>{{ quiz.name }}</h2>
+                {% if current_user.urole == 'student' %}
+                <a href="{{ url_for('edu_quiz', quizID=quiz.id, qnNum=1) }}" class="btn">Begin Quiz</a>
+                {% else %}
+                <a href="{{ url_for('preview_quiz', quizID=quiz.id) }}" class="btn">Preview Quiz</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% if current_user.urole == 'educator' %}
+    <section class="box" id="topicalquiz">
+        <h1>Your Own Quizzes (not assigned to this class)</h1>
+        <div class="card-wrapper">
+            {% for quiz in current_user.quizzes %}
+            <div class="card">
+                <div class="card-background"></div>
+                <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
+                <h2>{{ quiz.name }}</h2>
+                <a href="{{ url_for('preview_quiz', quizID=quiz.id) }}" class="btn">Preview Quiz</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}

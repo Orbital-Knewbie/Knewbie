@@ -1,13 +1,12 @@
-from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from app import db, login, app
 from flask_login import UserMixin
+from app import db, login, app
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
 
 usergroup = db.Table('usergroup', \
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True), \
     db.Column('group_id', db.Integer, db.ForeignKey('group.id'), primary_key=True)
 )
-
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -27,6 +26,7 @@ class User(UserMixin, db.Model):
     responses = db.relationship('Response')
     proficiencies = db.relationship('Proficiency')
     quizzes = db.relationship('Quiz')
+    questions = db.relationship('Question', backref='user')
 
     def __repr__(self):
         return '<User {}>'.format(self.firstName)
@@ -63,7 +63,7 @@ questionquiz = db.Table('questionquiz', \
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.String(255), index=True, unique=True)
+    question = db.Column(db.String(255))
     discrimination = db.Column(db.Float)
     difficulty = db.Column(db.Float)
     guessing = db.Column(db.Float)
@@ -74,7 +74,7 @@ class Question(db.Model):
     answerID = db.Column(db.Integer)
     #answer = db.relationship('Answer', backref=db.backref('question', uselist=False))
     responses = db.relationship('Response', backref='question')
-
+    userID = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     #type = db.Column(db.String(16), index=True, unique=True)
 
@@ -98,12 +98,10 @@ class Response(db.Model):
     def is_correct(self):
         return self.question.answerID == self.optID
 
-
 groupquiz = db.Table('groupquiz', \
     db.Column('group_id', db.Integer, db.ForeignKey('group.id'), primary_key=True), \
     db.Column('quiz_id', db.Integer, db.ForeignKey('quiz.id'), primary_key=True)
 )
-
 
 class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -118,7 +116,6 @@ class Thread(db.Model):
     title = db.Column(db.String(120))
     posts = db.relationship('Post', backref='thread')
     groupID = db.Column(db.Integer, db.ForeignKey('group.id'))
-
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -140,7 +137,7 @@ class Proficiency(db.Model):
         # Retrieve stored responses from DB
         responses = Response.query.filter_by(userID=self.userID).all()
         # Get only topic relevant responses
-        if self.topicID != 1:
+        if self.topic.name != 'General':
             responses = list(filter(lambda x: x.question.topicID == self.topicID, responses))
 
         questions = [response.question for response in responses]
@@ -151,7 +148,6 @@ class Proficiency(db.Model):
             AI.append(response.qnID - 1)
             qn = response.question
             resp_vector.append(qn.answerID == response.optID)
-        print((AI, resp_vector))
 
         return AI, resp_vector
 
@@ -164,7 +160,7 @@ class Quiz(db.Model):
 class Topic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120))
-    proficiencies = db.relationship('Proficiency')
+    proficiencies = db.relationship('Proficiency', backref='topic')
 
 @login.user_loader
 def load_user(id):

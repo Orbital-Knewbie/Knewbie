@@ -1,7 +1,8 @@
 ﻿{% extends "base.html" %}
 {% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='content/reportstyle.css') }}">
+<meta id="my-data" topic="{{topical_prof | tojson}}" diff="{{diff_prof| tojson}}" overall="{{overall_prof| tojson}}">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-<link rel="stylesheet" href="../static/content/reportstyle.css">
 {% endblock %}
 
 {% block content %}
@@ -17,7 +18,8 @@
 {% endblock %}
 
 {% block script %}
-<script>
+
+<script type="text/javascript">
     var myChart = document.getElementById('myChart').getContext('2d');
     var testChart = document.getElementById('testChart').getContext('2d');
     var topicChart = document.getElementById('topicChart').getContext('2d');
@@ -26,21 +28,34 @@
     Chart.defaults.global.defaultFontSize = 18;
     Chart.defaults.global.defaultFontColor = '#420341';
 
+    //var topical_prof = JSON.parse(document.querySelector("meta[id='my-data']").getAttribute("topic"));
+    var topical_prof = [10, 20, 30, 50, 60, 40];
+    var difficulty_prof = JSON.parse(document.querySelector("meta[id='my-data']").getAttribute("diff"));
+    //var difficulty_prof = [1.0, 1.0, 1.0];
+    //var overall_prof = JSON.parse(document.querySelector("meta[id='my-data']").getAttribute("overall"));
+    var overall_prof = [['2020-06-06'], [0.78]];
+
+
+    //$.ajax({
+    //    url: "/get_data",
+    //    type: "get",
+    //    data: { vals: '' },
+    //    success: function (response) {
+    //        full_data = JSON.parse(response.payload);
+    //        topical_prof = full_data['topical_prof'];
+    //        difficulty_prof = full_data['diff_prof'];
+    //        overall_prof = full_data['overall_prof'];
+    //    }
+    //});
+
 
     var lineChart = new Chart(myChart, {
         type: 'line',
         data: {
-            labels: ['Boston', 'Worcester', 'SPringfield', 'Lowell', 'Cambridge', 'New Bedford'],
+            labels: overall_prof[0],
             datasets: [{
-                label: 'Population',
-                data: [
-                    617594,
-                    181045,
-                    153060,
-                    106519,
-                    105162,
-                    95072
-                ],
+                label: 'Proficiency',
+                data: overall_prof[1],
                 backgroundColor: [ //borderWidth, borderColor, hoverBorderWidth, hoverBorderColor
                     'rgba(170, 7, 107, 0.1)',
                     'rgba(170, 7, 107, 0.1)',
@@ -61,12 +76,12 @@
             title: {
                 display: true,
                 text: "John Doe's Progress Report",
-                fontSize:25
+                fontSize: 25
             },
             legend: {
                 position: 'right',
                 labels: {
-                    fontColor:'#420341'
+                    fontColor: '#420341'
                 }
             },
             layout: {
@@ -77,7 +92,7 @@
                     top: 10
                 },
                 tooltips: {
-                    enabled:true
+                    enabled: true
                 },
             }
         }
@@ -87,7 +102,7 @@
         type: 'polarArea',
         data: {
             datasets: [{
-                data: [10, 20, 30],
+                data: difficulty_prof,
                 backgroundColor: [
                     'rgba(170, 7, 107, 0.2)',
                     'rgba(170, 7, 107, 0.4)',
@@ -114,18 +129,18 @@
 
     var topicChart = new Chart(topicChart, {
         type: 'radar',
-    data: {
-        datasets: [{
-            label: 'Topical Proficiency',
-            data: [10, 20, 30, 50, 60, 40],
-            backgroundColor: 'rgba(170, 7, 107, 0.2)',
-            borderColor: 'rgba(170, 7, 107, 0.6)',
-            pointBackgroundColor: 'rgba(170, 7, 107, 0.6)',
-            borderWidth: 0,
-            hoverBorderWidth: 5,
-            hoverBordercolor: 'rgba(0, 0, 0, 0.1)',
-            hoverBackgroundColor: 'rgba(170, 7, 107, 1)'
-        }],
+        data: {
+            datasets: [{
+                label: 'Topical Proficiency',
+                data: topical_prof,
+                backgroundColor: 'rgba(170, 7, 107, 0.2)',
+                borderColor: 'rgba(170, 7, 107, 0.6)',
+                pointBackgroundColor: 'rgba(170, 7, 107, 0.6)',
+                borderWidth: 0,
+                hoverBorderWidth: 5,
+                hoverBordercolor: 'rgba(0, 0, 0, 0.1)',
+                hoverBackgroundColor: 'rgba(170, 7, 107, 1)'
+            }],
             labels: ['Model',
                 'Estimation',
                 'Geometry',
@@ -133,8 +148,8 @@
                 'Topic 1',
                 'Topic 3'
             ]
-    },
-    options: { }
+        },
+        options: {}
     });
 </script>
 {% endblock %}

@@ -110,7 +110,8 @@ The Sequence Diagram below shows the interactions within the Controller componen
 Fig #. Interactions within Controller Component for `register`
 
 ### 2.5 Database <a name="database"></a>
-The database design is centered around the users, quizzes, and forum posts. The *Entity-Relationship (ER) Diagram* below showcases the attributes and relationships used.
+The database design is centered around the users, quizzes, and forum posts. The *Entity-Relationship (ER) Diagram* below showcases the attributes and relationships used. 
+Explanation of the diagram can be found under the [Documentation section](#er).
 
 ![Database](diagrams/Database.png)<br>
 Fig #. Database Design
@@ -215,7 +216,7 @@ Fig #. Flowchart of general adaptive testing algorithm used
 ## 4. Documentation <a name="doc"></a>
 The Diagrams in this Guide were created and defined with [PlantUML](https://plantuml.com/). The source code can be found in the [diagrams folder](/docs/diagrams).
 
-### 4.1 Class and Sequence Diagrams
+### 4.1 Class and Sequence Diagrams <a name="class"></a>
 The Class and Sequence Diagrams used have their own notation and can be explained with the help of the [CS2103 Software Engineering website](https://nus-cs2103-ay1920s2.github.io/website/se-book-adapted/chapters/uml.html#uml).
 
 **Class Diagrams** include:
@@ -236,7 +237,7 @@ Fig #. Class Diagram Notation<br>
 ![Sequence Diagram Notation](https://nus-cs2103-ay1920s2.github.io/website/book/uml/sequenceDiagrams/basic/images/notation.png) <br>
 Fig #. Sequence Diagram Notation<br>
 
-### 4.2 Entity Relationship Diagrams
+### 4.2 Entity Relationship Diagrams <a name="er"></a>
 The [Entity Relationship Diagrams](https://www.smartdraw.com/entity-relationship-diagram/) used to describe databases include:
 * Entities - represented by rectangles, properties can be found listed right after the primary key property
 * Relationships - represented by diamonds
@@ -247,6 +248,24 @@ Fig #. Entity Relationship Diagram Notation <br>
 
 
 ## 5. Testing <a name="test"></a>
+[![Build Status](https://travis-ci.org/Orbital-Knewbie/Knewbie.svg?branch=master)](https://travis-ci.org/Orbital-Knewbie/Knewbie)
+[![codecov](https://codecov.io/gh/Orbital-Knewbie/Knewbie/branch/master/graph/badge.svg)](https://codecov.io/gh/Orbital-Knewbie/Knewbie)<br>
+With the constant updates to the code, there is a need to conduct [Unit Testing](https://en.wikipedia.org/wiki/Unit_testing) to ensure that sections of the code continue to work.
+This project uses the `unittest` module provided by Python to carry out the tests. As an example of testing, using the following command, we will be able to see our test results from the command line.
+```
+nose2 -v
+```
+
+![Unit Testing Knewbie](images/unittest.png)<br>
+Fig #. Unit Testing Knewbie<br>
+
+[Codecov](https://codecov.io/) is a tool that goes hand in hand with Unit Testing, and will check for the test coverage of the codebase, based on the Unit Tests.
+This allows the developers to understand which areas of the code may need more attention and possibly rigorous testing.
+
+Along with the Unit Tests, the project also [Travis CI](https://travis-ci.org/), which allows [Integration Tests](https://en.wikipedia.org/wiki/Integration_testing) to be done when merging code while using version control.
+Together with the protection of the master branch, Travis then ensures that bugs that affects the building of projects to be caught.
+
+
 
 ## 6. Frequently Asked Questions (FAQ) <a name="faq"></a>
 

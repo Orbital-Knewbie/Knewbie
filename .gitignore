@@ -1,6 +1,7 @@
 # dotfiles
 .*
 !.gitignore
+!.travis.yml
 
 *~
 
@@ -36,3 +37,8 @@ venv/
 
 # temp db
 *.db-journal
+
+# coverage
+.coverage
+.coverage.*
+coverage.xml

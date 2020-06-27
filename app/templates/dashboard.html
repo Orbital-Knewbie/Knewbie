@@ -4,15 +4,6 @@
 <link href="{{ url_for('static', filename='/content/createstyle.css') }}" rel="stylesheet" />
 {% endblock %}
 {% block content %}
-<nav class="sidebar">
-    <ul>
-        <li><a href="#">Notifications <i class="fas fa-bell"></i></a></li>
-        <li><a href="{{ url_for('settings') }}">Settings<i class="fas fa-user-cog"></i></a></li>
-        <li><a href="{{ url_for('faq') }}">FAQ <i class="fas fa-question"></i></a></li>
-        <li><a href="{{ url_for('contact') }}">Contact Us<i class="fas fa-comments"></i></a></li>
-    </ul>
-</nav>
-
 <div class="container">
     <section class="box">
         <div class="avatar">
@@ -44,49 +35,37 @@
     {% if current_user.urole == 'student' %}
     <section class="box" id="joinclass">
         <div class="details">
-            <form action="{{ url_for('joinclass') }}" method="post" class="create-form-1">
+            <h1>Join A Class</h1>
+            <form action="{{ url_for('joinclass') }}" method="post">
                 {{ joinForm.hidden_tag() }}
-                <h1>Join A Class</h1>
-                {{ joinForm.title(size=32, class_="input", placeholder="Class Code") }}
-                {{ joinForm.submit(class_="submit-btn") }}
+                {{ joinForm.title(size=32, class_="join", placeholder="Class Code") }}
+                {{ joinForm.submit(class_="join-btn") }}
             </form>
+        </div>
+        <div class="details">
+            
         </div>
     </section>
 
     <section class="box" id="topicalquiz">
         <h1>Topical Quizzes</h1>
         <div class="card-wrapper">
+            {% for topic in topics %}
             <div class="card">
                 <div class="card-background"></div>
-                <img src="../static/resources/images/Student.svg" class="quiz-symbol">
-                <h2>Geometry</h2>
+                <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
+                <h2>{{ topic.name }}</h2>
+                {% if questions %}
+                <a href="{{ url_for('result') }}" class="btn">View Result</a>
+                {% else %}
                 <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
+                {% endif %}
             </div>
-
-            <div class="card">
-                <div class="card-background"></div>
-                <img src="../static/resources/images/Teacher.svg" class="quiz-symbol">
-                <h2>Estimation</h2>
-                <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
-            </div>
-
-            <div class="card">
-                <div class="card-background"></div>
-                <img src="../static/resources/images/Contact.svg" class="quiz-symbol">
-                <h2>Algebra</h2>
-                <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
-            </div>
-
-            <div class="card">
-                <div class="card-background"></div>
-                <img src="../static/resources/images/Teacher.svg" class="quiz-symbol">
-                <h2>Test</h2>
-                <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
-            </div>
+            {% endfor %}
         </div>
     </section>
 
-    <section class="box" id="mockquiz" style="padding-bottom: 2rem;">
+    <section class="box" id="mockquiz" style="margin-bottom: 5rem;">
         <h1>Mock Quizzes</h1>
         <div class="card-wrapper">
             <div class="card">

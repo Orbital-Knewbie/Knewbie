@@ -130,6 +130,7 @@ Post }|--|| User
 User ||--|{ Proficiency
 
 Quiz }|--|| User
+User ||--|{ Question
 Question ||--|{ QuestionQuiz
 QuestionQuiz }|--|| Quiz
 Question }|--|| Topic

@@ -46,6 +46,9 @@
                 <li class="navitem"><a href="{{ url_for('dashboard', _anchor='createclass') }}" class="link">Create A Class</a></li>
                 <li class="navitem"><a href="{{ url_for('dashboard', _anchor='createquestion') }}" class="link">Create Questions</a></li>
                 {% endif %}
+                <li class="navitem"><a href="{{ url_for('faq') }}" class="link">FAQ</a></li>
+                <li class="navitem"><a href="{{ url_for('contact') }}" class="link">Contact</a></li>
+                <li class="navitem"><a href="{{ url_for('settings',) }}" class="link">Settings</a></li>
                 <li class="navitem"><a href="{{ url_for('logout') }}" class="link">Sign Out</a></li>
                 {% else %}
                 <li class="navitem"><a href="{{ url_for('home') }}" class="link">Home</a></li>
@@ -74,12 +77,13 @@
         </div>
     </footer>
 
-    {% block script %}{% endblock %}
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
     <!-- <script src="https://unpkg.com/aos@next/dist/aos.js"></script> -->
     <!-- <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js"></script> -->
     <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/jquery.min.js') }}"></script>
+    {% block script %}{% endblock %}
 </body>
 </html>
