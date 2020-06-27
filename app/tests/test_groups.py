@@ -10,6 +10,7 @@ from app import app, db, mail, login
 from app.models import *
 from app.group import *
 from app.forum import *
+from app.tests.basetest import BaseTest
 
 from datetime import datetime
 
@@ -19,81 +20,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 TEST_DB = 'test.db'
  
  
-class BasicTests(unittest.TestCase):
- 
-    ############################
-    #### setup and teardown ####
-    ############################
- 
-    # executed prior to each test
-    def setUp(self):
-        app.config['TESTING'] = True
-        app.config['WTF_CSRF_ENABLED'] = False
-        app.config['DEBUG'] = False
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-            os.path.join(basedir, TEST_DB)
-        app.testing = True
-        self.app = app.test_client()
-
-        ## IMPORTANT FOR LOGIN ##
-        app.test_request_context().push()
-
-        db.session.remove()
-        db.drop_all()
-        db.create_all()
-        self.add_test_forum()
-        self.add_test_edu()
-
-        # Disable sending emails during unit testing
-        mail.init_app(app)
-        self.assertEqual(app.debug, False)
- 
-    # executed after each test
-    def tearDown(self):
-        pass
-    
-    ########################
-    #### helper methods ####
-    ########################
-    def login(self, email, password):
-        return self.app.post(
-            '/login',
-            data={'email' : email, 'password' : password },
-            follow_redirects=True
-        )
-
-    def add_test_user(self):
-        u = User(firstName="first", lastName="last", email="testes@test.com", \
-            urole="student", knewbie_id="123456", curr_theta=-1.33, confirmed=True)
-        u.set_password("test")
-        return u
-
-    def add_test_edu(self):
-        u = User(firstName="yo", lastName="lo", email="edutest@test.com", \
-            urole="educator", confirmed=True)
-        u.set_password("strongtest")
-        return u
-
-    def add_test_group(self, name):
-        return Group(name=name)
-
-    def add_test_thread(self, group, title):
-        return Thread(group=group,timestamp=datetime.now(), title=title)
-
-    def add_test_post(self, user, thread, content):
-        return Post(user=user, thread=thread, 
-                timestamp=datetime.now(), content=content)
-
-    def add_test_forum(self):
-        u = self.add_test_user()
-        e = self.add_test_edu()
-        g = self.add_test_group("name")
-        t = self.add_test_thread(g, "first thread")
-        p = self.add_test_post(u, t, "first post")
-        g.users.append(u)
-        g.users.append(e)
-        db.session.add(p)
-        db.session.commit()
+class BasicTests(BaseTest):
 
     ###############
     #### tests ####
@@ -102,7 +29,7 @@ class BasicTests(unittest.TestCase):
         '''Basic access to class sites'''
         with self.app:
             self.login('testes@test.com', 'test')
-            pages = ('leaderboard', 'forum', 'create_thread')
+            pages = ('leaderboard', 'forum', 'create_thread', 'classquiz')
             for page in pages:
                 rv = self.app.get(url_for(page,groupID=1))
                 self.assertEqual(rv.status_code, 200)

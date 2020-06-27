@@ -49,6 +49,12 @@
     <Compile Include="app\group.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\tests\basetest.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\tests\test_quiz.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="install.py">
       <SubType>Code</SubType>
     </Compile>

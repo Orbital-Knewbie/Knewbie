@@ -6,85 +6,14 @@ from app.models import User, Post
 from app.profile import register
 from app.email import generate_confirmation_token
 
+from app.tests.basetest import BaseTest
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 TEST_DB = 'test.db'
 
-class UserModelCase(unittest.TestCase):
-    def setUp(self):
-        app.config['TESTING'] = True
-        app.config['WTF_CSRF_ENABLED'] = False
-        app.config['DEBUG'] = False
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-            os.path.join(basedir, TEST_DB)
-        app.login_manager.init_app(app)
-        self.app = app.test_client()
-
-        ## IMPORTANT FOR LOGIN ##
-        app.test_request_context().push()
-
-        db.session.remove()
-        db.drop_all()
-        db.create_all()
-        self.add_test_user()
-        self.add_test_edu()
-        db.session.commit()
- 
-        # Disable sending emails during unit testing
-        mail.init_app(app)
-        self.assertEqual(app.debug, False)
-
-    def tearDown(self):
-        pass
-
-    ########################
-    #### helper methods ####
-    ########################
-
-    def register(self, role, *rdata):
-        fields=('firstName', 'lastName', 'email', 'password', 'password2')
-        pre = role[:3] + '-'
-        data = {}
-        for i in range(len(fields)):
-            data[pre+fields[i]] = rdata[i]
-        return self.app.post(
-            '/register/' + role,
-            data=data,
-            follow_redirects=True
-        )
- 
-    def register_student(self, *data):
-        return self.register('student', *data)
-
-    def register_educator(self, *data):
-        return self.register('educator', *data)
-        
- 
-    def login(self, email, password):
-
-        return self.app.post(
-            '/login',
-            data={'email' : email, 'password' : password },
-            follow_redirects=True
-        )
- 
-    def logout(self):
-        return self.app.get(
-            '/logout',
-            follow_redirects=True
-        )
-
-    def add_test_user(self):
-        u = User(firstName="first", lastName="last", email="test@test.com", \
-            urole="student", knewbie_id="123456", curr_theta=-1.33, confirmed=True)
-        u.set_password("strongpassword")
-        db.session.add(u)
-
-    def add_test_edu(self):
-        u = User(firstName="first", lastName="last", email="edu@test.com", \
-            urole="educator", confirmed=True)
-        u.set_password("weakpassword")
-        db.session.add(u)
+class UserModelCase(BaseTest):
+    
 
     ###############
     #### tests ####
@@ -136,13 +65,13 @@ class UserModelCase(unittest.TestCase):
     def test_logout(self):
         '''Login / Logout'''
         with self.app:
-            response = self.login('test@test.com','strongpassword')
+            response = self.login('testes@test.com','test')
             self.assertEqual(response.status_code, 200)
             self.assertIn(b'Join A Class', response.data)
             response2 = self.logout()
             self.assertEqual(response.status_code, 200)
             self.assertIn(b'Knowledge is Power. Even if you are a Noobie.', response2.data)
-            response = self.login('edu@test.com','weakpassword')
+            response = self.login('edutest@test.com', 'strongtest')
             self.assertEqual(response.status_code, 200)
             self.assertIn(b'Create A New Class', response.data)
             self.assertIn(b'Create A New Quiz', response.data)
@@ -153,7 +82,7 @@ class UserModelCase(unittest.TestCase):
     def test_confirmed(self):
         '''Redirect to dashboard, confirmed'''
         with self.app:
-            self.login('test@test.com','strongpassword')
+            self.login('testes@test.com','test')
             response = self.app.get(url_for('unconfirmed'), follow_redirects=True)
             self.assertEqual(response.status_code, 200)
             self.assertIn(b'Join A Class', response.data)
