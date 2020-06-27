@@ -1,34 +1,40 @@
 ﻿{% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='content/quizstyle.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='content/dashboardstyle.css') }}">
 {% endblock %}
 {% block content %}
 {% include "sidebar.html" %}
 <div class="quiz-container">
-    <div id="quiz" class="justify-center flex-column">
-        <h1>QUIZ TITLE</h1>
-        <h2 id="question">{{question}}</h2>
-
-        {% if edu %}
-        <form action="{{ url_for('edu_quiz', quizID=quizID) }}" method="post">
-            {% else %}
-            <form action="{{ url_for('quiz') }}" target="result" method="post">
+    <section class="box" id="topicalquiz">
+        <h1>Class Quizzes</h1>
+        <div class="card-wrapper">
+            {% for quiz in quizzes %}
+            <div class="card">
+                <div class="card-background"></div>
+                <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
+                <h2>{{ quiz.name }}</h2>
+                {% if current_user.urole == 'student' %}
+                <a href="{{ url_for('edu_quiz', quizID=quiz.id, qnNum=1) }}" class="btn">Begin Quiz</a>
+                {% else %}
+                <a href="{{ url_for('preview_quiz', quizID=quiz.id) }}" class="btn">Preview Quiz</a>
                 {% endif %}
-                <ol>
-                    {% for o in options %}
-                    <li class="options-container" id="options-container">
-                        <p class="options-prefix">{{loop.index}}</p>
-                        <label>
-                            <input type="radio" class="options" name="option" id="{{o}}" value="{{o}}">
-                            <span>{{options[o]}}</span>
-                        </label>
-                    </li>
-                    <br />
-
-                    {% endfor %}
-                </ol>
-                <p><input class="submit-btn" type="submit" value="SUBMIT"></p>
-            </form>
-    </div>
-
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% if current_user.urole == 'educator' %}
+    <section class="box" id="topicalquiz">
+        <h1>Your Own Quizzes (not assigned to this class)</h1>
+        <div class="card-wrapper">
+            {% for quiz in current_user.quizzes %}
+            <div class="card">
+                <div class="card-background"></div>
+                <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
+                <h2>{{ quiz.name }}</h2>
+                <a href="{{ url_for('preview_quiz', quizID=quiz.id) }}" class="btn">Preview Quiz</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
 </div>
 {% endblock %}

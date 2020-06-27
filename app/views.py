@@ -10,7 +10,7 @@ from app.models import User, Question, Option, Response, Group, Thread, Post, Pr
 from app.forms import *
 from app.email import *
 from app.profile import *
-from app.questions import get_student_cat, submit_response, get_response_answer, get_question, get_all_topics # quiz attempts
+from app.questions import get_student_cat, submit_response, get_response_answer, get_question, get_all_topics, get_quiz # quiz attempts
 from app.questions import add_quiz, add_question, add_question_quiz, get_questions_quiz, edit_question, remove_question_quiz, remove_quiz # quiz making
 from app.questions import validate_quiz_link, validate_qn_link, validate_quiz_stu # validation
 from app.group import *
@@ -703,13 +703,14 @@ def edu_quiz(quizID, qnNum):
 
     # If attempting the quiz, get the question to display
     if request.method == 'GET':
-        question, options = get_question(quiz, qnNum - 1)
-        return render_template('quiz.html', quizID=quizID, question=question, options=options)
+        question, options = get_question(current_user, quiz, qnNum - 1)
+        if question:
+            return render_template('quiz.html', quizID=quizID, question=question, options=options)
 
     # If submitting an attempted question
     elif request.method == 'POST':
         submit_response(current_user, request.form)
-        return redirect(url_for('edu_quiz'),quiz=quiz,qnNum=qnNum+1)
+    return redirect(url_for('edu_quiz'),quiz=quiz,qnNum=qnNum+1)
 
 @app.route('/quiz/<int:quizID>/result')
 @app.route('/quiz/result')
@@ -728,4 +729,5 @@ def result(quizID=None):
 def classquiz(groupID):
     group = validate_group_link(current_user, groupID)
     image_file = get_image_file(current_user)
-    return render_template('classquiz.html', title=' | Quiz', group=group, image_file=image_file)
+    quizzes = get_quiz(group)
+    return render_template('classquiz.html', title=' | Quiz', group=group, image_file=image_file, quizzes=quizzes)

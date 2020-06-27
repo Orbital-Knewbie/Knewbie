@@ -281,6 +281,9 @@ def add_quiz_group(group, quiz):
     group.quizzes.append(quiz)
     db.session.commit()
 
+def get_quiz(group):
+    return Quiz.query.filter(Quiz.groups.any(id=group.id)).all()
+
 def get_questions_quiz(quiz, pre_shuffle=False):
     '''Gets dictionary of questions belonging to a quiz
     Format - 
@@ -307,13 +310,15 @@ def get_questions_quiz(quiz, pre_shuffle=False):
         d[qnID] = {'question' : qn_txt, 'options' : opt_txt, 'answer' : question.answerID}
     return d
 
-def get_question(quiz, n, pre_shuffle=False):
+def get_question(user, quiz, n, pre_shuffle=False):
     '''Gets nth question from a quiz'''
     questions = quiz.questions
     if n < 0 or n >= len(questions):
         return None
     d = []
     question = questions[n]
+    if Response.query.filter_by(userID=user.id, qnID=question.id).first():
+        return None
     qn_txt = question.question
     options = question.options
     if pre_shuffle:
