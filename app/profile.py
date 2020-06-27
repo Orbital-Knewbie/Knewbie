@@ -59,23 +59,26 @@ def get_proficiencies(user):
     '''Return list of (timestamp, proficiency) in chronological order'''
     profs = Proficiency.query.filter_by(userID=user.id,topicID=1). \
         order_by(Proficiency.timestamp.asc()).all()
-    return [(prof.timestamp, prof.theta) for prof in profs]
+    return [[prof.timestamp for prof in profs], [prof.theta for prof in profs]]
 
 def get_level_proficiency(user):
     '''Returns a list of proficiency levels for each difficulty range
     Given in the range 0-1 for each difficulty
     [easy_level, med_level, hard_level]'''
-    r=Response.query.filter_by(userID=user.id)
-    easy = r.filter(Question.difficulty < -1.33).all()
-    med = r.filter(Question.difficulty.between(-1.33,1.33)).all()
-    hard = r.filter(Question.difficulty > 1.33).all()
+    rs=Response.query.filter_by(userID=user.id).all()
+    easy = [r for r in rs if r.question.difficulty < -1.33]
+    med = [r for r in rs if r.question.difficulty >= -1.33 and r.question.difficulty < 1.33]
+    hard = [r for r in rs if r.question.difficulty > 1.33]
+    #easy = r.filter(Question.difficulty < -1.33).all()
+    #med = r.filter(Question.difficulty.between(-1.33,1.33)).all()
+    #hard = r.filter(Question.difficulty > 1.33).all()
     prof_lvl = []
     for diff in (easy,med,hard):
         if not diff:
             prof_lvl.append(0)
         else:
             correct = tuple(filter(lambda x: x.is_correct(), diff))
-            prof_lvl.append(correct/len(diff))
+            prof_lvl.append(len(correct)/len(diff))
     return prof_lvl
 
 def get_topic_proficiencies(user):
@@ -90,7 +93,7 @@ def get_topic_proficiencies(user):
             prof_lvl.append((topic.name, 0))
         else:
             correct = tuple(filter(lambda x:x.is_correct(), curr_prof))
-            prof_lvl.append((topic.name, correct))
+            prof_lvl.append((topic.name, len(correct)/len(curr_prof)))
     return prof_lvl
 
 def get_image_file(user):

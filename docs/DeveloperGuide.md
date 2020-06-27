@@ -249,14 +249,14 @@ Fig #. Entity Relationship Diagram Notation <br>
 
 ## 5. Testing <a name="test"></a>
 [![Build Status](https://travis-ci.org/Orbital-Knewbie/Knewbie.svg?branch=master)](https://travis-ci.org/Orbital-Knewbie/Knewbie)
-[![codecov](https://codecov.io/gh/Orbital-Knewbie/Knewbie/branch/master/graph/badge.svg)](https://codecov.io/gh/Orbital-Knewbie/Knewbie)
+[![codecov](https://codecov.io/gh/Orbital-Knewbie/Knewbie/branch/master/graph/badge.svg)](https://codecov.io/gh/Orbital-Knewbie/Knewbie)<br>
 With the constant updates to the code, there is a need to conduct [Unit Testing](https://en.wikipedia.org/wiki/Unit_testing) to ensure that sections of the code continue to work.
 This project uses the `unittest` module provided by Python to carry out the tests. As an example of testing, using the following command, we will be able to see our test results from the command line.
 ```
 nose2 -v
 ```
 
-![Unit Testing Knewbie](diagrams/unittest.png)<br>
+![Unit Testing Knewbie](images/unittest.png)<br>
 Fig #. Unit Testing Knewbie<br>
 
 [Codecov](https://codecov.io/) is a tool that goes hand in hand with Unit Testing, and will check for the test coverage of the codebase, based on the Unit Tests.

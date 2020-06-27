@@ -2,7 +2,7 @@
 Routes and views for the flask application.
 """
 
-from flask import render_template, request, flash, redirect, url_for, jsonify
+from flask import render_template, request, flash, redirect, url_for, jsonify, make_response
 from flask_login import current_user, login_user, logout_user, login_required
 from flask_mail import Message
 from app import app, db, mail
@@ -65,8 +65,21 @@ def progressreport(knewbieID=None):
         user = current_user
     else:
         user = User.query.filter_by(knewbie_id=knewbieID).first_or_404()
-        get_data(user)
-    return render_template('report.html', title=' | Progress Report', user=user)
+        #get_data(user)
+        diff_prof = get_level_proficiency(user)
+        topical_prof = get_topic_proficiencies(user)
+        overall_prof = get_proficiencies(user)
+    return render_template('report.html', title=' | Progress Report', user=user, diff_prof=diff_prof, topical_prof=topical_prof, overall_prof=overall_prof)
+
+#Get data from database to be used in chart.js
+#@app.route('/progressreport/<knewbieID>/get_data')
+#def get_data(knewbieID):
+#    user = User.query.filter_by(knewbie_id=knewbieID).first()
+#    diff_prof = get_level_proficiency(user)
+#    topical_prof = get_topic_proficiencies(user)
+#    overall_prof = get_proficiencies(user)
+#    print(diff_prof, topical_prof, overall_prof)
+#    return jsonify({'payload':({'topical_prof':topical_prof, 'diff_prof':diff_prof, 'overall_prof':overall_prof})})
 
 @app.route('/faq')
 def faq():
@@ -179,13 +192,7 @@ def logout():
 # settings
 # resetpassword
 # deactivate
-#Get data from database to be used in chart.js
-@app.route('/progressreport/get_data')
-def get_data(user):
-    diff_prof = get_level_proficiency(user)
-    topical_prof = get_topic_proficiencies(user)
-    overall_prof = get_proficiencies(user)
-    return jsonify({'payload':json.dumps({'topical_prof':topical_prof, 'diff_prof':diff_prof, 'overall_prof':overall_prof})})
+
 
 @app.route('/dashboard')
 @login_required
