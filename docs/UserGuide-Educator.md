@@ -101,7 +101,13 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 ![Create Quiz Success](images/Quiz_Success.png)
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8. On the same page you are able to assign the quiz to the classes you have as well, or even create a new quiz.
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8. On the same page you are able to assign the quiz to the classes you have as well, or preview your quiz to make any changes.
+
+![Quiz Preview](images/Preview.png)
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 9. The topmost delete button will delete the entire quiz.
+
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 10. The rest of the delete and edit buttons are for the respective questions.
 
 #### <a name="score"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.3. Leaderboard/Progress Report</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. You will be able to view the individual progress report of all the students in your class. This includes the scores from quizzes attempted within and outtside of the class.
@@ -117,6 +123,8 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 3. The main forum page will display the timestamp of the last post the number of posts as well as the title of the threads.
 
+![Forum](images/Forum.png)
+
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. Students will be able to post a new threads and reply to clarify doubts.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. As an educator and class creator, you have the right to delete any thread or post you deem inappropriate.
@@ -124,6 +132,8 @@ Knewbie is an educational platform that provides tailored content to suit the in
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6. To create a new thread, you have to click on the 'Create A New Thread' button near the top of the page.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7. You will be taken to a new page where you need to input the title of the thread and the message.
+
+![New Thread](images/Thread.png)
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8. Clicking on post will make your post live.
 
@@ -133,10 +143,14 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 11. You will also be able to post a reply, or edit your posts.
 
+![New Post](images/Post.png)
+
 #### <a name="edit"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.5. Edit Participants List</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. As an educator, you can edit the participants list.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 2. You can manually add or remove participants.
+
+![Edit Participants](images/Participants.png)
 
 #### <a name="code"> &nbsp; &nbsp; &nbsp; &nbsp; 3.2.6. Change Class Code</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1. As an educator, you can request to change the class code.
@@ -155,6 +169,8 @@ Knewbie is an educational platform that provides tailored content to suit the in
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 4. To delete the class, just click on 'Delete Class' which can be found on the class' sidebar.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. You will be redirected and asked to input your class code which could be found on the sidebar of your class.
+
+![Delete Class](images/DeleteClass.png)
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6. Upon confirmation of the request, all information associated with the class will be deleted.
 
