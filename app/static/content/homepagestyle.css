@@ -64,7 +64,7 @@ body, html {
 }
 
 .subtext {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: 400;
   letter-spacing: 0.5rem
 }
@@ -320,7 +320,7 @@ bottom-text p {
     transform: scale(0.95);
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1000px) {
   .gradient-clipped {
     width: 100%;
     height: 75vh;
@@ -331,6 +331,10 @@ bottom-text p {
     color: var(--LIGHTPURPLE);
     background-color: var(--GREY);
     outline-color: var(--LIGHTPURPLE);
+  }
+
+  .subtext {
+      font-size: 0.8rem;
   }
 }
 
