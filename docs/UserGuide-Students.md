@@ -97,7 +97,7 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. Every class has a sidebar for ease of access to the various features.
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6. From the sidebar you can access the [forum](#forum), [quizzes](#quiz), [leaderboard](#score), [settings](#customize).
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6. From the sidebar you can access the [forum](#forum), [quizzes](#quiz), [leaderboard](#score).
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7. You can access any quizzes assigned specifically to your class by your educators as well as all of our [existing tailored quizzes.](#quiz)
 
@@ -125,15 +125,21 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5. To create a new thread, you have to click on the 'Create A New Thread' button near the top of the page.
 
+![Forum](images/Forum.png)
+
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 6. You will be taken to a new page where you need to input the title of the thread and the message.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7. Clicking on post will make your post live.
+
+![New Thread](images/Thread.png)
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 8. To view the content of a thread from the forum, you have to click on the thread title.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 9. You will be able to view the message along with all the other replies.
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 10. You will also be able to post a reply, or edit and delete your posts.
+
+![New Post](images/Post.png)
 
 ### <a name="quiz"> &nbsp; &nbsp; 3.4. Quizzes</a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; 1. When you have logged in to your acocunt, you will be able to view all the quizzes from your dashboard.
@@ -150,7 +156,11 @@ Knewbie is an educational platform that provides tailored content to suit the in
 
 &nbsp; &nbsp; &nbsp; &nbsp; 5. Based on your current ability, questions will be recommended in a way to ensure you improve.
 
-&nbsp; &nbsp; &nbsp; &nbsp; 6. You can access your progress report through your dashboard, or as detailed [here](#id).
+&nbsp; &nbsp; &nbsp; &nbsp; 6. At the end, you will get a feedback, displaying the questions you get right and wrong.
+
+&nbsp; &nbsp; &nbsp; &nbsp; 7. The correct answers will not be displayed so that you can re-attempt the quiz.
+
+&nbsp; &nbsp; &nbsp; &nbsp; 8. You can access your progress report through your dashboard, or as detailed [here](#id).
 
 ### <a name="customize"> &nbsp; &nbsp; 3.5. Profile Customization</a><br>
 #### <a name="profile"> &nbsp; &nbsp; &nbsp; &nbsp; 3.5.1. Profile Settings</a><br>
