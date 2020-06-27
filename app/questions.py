@@ -161,7 +161,7 @@ def get_all_topics():
 def get_topic(topicID):
     return Topic.query.filter_by(id=topicID).first()
 
-def add_question(qn_text, options, answer, topicID):
+def add_question(user, qn_text, options, answer, topicID):
     '''Adds a question to the database
     Input
     qn_text : str
@@ -174,7 +174,7 @@ def add_question(qn_text, options, answer, topicID):
 
     # Add question
     question = Question(question=qn_text, discrimination=item[0], \
-        difficulty=item[1], guessing=item[2], upper=item[3], topicID = topicID)
+        difficulty=item[1], guessing=item[2], upper=item[3], topicID = topicID, userID=user.id)
     db.session.add(question)
     db.session.flush()
 

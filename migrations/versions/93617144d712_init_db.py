@@ -1,8 +1,8 @@
 """init db
 
-Revision ID: e95c1172cf46
+Revision ID: 93617144d712
 Revises: 
-Create Date: 2020-06-27 01:51:33.390675
+Create Date: 2020-06-27 07:37:54.657808
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e95c1172cf46'
+revision = '93617144d712'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -68,7 +68,9 @@ def upgrade():
     sa.Column('upper', sa.Float(), nullable=True),
     sa.Column('topicID', sa.Integer(), nullable=True),
     sa.Column('answerID', sa.Integer(), nullable=True),
+    sa.Column('userID', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['topicID'], ['topic.id'], name=op.f('fk_question_topicID_topic')),
+    sa.ForeignKeyConstraint(['userID'], ['user.id'], name=op.f('fk_question_userID_user')),
     sa.PrimaryKeyConstraint('id', name=op.f('pk_question'))
     )
     op.create_table('quiz',

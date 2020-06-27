@@ -82,9 +82,9 @@ class Student(object):
 
     def get_questions(self):
         if self.topic == 1:
-            return Question.query.all()
+            return Question.query.filter(Question.user.has(admin=True)).all()
         else:
-            return Question.query.filter_by(topicID=self.topic).all()
+            return Question.query.filter(Question.user.has(admin=True)).filter_by(topicID=self.topic).all()
 
     def get_question_options(self):
         '''Retrieve Question and Option from Database, for tailored testing'''

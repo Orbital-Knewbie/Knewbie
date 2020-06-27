@@ -46,6 +46,8 @@ def add_qn(org_qns):
         item = generate_item_bank(1)[0]
         qn = models.Question(question=q, discrimination=item[0], \
                     difficulty=item[1], guessing=item[2], upper=item[3], topicID=1)
+        user = models.User.query.filter_by(admin=True).first()
+        qn.userID = user.id
         db.session.add(qn)
         db.session.commit()
         qid = qn.id
@@ -61,6 +63,9 @@ def add_qn(org_qns):
             
             db.session.commit()
 
+if db.session.query(models.User).count() == 0:
+    user = models.User(admin=True)
+    db.session.add(user)
 if db.session.query(models.Topic).count() == 0:
     for topic in ('General', 'Estimation', 'Geometry', 'Model'):
         db.session.add(models.Topic(name=topic))

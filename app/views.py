@@ -19,6 +19,8 @@ from app.token import confirm_token
 from app.decorator import check_confirmed
 from app.cat import Student
 
+import json
+
 
 # Route for main page functionalities
 # home
@@ -183,7 +185,7 @@ def get_data(user):
     diff_prof = get_level_proficiency(user)
     topical_prof = get_topic_proficiencies(user)
     overall_prof = get_proficiencies(user)
-    return flask.jsonify({'payload':json.dumps({'topical_prof':topical_prof, 'diff_prof':diff_prof, 'overall_prof':overall_prof})})
+    return jsonify({'payload':json.dumps({'topical_prof':topical_prof, 'diff_prof':diff_prof, 'overall_prof':overall_prof})})
 
 @app.route('/dashboard')
 @login_required
@@ -610,7 +612,7 @@ def createqn(quizID):
     if form.validate_on_submit():
         #Commit inputs to database
         options = (form.op1.data, form.op2.data, form.op3.data, form.op4.data)
-        question = add_question(form.qn.data, options, form.corrOp.data, form.topic.data)
+        question = add_question(current_user, form.qn.data, options, form.corrOp.data, form.topic.data)
         add_question_quiz(quiz, question)
         if form.complete.data:
             return redirect(url_for('createquizsuccess', quizID=quizID))

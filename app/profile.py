@@ -1,6 +1,6 @@
 from flask import flash, redirect, url_for
 from app import app, db
-from app.models import User, Group, Response, Question, Topic
+from app.models import User, Group, Response, Question, Topic, Proficiency
 from app.email import get_confirm_url, send_conf_email
 
 from PIL import Image

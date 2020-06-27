@@ -26,6 +26,7 @@ class User(UserMixin, db.Model):
     responses = db.relationship('Response')
     proficiencies = db.relationship('Proficiency')
     quizzes = db.relationship('Quiz')
+    questions = db.relationship('Question', backref='user')
 
     def __repr__(self):
         return '<User {}>'.format(self.firstName)
@@ -73,7 +74,7 @@ class Question(db.Model):
     answerID = db.Column(db.Integer)
     #answer = db.relationship('Answer', backref=db.backref('question', uselist=False))
     responses = db.relationship('Response', backref='question')
-
+    userID = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     #type = db.Column(db.String(16), index=True, unique=True)
 
