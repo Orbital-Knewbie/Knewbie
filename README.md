@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/github/Orbital-Knewbie/Knewbie.png)](https://travis-ci.org/github/Orbital-Knewbie/Knewbie)
+[![Build Status](https://travis-ci.org/Orbital-Knewbie/Knewbie.svg?branch=master)](https://travis-ci.org/Orbital-Knewbie/Knewbie)
 [![codecov](https://codecov.io/gh/Orbital-Knewbie/Knewbie/branch/master/graph/badge.svg)](https://codecov.io/gh/Orbital-Knewbie/Knewbie)
 
 # Knewbie

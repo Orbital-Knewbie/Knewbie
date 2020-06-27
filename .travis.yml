@@ -9,4 +9,3 @@ install:
 
 script:
   - nose2 -v
-  - codecov
