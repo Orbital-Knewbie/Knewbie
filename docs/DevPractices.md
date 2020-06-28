@@ -25,6 +25,12 @@ For our project, Orbital is already designed to have three one-month long period
 With only 2 members in the team and just 3 months to complete the project, there needs to be an adjustment to the framework to for our needs. 
 This includes having both members as part of the Development Team, with 1 member taking the role of the Product Manager, and the other taking the role of the Scrum Master.
 For our documentation, User Guides represent guidance on Business Requirements, while the Developer Guide represents guidance on the Product Development aspect of the project.
+  
+With the help of our Mentor, the team has also organised the relevant Sprint Review, on 12 June, and Sprint Retrospective, on 9 & 22 June.
+The Sprint Review dicussed the completed features, and the features that were needed to be implemented next.
+The Spring Retrospectives discussed what went well in the project up to that point, whether there needed to be improvements, and how the improvements were to be made.
+Improvements discussed on 9 June included the Database Design, Scrum framework application, and software engineering practices, while on 22 June,
+it was focused on Milestone 2 requirements which included [Testing](#testing).
 
 ### 1.2 Kanban Boards <a name="kanban">
 ![Kanban](/docs/images/Kanban.png)<br>
@@ -44,10 +50,11 @@ The team also makes use of the [Pull Requests (PRs)](https://help.github.com/en/
 and [Code Review](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-reviews) present in GitHub to protect the main code located in the master branch.
 With two members, in the team, there is implicit review of code that one member is attempting to merge in the PR by the other member.
 The advantage in conducting the code reviews is that there is more than one person involved in detecting any problems or bugs faced, ensuring higher quality code.
+Examples of the Version Control & Code Review practice can be found on the [PR page of this repository](https://github.com/Orbital-Knewbie/Knewbie/pulls?q=is%3Apr).
 
 ### 1.5 Testing <a name="testing">
 [![Build Status](https://travis-ci.org/Orbital-Knewbie/Knewbie.svg?branch=master)](https://travis-ci.org/Orbital-Knewbie/Knewbie)
-[![codecov](https://codecov.io/gh/Orbital-Knewbie/Knewbie/branch/master/graph/badge.svg)](https://codecov.io/gh/Orbital-Knewbie/Knewbie)
+[![codecov](https://codecov.io/gh/Orbital-Knewbie/Knewbie/branch/master/graph/badge.svg)](https://codecov.io/gh/Orbital-Knewbie/Knewbie)<br>
 It is important to ensure that the code continues to work even with constant updates. Python's own `unittest` module can be used for Unit Testing, Codecov measures code coverage, while Travis does Integration Tests.
 The [Developer Guide](/docs/DeveloperGuide.md#test) covers testing in greater detail.
 
