@@ -12,6 +12,7 @@ This document serves to inform on the Project Management and Technical Developme
 &nbsp; &nbsp; [2.1. Flask](#flask)<br>
 &nbsp; &nbsp; [2.2. Model View Controller (MVC)](#mvc)<br>
 &nbsp; &nbsp; [2.3. RESTful API](#rest)<br>
+&nbsp; &nbsp; [2.4. Data Normalization](#normal)<br>
 
 ## 1. Project Management <a name="project">
 Software Development is a complex topic that has many models and frameworks. Thankfully for Orbital and our Mentor, the development team had a chance to learn about the many practices used in Software Engineering.
