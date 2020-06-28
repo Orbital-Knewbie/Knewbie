@@ -15,7 +15,7 @@
 [4. Documentation](#doc)<br>
 [5. Testing](#test)<br>
 [6. Frequently Asked Questions (FAQ)](#faq)<br>
-[User Stories](#user)<br>
+[User Stories](#userstories)<br>
 
 ## 1. Setting up <a name="setup"></a>
 Refer to the guide [here](/docs/InstallationGuide.md).
@@ -269,7 +269,7 @@ Together with the protection of the master branch, Travis then ensures that bugs
 
 ## 6. Frequently Asked Questions (FAQ) <a name="faq"></a>
 
-## User Stories <a name="user"></a>
+## User Stories <a name="userstories"></a>
 Priorities: High (must have) - `* * *`, Medium (good to have) - `* *`, Low (not significant) - `*`
 
 Priority | As a ... | I want to ... | So that I can...
