@@ -52,7 +52,7 @@ class BasicTests(BaseTest):
                 rv = self.app.get(url_for(page,groupID=1))
                 self.assertEqual(rv.status_code, 403)
 
-    def test_edu_group(self):
+    def test_edu_post(self):
         '''POST only sites'''
         with self.app:
             self.login('edutest@test.com', 'strongtest')
@@ -84,7 +84,79 @@ class BasicTests(BaseTest):
 
             rv = self.app.get(url_for('delete_post',groupID=1, threadID=1, postID=1))
             self.assertEqual(rv.status_code, 405)
+            
+            rv = self.app.get(url_for('joinclass'))
+            self.assertEqual(rv.status_code, 405)            
+            
+            rv = self.app.get(url_for('createclass'))
+            self.assertEqual(rv.status_code, 405)
 
+    def test_join_class(self):
+        '''Student join class with code'''
+        with self.app:
+            self.login('testes@test.com', 'test')
+            rv = self.app.post(url_for('joinclass'), data={'join-title': '654321'}, follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'654321', rv.data)
+            self.assertIn(b'Create A New Thread', rv.data)
+
+    def test_create_class(self):
+        '''Educator create class'''
+        with self.app:
+            self.login('edutest@test.com', 'strongtest')
+            rv = self.app.post(url_for('createclass'), data={'class-title':'test class'}, follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'Class was successfully created!', rv.data)
+            self.assertIn(b'Please share the class code with only the parties you want to add to the class.', rv.data)
+
+    def test_create_dup_class(self):
+        '''Educator create class same name'''
+        with self.app:
+            self.login('edutest@test.com', 'strongtest')
+            rv = self.app.post(url_for('createclass'), data={'class-title':'name'}, follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'You have already created a Class with this name. Please choose a different name.', rv.data)
+
+
+    def test_delete_class(self):
+        '''Educator delete class'''
+        with self.app:
+            self.login('edutest@test.com', 'strongtest')
+            rv = self.app.post(url_for('delete_class', groupID=1), data={'title': '654321'}, follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'Class deleted', rv.data)
+            self.assertIn(b'View Your Classes', rv.data)
+
+
+    def test_add_userclass(self):
+        '''Educator adds student and duplicate student to class'''
+        with self.app:
+            self.login('edutest@test.com', 'strongtest')
+            u = User(knewbie_id='test12')
+            db.session.add(u)
+            db.session.commit()
+            rv = self.app.post(url_for('adduserclass', groupID=1), data={'title': 'test12'}, follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'User added', rv.data)
+            self.assertIn(b'Edit Participants', rv.data)
+            rv = self.app.post(url_for('adduserclass', groupID=1), data={'title': '123456'}, follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'User already in Class', rv.data)
  
+    def test_delete_userclass(self):
+        '''Educator deletes user from class'''
+        with self.app:
+            self.login('edutest@test.com', 'strongtest')
+            u = User.query.filter_by(knewbie_id='123456').filter(User.groups.any(id=1)).first()
+            self.assertIsNotNone(u)
+            rv = self.app.post(url_for('delete_participant', groupID=1, userID=u.id), data={}, follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'User deleted', rv.data)
+            self.assertIn(b'Edit Participants', rv.data)
+            
+            u2 = User.query.filter_by(id=u.id).filter(User.groups.any(id=1)).first()
+            self.assertIsNone(u2)
+
+
 if __name__ == "__main__":
     unittest.main()

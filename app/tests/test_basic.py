@@ -3,7 +3,9 @@
  
 import os
 import unittest
- 
+
+from app.tests.basetest import BaseTest
+from flask import url_for
 from app import app, db, mail
 from app.models import *
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -12,46 +14,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 TEST_DB = 'test.db'
  
  
-class BasicTests(unittest.TestCase):
- 
-    ############################
-    #### setup and teardown ####
-    ############################
- 
-    # executed prior to each test
-    def setUp(self):
-        app.config['TESTING'] = True
-        app.config['WTF_CSRF_ENABLED'] = False
-        app.config['DEBUG'] = False
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-            os.path.join(basedir, TEST_DB)
-        self.app = app.test_client()
-
-        ## IMPORTANT FOR LOGIN ##
-        app.test_request_context().push()
-
-        db.session.remove()
-        db.drop_all()
-        db.create_all()
-        self.add_test_user()
-
-        # Disable sending emails during unit testing
-        mail.init_app(app)
-        self.assertEqual(app.debug, False)
- 
-    # executed after each test
-    def tearDown(self):
-        pass
-    
-    ########################
-    #### helper methods ####
-    ########################
-    def add_test_user(self):
-        u = User(firstName="first", lastName="last", email="test@test.com", \
-            urole="student", knewbie_id="123456", curr_theta=-1.33, confirmed=True)
-        u.set_password("test")
-        db.session.add(u)
-        db.session.commit()
+class BasicTests(BaseTest):
  
     ###############
     #### tests ####
@@ -88,6 +51,12 @@ class BasicTests(unittest.TestCase):
         response = self.app.get('/progressreport/246810', follow_redirects=True)
         self.assertEqual(response.status_code, 404)
 
+    def test_send_contact(self):
+        '''Send a contact form'''
+        rv = self.app.post(url_for('contact'), data={'email': 'contact@test.com', 'name':'name', 'subject':'subject', 'message' : 'message'}, follow_redirects=True)
+        self.assertEqual(rv.status_code, 200)
+        self.assertIn(b'Thank you for your message. We\'ll get back to you shortly.', rv.data)
+        
  
 if __name__ == "__main__":
     unittest.main()

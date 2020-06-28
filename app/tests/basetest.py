@@ -105,7 +105,7 @@ class BaseTest(unittest.TestCase):
         return u
 
     def add_test_group(self, name):
-        return Group(name=name)
+        return Group(name=name, classCode='654321')
 
     def add_test_thread(self, group, title):
         return Thread(group=group,timestamp=datetime.now(), title=title)
@@ -130,6 +130,9 @@ class BaseTest(unittest.TestCase):
     def add_test_qn(self):
         return Question(userID=1,question='testquestion', discrimination=0, \
             difficulty=0,  guessing=0, upper=0, topicID = 1, answerID = 1)
+    
+    def add_test_topic(self):
+        return Topic(name="General")
 
     def add_test_question(self):
         q = self.add_test_qn()
@@ -151,6 +154,7 @@ class BaseTest(unittest.TestCase):
         db.session.commit()
 
     def add_test_quiz_edu(self):
+        t = self.add_test_topic()
         u = User.query.filter_by(urole='educator').first()
         q = self.add_test_quiz(u)
         db.session.add(q)
