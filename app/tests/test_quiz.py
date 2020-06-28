@@ -22,6 +22,15 @@ class QuizTest(BaseTest):
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'Quiz was successfully created!', rv.data)
 
+    def test_delete_quiz(self):
+        '''Delete educator quiz'''
+        with self.app:
+            self.login('edutest@test.com', 'strongtest')
+            rv = self.app.post(url_for('deletequiz', quizID=1), data={}, follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'Quiz deleted', rv.data)
+            self.assertIn(b'Create A New Class', rv.data)
+
     def test_create_quiz(self):
         with self.app:
             self.login('edutest@test.com', 'strongtest')
@@ -54,6 +63,15 @@ class QuizTest(BaseTest):
             self.assertIn(b'testquestion', rv.data)
             self.assertIn(b'testoption1', rv.data)
             self.assertIn(b'Answer: ', rv.data)
+
+    def test_delete_qnquiz(self):
+        '''Delete question from educator quiz'''
+        with self.app:
+            self.login('edutest@test.com', 'strongtest')
+            rv = self.app.post(url_for('deleteqn', quizID=1, qnID=1), follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'Question removed from Quiz', rv.data)
+            self.assertIn(b'testquiz', rv.data)
 
     def test_get_edit_qn(self):
         with self.app:

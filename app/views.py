@@ -638,6 +638,7 @@ def deleteqn(quizID, qnID):
     delQnForm = DeleteForm(prefix='qn')
     if delQnForm.validate_on_submit():
         remove_question_quiz(quiz, qn)
+        flash('Question removed from Quiz')
         return redirect(url_for('preview_quiz', quizID=quizID))
 
 @app.route('/question/<int:qnID>/edit', methods=['GET', 'POST'])
