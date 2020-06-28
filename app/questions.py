@@ -213,7 +213,7 @@ def get_response_answer(user, quizID=None):
     ans_num and res_num given as int 1-4
     '''
     if quizID is None:
-        responses = Response.query.filter_by(userID=user.id).all()
+        responses = Response.query.filter_by(userID=user.id).filter(Question.user.has(admin=True)).all()
     else:
         responses = Response.query.filter_by(userID=user.id).filter(Question.quizzes.any(id=quizID)).all()
     d={}

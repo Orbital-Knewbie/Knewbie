@@ -619,6 +619,7 @@ def createqn(quizID):
         options = (form.op1.data, form.op2.data, form.op3.data, form.op4.data)
         question = add_question(current_user, form.qn.data, options, form.corrOp.data, form.topic.data)
         add_question_quiz(quiz, question)
+        flash('Question added')
         if form.complete.data:
             return redirect(url_for('createquizsuccess', quizID=quizID))
         return redirect(url_for('createqn', quizID=quizID))
@@ -710,12 +711,12 @@ def edu_quiz(quizID, qnNum):
     if request.method == 'GET':
         question, options = get_question(current_user, quiz, qnNum - 1)
         if question:
-            return render_template('quiz.html', quizID=quizID, question=question, options=options)
+            return render_template('quiz.html', quiz=quiz, qnNum=qnNum, question=question, options=options, edu=True)
 
     # If submitting an attempted question
     elif request.method == 'POST':
         submit_response(current_user, request.form)
-    return redirect(url_for('edu_quiz'),quiz=quiz,qnNum=qnNum+1)
+    return redirect(url_for('edu_quiz',quizID=quizID,qnNum=qnNum+1))
 
 @app.route('/quiz/<int:quizID>/result')
 @app.route('/quiz/result')

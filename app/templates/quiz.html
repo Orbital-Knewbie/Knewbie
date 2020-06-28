@@ -5,11 +5,15 @@
 {% block content %}
 <div class="quiz-container">
     <div id="quiz" class="justify-center flex-column">
+        {% if edu %}
+        <h1>{{ quiz.name }}</h1>
+        {% else %}
         <h1>TAILORED QUIZ</h1>
+        {% endif %}
         <h2 id="question">{{question}}</h2>
 
         {% if edu %}
-        <form action="{{ url_for('edu_quiz', quizID=quizID) }}" method="post">
+        <form action="{{ url_for('edu_quiz', quizID=quiz.id, qnNum=qnNum) }}" method="post">
         {% else %}
         <form action="{{ url_for('quiz') }}" target="result" method="post">
         {% endif %}

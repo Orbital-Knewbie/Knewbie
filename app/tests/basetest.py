@@ -157,17 +157,13 @@ class BaseTest(unittest.TestCase):
         t = self.add_test_topic()
         u = User.query.filter_by(urole='educator').first()
         q = self.add_test_quiz(u)
+        qn = self.add_test_qn()
+        q.questions.append(qn)
         db.session.add(q)
         db.session.commit()
 
 
     # Test Code from app.questions
-    #def remove_topics(self):
-    #    '''Removes all topics from the database'''
-    #    topics = Topic.query.all()
-    #    for t in topics:
-    #        db.session.delete(t)
-    #    db.session.commit()
 
     #def add_test_topics(self):
     #    remove_topics()
@@ -175,21 +171,6 @@ class BaseTest(unittest.TestCase):
     #    topics = ('General', 'Estimation', 'Geometry', 'Model')
     #    for topic in topics:
     #        add_topic(topic)
-
-
-    #def clear_questions(self):
-    #    for q in Question.query.all():
-    #        db.session.delete(q)
-    #        db.session.commit()
-    #    for q in Option.query.all():
-    #        db.session.delete(q)
-    #        db.session.commit()
-
-    #def clear_responses(self):
-    #    for r in Response.query.all():
-    #        db.session.delete(r)
-    #    db.session.commit()
-
 
     #def test_insert_qns(self):
     #    '''To test insert_qns() works'''
