@@ -105,7 +105,7 @@ class BaseTest(unittest.TestCase):
         return u
 
     def add_test_group(self, name):
-        return Group(name=name)
+        return Group(name=name, classCode='654321')
 
     def add_test_thread(self, group, title):
         return Thread(group=group,timestamp=datetime.now(), title=title)
@@ -130,6 +130,9 @@ class BaseTest(unittest.TestCase):
     def add_test_qn(self):
         return Question(userID=1,question='testquestion', discrimination=0, \
             difficulty=0,  guessing=0, upper=0, topicID = 1, answerID = 1)
+    
+    def add_test_topic(self):
+        return Topic(name="General")
 
     def add_test_question(self):
         q = self.add_test_qn()
@@ -151,19 +154,16 @@ class BaseTest(unittest.TestCase):
         db.session.commit()
 
     def add_test_quiz_edu(self):
+        t = self.add_test_topic()
         u = User.query.filter_by(urole='educator').first()
         q = self.add_test_quiz(u)
+        qn = self.add_test_qn()
+        q.questions.append(qn)
         db.session.add(q)
         db.session.commit()
 
 
     # Test Code from app.questions
-    #def remove_topics(self):
-    #    '''Removes all topics from the database'''
-    #    topics = Topic.query.all()
-    #    for t in topics:
-    #        db.session.delete(t)
-    #    db.session.commit()
 
     #def add_test_topics(self):
     #    remove_topics()
@@ -171,21 +171,6 @@ class BaseTest(unittest.TestCase):
     #    topics = ('General', 'Estimation', 'Geometry', 'Model')
     #    for topic in topics:
     #        add_topic(topic)
-
-
-    #def clear_questions(self):
-    #    for q in Question.query.all():
-    #        db.session.delete(q)
-    #        db.session.commit()
-    #    for q in Option.query.all():
-    #        db.session.delete(q)
-    #        db.session.commit()
-
-    #def clear_responses(self):
-    #    for r in Response.query.all():
-    #        db.session.delete(r)
-    #    db.session.commit()
-
 
     #def test_insert_qns(self):
     #    '''To test insert_qns() works'''

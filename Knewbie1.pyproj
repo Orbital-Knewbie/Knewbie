@@ -52,6 +52,9 @@
     <Compile Include="app\tests\basetest.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\tests\test_forum.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\tests\test_auth.py">
       <SubType>Code</SubType>
     </Compile>

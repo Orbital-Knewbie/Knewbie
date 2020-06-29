@@ -207,6 +207,14 @@ Each item administered - MCQ Math questions in this case - will have 4 main para
 
 More information on the parameters can be found on [CatSim's documentation](https://douglasrizzo.com.br/catsim/introduction.html). 
 
+Use of CatSim can be found in the files:
+```
+cat.py
+questions.py
+```
+
+> **_DISCLAIMER:_**  The proficiency and parameters used in Knewbie's current implementation have no research behind them. Due to the limited resources of the development team, the CatSim provided function `catsim.cat.generate_item_bank` was used to create simulated parameters for the questions, and `catsim.initialization.RandomInitializer().initialize()` was used to generate simulated proficiencies for each user. In the future, post-Orbital, it may be possible to obtain a much larger dataset with more accurate parameters.
+
 The general idea used when administering questions can be seen in the following flowchart. This algorithm is used in the general quizzes that will be taken by a student.
 Educator-created quizzes do not use this feature and are detailed in the [earlier section](#quiz).
 

@@ -66,9 +66,9 @@ def progressreport(knewbieID=None):
     else:
         user = User.query.filter_by(knewbie_id=knewbieID).first_or_404()
         #get_data(user)
-        diff_prof = get_level_proficiency(user)
-        topical_prof = get_topic_proficiencies(user)
-        overall_prof = get_proficiencies(user)
+    diff_prof = get_level_proficiency(user)
+    topical_prof = get_topic_proficiencies(user)
+    overall_prof = get_proficiencies(user)
     return render_template('report.html', title=' | Progress Report', user=user, diff_prof=diff_prof, topical_prof=topical_prof, overall_prof=overall_prof)
 
 #Get data from database to be used in chart.js
@@ -619,6 +619,7 @@ def createqn(quizID):
         options = (form.op1.data, form.op2.data, form.op3.data, form.op4.data)
         question = add_question(current_user, form.qn.data, options, form.corrOp.data, form.topic.data)
         add_question_quiz(quiz, question)
+        flash('Question added')
         if form.complete.data:
             return redirect(url_for('createquizsuccess', quizID=quizID))
         return redirect(url_for('createqn', quizID=quizID))
@@ -637,6 +638,7 @@ def deleteqn(quizID, qnID):
     delQnForm = DeleteForm(prefix='qn')
     if delQnForm.validate_on_submit():
         remove_question_quiz(quiz, qn)
+        flash('Question removed from Quiz')
         return redirect(url_for('preview_quiz', quizID=quizID))
 
 @app.route('/question/<int:qnID>/edit', methods=['GET', 'POST'])
@@ -710,12 +712,12 @@ def edu_quiz(quizID, qnNum):
     if request.method == 'GET':
         question, options = get_question(current_user, quiz, qnNum - 1)
         if question:
-            return render_template('quiz.html', quizID=quizID, question=question, options=options)
+            return render_template('quiz.html', quiz=quiz, qnNum=qnNum, question=question, options=options, edu=True)
 
     # If submitting an attempted question
     elif request.method == 'POST':
         submit_response(current_user, request.form)
-    return redirect(url_for('edu_quiz'),quiz=quiz,qnNum=qnNum+1)
+    return redirect(url_for('edu_quiz',quizID=quizID,qnNum=qnNum+1))
 
 @app.route('/quiz/<int:quizID>/result')
 @app.route('/quiz/result')
