@@ -1,3 +1,8 @@
+window.addEventListener('load', () => {
+    const preload = document.querySelector('.loader-wrapper');
+    preload.classList.add('preload-end');
+});
+
 $(document).ready(function () {
 
   // NAVBAR TOGGLE OPEN AND CLOSE
