@@ -16,11 +16,13 @@ If you want to further improve the application, feel free to contact the develop
 
 ## For Developers
 
+### Getting Started
+
 #### Prerequisites
 * [Git](https://git-scm.com/)
 * [Python 3](https://www.python.org/downloads/)
 
-### Installation
+#### Installation
 Please refer to the [Installation Guide](/docs/InstallationGuide.md) for full instructions to set up the web application.
 
 ### Development Practices
