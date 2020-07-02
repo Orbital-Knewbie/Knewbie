@@ -153,6 +153,7 @@ class BaseTest(unittest.TestCase):
         q = self.add_test_quiz(u)
         qn = self.add_test_qn()
         q.questions.append(qn)
+        db.session.add(t)
         db.session.add(q)
         db.session.commit()
 
