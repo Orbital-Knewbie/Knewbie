@@ -14,6 +14,25 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto|Syncopate&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- LOADING SCREEN -->
+    <div class="loader-wrapper">
+        <div class="loader">
+            <div class="inner one"></div>
+            <h1>LOADING... </h1>
+        </div>
+
+        <ul class="animation-area">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
     {% block message %}
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -25,6 +44,7 @@
     {% endif %}
     {% endwith %}
     {% endblock %}
+
     <!-- NAV BAR -->
     <header>
         <div class="menu">
@@ -84,6 +104,10 @@
     <!-- <script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll@15/dist/smooth-scroll.polyfills.min.js"></script> -->
     <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts/jquery.min.js') }}"></script>
+    <script>
+        // PRELOADER
+
+    </script>
     {% block script %}{% endblock %}
 </body>
 </html>
