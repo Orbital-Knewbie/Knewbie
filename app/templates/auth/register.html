@@ -1,0 +1,66 @@
+﻿{% from "_formhelpers.html" import render_error %}
+{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='content/regstyle.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container" id="container">
+    <div class="form-container edu-container">
+        <form action="{{ url_for('auth.regedu') }}" method="post" id="eduForm">
+            <h1>Create An Educator Account</h1>
+            {{ eduForm.hidden_tag() }}
+            <div class="input-field">
+                {{ eduForm.firstName(placeholder="First Name", size=32) }}
+                {{ render_error(eduForm.firstName) }}
+                {{ eduForm.lastName(placeholder="Last Name", size=32) }}
+                {{ render_error(eduForm.lastName) }}
+                {{ eduForm.email(placeholder="Email", size=64) }}
+                {{ render_error(eduForm.email) }}
+                {{ eduForm.password(placeholder="Password", size=32) }}
+                {{ render_error(eduForm.password) }}
+                {{ eduForm.password2(placeholder="Confirm Password", size=32) }}
+                {{ render_error(eduForm.password2) }}
+                <p>Already have an account? <a href="{{ url_for('main.home') }}">Click here!</a></p>
+                <p>By clicking on the register button, you agree to our <a href="#">Terms & Conditions</a></p>
+            </div>
+            {{ eduForm.submit(class_="register-btn") }}
+        </form>
+    </div>
+    <div class="form-container stu-container">
+        <form action="{{ url_for('auth.regstu') }}" method="post" id="stuForm">
+            <h1>Create A Student Account</h1>
+            {{ stuForm.hidden_tag() }}
+            <div class="input-field">
+                {{ stuForm.firstName(placeholder="First Name", size=32) }}
+                {{ render_error(stuForm.firstName) }}
+                {{ stuForm.lastName(placeholder="Last Name", size=32) }}
+                {{ render_error(stuForm.lastName) }}
+                {{ stuForm.email(placeholder="Email", size=64) }}
+                {{ render_error(stuForm.email) }}
+                {{ stuForm.password(placeholder="Password", size=32) }}
+                {{ render_error(stuForm.password) }}
+                {{ stuForm.password2(placeholder="Confirm Password", size=32) }}
+                {{ render_error(stuForm.password2) }}
+                <p>Already have an account? <a href="{{ url_for('main.home') }}">Click here!</a></p>
+                <p>By clicking on the register button, you agree to our <a href="#">Terms & Conditions</a></p>
+            </div>
+            {{ stuForm.submit(class_="register-btn") }}
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Are You A Student?</h1>
+                <p>Click the button below to start your learning journey!</p>
+                <button class="ghost" id="Student">CLICK HERE!</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Are You An Educator?</h1>
+                <p>Click the button below to create an educator's account</p>
+                <button class="ghost" id="Educator">CLICK HERE!</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

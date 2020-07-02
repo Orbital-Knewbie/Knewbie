@@ -1,4 +1,5 @@
-﻿{% extends "base.html" %}
+﻿{% from "_formhelpers.html" import render_error %}
+{% extends "base.html" %}
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='content/deactstyle.css') }}">
 {% endblock %}
@@ -8,9 +9,7 @@
     <h1>Deactivate Account</h1>
     <div class="input-field">
         {{ form.email(size=32, placeholder="Email") }}
-        <p>{% for error in form.email.errors %}</p>
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
+        {{ render_error(form.email) }}
     </div>
     <p>All information associated with your account will be deleted and the action is irrevocable.</p>
     <p>To confirm deactivation, enter your email.</p>

@@ -1,13 +1,13 @@
 ﻿{% extends "base.html" %}
 
 {% block style %}
-    <link rel="stylesheet" href="../static/content/loginstyle.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='content/loginstyle.css') }}">
 {% endblock %}
 
 {% block content %}
 <h1 class="unconfirmed">Welcome!</h1>
 <br>
 <p>You have not verified your account. Please check your inbox (and your spam folder) - you should have received an email with a confirmation link.</p>
-<p class="unconfirmed-text">Didn't get the email? <a href="{{ url_for('resend') }} ">Resend</a>.</p>
+<p class="unconfirmed-text">Didn't get the email? <a href="{{ url_for('auth.resend') }} ">Resend</a>.</p>
 
 {% endblock %}

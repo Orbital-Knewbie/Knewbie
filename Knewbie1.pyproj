@@ -28,9 +28,31 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="app\cat.py">
+    <Compile Include="app\auth\forms.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\auth\profile.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\auth\views.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\auth\__init__.py" />
+    <Compile Include="app\email.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\main\email.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\quiz\cat.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\forum\forms.py" />
+    <Compile Include="app\forum\views.py" />
+    <Compile Include="app\forum\__init__.py" />
+    <Compile Include="app\group\forms.py" />
+    <Compile Include="app\group\views.py" />
+    <Compile Include="app\group\__init__.py" />
     <Compile Include="app\errors\handlers.py">
       <SubType>Code</SubType>
     </Compile>
@@ -40,15 +62,22 @@
     <Compile Include="app\forms.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\email.py">
+    <Compile Include="app\auth\email.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\decorator.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\group.py">
+    <Compile Include="app\group\group.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\main\forms.py" />
+    <Compile Include="app\main\profile.py" />
+    <Compile Include="app\main\views.py" />
+    <Compile Include="app\main\__init__.py" />
+    <Compile Include="app\quiz\forms.py" />
+    <Compile Include="app\quiz\views.py" />
+    <Compile Include="app\quiz\__init__.py" />
     <Compile Include="app\tests\basetest.py">
       <SubType>Code</SubType>
     </Compile>
@@ -64,17 +93,17 @@
     <Compile Include="install.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\profile.py">
+    <Compile Include="app\base.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\forum.py">
+    <Compile Include="app\forum\forum.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\tests\test_groups.py" />
     <Compile Include="app\tests\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\token.py">
+    <Compile Include="app\auth\token.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="config.py">
@@ -83,7 +112,7 @@
     <Compile Include="app\models.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="app\questions.py">
+    <Compile Include="app\quiz\questions.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\views.py">
@@ -143,16 +172,16 @@
     <Content Include="app\static\resources\images\BG.svg" />
     <Content Include="app\static\resources\images\Logo.svg" />
     <Content Include="app\static\content\style.css" />
-    <Content Include="app\templates\changepassword.html" />
-    <Content Include="app\templates\classquiz.html" />
-    <Content Include="app\templates\createqn.html" />
-    <Content Include="app\templates\previewquiz.html" />
-    <Content Include="app\templates\deleteclass.html" />
-    <Content Include="app\templates\leaderboard.html" />
-    <Content Include="app\templates\participants.html" />
+    <Content Include="app\templates\auth\changepassword.html" />
+    <Content Include="app\templates\group\classquiz.html" />
+    <Content Include="app\templates\quiz\createqn.html" />
+    <Content Include="app\templates\quiz\previewquiz.html" />
+    <Content Include="app\templates\group\deleteclass.html" />
+    <Content Include="app\templates\group\leaderboard.html" />
+    <Content Include="app\templates\group\participants.html" />
     <Content Include="app\templates\sidebar.html" />
-    <Content Include="app\templates\createclasssuccess.html" />
-    <Content Include="app\templates\createquizsuccess.html" />
+    <Content Include="app\templates\group\createclasssuccess.html" />
+    <Content Include="app\templates\quiz\createquizsuccess.html" />
     <Content Include="app\templates\dashboard.html" />
     <Content Include="app\templates\email\activate.txt" />
     <Content Include="app\templates\email\activate.html" />
@@ -167,21 +196,21 @@
     <Content Include="app\templates\errors\error410.html" />
     <Content Include="app\templates\errors\error500.html" />
     <Content Include="app\templates\faq.html" />
-    <Content Include="app\templates\posts.html" />
+    <Content Include="app\templates\forum\posts.html" />
     <Content Include="app\templates\index.html" />
-    <Content Include="app\templates\login.html" />
-    <Content Include="app\templates\quiz.html" />
+    <Content Include="app\templates\auth\login.html" />
+    <Content Include="app\templates\quiz\quiz.html" />
     <Content Include="app\templates\report.html" />
-    <Content Include="app\templates\resetpassword.html" />
+    <Content Include="app\templates\auth\resetpassword.html" />
     <Content Include="app\templates\settings.html" />
     <Content Include="app\templates\test.html" />
     <Content Include="app\templates\base.html" />
-    <Content Include="app\templates\register.html" />
-    <Content Include="app\templates\unconfirmed.html" />
+    <Content Include="app\templates\auth\register.html" />
+    <Content Include="app\templates\auth\unconfirmed.html" />
     <Content Include="app\templates\contact.html" />
-    <Content Include="app\templates\forum.html" />
-    <Content Include="app\templates\deactivate.html" />
-    <Content Include="app\templates\result.html" />
+    <Content Include="app\templates\forum\forum.html" />
+    <Content Include="app\templates\auth\deactivate.html" />
+    <Content Include="app\templates\quiz\result.html" />
     <Content Include="app\templates\_formhelpers.html" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.png" />
     <Content Include="docs\diagrams\Architecture.png" />
@@ -260,6 +289,11 @@
   <ItemGroup>
     <Folder Include="app\" />
     <Folder Include="app\errors\" />
+    <Folder Include="app\auth\" />
+    <Folder Include="app\main\" />
+    <Folder Include="app\group\" />
+    <Folder Include="app\forum\" />
+    <Folder Include="app\quiz\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\resources\questions\" />
     <Folder Include="app\static\scripts\" />
@@ -270,6 +304,10 @@
     <Folder Include="app\templates\" />
     <Folder Include="app\templates\email\" />
     <Folder Include="app\templates\errors\" />
+    <Folder Include="app\templates\auth\" />
+    <Folder Include="app\templates\group\" />
+    <Folder Include="app\templates\forum\" />
+    <Folder Include="app\templates\quiz\" />
     <Folder Include="docs\diagrams\" />
     <Folder Include="docs\images\" />
     <Folder Include="docs\" />

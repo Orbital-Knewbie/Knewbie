@@ -7,7 +7,7 @@
 <main class="forum-grid">
     <div class="forum-header">
         <h1>{{ group.name }} FORUM</h1>
-        <a href="{{ url_for('create_thread',groupID=groupID) }}"><h5><i class="fas fa-plus"> Create A New Thread</i></h5></a>
+        <a href="{{ url_for('forum.create_thread',groupID=groupID) }}"><h5><i class="fas fa-plus"> Create A New Thread</i></h5></a>
     </div>
     <div class="forum-title">
         <h2>Post Title</h2>
@@ -22,7 +22,7 @@
 {% for thread in threads %}
 <div class="threads-grid">
     <div class="post-title {{ loop.cycle('odd', 'even') }}">
-        <a href="{{ url_for('forum_post', groupID=groupID, threadID=thread.id) }} ">
+        <a href="{{ url_for('forum.forum_post', groupID=groupID, threadID=thread.id) }} ">
             <h1>{{ thread.title }}</h1>
         </a>
     </div>

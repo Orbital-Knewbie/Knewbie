@@ -10,7 +10,7 @@ class QuizTest(BaseTest):
         with self.app:
             self.login('testes@test.com', 'test')
 
-            rv = self.app.get(url_for('quiz'))
+            rv = self.app.get(url_for('quiz.quiz'))
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'TAILORED QUIZ', rv.data)
 
@@ -18,7 +18,7 @@ class QuizTest(BaseTest):
         with self.app:
             self.login('edutest@test.com', 'strongtest')
 
-            rv = self.app.get(url_for('createquizsuccess', quizID=1))
+            rv = self.app.get(url_for('quiz.createquizsuccess', quizID=1))
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'Quiz was successfully created!', rv.data)
 
@@ -26,7 +26,7 @@ class QuizTest(BaseTest):
         '''Delete educator quiz'''
         with self.app:
             self.login('edutest@test.com', 'strongtest')
-            rv = self.app.post(url_for('deletequiz', quizID=1), data={}, follow_redirects=True)
+            rv = self.app.post(url_for('quiz.deletequiz', quizID=1), data={}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'Quiz deleted', rv.data)
             self.assertIn(b'Create A New Class', rv.data)
@@ -34,7 +34,7 @@ class QuizTest(BaseTest):
     def test_create_quiz(self):
         with self.app:
             self.login('edutest@test.com', 'strongtest')
-            rv = self.app.post(url_for('createquiz'), data={'quiz-title':'new quiz'}, follow_redirects=True)
+            rv = self.app.post(url_for('quiz.createquiz'), data={'quiz-title':'new quiz'}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'Create A New Quiz', rv.data)
             self.assertIn(b'Select Topic', rv.data)
@@ -42,14 +42,14 @@ class QuizTest(BaseTest):
 
             quiz = Quiz.query.filter_by(name='new quiz').first()
 
-            rv = self.app.post(url_for('createqn', quizID=quiz.id), data={'topic':1, 'qn':'testqn', 'op1':'op1', 'op2':'op2','op3':'op3','op4':'op4', 'corrOp':1},follow_redirects=True)
+            rv = self.app.post(url_for('quiz.createqn', quizID=quiz.id), data={'topic':1, 'qn':'testqn', 'op1':'op1', 'op2':'op2','op3':'op3','op4':'op4', 'corrOp':1},follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'Question added', rv.data)
             self.assertIn(b'Create A New Quiz', rv.data)
             self.assertIn(b'Select Topic', rv.data)
             self.assertIn(b'Input Question', rv.data)
 
-            rv = self.app.post(url_for('createqn', quizID=quiz.id), data={'topic':1, 'qn':'testqn2', 'op1':'op1', 'op2':'op2','op3':'op3','op4':'op4','corrOp':1, 'complete' : True},follow_redirects=True)
+            rv = self.app.post(url_for('quiz.createqn', quizID=quiz.id), data={'topic':1, 'qn':'testqn2', 'op1':'op1', 'op2':'op2','op3':'op3','op4':'op4','corrOp':1, 'complete' : True},follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'Quiz was successfully created!', rv.data)
 
@@ -58,7 +58,7 @@ class QuizTest(BaseTest):
         '''Preview educator created quiz'''
         with self.app:
             self.login('edutest@test.com', 'strongtest')
-            rv = self.app.get(url_for('preview_quiz',quizID=1), follow_redirects=True)
+            rv = self.app.get(url_for('quiz.preview_quiz',quizID=1), follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'testquestion', rv.data)
             self.assertIn(b'testoption1', rv.data)
@@ -68,7 +68,7 @@ class QuizTest(BaseTest):
         '''Delete question from educator quiz'''
         with self.app:
             self.login('edutest@test.com', 'strongtest')
-            rv = self.app.post(url_for('deleteqn', quizID=1, qnID=1), follow_redirects=True)
+            rv = self.app.post(url_for('quiz.deleteqn', quizID=1, qnID=1), follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'Question removed from Quiz', rv.data)
             self.assertIn(b'testquiz', rv.data)
@@ -76,7 +76,7 @@ class QuizTest(BaseTest):
     def test_get_edit_qn(self):
         with self.app:
             self.login('edutest@test.com', 'strongtest')
-            rv = self.app.get(url_for('editqn',qnID=1), follow_redirects=True)
+            rv = self.app.get(url_for('quiz.editqn',qnID=1), follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'testquestion', rv.data)
             self.assertIn(b'testoption1', rv.data)
@@ -85,11 +85,11 @@ class QuizTest(BaseTest):
     def test_edit_qn(self):
         with self.app:
             self.login('edutest@test.com', 'strongtest')
-            rv = self.app.post(url_for('editqn', qnID=1), data={'topic':1, 'qn':'edited question', 'op1':'op1', 'op2':'op2','op3':'op3','op4':'op4','corrOp':1},follow_redirects=True)
+            rv = self.app.post(url_for('quiz.editqn', qnID=1), data={'topic':1, 'qn':'edited question', 'op1':'op1', 'op2':'op2','op3':'op3','op4':'op4','corrOp':1},follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'Question Edited Successfully!', rv.data)
 
-            rv = self.app.get(url_for('preview_quiz',quizID=1), follow_redirects=True)
+            rv = self.app.get(url_for('quiz.preview_quiz',quizID=1), follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'edited question', rv.data)
 
@@ -97,7 +97,7 @@ class QuizTest(BaseTest):
         '''Submitting a question in tailored quiz'''
         with self.app:
             self.login('testes@test.com', 'test')
-            rv = self.app.post(url_for('quiz'), data={'option':1}, follow_redirects=True)
+            rv = self.app.post(url_for('quiz.quiz'), data={'option':1}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'TAILORED QUIZ', rv.data)
 
@@ -105,7 +105,7 @@ class QuizTest(BaseTest):
         '''Starting educator quiz'''
         with self.app:
             self.login('testes@test.com', 'test')
-            rv = self.app.get(url_for('edu_quiz', quizID=1, qnNum=1), follow_redirects=True)
+            rv = self.app.get(url_for('quiz.edu_quiz', quizID=1, qnNum=1), follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'testquiz', rv.data)
 
@@ -113,7 +113,7 @@ class QuizTest(BaseTest):
         '''Completing educator quiz'''
         with self.app:
             self.login('testes@test.com', 'test')
-            rv = self.app.post(url_for('edu_quiz', quizID=1, qnNum=1), data={'option':1}, follow_redirects=True)
+            rv = self.app.post(url_for('quiz.edu_quiz', quizID=1, qnNum=1), data={'option':1}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'testquiz', rv.data)
             self.assertIn(b'Score:', rv.data)

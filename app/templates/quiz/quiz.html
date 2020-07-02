@@ -13,9 +13,9 @@
         <h2 id="question">{{question}}</h2>
 
         {% if edu %}
-        <form action="{{ url_for('edu_quiz', quizID=quiz.id, qnNum=qnNum) }}" method="post">
+        <form action="{{ url_for('quiz.edu_quiz', quizID=quiz.id, qnNum=qnNum) }}" method="post">
         {% else %}
-        <form action="{{ url_for('quiz') }}" target="result" method="post">
+        <form action="{{ url_for('quiz.quiz') }}" target="result" method="post">
         {% endif %}
             <ol>
                 {% for o in options %}

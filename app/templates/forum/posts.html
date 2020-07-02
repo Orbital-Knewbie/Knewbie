@@ -7,11 +7,11 @@
 <div>
     {% if thread %}
     <div class="thread-title">
-        <a class="thread-back" href="{{url_for('forum', groupID=thread.groupID)}}"><i class="far fa-arrow-alt-circle-left"></i>B a c k</a>
+        <a class="thread-back" href="{{url_for('forum.forum', groupID=thread.groupID)}}"><i class="far fa-arrow-alt-circle-left"></i>B a c k</a>
         <h1 class="thread-title-text"> {{ thread.title }} </h1>
         {% if current_user.urole == 'educator' %}
         <a class="thread-delete">
-            <form action="{{ url_for('delete_thread', groupID=thread.groupID,threadID=thread.id) }}" method="post" class="create-form">
+            <form action="{{ url_for('forum.delete_thread', groupID=thread.groupID,threadID=thread.id) }}" method="post" class="create-form">
                 {{ delThreadForm.hidden_tag() }}
                 <i class="fas fa-trash-alt"></i>{{ delThreadForm.submit() }}
             </form>
@@ -25,12 +25,12 @@
         <h2 class="name">{{ users[post.userID] }}</h2>
         {% if current_user.id == post.userID or current_user.urole == 'educator' %}
         <a class="post-delete">
-            <form action="{{ url_for('delete_post', groupID=thread.groupID,threadID=thread.id,postID=post.id) }}" method="post" class="create-form">
+            <form action="{{ url_for('forum.delete_post', groupID=thread.groupID,threadID=thread.id,postID=post.id) }}" method="post" class="create-form">
                 {{ delPostForm.hidden_tag() }}
                 <i class="fas fa-trash-alt"></i>{{ delPostForm.submit() }}
             </form>
         </a>
-        <a class="post-edit" href="{{url_for('edit_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}}"><i class="far fa-edit"></i>Edit Post</a>
+        <a class="post-edit" href="{{url_for('forum.edit_post',groupID=thread.groupID,threadID=thread.id,postID=post.id)}}"><i class="far fa-edit"></i>Edit Post</a>
         {% endif %}
 
         <div class="content"> {{ post.content }} </div>

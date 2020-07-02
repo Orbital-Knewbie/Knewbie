@@ -14,7 +14,7 @@
             <h1>{{loop.index}}.</h1>
             <img src="{{ url_for('static', filename='resources/images/profile_pics/' + user.image_file) }}" alt="{{ user.firstName }} {{ user.lastName }}" class="leaderboard-img">
             <span class="leaderboard-name">{{ user.firstName }} {{ user.lastName }}</span>
-            <a href="{{ url_for('progressreport', knewbieID=user.knewbie_id) }}" class="btn">Progress Report</a>
+            <a href="{{ url_for('main.progressreport', knewbieID=user.knewbie_id) }}" class="btn">Progress Report</a>
         </article>
         {% endfor %}
     </main>

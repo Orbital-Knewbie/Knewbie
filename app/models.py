@@ -1,5 +1,6 @@
+from flask import current_app
 from flask_login import UserMixin
-from app import db, login, app
+from app import db, login
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -38,7 +39,7 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def reset_token(self, expiryTime = 600):
-        s = Serializer(app.config['SECRET_KEY'], expiryTime)
+        s = Serializer(current_app.config['SECRET_KEY'], expiryTime)
         return s.dumps({'user_id': self.id}).decode('utf-8')
 
     def check_educator(self):
@@ -49,7 +50,7 @@ class User(UserMixin, db.Model):
     
     @staticmethod
     def verify_reset_token(token):
-        s = Serializer(app.config['SECRET_KEY'])
+        s = Serializer(current_app.config['SECRET_KEY'])
         try:
             user_id = s.loads(token)['user_id']
         except:

@@ -1,6 +1,6 @@
 from app import db
 from app.models import Question, Option, Response, Proficiency, Topic, Group, User, Quiz
-from app.cat import Student
+from app.quiz.cat import Student
 
 # this function generates an item bank, in case the user cannot provide one
 from catsim.cat import generate_item_bank
@@ -281,8 +281,7 @@ def add_quiz_group(group, quiz):
     group.quizzes.append(quiz)
     db.session.commit()
 
-def get_quiz(group):
-    return Quiz.query.filter(Quiz.groups.any(id=group.id)).all()
+
 
 def get_questions_quiz(quiz, pre_shuffle=False):
     '''Gets dictionary of questions belonging to a quiz

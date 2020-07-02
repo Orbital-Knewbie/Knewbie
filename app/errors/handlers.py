@@ -1,6 +1,5 @@
-from flask import Blueprint, render_template
-
-errors = Blueprint('errors', __name__)
+from flask import render_template
+from app.errors import errors
 
 @errors.app_errorhandler(403)
 def error_403(error):

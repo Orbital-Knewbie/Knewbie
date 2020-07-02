@@ -1,6 +1,6 @@
 from app import db
-from app.models import User, Group
-from app.profile import set_code
+from app.models import User, Group, Quiz, Thread
+from app.base import set_code
 
 def validate_group_link(user, groupID):
     return Group.query.filter_by(id=groupID).filter(Group.users.any(id=user.id)).first_or_404()
@@ -45,4 +45,13 @@ def remove_user(group, user):
 def remove_group(group):
     group.users = []
     db.session.delete(group)
+    db.session.commit()
+
+def get_quiz(group):
+    return Quiz.query.filter(Quiz.groups.any(id=group.id)).all()
+
+def remove_all_threads(group):
+    threads = Thread.query.filter_by(groupID=group.id).all()
+    for thread in threads:
+        db.session.delete(thread)
     db.session.commit()
