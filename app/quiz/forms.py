@@ -8,8 +8,7 @@ from app.models import User, Topic
 
 
 class QuestionForm(FlaskForm):
-    topic = SelectField('Select Topic', choices=[(0, 'Select Topic'), \
-        *[(topic.id, topic.name) for topic in Topic.query.all()]], validators=[DataRequired()], coerce=int)
+    topic = SelectField('Select Topic', validators=[DataRequired()], coerce=int)
     qn = StringField('Input Question', validators=[DataRequired()])
     op1 = StringField('Option 1', validators=[DataRequired()])
     op2 = StringField('Option 2', validators=[DataRequired()])
@@ -20,6 +19,10 @@ class QuestionForm(FlaskForm):
     img = MultipleFileField('Attach Image')
     submit = SubmitField('Save and Add New Question')
     complete = SubmitField('Save and Complete Quiz')
+
+    def __init__(self, *args, **kwargs):
+        super(QuestionForm, self).__init__(*args, **kwargs)
+        self.topic.choices = [(topic.id, topic.name) for topic in Topic.query.all()]
 
 class StringFormMixin():
     title = StringField('String', validators=[DataRequired()])
