@@ -1,6 +1,7 @@
 from flask import flash, redirect, url_for
 from app import db
 from app.models import User, Group, Response, Question, Topic, Proficiency
+from app.base import set_code
 
 from PIL import Image
 from string import ascii_letters, digits
@@ -22,9 +23,6 @@ def update_image(form_image):
     new_image.thumbnail(img_size)  
     new_image.save(image_path)
     return image_filename
-
-def set_code(n):
-    return ''.join(choice(ascii_letters + digits) for i in range(n))
 
 def set_knewbie_id(user):
     code = set_code(8)

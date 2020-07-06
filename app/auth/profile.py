@@ -3,6 +3,7 @@ from flask import flash, redirect, url_for
 from app import db
 from app.models import User, Group, Response, Question, Topic, Proficiency
 from app.auth.email import get_confirm_url, send_conf_email
+from app.base import set_code
 
 from PIL import Image
 from string import ascii_letters, digits
@@ -28,9 +29,6 @@ def confirm_user(user):
     user.confirmed = True
     user.confirmed_on = datetime.now()
     db.session.commit()
-
-def set_code(n):
-    return ''.join(choice(ascii_letters + digits) for i in range(n))
 
 def set_knewbie_id(user):
     code = set_code(8)
