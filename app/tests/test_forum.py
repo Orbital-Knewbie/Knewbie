@@ -9,7 +9,7 @@ from flask_login import current_user
 class ForumTest(BaseTest):
     def test_create_thread(self):
         with self.app:
-            self.login('testes@test.com', 'test')
+            self.login('testes@test.com', 'testtest')
             rv = self.app.post(url_for('forum.create_thread', groupID=1), data={'title': 'new test thread', 'content': 'new test post'}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'new test thread', rv.data)
@@ -18,7 +18,7 @@ class ForumTest(BaseTest):
 
     def test_create_post(self):
         with self.app:
-            self.login('testes@test.com', 'test')
+            self.login('testes@test.com', 'testtest')
             rv = self.app.post(url_for('forum.forum_post', groupID=1, threadID=1), data={'content': 'new test post'}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'first thread', rv.data)
@@ -27,7 +27,7 @@ class ForumTest(BaseTest):
 
     def test_delete_post(self):
         with self.app:
-            self.login('testes@test.com', 'test')
+            self.login('testes@test.com', 'testtest')
             rv = self.app.post(url_for('forum.delete_post', groupID=1, threadID=1, postID=1), data={}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'Post deleted', rv.data)
@@ -44,7 +44,7 @@ class ForumTest(BaseTest):
 
     def test_edit_post(self):
         with self.app:
-            self.login('testes@test.com', 'test')
+            self.login('testes@test.com', 'testtest')
             rv = self.app.post(url_for('forum.edit_post', groupID=1, threadID=1, postID=1), data={'content':'edited post'}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'first thread', rv.data)

@@ -28,7 +28,7 @@ class BasicTests(BaseTest):
     def test_basic_group(self):
         '''Basic access to class sites'''
         with self.app:
-            self.login('testes@test.com', 'test')
+            self.login('testes@test.com', 'testtest')
             pages = ('group.leaderboard', 'forum.forum', 'forum.create_thread', 'group.classquiz')
             for page in pages:
                 rv = self.app.get(url_for(page,groupID=1))
@@ -46,7 +46,7 @@ class BasicTests(BaseTest):
     def test_restrict_access(self):
         '''Restrict student from accessing educator class sites'''
         with self.app:
-            self.login('testes@test.com', 'test')
+            self.login('testes@test.com', 'testtest')
             pages = ('createclasssuccess', 'delete_class', 'edit_participants')
             for page in pages:
                 rv = self.app.get(url_for('group.'+page,groupID=1))
@@ -94,7 +94,7 @@ class BasicTests(BaseTest):
     def test_join_class(self):
         '''Student join class with code'''
         with self.app:
-            self.login('testes@test.com', 'test')
+            self.login('testes@test.com', 'testtest')
             rv = self.app.post(url_for('group.joinclass'), data={'join-title': '654321'}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'654321', rv.data)

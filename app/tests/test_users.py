@@ -56,7 +56,7 @@ class UserCase(BaseTest):
     def test_stu_report(self):
         '''Student accessing their own report'''
         with self.app:
-            self.login('testes@test.com','test')
+            self.login('testes@test.com','testtest')
             rv = self.app.get(url_for('main.get_report'), follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'Proficiency by Difficulty', rv.data)

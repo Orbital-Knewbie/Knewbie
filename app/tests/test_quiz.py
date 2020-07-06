@@ -8,7 +8,7 @@ from flask_login import current_user
 class QuizTest(BaseTest):
     def test_quiz(self):
         with self.app:
-            self.login('testes@test.com', 'test')
+            self.login('testes@test.com', 'testtest')
 
             rv = self.app.get(url_for('quiz.quiz'))
             self.assertEqual(rv.status_code, 200)
@@ -96,7 +96,7 @@ class QuizTest(BaseTest):
     def test_tailored_qn(self):
         '''Submitting a question in tailored quiz'''
         with self.app:
-            self.login('testes@test.com', 'test')
+            self.login('testes@test.com', 'testtest')
             rv = self.app.post(url_for('quiz.quiz'), data={'option':1}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'TAILORED QUIZ', rv.data)
@@ -104,7 +104,7 @@ class QuizTest(BaseTest):
     def test_edu_qn(self):
         '''Starting educator quiz'''
         with self.app:
-            self.login('testes@test.com', 'test')
+            self.login('testes@test.com', 'testtest')
             rv = self.app.get(url_for('quiz.edu_quiz', quizID=1, qnNum=1), follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'testquiz', rv.data)
@@ -112,7 +112,7 @@ class QuizTest(BaseTest):
     def test_post_edu_qn(self):
         '''Completing educator quiz'''
         with self.app:
-            self.login('testes@test.com', 'test')
+            self.login('testes@test.com', 'testtest')
             rv = self.app.post(url_for('quiz.edu_quiz', quizID=1, qnNum=1), data={'option':1}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'testquiz', rv.data)

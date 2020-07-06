@@ -89,7 +89,7 @@ class BaseTest(unittest.TestCase):
     def add_test_user(self):
         u = User(firstName="first", lastName="last", email="testes@test.com", \
             urole="student", knewbie_id="123456", curr_theta=-1.33, confirmed=True)
-        u.set_password("test")
+        u.set_password("testtest")
         return u
 
     def add_test_edu(self):

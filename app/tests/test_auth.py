@@ -9,7 +9,7 @@ from flask_login import current_user
 class AuthTest(BaseTest):
     def test_deactivate(self):
         with self.app:
-            self.login('testes@test.com','test')
+            self.login('testes@test.com','testtest')
             rv = self.app.post(url_for('auth.request_deactivate'), data={'email':'testes@test.com'}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             user = User.query.filter_by(email='testes@test.com').first()
@@ -24,7 +24,7 @@ class AuthTest(BaseTest):
     def test_settings(self):
         '''Settings page'''
         with self.app:
-            self.login('testes@test.com','test')
+            self.login('testes@test.com','testtest')
             rv = self.app.get(url_for('main.settings'), follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'New Password', rv.data)
@@ -34,7 +34,7 @@ class AuthTest(BaseTest):
     def test_update_profile(self):
         '''Update username'''
         with self.app:
-            self.login('testes@test.com','test')
+            self.login('testes@test.com','testtest')
             rv = self.app.post(url_for('main.settings'), data={'firstName':'newfirstname', 'lastName':'newlastname'}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertEqual(current_user.firstName, 'newfirstname')
@@ -43,7 +43,7 @@ class AuthTest(BaseTest):
 
     def test_reset_authenticated(self):
         with self.app:
-            self.login('testes@test.com','test')
+            self.login('testes@test.com','testtest')
             rv = self.app.get(url_for('auth.request_reset_password'), follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'View Your Classes', rv.data)
@@ -51,7 +51,7 @@ class AuthTest(BaseTest):
     def test_reset_password(self):
         '''Reset password'''
         with self.app:
-            self.login('testes@test.com','test')
+            self.login('testes@test.com','testtest')
             rv = self.app.post(url_for('auth.request_reset_password'),data={'email' : 'testes@test.com'}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'View Your Classes', rv.data)
@@ -123,7 +123,7 @@ class AuthTest(BaseTest):
     def test_logout(self):
         '''Login / Logout'''
         with self.app:
-            response = self.login('testes@test.com','test')
+            response = self.login('testes@test.com','testtest')
             self.assertEqual(response.status_code, 200)
             self.assertIn(b'Join A Class', response.data)
             response2 = self.logout()
@@ -140,7 +140,7 @@ class AuthTest(BaseTest):
     def test_login_home(self):
         '''Login from home page'''
         with self.app:
-            rv = self.app.post(url_for('main.home'), data={'login-email' : 'testes@test.com', 'login-password' : 'test' }, follow_redirects=True)
+            rv = self.app.post(url_for('main.home'), data={'login-email' : 'testes@test.com', 'login-password' : 'testtest' }, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'Join A Class', rv.data)
 
@@ -148,7 +148,7 @@ class AuthTest(BaseTest):
     def test_confirmed(self):
         '''Redirect to dashboard, confirmed'''
         with self.app:
-            self.login('testes@test.com','test')
+            self.login('testes@test.com','testtest')
             response = self.app.get(url_for('auth.unconfirmed'), follow_redirects=True)
             self.assertEqual(response.status_code, 200)
             self.assertIn(b'Join A Class', response.data)
@@ -162,6 +162,13 @@ class AuthTest(BaseTest):
         self.assertEqual(rv.status_code, 200)
         self.assertIn(b'Invalid username or password', rv.data)
         self.assertIn(b'Don\'t have an account?', rv.data)
+
+    def test_insufficient_char_password(self):
+        '''Less than 8 characters in password'''
+        rv = self.register_student('yolo', 'amirite','patkennedy79@gmail.com', 'toshort', 'toshort')
+        self.assertEqual(rv.status_code, 200)
+        self.assertIn(b'[Field must be at least 8 characters long.]', rv.data)
+        self.assertIn(b'Create A Student Account', rv.data)
 
 if __name__ == '__main__':
     unittest.main()
