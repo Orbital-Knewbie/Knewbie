@@ -11,14 +11,14 @@ class EmailFormMixin():
     email = StringField('Email', validators=[DataRequired(), Email()])
 
 class LoginForm(FlaskForm, EmailFormMixin):
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('SIGN IN')
 
 class RegistrationForm(FlaskForm, EmailFormMixin):
     firstName = StringField('First Name', validators=[DataRequired()])
     lastName = StringField('Last Name', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
@@ -41,7 +41,7 @@ class ResetPasswordForm(FlaskForm, EmailFormMixin):
             Please ensure you have entered the correct email address or create a new account.')
 
 class NewPasswordForm(FlaskForm):
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Update Password')
