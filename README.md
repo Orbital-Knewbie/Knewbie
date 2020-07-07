@@ -8,7 +8,7 @@ Knewbie is a Web Application built using Flask and makes use of machine learning
 You can try out the web application at this link!
 
 ### User Guides
-Please refer to the appropriate [User Guide (Educator)](docs/UserGuide-Educator.md) or [User Guide (Student)](docs/UserGuide-Students.md) if you need help using the application.
+Please refer to the appropriate [User Guide (Student)](https://github.com/Orbital-Knewbie/Knewbie/wiki/Student's-User-Guide) or [User Guide (Educator)](https://github.com/Orbital-Knewbie/Knewbie/wiki/Educator's-User-Guide) if you need help using the application.
 You may also refer to the Frequently Asked Questions page on the website.
 
 ### User Feedback
@@ -23,10 +23,10 @@ If you want to further improve the application, feel free to contact the develop
 * [Python 3](https://www.python.org/downloads/)
 
 #### Installation
-Please refer to the [Installation Guide](/docs/InstallationGuide.md) for full instructions to set up the web application.
+Please refer to the [Installation Guide](https://github.com/Orbital-Knewbie/Knewbie/wiki/Installation) for full instructions to set up the web application.
 
 ### Development Practices
-Please refer to the [Developer Practices Guide](/docs/DevPractices.md) for the Software Development practices used in the project.
+Please refer to the [Development Practices Guide](https://github.com/Orbital-Knewbie/Knewbie/wiki/Development-Practices) for the Software Development practices used in the project.
 
 ### Developer Guide
-Please refer to the [Developer Guide](/docs/DeveloperGuide.md) for explanation regarding designs and software engineering principles employed.
+Please refer to the [Developer Guide](https://github.com/Orbital-Knewbie/Knewbie/wiki/Developer-Guide) for explanation regarding designs and software engineering principles employed.
