@@ -35,7 +35,7 @@ class AuthTest(BaseTest):
         '''Update username'''
         with self.app:
             self.login('testes@test.com','testtest')
-            rv = self.app.post(url_for('main.settings'), data={'firstName':'newfirstname', 'lastName':'newlastname'}, follow_redirects=True)
+            rv = self.app.post(url_for('main.settings'), data={'profile-firstName':'newfirstname', 'profile-lastName':'newlastname'}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertEqual(current_user.firstName, 'newfirstname')
             self.assertEqual(current_user.lastName, 'newlastname')
