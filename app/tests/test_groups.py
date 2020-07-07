@@ -142,6 +142,18 @@ class BasicTests(BaseTest):
             rv = self.app.post(url_for('group.adduserclass', groupID=1), data={'title': '123456'}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'User already in Class', rv.data)
+
+    def test_add_userclass_email(self):
+        '''Educator adds student by email'''
+        with self.app:
+            self.login('edutest@test.com', 'strongtest')
+            u = User(email='userclasstest@email.com')
+            db.session.add(u)
+            db.session.commit()
+            rv = self.app.post(url_for('group.adduserclass', groupID=1), data={'title': 'userclasstest@email.com'}, follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'User added', rv.data)
+            self.assertIn(b'Edit Participants', rv.data)
  
     def test_delete_userclass(self):
         '''Educator deletes user from class'''

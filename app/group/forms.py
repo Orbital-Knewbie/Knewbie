@@ -30,3 +30,6 @@ class JoinClassForm(FlaskForm, StringFormMixin):
 
 class QuizClassForm(FlaskForm):
     submit = SubmitField('Add Quiz to Class')
+
+class EditNameForm(FlaskForm, StringFormMixin):
+    submit = SubmitField('Edit Name')

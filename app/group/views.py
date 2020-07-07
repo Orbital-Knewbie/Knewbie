@@ -121,7 +121,7 @@ def adduserclass(groupID):
     joinForm = JoinForm()
     deleteForm = DeleteForm()
     if joinForm.validate_on_submit():
-        user = User.query.filter_by(knewbie_id=joinForm.title.data).first_or_404()
+        user = User.query.filter((User.knewbie_id==joinForm.title.data) | (User.email==joinForm.title.data)).first()
         if add_user(group, user):
             flash('User added')
         else:
@@ -165,6 +165,9 @@ def classquiz(groupID):
     return render_template('group/classquiz.html', title=' | Quiz', group=group, image_file=image_file, quizzes=quizzes)
 
 
+## UNTESTED FUNCTIONS ##
+
+
 @bp.route('/<int:groupID>/quizzes/add', methods=['POST'])
 @login_required
 def add_class_quiz(groupID):
@@ -174,3 +177,18 @@ def add_class_quiz(groupID):
     if form.validate_on_submit():
         pass
     return redirect(url_for('group.classquiz', groupID=groupID))
+
+
+@bp.route('/<int:groupID>/edit', methods=['POST'])
+@login_required
+def edit_class_name(groupID):
+    if not current_user.check_educator():
+        return render_template('errors/error403.html'), 403
+    group = validate_group_link(current_user, groupID)
+    image_file = get_image_file(current_user)
+    form = EditNameForm()
+    if form.validate_on_submit():
+        group.name = form.title.data
+        db.session.commit()
+        flash('Class Name Changed')
+    return redirect(url_for('forum.forum'))
