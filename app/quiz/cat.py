@@ -24,18 +24,18 @@ selector = MaxInfoSelector()
 # create a hill climbing proficiency estimator
 estimator = HillClimbingEstimator()
 
-# create a stopping criterion that will make tests stop after 4 items
-stopper = MaxItemStopper(4)
 
 class Student(object):
     """Student Class used to apply CAT logic"""
-    def __init__(self, id, topic=None, theta=None, AI=None, responses=None):
+    def __init__(self, id, topic=None, theta=None, AI=None, responses=None, numqns=None):
         self.id = id
         self.topic = 1 if topic is None else topic
         self.theta = initializer.initialize() if theta is None else theta
         self.AI = [] if AI is None else AI
         self.responses = [] if responses is None else responses
         self.items = self.get_items()
+        # create a stopping criterion that will make tests stop after numqns items
+        self.stopper = MaxItemStopper(4) if numqns is None else MaxItemStopper(numqns)
 
     def update(self):
         '''Updates theta and returns item_index'''
@@ -49,25 +49,26 @@ class Student(object):
            est_theta=self.theta)
         
         self.theta = new_theta
-
-        return item_index + 1
+        if item_index:
+            return item_index + 1
 
     def get_next_question(self):
         '''Get the next Question to be administered to the Student'''
         # Return a random question if no responses yet
         if not self.responses:
             qns = self.get_questions()
+            print(qns)
             qnIDs = [qn.id for qn in qns]
             return choice(qnIDs)
 
         item_index = self.update()
 
-        if not self.stop():
+        if not self.stop() and item_index:
             return item_index.item()
 
     def stop(self):
         '''Get boolean value whether the test should stop'''
-        return stopper.stop(administered_items=self.items[self.AI], theta=self.theta)
+        return self.stopper.stop(administered_items=self.items[self.AI], theta=self.theta)
 
     def get_items(self):
         '''Retrieve Question Item Bank from Database'''
@@ -90,6 +91,8 @@ class Student(object):
         '''Retrieve Question and Option from Database, for tailored testing'''
         # Get the Question
         qnid = self.get_next_question()
+        if qnid is None:
+            return None, None
         question = Question.query.filter_by(id=qnid).first()
         qn_txt = question.question
 

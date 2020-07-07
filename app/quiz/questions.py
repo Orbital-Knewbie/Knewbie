@@ -82,7 +82,7 @@ def insert_qns(path):
 
                 db.session.commit()
 
-def get_student_cat(user, topicID=1):
+def get_student_cat(user, topicID=1, attempt=None):
     '''Returns proficiency, student (CAT object) given a userID and optional topicID
     Defaults to overall proficiency (topicID=1)'''
 
@@ -93,7 +93,7 @@ def get_student_cat(user, topicID=1):
         prof = prof.order_by(Proficiency.timestamp.desc()).first()
     AI, responses = prof.get_AI_responses()
 
-    student = Student(user.id, topicID, prof.theta, AI, responses)
+    student = Student(user.id, topicID, prof.theta, AI, responses, attempt)
     return prof, student
 
 def submit_response(user, form):
@@ -331,6 +331,12 @@ def validate_quiz_stu(quizID):
     '''Validates a quizID link'''
     return Quiz.query.filter_by(id=quizID).first_or_404()
 
+def validate_quiz_stu_edu(user, quizID):
+    '''Validates a student can access a quiz only by their educator'''
+    quiz = validate_quiz_stu(quizID)
+    group = Group.query.filter(Group.users.any(id=user.id)).filter(User.quizzes.any(id=quizID)).first_or_404()
+    return quiz
+
 def validate_quiz_link(user, quizID):
     '''Validates a quizID link belonging to an educator'''
     return Quiz.query.filter_by(id=quizID,userID=user.id).first_or_404()
@@ -347,3 +353,15 @@ def add_topic(name):
     return topic
 
 
+def remove_incorrect_responses(user):
+    '''Removes incorrect responses from a user'''
+    rs = Response.query.filter_by(userID=user.id).filter(~Response.question.has(answerID=Response.optID)).all()
+    for r in rs:
+        db.session.delete(r)
+    db.session.commit()
+
+def remove_quiz_responses(user, quiz):
+    rs = Response.query.filter_by(userID=user.id).filter(Question.quizzes.any(id=quiz.id)).all()
+    for r in rs:
+        db.session.delete(r)
+    db.session.commit()

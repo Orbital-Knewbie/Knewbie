@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from app import db, login
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 
 usergroup = db.Table('usergroup', \
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True), \
@@ -96,6 +97,7 @@ class Response(db.Model):
     optID = db.Column(db.Integer, db.ForeignKey('option.id'))
     qnID = db.Column(db.Integer, db.ForeignKey('question.id'))
 
+    @hybrid_property
     def is_correct(self):
         return self.question.answerID == self.optID
 

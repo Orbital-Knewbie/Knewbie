@@ -145,12 +145,13 @@ def editqn(qnID):
 # quiz/<int:quizID>/<int:qnNum>
 # quiz/result
 # quiz/<int:quizID>/result
-@bp.route('/quiz', methods=['GET', 'POST'])
+@bp.route('/tailored/', methods=['GET', 'POST'])
+@bp.route('/tailored/<int:attempt>', methods=['GET', 'POST'])
 @login_required
-def quiz():
+def quiz(attempt=None):
     '''Renders tailored quiz'''
     # Gets a student CAT object for the user
-    prof, student = get_student_cat(current_user)
+    prof, student = get_student_cat(current_user, 1, attempt)
 
     # If enough questions already attempted, go to result
     if student.stop():
@@ -159,12 +160,31 @@ def quiz():
     # If attempting the quiz, get the next unanswered question to display
     if request.method == 'GET':
         question, options = student.get_question_options()
-        return render_template('quiz/quiz.html', question=question, options=options)
+        if question is None:
+            return redirect(url_for('quiz.result'))
+        return render_template('quiz/quiz.html', question=question, options=options, attempt=attempt)
 
     # If submitting an attempted question
     elif request.method == 'POST':
         submit_response(current_user, request.form)
-        return redirect(url_for('quiz.quiz'))
+        return redirect(url_for('quiz.quiz',attempt=attempt))
+
+### UNTESTED
+@bp.route('/tailored/reattempt', methods=['POST'])
+@login_required
+def reattempt():
+    '''Reattempt tailored quiz'''
+    if not current_user.check_student():
+        return render_template('errors/error403.html'), 403
+
+    form = ReattemptForm()
+    if form.validate_on_submit():
+        remove_incorrect_responses(current_user)
+        correct, questions = get_response_answer(current_user)   
+
+        return redirect(url_for('quiz.quiz', attempt=correct+4))
+
+    return redirect(url_for('main.dashboard'))
 
 @bp.route('/<int:quizID>/<int:qnNum>', methods=['GET','POST'])
 @login_required
@@ -188,15 +208,31 @@ def edu_quiz(quizID, qnNum):
         submit_response(current_user, request.form)
     return redirect(url_for('quiz.edu_quiz',quizID=quizID,qnNum=qnNum+1))
 
+### UNTESTED
+@bp.route('/<int:quizID>/reattempt', methods=['POST'])
+@login_required
+def reattempt_edu(quizID):
+    '''Reattempt educator quiz'''
+    if not current_user.check_student():
+        return render_template('errors/error403.html'), 403
+    quiz = validate_quiz_stu_edu(current_user, quizID)
+
+    form = ReattemptForm()
+    if form.validate_on_submit():
+        remove_quiz_responses(current_user, quiz)
+
+    return redirect(url_for('quiz.edu_quiz', quizID=quizID, qnNum=1))
+
 @bp.route('/<int:quizID>/result')
 @bp.route('/result')
 @login_required
 def result(quizID=None):
     if not current_user.check_student():
         return render_template('errors/error403.html'), 403
+    form = ReattemptForm()
     quiz = None
     if quizID:
         quiz = validate_quiz_stu(quizID)
     correct, questions = get_response_answer(current_user, quizID)
-    return render_template('quiz/result.html', questions=questions, correct=correct, quiz=quiz)
+    return render_template('quiz/result.html', questions=questions, correct=correct, quiz=quiz, form=form)
 

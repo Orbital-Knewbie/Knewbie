@@ -35,6 +35,14 @@
         </div>
         {% endfor %}
         <a href="{{ url_for('main.dashboard') }}" class="edit-btn" style="margin-bottom: 5rem;">Back Home</a>
+        {% if quiz %}
+        <form action="{{ url_for('quiz.reattempt_edu', quizID=quiz.id) }}" method="post">
+        {% else %}
+        <form action="{{ url_for('quiz.reattempt') }}" method="post">
+        {% endif %}
+            {{ form.hidden_tag() }}
+            {{ form.submit(class_="edit-btn") }}
+        </form>
     </div>
 </div>
 {% endblock %}

@@ -35,3 +35,6 @@ class NameForm(FlaskForm, StringFormMixin):
 
 class DeleteForm(FlaskForm):
     submit = SubmitField('Delete')
+
+class ReattemptForm(FlaskForm):
+    submit = SubmitField('Reattempt Quiz')

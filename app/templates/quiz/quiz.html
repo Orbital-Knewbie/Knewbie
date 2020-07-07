@@ -15,7 +15,7 @@
         {% if edu %}
         <form action="{{ url_for('quiz.edu_quiz', quizID=quiz.id, qnNum=qnNum) }}" method="post">
         {% else %}
-        <form action="{{ url_for('quiz.quiz') }}" method="post">
+        <form action="{{ url_for('quiz.quiz', attempt=attempt) }}" method="post">
         {% endif %}
             <ol>
                 {% for o in options %}
