@@ -83,19 +83,6 @@ def leaderboard(groupID):
     image_file = get_image_file(current_user)
     return render_template('group/leaderboard.html', image_file=image_file, title=' | Leaderboard', users=users, group=group)
 
-@bp.route('/<int:groupID>/code')
-@login_required
-def update_class_code(groupID):
-    """Routing to update Class Code"""
-    if not current_user.check_educator():
-        return render_template('errors/error403.html'), 403
-
-    group = validate_group_link(current_user, groupID)
-    set_class_code(group)
-    db.session.commit()
-    flash('Your class code has been successfully updated!', 'success')
-    return redirect(url_for('forum.forum', groupID=groupID))
-
 # Routes to delete class
 @bp.route('/<int:groupID>/delete', methods=['GET','POST'])
 @login_required
@@ -178,17 +165,45 @@ def add_class_quiz(groupID):
         pass
     return redirect(url_for('group.classquiz', groupID=groupID))
 
-
-@bp.route('/<int:groupID>/edit', methods=['POST'])
+@bp.route('/<int:groupID>/settings')
 @login_required
-def edit_class_name(groupID):
+def class_settings(groupID):
     if not current_user.check_educator():
         return render_template('errors/error403.html'), 403
     group = validate_group_link(current_user, groupID)
     image_file = get_image_file(current_user)
-    form = EditNameForm()
-    if form.validate_on_submit():
-        group.name = form.title.data
+    nameForm = EditNameForm(prefix='name')
+    codeForm = UpdateCodeForm(prefix='code')
+    return redirect(url_for('group.edit_participants', groupID=groupID))
+
+
+@bp.route('/<int:groupID>/edit', methods=['POST'])
+@login_required
+def edit_class_name(groupID):
+    """Routing to update Class Name"""
+    if not current_user.check_educator():
+        return render_template('errors/error403.html'), 403
+    group = validate_group_link(current_user, groupID)
+    image_file = get_image_file(current_user)
+    nameForm = EditNameForm(prefix='name')
+    codeForm = UpdateCodeForm(prefix='code')
+    if nameForm.validate_on_submit():
+        group.name = nameForm.title.data
         db.session.commit()
         flash('Class Name Changed')
     return redirect(url_for('forum.forum'))
+
+@bp.route('/<int:groupID>/code', methods=['POST'])
+@login_required
+def update_class_code(groupID):
+    """Routing to update Class Code"""
+    if not current_user.check_educator():
+        return render_template('errors/error403.html'), 403
+    nameForm = EditNameForm(prefix='name')
+    codeForm = UpdateCodeForm(prefix='code')
+    if codeForm.validate_on_submit():
+        group = validate_group_link(current_user, groupID)
+        set_class_code(group)
+        db.session.commit()
+        flash('Your class code has been successfully updated!', 'success')
+    return redirect(url_for('forum.forum', groupID=groupID))
