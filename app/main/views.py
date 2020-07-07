@@ -113,7 +113,8 @@ def dashboard():
 @login_required
 def settings():
     """Renders the settings page."""
-    form = UpdateProfileForm()
+    form = UpdateProfileForm(prefix='profile')
+    knewbieForm = ChangeKnewbieForm(prefix='knewbie')
     if form.validate_on_submit():            
         if form.image.data:
             image_file = update_image(form.image.data)
@@ -127,15 +128,19 @@ def settings():
         form.firstName.data = current_user.firstName
         form.lastName.data = current_user.lastName
     image_file = get_image_file(current_user)
-    return render_template('settings.html', title=' | Settings', image_file=image_file, form=form)
+    return render_template('settings.html', title=' | Settings', image_file=image_file, form=form, knewbieForm=knewbieForm)
 
-@bp.route('/settings/knewbieID')
+@bp.route('/settings/knewbieID', methods=['POST'])
 @login_required
 def settings_knewbie_id():
     """Routing to update Knewbie ID"""
+    
     if not current_user.check_student():
         return render_template('errors/error403.html'), 403
-    set_knewbie_id(current_user)
-    db.session.commit()
-    flash('Your profile has been successfully updated!', 'success')
+    form = UpdateProfileForm(prefix='profile')
+    knewbieForm = ChangeKnewbieForm(prefix='knewbie')
+    if knewbieForm.validate_on_submit():
+        set_knewbie_id(current_user)
+        db.session.commit()
+        flash('Your profile has been successfully updated!', 'success')
     return redirect(url_for('main.settings'))

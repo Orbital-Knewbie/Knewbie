@@ -1,6 +1,6 @@
 ﻿{% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="../static/content/settingstyle.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='/content/settingstyle.css') }}">
 {% endblock %}
 
 {% block message %}
@@ -30,6 +30,10 @@
                                     {{ form.image(class_="create-btn") }}
                                 </div>
                                 {% if current_user.urole == 'student' %}
+                                <!--<form action="{{ url_for('main.settings_knewbie_id') }}" method="post" class="#">
+                                    {{ knewbieForm.hidden_tag() }}
+                                    <i class="fas fa-trash-alt"></i>{{ knewbieForm.submit() }}
+                                </form>-->
                                 <div>
                                     <a href="{{ url_for('main.settings_knewbie_id') }}" class="home-btn">Request A New Knewbie ID</a>
                                 </div>

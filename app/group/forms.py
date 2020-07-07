@@ -33,3 +33,6 @@ class QuizClassForm(FlaskForm):
 
 class EditNameForm(FlaskForm, StringFormMixin):
     submit = SubmitField('Edit Name')
+
+class UpdateCodeForm(FlaskForm):
+    submit = SubmitField('Change Class Code')
