@@ -1,9 +1,9 @@
 import unittest, os
 from flask import url_for
 from flask_login import current_user
-from app import app, db, mail
+from app import db, mail
 from app.models import User, Post
-from app.profile import register
+from app.auth.profile import register
 
 from app.tests.basetest import BaseTest
 
@@ -40,7 +40,7 @@ class UserCase(BaseTest):
 
     def test_post_report(self):
         '''POST request to progress report'''
-        rv = self.app.post(url_for('get_report'), data={'code-title' : '123456'}, follow_redirects=True)
+        rv = self.app.post(url_for('main.get_report'), data={'code-title' : '123456'}, follow_redirects=True)
         self.assertEqual(rv.status_code, 200)
         self.assertIn(b'Proficiency by Difficulty', rv.data)
         self.assertIn(b'Topical Proficiency', rv.data)
@@ -49,15 +49,15 @@ class UserCase(BaseTest):
         '''Educator accessing their own report (None)'''
         with self.app:
             self.login('edutest@test.com','strongtest')
-            rv = self.app.get(url_for('get_report'), follow_redirects=True)
+            rv = self.app.get(url_for('main.get_report'), follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'View Your Classes', rv.data)
 
     def test_stu_report(self):
         '''Student accessing their own report'''
         with self.app:
-            self.login('testes@test.com','test')
-            rv = self.app.get(url_for('get_report'), follow_redirects=True)
+            self.login('testes@test.com','testtest')
+            rv = self.app.get(url_for('main.get_report'), follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'Proficiency by Difficulty', rv.data)
             self.assertIn(b'Topical Proficiency', rv.data)

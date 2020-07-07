@@ -3,10 +3,9 @@ import unittest
 
 from flask import url_for
 from flask_login import current_user, login_user, logout_user, login_required
-from app import app, db, mail, login
+from app import create_app, db, mail, login
 from app.models import *
-from app.group import *
-from app.forum import *
+from config import TestingConfig
 
 from datetime import datetime
 
@@ -24,12 +23,7 @@ class BaseTest(unittest.TestCase):
  
     # executed prior to each test
     def setUp(self):
-        app.config['TESTING'] = True
-        app.config['WTF_CSRF_ENABLED'] = False
-        app.config['DEBUG'] = False
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-            os.path.join(basedir, TEST_DB)
-        app.testing = True
+        app = create_app(TestingConfig)
         self.app = app.test_client()
 
         ## IMPORTANT FOR LOGIN ##
@@ -61,7 +55,7 @@ class BaseTest(unittest.TestCase):
         for i in range(len(fields)):
             data[pre+fields[i]] = rdata[i]
         return self.app.post(
-            '/register/' + role,
+            url_for('auth.reg') + '/' + role,
             data=data,
             follow_redirects=True
         )
@@ -76,14 +70,14 @@ class BaseTest(unittest.TestCase):
     def login(self, email, password):
 
         return self.app.post(
-            '/login',
+            url_for('auth.login'),
             data={'email' : email, 'password' : password },
             follow_redirects=True
         )
  
     def logout(self):
         return self.app.get(
-            '/logout',
+            url_for('auth.logout'),
             follow_redirects=True
         )
 
@@ -95,7 +89,7 @@ class BaseTest(unittest.TestCase):
     def add_test_user(self):
         u = User(firstName="first", lastName="last", email="testes@test.com", \
             urole="student", knewbie_id="123456", curr_theta=-1.33, confirmed=True)
-        u.set_password("test")
+        u.set_password("testtest")
         return u
 
     def add_test_edu(self):
@@ -159,6 +153,7 @@ class BaseTest(unittest.TestCase):
         q = self.add_test_quiz(u)
         qn = self.add_test_qn()
         q.questions.append(qn)
+        db.session.add(t)
         db.session.add(q)
         db.session.commit()
 

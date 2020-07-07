@@ -1,0 +1,26 @@
+﻿{% from "_formhelpers.html" import render_error %}
+{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='content/loginstyle.css') }}">
+{% endblock %}
+{% block content %}
+<!-- LOGIN FORM -->
+<form class="login-form" action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <h1>Sign In</h1>
+    <div class="input-field">
+        {{ form.email(size=32, placeholder="Email") }}
+        {{ render_error(form.email) }}
+    </div>
+    <div class="input-field">
+        {{ form.password(size=32, placeholder="Password") }}
+        {{ render_error(form.password) }}
+    </div>
+    <p class="rmb-me">{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+    {{ form.submit(class_="login-btn") }}
+    <div class="bottom-text">
+        <p>Don't have an account? <a href="{{ url_for('auth.reg') }}">Create one here!</a></p>
+        <p>Forgot your password? <a href="{{ url_for('auth.request_reset_password') }}">Click here!</a></p>
+    </div>
+</form>
+{% endblock %}

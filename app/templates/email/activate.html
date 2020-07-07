@@ -1,5 +1,5 @@
 ﻿<title>Knewbie | Email Verification</title>
-<link href="../../static/content/style.css" rel="stylesheet" />
+<link href="{{ url_for('static', filename='content/style.css') }}" rel="stylesheet" />
 
 <style type="text/css">
     @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
@@ -120,13 +120,13 @@
                     <h3><a href="#" class="link-hover">Terms & Conditions</a></h3>
                 </div>
                 <div class="footer_third">
-                    <h3><a href="{{ url_for('contact') }}" class="link-hover">Contact Us</a></h3>
+                    <h3><a href="{{ url_for('main.contact') }}" class="link-hover">Contact Us</a></h3>
                 </div>
                 <div class="footer_third">
-                    <h3><a href="{{ url_for('faq') }}" class="link-hover">Frequently Asked Questions</a></h3>
+                    <h3><a href="{{ url_for('main.faq') }}" class="link-hover">Frequently Asked Questions</a></h3>
                 </div>
                 <div class="footer_copyright">
-                    <h3><a href="{{ url_for('home') }}">&copy; 2020 Knewbie</a></h3>
+                    <h3><a href="{{ url_for('main.home') }}">&copy; 2020 Knewbie</a></h3>
                 </div>
             </div>
         </div>

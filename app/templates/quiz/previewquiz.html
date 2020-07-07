@@ -1,0 +1,41 @@
+﻿{% extends "base.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='content/quizstyle.css') }}">
+{% endblock %}
+{% block content %}
+<div class="quiz-container" style="margin-top: 3rem; overflow: scroll;">
+    <div id="quiz">
+        <h1>{{ quiz.name }}</h1>
+        <form action="{{ url_for('quiz.deletequiz', quizID=quiz.id) }}" method="post" class="create-form">
+            {{ delQuizForm.hidden_tag() }}
+            {{ delQuizForm.submit(class_="delete-btn") }}
+        </form>
+
+        {% for qnID in questions %}
+        <h2 id="question">{{ questions[qnID]['question'] }}</h2>
+        <form action="{{ url_for('quiz.deleteqn', quizID=quiz.id, qnID=qnID) }}" method="post" class="create-form">
+            {{ delQnForm.hidden_tag() }}
+            {{ delQnForm.submit(class_="delete-btn float") }}
+        </form>
+        <a href="{{ url_for('quiz.editqn', qnID=qnID) }}" class="edit-btn float margin"> Edit </a>
+        <ol class="preview-qn">
+            {% for optID, opt in questions[qnID]['options'].items() %}
+            <li class="options-container" id="options-container">
+                <p class="options-prefix">{{loop.index}}</p>
+                <label>
+                    <input type="radio" class="options" name="option" id="{{optID}}" value="{{optID}}">
+                    {% if optID == questions[qnID]['answer'] %}
+                    <span class="answer">Answer: {{opt}}</span>
+                    {% else %}
+                    <span>{{opt}}</span>
+                    {% endif %}
+                </label>
+            </li>
+
+            {% endfor %}
+        </ol>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

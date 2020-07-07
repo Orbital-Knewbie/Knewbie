@@ -13,7 +13,7 @@
             <h2>{{ current_user.firstName }} {{ current_user.lastName }}</h2>
             {% if current_user.urole == 'student' %}
             <p>Knewbie ID: {{ current_user.knewbie_id }} </p>
-            <a href="{{ url_for('progressreport') }}" class="btn">Progress Report</a>
+            <a href="{{ url_for('main.progressreport') }}" class="btn">Progress Report</a>
             {% endif %}
         </div>
     </section>
@@ -26,7 +26,7 @@
                 <div class="card-background"></div>
                 <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
                 <h2>Class {{ class.name }}</h2>
-                <a href="{{ url_for('forum', groupID=class.id) }}" class="btn">View Class</a>
+                <a href="{{ url_for('forum.forum', groupID=class.id) }}" class="btn">View Class</a>
             </div>
             {% endfor %}
         </div>
@@ -36,7 +36,7 @@
     <section class="box" id="joinclass">
         <div class="details">
             <h1>Join A Class</h1>
-            <form action="{{ url_for('joinclass') }}" method="post">
+            <form action="{{ url_for('group.joinclass') }}" method="post">
                 {{ joinForm.hidden_tag() }}
                 {{ joinForm.title(size=32, class_="join", placeholder="Class Code") }}
                 {{ joinForm.submit(class_="join-btn") }}
@@ -55,10 +55,10 @@
                 <div class="card-background"></div>
                 <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
                 <h2>{{ topic.name }}</h2>
-                {% if questions %}
-                <a href="{{ url_for('result') }}" class="btn">View Result</a>
+                {% if respond %}
+                <a href="{{ url_for('quiz.result') }}" class="btn">View Result</a>
                 {% else %}
-                <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
+                <a href="{{ url_for('quiz.quiz') }}" class="btn">Begin Quiz</a>
                 {% endif %}
             </div>
             {% endfor %}
@@ -72,21 +72,21 @@
                 <div class="card-background"></div>
                 <img src="../static/resources/images/Student.svg" class="quiz-symbol">
                 <h2>Elementary</h2>
-                <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
+                <a href="{{ url_for('quiz.quiz') }}" class="btn">Begin Quiz</a>
             </div>
 
             <div class="card">
                 <div class="card-background"></div>
                 <img src="../static/resources/images/Teacher.svg" class="quiz-symbol">
                 <h2>Intermediate</h2>
-                <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
+                <a href="{{ url_for('quiz.quiz') }}" class="btn">Begin Quiz</a>
             </div>
 
             <div class="card">
                 <div class="card-background"></div>
                 <img src="../static/resources/images/Contact.svg" class="quiz-symbol">
                 <h2>Advanced</h2>
-                <a href="{{ url_for('quiz') }}" class="btn">Begin Quiz</a>
+                <a href="{{ url_for('quiz.quiz') }}" class="btn">Begin Quiz</a>
             </div>
         </div>
     </section>
@@ -100,7 +100,7 @@
                 <div class="card-background"></div>
                 <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
                 <h2>Quiz {{ quiz.name }}</h2>
-                <a href="{{ url_for('preview_quiz', quizID=quiz.id) }}" class="btn">Preview Quiz</a>
+                <a href="{{ url_for('quiz.preview_quiz', quizID=quiz.id) }}" class="btn">Preview Quiz</a>
             </div>
             {% endfor %}
         </div>
@@ -108,7 +108,7 @@
     <!-- SPLIT SCREEN -->
     <div class="split-container" id="create">
         <div class="split left">
-            <form action="{{ url_for('createclass') }}" method="post" class="create-form-1">
+            <form action="{{ url_for('group.createclass') }}" method="post" class="create-form-1">
                 {{ classForm.hidden_tag() }}
                 <h1>Create A New Class</h1>
                 {{ classForm.title(size=32, class_="input", placeholder="Class Name") }}
@@ -117,7 +117,7 @@
         </div>
 
         <div class="split right">
-            <form action="{{ url_for('createquiz') }}" method="post" class="create-form">
+            <form action="{{ url_for('quiz.createquiz') }}" method="post" class="create-form">
                 {{ quizForm.hidden_tag() }}
                 <h1>Create A New Quiz</h1>
                 {{ quizForm.title(size=32, class_="input", placeholder="Quiz Title") }}

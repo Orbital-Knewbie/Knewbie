@@ -1,0 +1,38 @@
+﻿{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='content/forumstyle.css') }}">
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+{% include "sidebar.html" %}
+<main class="forum-grid">
+    <div class="forum-header">
+        <h1>{{ group.name }} FORUM</h1>
+        <a href="{{ url_for('forum.create_thread',groupID=groupID) }}"><h5><i class="fas fa-plus"> Create A New Thread</i></h5></a>
+    </div>
+    <div class="forum-title">
+        <h2>Post Title</h2>
+    </div>
+    <div class="forum-count">
+        <h2>Number of Posts</h2>
+    </div>
+    <div class="forum-time">
+        <h2>Last Post</h2>
+    </div>
+</main>
+{% for thread in threads %}
+<div class="threads-grid">
+    <div class="post-title {{ loop.cycle('odd', 'even') }}">
+        <a href="{{ url_for('forum.forum_post', groupID=groupID, threadID=thread.id) }} ">
+            <h1>{{ thread.title }}</h1>
+        </a>
+    </div>
+    <div class="post-count {{ loop.cycle('odd', 'even') }}">
+        <h1>{{ thread.posts | length }}</h1>
+    </div>
+    <div class="time-stamp {{ loop.cycle('odd', 'even') }}">
+        <h1>{{ thread.timestamp }}</h1>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+

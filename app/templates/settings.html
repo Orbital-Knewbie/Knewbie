@@ -31,7 +31,7 @@
                                 </div>
                                 {% if current_user.urole == 'student' %}
                                 <div>
-                                    <a href="{{ url_for('settings_knewbie_id') }}" class="home-btn">Request A New Knewbie ID</a>
+                                    <a href="{{ url_for('main.settings_knewbie_id') }}" class="home-btn">Request A New Knewbie ID</a>
                                 </div>
                                 {% endif %}
                             </fieldset>
@@ -153,7 +153,7 @@
                         <div class="zone">
                             <p> Danger Zone <p />
                             <hr />
-                            <a href="{{ url_for('request_deactivate') }}" class="deact-btn">Deactivate Account</a>
+                            <a href="{{ url_for('auth.request_deactivate') }}" class="deact-btn">Deactivate Account</a>
                         </div>
                     </li>
                 </ul>

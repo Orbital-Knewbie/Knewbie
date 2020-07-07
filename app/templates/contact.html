@@ -1,6 +1,7 @@
-﻿{% extends "base.html" %}
+﻿{% from "_formhelpers.html" import render_error %}
+{% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="../static/content/contactstyle.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='content/contactstyle.css') }}">
 {% endblock %}
 {% block content %}
 {% if success %}
@@ -9,7 +10,7 @@
 <!-- Contact Us Form -->
 <div class="contact-container">
     <div class="contact-form">
-        <form action="{{ url_for('contact') }}" method="post">
+        <form action="{{ url_for('main.contact') }}" method="post">
             <h2>Get In Touch With Us!</h2>
             {{ form.hidden_tag() }}
 
@@ -17,33 +18,25 @@
                 {{ form.name }}
                 <span>Full Name</span>
             </div>
-            {% for message in form.name.errors %}
-            <span style="color: red;">[{{ message }}]</span>
-            {% endfor %}
+            {{ render_error(form.name) }}
 
             <div class="contact-form-input">
                 {{ form.email }}
                 <span>Email</span>
             </div>
-            {% for message in form.email.errors %}
-            <div class="flash">{{ message }}</div>
-            {% endfor %}
+            {{ render_error(form.email) }}
 
             <div class="contact-form-input">
                 {{ form.subject }}
                 <span>Subject</span>
             </div>
-            {% for message in form.subject.errors %}
-            <div class="flash">{{ message }}</div>
-            {% endfor %}
+            {{ render_error(form.subject) }}
 
             <div class="contact-form-input">
                 {{ form.message }}
                 <span>Enter your message here</span>
             </div>
-            {% for message in form.message.errors %}
-            <div class="flash">{{ message }}</div>
-            {% endfor %}
+            {{ render_error(form.message) }}
 
             <div class="contact-form-input">
                 {{ form.submit }}
@@ -51,7 +44,7 @@
         </form>
     </div>
     <div class="contact-form-img">
-        <img src="../static/resources/images/Contact.svg" alt="" />
+        <img src="{{ url_for('static', filename='resources/images/Contact.svg') }}" alt="" />
     </div>
 </div>
 {% endif %}

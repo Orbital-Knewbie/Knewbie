@@ -30,6 +30,7 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+logs/
 
 # venv
 env/
@@ -37,8 +38,10 @@ venv/
 
 # temp db
 *.db-journal
+test.db
 
 # coverage
 .coverage
 .coverage.*
 coverage.xml
+
