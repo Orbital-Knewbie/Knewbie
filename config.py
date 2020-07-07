@@ -18,7 +18,6 @@ class Config(object):
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USERNAME = 'testflask202005@gmail.com'
-    MAIL_PASSWORD = 'flasktest'
     ADMINS = ['testflask202005@gmail.com']
 
 
@@ -44,5 +43,4 @@ class TestingConfig(object):
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USERNAME = 'testflask202005@gmail.com'
-    MAIL_PASSWORD = 'flasktest'
     ADMINS = ['testflask202005@gmail.com']
