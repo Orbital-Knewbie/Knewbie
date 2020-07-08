@@ -138,10 +138,13 @@ def reset_password(token):
 def request_deactivate():
      form = DeactivateForm()
      if form.validate_on_submit():
-         user = User.query.filter_by(id=current_user.id, email = form.email.data).first_or_404()
-         send_deactivate_email(user)
-         flash('An email has been sent with instructions to deactivate your account.', 'info')
-         return redirect(url_for('auth.request_deactivate'))
+        user = User.query.filter_by(email=form.email.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('auth.request_deactivate'))
+        send_deactivate_email(user)
+        flash('An email has been sent with instructions to deactivate your account.', 'info')
+        return redirect(url_for('auth.request_deactivate'))
      return render_template('auth/deactivate.html', title=' | Deactivate Account', form=form)
 
 @bp.route("/deactivate/<token>")
