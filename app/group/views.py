@@ -64,6 +64,7 @@ def createclass():
 # participants
 # participants/<int:userID>/delete
 # classquizzes
+# edit class settings
 @bp.route('/<int:groupID>/success')
 @login_required
 def createclasssuccess(groupID):
@@ -150,6 +151,19 @@ def classquiz(groupID):
     image_file = get_image_file(current_user)
     quizzes = get_quiz(group)
     return render_template('group/classquiz.html', title=' | Quiz', group=group, image_file=image_file, quizzes=quizzes)
+
+# Routes to edit class settings
+#@bp.route("/<int:groupID>/settings")
+#@login_required
+#def class_settings(groupID):
+#    if not current_user.check_educator():
+#        return render_template('errors/error403.html'), 403
+#    group = validate_group_link(current_user, groupID)
+#    users = get_sorted_students(groupID)
+#    image_file = get_image_file(current_user)
+#    joinForm = JoinForm()
+#    deleteForm = DeleteForm()
+#    return render_template('group/participants.html', title=' | Class Settings', group=group, image_file=image_file, users=users, deleteForm=deleteForm, joinForm=joinForm)
 
 
 ## UNTESTED FUNCTIONS ##
