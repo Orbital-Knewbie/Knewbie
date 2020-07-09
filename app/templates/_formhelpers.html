@@ -1,7 +1,9 @@
-﻿{% macro render_error(field) %}
+﻿<link href="https://fonts.googleapis.com/css?family=Roboto|Syncopate&display=swap" rel="stylesheet">
+
+{% macro render_error(field) %}
     {% if field.errors %}
         {% for error in field.errors %}
-        <span style="color: red;">[{{ error }}]</span>
+        <p style="background: red; color: var(--OFFWHITE); margin: 1rem auto; padding: 1rem 0.4rem; border-radius: 0.8rem; font-family: 'Roboto', sans-serif; font-size: 1.5rem; max-width: 200px; ">{{ error }}</p>
         {% endfor %}
     {% endif %}
 {% endmacro %}

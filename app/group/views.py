@@ -64,6 +64,7 @@ def createclass():
 # participants
 # participants/<int:userID>/delete
 # classquizzes
+# edit class settings
 @bp.route('/<int:groupID>/success')
 @login_required
 def createclasssuccess(groupID):

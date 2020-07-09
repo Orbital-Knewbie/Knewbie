@@ -167,7 +167,7 @@ class AuthTest(BaseTest):
         '''Less than 8 characters in password'''
         rv = self.register_student('yolo', 'amirite','patkennedy79@gmail.com', 'toshort', 'toshort')
         self.assertEqual(rv.status_code, 200)
-        self.assertIn(b'[Field must be at least 8 characters long.]', rv.data)
+        self.assertIn(b'Field must be at least 8 characters long.', rv.data)
         self.assertIn(b'Create A Student Account', rv.data)
 
 if __name__ == '__main__':
