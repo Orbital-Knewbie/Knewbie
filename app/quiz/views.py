@@ -83,6 +83,8 @@ def createqn(quizID):
         return render_template('errors/error403.html'), 403
     quiz = validate_quiz_link(current_user, quizID)
     form = QuestionForm()
+    delQuizForm = DeleteForm(prefix='quiz')
+    delQnForm = DeleteForm(prefix='qn')
     if form.validate_on_submit():
         #Commit inputs to database
         options = (form.op1.data, form.op2.data, form.op3.data, form.op4.data)
@@ -93,7 +95,7 @@ def createqn(quizID):
             return redirect(url_for('quiz.createquizsuccess', quizID=quizID))
         return redirect(url_for('quiz.createqn', quizID=quizID))
 
-    return render_template('quiz/createqn.html', title=' | Create Quiz', form=form, quizID=quizID)
+    return render_template('quiz/createqn.html', title=' | Create Quiz', form=form, quiz=quiz,delQuizForm=delQuizForm, delQnForm=delQnForm)
 
 @bp.route('/<int:quizID>/question/<int:qnID>/delete', methods=['POST'])
 @login_required
