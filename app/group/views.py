@@ -211,6 +211,7 @@ def update_class_code(groupID):
     """Routing to update Class Code"""
     if not current_user.check_educator():
         return render_template('errors/error403.html'), 403
+    group = validate_group_link(current_user, groupID)
     nameForm = EditNameForm(prefix='name')
     codeForm = UpdateCodeForm(prefix='code')
     if codeForm.validate_on_submit():

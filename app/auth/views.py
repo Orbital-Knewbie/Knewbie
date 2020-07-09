@@ -110,7 +110,7 @@ def request_reset_password():
         return redirect(url_for('main.dashboard'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email = form.email.data).first
+        user = User.query.filter_by(email = form.email.data).first()
         if user is None:
             flash('Invalid email. Please enter a valid email address', 'info')
             return redirect(url_for('main.request_reset_password'))

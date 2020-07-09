@@ -28,7 +28,7 @@ class UpdateProfileForm(FlaskForm):
     submit = SubmitField('Save')
 
 class UpdateEmailForm(FlaskForm, EmailFormMixin):
-    confirmEmail = StringField('Email', validators=[DataRequired(), Email()])
+    confirmEmail = StringField('Email', validators=[DataRequired(), Email(), EqualTo('email')])
     #def validate_email(self, email):
     #    if email.data == current_user.email:
     #        user = User.query.filter_by(email=email.data).first()
@@ -39,7 +39,7 @@ class UpdateEmailForm(FlaskForm, EmailFormMixin):
 class UpdatePasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     newPassword = PasswordField('Password', validators=[DataRequired()])
-    confirmPassword = PasswordField('Password', validators=[DataRequired()])
+    confirmPassword = PasswordField('Password', validators=[DataRequired(), EqualTo('newPassword')])
     #def validate_password(self, password_hash):
     #    if not current_user.check_password(password):
     #        user = User.query.filter_by(password_hash=confirmPassword.data).first()
