@@ -185,7 +185,6 @@ def edit_class_name(groupID):
     if not current_user.check_educator():
         return render_template('errors/error403.html'), 403
     group = validate_group_link(current_user, groupID)
-    group = validate_group_link(current_user, groupID)
     image_file = get_image_file(current_user)
     nameForm = EditNameForm(prefix='name')
     codeForm = UpdateCodeForm(prefix='code')
