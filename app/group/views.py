@@ -157,10 +157,6 @@ def classquiz(groupID):
         form.field.choices = list((quiz.id, quiz.name) for quiz in user_quizzes)
     return render_template('group/classquiz.html', title=' | Quiz', group=group, image_file=image_file, quizzes=quizzes, form=form)
 
-
-## UNTESTED FUNCTIONS ##
-
-
 @bp.route('/<int:groupID>/quizzes/add', methods=['POST'])
 @login_required
 def add_class_quiz(groupID):
@@ -177,6 +173,8 @@ def add_class_quiz(groupID):
                 flash('Quiz ' + quiz.name + ' already added')
         flash('Quizzes added')
     return redirect(url_for('group.classquiz', groupID=groupID))
+
+## UNTESTED FUNCTIONS ##
 
 @bp.route('/<int:groupID>/settings')
 @login_required
