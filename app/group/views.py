@@ -152,19 +152,6 @@ def classquiz(groupID):
     quizzes = get_quiz(group)
     return render_template('group/classquiz.html', title=' | Quiz', group=group, image_file=image_file, quizzes=quizzes)
 
-# Routes to edit class settings
-#@bp.route("/<int:groupID>/settings")
-#@login_required
-#def class_settings(groupID):
-#    if not current_user.check_educator():
-#        return render_template('errors/error403.html'), 403
-#    group = validate_group_link(current_user, groupID)
-#    users = get_sorted_students(groupID)
-#    image_file = get_image_file(current_user)
-#    joinForm = JoinForm()
-#    deleteForm = DeleteForm()
-#    return render_template('group/participants.html', title=' | Class Settings', group=group, image_file=image_file, users=users, deleteForm=deleteForm, joinForm=joinForm)
-
 
 ## UNTESTED FUNCTIONS ##
 
@@ -198,6 +185,7 @@ def edit_class_name(groupID):
     if not current_user.check_educator():
         return render_template('errors/error403.html'), 403
     group = validate_group_link(current_user, groupID)
+    group = validate_group_link(current_user, groupID)
     image_file = get_image_file(current_user)
     nameForm = EditNameForm(prefix='name')
     codeForm = UpdateCodeForm(prefix='code')
@@ -213,6 +201,7 @@ def update_class_code(groupID):
     """Routing to update Class Code"""
     if not current_user.check_educator():
         return render_template('errors/error403.html'), 403
+    group = validate_group_link(current_user, groupID)
     nameForm = EditNameForm(prefix='name')
     codeForm = UpdateCodeForm(prefix='code')
     if codeForm.validate_on_submit():

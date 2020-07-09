@@ -146,7 +146,7 @@ def settings_knewbie_id():
         flash('Your profile has been successfully updated!', 'success')
     return redirect(url_for('main.settings'))
 
-@bp.route('/settings/update/email', methods=['POST'])
+@bp.route('/settings/email', methods=['POST'])
 @login_required
 def change_email():
     """Routing to change email from settings"""   
