@@ -89,8 +89,11 @@ def get_student_cat(user, topicID=1, attempt=None):
     prof = Proficiency.query.filter_by(userID=user.id,topicID=topicID)
     if not prof.all():
         prof = create_student_prof(user)
+        if topicID > 1:
+            prof = Proficiency.query.filter_by(userID=user.id,topicID=topicID).first()
     else:
         prof = prof.order_by(Proficiency.timestamp.desc()).first()
+    
     AI, responses = prof.get_AI_responses()
 
     student = Student(user.id, topicID, prof.theta, AI, responses, attempt)
@@ -115,7 +118,8 @@ def submit_response(user, form):
     topicID = qn.topicID if qn.topicID else 1
     if topicID > 1:
         update_proficiency(user, topicID)
-    update_proficiency(user)
+    if qn.user.admin:
+        update_proficiency(user)
 
 def update_proficiency(user, topicID=1):
     '''Updates user proficiency given a topic'''
@@ -213,9 +217,11 @@ def get_response_answer(user, quizID=None):
     ans_num and res_num given as int 1-4
     '''
     if quizID is None:
-        responses = Response.query.filter_by(userID=user.id).filter(Question.user.has(admin=True)).all()
+        responses = Response.query.filter_by(userID=user.id).join(Response.question)\
+            .filter(Question.user.has(admin=True)).all()
     else:
-        responses = Response.query.filter_by(userID=user.id).filter(Question.quizzes.any(id=quizID)).all()
+        responses = Response.query.filter_by(userID=user.id).join(Response.question)\
+            .filter(Question.quizzes.any(id=quizID)).all()
     d={}
     correct = 0
     for r in responses:
@@ -275,11 +281,11 @@ def remove_question(question):
         db.session.delete(r)
     db.session.commit()
 
-def add_quiz_group(group, quiz):
-    '''Adds a quiz to a class'''
-    if quiz in group.quizzes: return
-    group.quizzes.append(quiz)
-    db.session.commit()
+#def add_quiz_group(group, quiz):
+#    '''Adds a quiz to a class'''
+#    if quiz in group.quizzes: return
+#    group.quizzes.append(quiz)
+#    db.session.commit()
 
 
 
@@ -313,11 +319,11 @@ def get_question(user, quiz, n, pre_shuffle=False):
     '''Gets nth question from a quiz'''
     questions = quiz.questions
     if n < 0 or n >= len(questions):
-        return None
+        return None, None
     d = []
     question = questions[n]
     if Response.query.filter_by(userID=user.id, qnID=question.id).first():
-        return None
+        return None, None
     qn_txt = question.question
     options = question.options
     if pre_shuffle:
@@ -334,7 +340,7 @@ def validate_quiz_stu(quizID):
 def validate_quiz_stu_edu(user, quizID):
     '''Validates a student can access a quiz only by their educator'''
     quiz = validate_quiz_stu(quizID)
-    group = Group.query.filter(Group.users.any(id=user.id)).filter(User.quizzes.any(id=quizID)).first_or_404()
+    group = Group.query.filter(Group.users.any(id=user.id)).filter(Group.quizzes.any(id=quizID)).first_or_404()
     return quiz
 
 def validate_quiz_link(user, quizID):
@@ -361,7 +367,7 @@ def remove_incorrect_responses(user):
     db.session.commit()
 
 def remove_quiz_responses(user, quiz):
-    rs = Response.query.filter_by(userID=user.id).filter(Question.quizzes.any(id=quiz.id)).all()
+    rs = Response.query.filter_by(userID=user.id).join(Response.question).filter(Question.quizzes.any(id=quiz.id)).all()
     for r in rs:
         db.session.delete(r)
     db.session.commit()

@@ -33,6 +33,8 @@ class Student(object):
         self.theta = initializer.initialize() if theta is None else theta
         self.AI = [] if AI is None else AI
         self.responses = [] if responses is None else responses
+        # map item index to a question index
+        self.d = {}
         self.items = self.get_items()
         # create a stopping criterion that will make tests stop after numqns items
         self.stopper = MaxItemStopper(4) if numqns is None else MaxItemStopper(numqns)
@@ -47,9 +49,9 @@ class Student(object):
         # given the answers they have already given to the previous dummy items
         item_index = selector.select(items=self.items, administered_items=self.AI, \
            est_theta=self.theta)
-        
+
         self.theta = new_theta
-        if item_index:
+        if item_index is not None:
             return item_index + 1
 
     def get_next_question(self):
@@ -78,14 +80,21 @@ class Student(object):
         get_guess = lambda x:x.guessing
         get_upp = lambda x:x.upper
         get_params = [get_dis, get_diff, get_guess, get_upp]
-        items = [[get(qn) for get in get_params] for qn in questions]
+        items = []
+        i=0
+        for qn in questions:
+            items.append([get(qn) for get in get_params])
+            self.d[qn.id]=i
+            i+=1
+        
+        self.AI = [self.d[qnID] for qnID in self.AI]
         return numpy.array(items)
 
     def get_questions(self):
         if self.topic == 1:
             return Question.query.filter(Question.user.has(admin=True)).all()
         else:
-            return Question.query.filter(Question.user.has(admin=True)).filter_by(topicID=self.topic).all()
+            return Question.query.filter_by(topicID=self.topic).all()
 
     def get_question_options(self):
         '''Retrieve Question and Option from Database, for tailored testing'''

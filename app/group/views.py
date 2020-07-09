@@ -149,7 +149,13 @@ def classquiz(groupID):
     group = validate_group_link(current_user, groupID)
     image_file = get_image_file(current_user)
     quizzes = get_quiz(group)
-    return render_template('group/classquiz.html', title=' | Quiz', group=group, image_file=image_file, quizzes=quizzes)
+    user_quizzes = get_user_quizzes(current_user)
+
+    form = None
+    if user_quizzes:
+        form = QuizCheckForm()
+        form.field.choices = list((quiz.id, quiz.name) for quiz in user_quizzes)
+    return render_template('group/classquiz.html', title=' | Quiz', group=group, image_file=image_file, quizzes=quizzes, form=form)
 
 
 ## UNTESTED FUNCTIONS ##
@@ -159,10 +165,17 @@ def classquiz(groupID):
 @login_required
 def add_class_quiz(groupID):
     group = validate_group_link(current_user, groupID)
-    image_file = get_image_file(current_user)
-    form = QuizClassForm()
+    form = QuizCheckForm()
+    user_quizzes = get_user_quizzes(current_user)
+    form.field.choices = list((quiz.id, quiz.name) for quiz in user_quizzes)
     if form.validate_on_submit():
-        pass
+        quizIDs = form.field.data
+        for quizID in quizIDs:
+            quiz = validate_quiz_link(current_user, quizID)
+            added = add_quiz_group(group, quiz)
+            if added is None:
+                flash('Quiz ' + quiz.name + ' already added')
+        flash('Quizzes added')
     return redirect(url_for('group.classquiz', groupID=groupID))
 
 @bp.route('/<int:groupID>/settings')
@@ -191,7 +204,7 @@ def edit_class_name(groupID):
         group.name = nameForm.title.data
         db.session.commit()
         flash('Class Name Changed')
-    return redirect(url_for('forum.forum'))
+    return redirect(url_for('forum.forum', groupID=groupID))
 
 @bp.route('/<int:groupID>/code', methods=['POST'])
 @login_required

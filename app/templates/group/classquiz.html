@@ -13,9 +13,9 @@
                 <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
                 <h2>{{ quiz.name }}</h2>
                 {% if current_user.urole == 'student' %}
-                <a href="{{ url_for('edu_quiz', quizID=quiz.id, qnNum=1) }}" class="btn">Begin Quiz</a>
+                <a href="{{ url_for('quiz.edu_quiz', quizID=quiz.id, qnNum=1) }}" class="btn">View Quiz</a>
                 {% else %}
-                <a href="{{ url_for('preview_quiz', quizID=quiz.id) }}" class="btn">Preview Quiz</a>
+                <a href="{{ url_for('quiz.preview_quiz', quizID=quiz.id) }}" class="btn">Preview Quiz</a>
                 {% endif %}
             </div>
             {% endfor %}
@@ -23,18 +23,28 @@
     </section>
     {% if current_user.urole == 'educator' %}
     <section class="box" id="topicalquiz">
-        <h1>Your Own Quizzes (not assigned to this class)</h1>
+        <h1>Your Own Quizzes</h1>
         <div class="card-wrapper">
             {% for quiz in current_user.quizzes %}
             <div class="card">
                 <div class="card-background"></div>
                 <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
                 <h2>{{ quiz.name }}</h2>
-                <a href="{{ url_for('preview_quiz', quizID=quiz.id) }}" class="btn">Preview Quiz</a>
+                <a href="{{ url_for('quiz.preview_quiz', quizID=quiz.id) }}" class="btn">Preview Quiz</a>
             </div>
             {% endfor %}
         </div>
+        {% if form %}
+        <form action="{{ url_for('group.add_class_quiz', groupID=group.id) }}" method="post">
+            {{ form.hidden_tag() }}
+            {{ form.field() }}
+            {{ form.submit() }}
+        </form>
+        {% else %}
+        <h2>No quizzes to assign.</h2>
+        {% endif %}
     </section>
+    
     {% endif %}
 </div>
 {% endblock %}

@@ -38,3 +38,6 @@ class DeleteForm(FlaskForm):
 
 class ReattemptForm(FlaskForm):
     submit = SubmitField('Reattempt Quiz')
+
+class QuizClassForm(FlaskForm):
+    submit = SubmitField('Add Quiz to Class')

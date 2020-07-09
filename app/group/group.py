@@ -11,6 +11,10 @@ def validate_code_link(classCode):
 def validate_user_link(groupID, userID):
     return User.query.filter_by(id=userID).filter(User.groups.any(id=groupID)).first_or_404()
 
+def validate_quiz_link(user, quizID):
+    '''Validates a quizID link belonging to an educator'''
+    return Quiz.query.filter_by(id=quizID,userID=user.id).first_or_404()
+
 def get_sorted_students(groupID):
     return User.query.filter_by(urole='student').\
         filter(User.groups.any(id=groupID)).order_by(User.curr_theta.desc()).all()
@@ -50,8 +54,19 @@ def remove_group(group):
 def get_quiz(group):
     return Quiz.query.filter(Quiz.groups.any(id=group.id)).all()
 
+def get_user_quizzes(user):
+    '''Return educator's own quizzes'''
+    return Quiz.query.filter_by(userID=user.id).all()
+
 def remove_all_threads(group):
     threads = Thread.query.filter_by(groupID=group.id).all()
     for thread in threads:
         db.session.delete(thread)
     db.session.commit()
+
+def add_quiz_group(group, quiz):
+    '''Adds a quiz to a class'''
+    if quiz in group.quizzes: return
+    group.quizzes.append(quiz)
+    db.session.commit()
+    return quiz

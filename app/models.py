@@ -138,17 +138,20 @@ class Proficiency(db.Model):
         '''Method to retrive Administered Items (AI) and response vector'''
 
         # Retrieve stored responses from DB
-        responses = Response.query.filter_by(userID=self.userID).all()
+        if self.topic.name == 'General':
+            responses = Response.query.filter_by(userID=self.userID).join(Response.question)\
+                .filter(Question.user.has(admin=True)).all()
         # Get only topic relevant responses
-        if self.topic.name != 'General':
-            responses = list(filter(lambda x: x.question.topicID == self.topicID, responses))
+        else:
+            responses = Response.query.filter_by(userID=self.userID).\
+                filter(Response.question.has(topicID=self.topicID)).all()
 
         questions = [response.question for response in responses]
         AI = []
         resp_vector = []
 
         for response in responses:
-            AI.append(response.qnID - 1)
+            AI.append(response.qnID)
             qn = response.question
             resp_vector.append(qn.answerID == response.optID)
 
