@@ -10,8 +10,9 @@ class AuthTest(BaseTest):
     def test_deactivate(self):
         with self.app:
             self.login('testes@test.com','testtest')
-            rv = self.app.post(url_for('auth.request_deactivate'), data={'email':'testes@test.com'}, follow_redirects=True)
+            rv = self.app.post(url_for('auth.request_deactivate'), data={'email':'testes@test.com', 'password':'testtest'}, follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'An email has been sent with instructions to deactivate your account.', rv.data)
             user = User.query.filter_by(email='testes@test.com').first()
             token = user.reset_token()
             rv = self.app.get(url_for('auth.deactivate_account', token=token), follow_redirects=True)
@@ -20,6 +21,13 @@ class AuthTest(BaseTest):
             self.assertIn(b'Knowledge is Power. Even if you are a Noobie.', rv.data)
             user = User.query.filter_by(email='testes@test.com').first()
             self.assertIsNone(user)
+
+    def test_deactivate_unauth(self):
+        with self.app:
+            self.login('testes@test.com','testtest')
+            rv = self.app.post(url_for('auth.request_deactivate'), data={'email':'testes@test.com', 'password':'password'}, follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'Invalid username or password', rv.data)
     
     def test_settings(self):
         '''Settings page'''
