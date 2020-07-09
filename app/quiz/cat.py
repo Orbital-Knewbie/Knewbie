@@ -59,7 +59,6 @@ class Student(object):
         # Return a random question if no responses yet
         if not self.responses:
             qns = self.get_questions()
-            print(qns)
             qnIDs = [qn.id for qn in qns]
             return choice(qnIDs)
 
