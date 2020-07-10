@@ -79,7 +79,6 @@ header {
 
 
 /* LOADING SCREEN */
-
 .preload-end {
     opacity: 0;
     pointer-events: none;
@@ -92,7 +91,7 @@ header {
     z-index: 1000;
     top: 0;
     position: absolute;
-    transition: opacity 1.5s ease-out;
+    transition: opacity 0.2s ease-out;
 }
 
 .loader {
@@ -231,6 +230,25 @@ header {
         transform: translateY(850px) rotate(360deg);
         opacity: 0;
     }
+}
+
+/* FLASH MESSAGE */
+.flashes {
+    margin-top: 1rem;
+    z-index: 1000000000;
+}
+
+.flashes li {
+    background: var(--LIGHTPURPLE);
+    border-radius: 0.8rem;
+    color: var(--OFFWHITE);
+    padding: 1.5rem 0.4rem;
+    max-width: 40vw;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 2rem;
+    z-index: 100000000;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); 
 }
 
 

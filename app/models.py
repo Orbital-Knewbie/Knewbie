@@ -3,6 +3,7 @@ from flask_login import UserMixin
 from app import db, login
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 
 usergroup = db.Table('usergroup', \
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True), \
@@ -96,6 +97,7 @@ class Response(db.Model):
     optID = db.Column(db.Integer, db.ForeignKey('option.id'))
     qnID = db.Column(db.Integer, db.ForeignKey('question.id'))
 
+    @hybrid_property
     def is_correct(self):
         return self.question.answerID == self.optID
 
@@ -136,17 +138,20 @@ class Proficiency(db.Model):
         '''Method to retrive Administered Items (AI) and response vector'''
 
         # Retrieve stored responses from DB
-        responses = Response.query.filter_by(userID=self.userID).all()
+        if self.topic.name == 'General':
+            responses = Response.query.filter_by(userID=self.userID).join(Response.question)\
+                .filter(Question.user.has(admin=True)).all()
         # Get only topic relevant responses
-        if self.topic.name != 'General':
-            responses = list(filter(lambda x: x.question.topicID == self.topicID, responses))
+        else:
+            responses = Response.query.filter_by(userID=self.userID).\
+                filter(Response.question.has(topicID=self.topicID)).all()
 
         questions = [response.question for response in responses]
         AI = []
         resp_vector = []
 
         for response in responses:
-            AI.append(response.qnID - 1)
+            AI.append(response.qnID)
             qn = response.question
             resp_vector.append(qn.answerID == response.optID)
 

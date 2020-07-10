@@ -11,7 +11,7 @@ class EmailFormMixin():
     email = StringField('Email', validators=[DataRequired(), Email()])
 
 class LoginForm(FlaskForm, EmailFormMixin):
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
+    password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('SIGN IN')
 
@@ -29,6 +29,7 @@ class RegistrationForm(FlaskForm, EmailFormMixin):
             raise ValidationError('Please use a different email address.')
 
 class DeactivateForm(FlaskForm, EmailFormMixin):
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
     submit = SubmitField('DEACTIVATE')
 
 class ResetPasswordForm(FlaskForm, EmailFormMixin):

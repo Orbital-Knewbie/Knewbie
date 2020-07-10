@@ -64,6 +64,7 @@ def createclass():
 # participants
 # participants/<int:userID>/delete
 # classquizzes
+# edit class settings
 @bp.route('/<int:groupID>/success')
 @login_required
 def createclasssuccess(groupID):
@@ -82,19 +83,6 @@ def leaderboard(groupID):
     users = get_sorted_students(groupID)
     image_file = get_image_file(current_user)
     return render_template('group/leaderboard.html', image_file=image_file, title=' | Leaderboard', users=users, group=group)
-
-@bp.route('/<int:groupID>/code')
-@login_required
-def update_class_code(groupID):
-    """Routing to update Class Code"""
-    if not current_user.check_educator():
-        return render_template('errors/error403.html'), 403
-
-    group = validate_group_link(current_user, groupID)
-    set_class_code(group)
-    db.session.commit()
-    flash('Your class code has been successfully updated!', 'success')
-    return redirect(url_for('forum.forum', groupID=groupID))
 
 # Routes to delete class
 @bp.route('/<int:groupID>/delete', methods=['GET','POST'])
@@ -162,33 +150,72 @@ def classquiz(groupID):
     group = validate_group_link(current_user, groupID)
     image_file = get_image_file(current_user)
     quizzes = get_quiz(group)
-    return render_template('group/classquiz.html', title=' | Quiz', group=group, image_file=image_file, quizzes=quizzes)
+    user_quizzes = get_user_quizzes(current_user)
 
-
-## UNTESTED FUNCTIONS ##
-
+    form = None
+    if user_quizzes:
+        form = QuizCheckForm()
+        form.field.choices = list((quiz.id, quiz.name) for quiz in user_quizzes)
+    return render_template('group/classquiz.html', title=' | Quiz', group=group, image_file=image_file, quizzes=quizzes, form=form)
 
 @bp.route('/<int:groupID>/quizzes/add', methods=['POST'])
 @login_required
 def add_class_quiz(groupID):
     group = validate_group_link(current_user, groupID)
-    image_file = get_image_file(current_user)
-    form = QuizClassForm()
+    form = QuizCheckForm()
+    user_quizzes = get_user_quizzes(current_user)
+    form.field.choices = list((quiz.id, quiz.name) for quiz in user_quizzes)
     if form.validate_on_submit():
-        pass
+        quizIDs = form.field.data
+        for quizID in quizIDs:
+            quiz = validate_quiz_link(current_user, quizID)
+            added = add_quiz_group(group, quiz)
+            if added is None:
+                flash('Quiz ' + quiz.name + ' already added')
+        flash('Quizzes added')
     return redirect(url_for('group.classquiz', groupID=groupID))
+
+## UNTESTED FUNCTIONS ##
+
+@bp.route('/<int:groupID>/settings')
+@login_required
+def class_settings(groupID):
+    if not current_user.check_educator():
+        return render_template('errors/error403.html'), 403
+    group = validate_group_link(current_user, groupID)
+    image_file = get_image_file(current_user)
+    nameForm = EditNameForm(prefix='name')
+    codeForm = UpdateCodeForm(prefix='code')
+    return redirect(url_for('group.edit_participants', groupID=groupID))
 
 
 @bp.route('/<int:groupID>/edit', methods=['POST'])
 @login_required
 def edit_class_name(groupID):
+    """Routing to update Class Name"""
     if not current_user.check_educator():
         return render_template('errors/error403.html'), 403
     group = validate_group_link(current_user, groupID)
     image_file = get_image_file(current_user)
-    form = EditNameForm()
-    if form.validate_on_submit():
-        group.name = form.title.data
+    nameForm = EditNameForm(prefix='name')
+    codeForm = UpdateCodeForm(prefix='code')
+    if nameForm.validate_on_submit():
+        group.name = nameForm.title.data
         db.session.commit()
         flash('Class Name Changed')
-    return redirect(url_for('forum.forum'))
+    return redirect(url_for('forum.forum', groupID=groupID))
+
+@bp.route('/<int:groupID>/code', methods=['POST'])
+@login_required
+def update_class_code(groupID):
+    """Routing to update Class Code"""
+    if not current_user.check_educator():
+        return render_template('errors/error403.html'), 403
+    nameForm = EditNameForm(prefix='name')
+    codeForm = UpdateCodeForm(prefix='code')
+    if codeForm.validate_on_submit():
+        group = validate_group_link(current_user, groupID)
+        set_class_code(group)
+        db.session.commit()
+        flash('Your class code has been successfully updated!', 'success')
+    return redirect(url_for('forum.forum', groupID=groupID))

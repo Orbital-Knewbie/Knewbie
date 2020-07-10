@@ -35,6 +35,9 @@
             {% endfor %}
         </ol>
         {% endfor %}
+
+        <a href="{{ url_for('quiz.createqn', quizID=quiz.id) }}" class="edit-btn" style="margin-bottom: 5rem;">Add Question</a>
+
     </div>
 
 </div>

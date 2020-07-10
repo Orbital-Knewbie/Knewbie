@@ -49,3 +49,24 @@ EducatorButton.addEventListener('click', () => {
 StudentButton.addEventListener('click', () => {
   container.classList.remove("right-panel-active");
 })
+
+// FAQ SEARCH BAR
+function searchFunction() {
+    var input, textTransform, content, searchText, a, i, ans;
+    input = document.getElementById('searchInput');
+    textTransform = input.value.toUpperCase();
+    content = document.getElementById('accordion');
+    searchText = content.getElementsByClassName('accordion-item');
+
+    for (i = 0; i < searchText.length; i++) {
+        a = searchText[i].getElementsByTagName('a')[0];
+        ans = searchText[i].getElementsByClassName('faq-ans')[0]
+        if (a.innerHTML.toUpperCase().indexOf(textTransform) > -1 || ans.innerHTML.toUpperCase().indexOf(textTransform) > -1) {
+            searchText[i].style.display = "";
+        }
+
+        else {
+            searchText[i].style.display = 'none';
+        }
+    }
+}

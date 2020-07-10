@@ -19,9 +19,8 @@
     {% if current_user.urole == 'educator' %}
     <div class="separator"></div>
     <a href="{{ url_for('group.edit_participants', groupID=group.id) }}"><i class="fas fa-users"></i><span>Edit Participants</span></a>
-    <a href="{{ url_for('group.update_class_code', groupID=group.id) }}"><i class="fas fa-font"></i><span>Change Class Code</span></a>
-    <div class="separator"></div>
-    <a href="{{ url_for('group.delete_class', groupID=group.id) }}"><i class="fas fa-trash"></i><span>Delete Class</span></a>
+    <a href="{{ url_for('group.class_settings', groupID=group.id) }}"><i class="fas fa-font"></i><span>Edit Class Settings</span></a>
+    <!--<a href="{{ url_for('group.delete_class', groupID=group.id) }}"><i class="fas fa-trash"></i><span>Delete Class</span></a>-->
     {% endif %}
 </div>
 {% endblock %}

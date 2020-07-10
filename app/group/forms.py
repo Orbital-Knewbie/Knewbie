@@ -1,7 +1,7 @@
 from flask_login import current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, MultipleFileField, SelectField, FileField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, MultipleFileField, SelectField, FileField, widgets, SelectMultipleField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 
 from app.models import User, Topic
@@ -33,3 +33,16 @@ class QuizClassForm(FlaskForm):
 
 class EditNameForm(FlaskForm, StringFormMixin):
     submit = SubmitField('Edit Name')
+
+class UpdateCodeForm(FlaskForm):
+    submit = SubmitField('Change Class Code')
+
+
+class MultiCheckboxField(SelectMultipleField):
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
+
+
+class QuizCheckForm(FlaskForm):
+    field = MultiCheckboxField('Quizzes', validators=[DataRequired()], coerce=int)
+    submit = SubmitField('Add Quizzes')

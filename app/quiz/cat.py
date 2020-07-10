@@ -24,18 +24,20 @@ selector = MaxInfoSelector()
 # create a hill climbing proficiency estimator
 estimator = HillClimbingEstimator()
 
-# create a stopping criterion that will make tests stop after 4 items
-stopper = MaxItemStopper(4)
 
 class Student(object):
     """Student Class used to apply CAT logic"""
-    def __init__(self, id, topic=None, theta=None, AI=None, responses=None):
+    def __init__(self, id, topic=None, theta=None, AI=None, responses=None, numqns=None):
         self.id = id
         self.topic = 1 if topic is None else topic
         self.theta = initializer.initialize() if theta is None else theta
         self.AI = [] if AI is None else AI
         self.responses = [] if responses is None else responses
+        # map item index to a question index
+        self.d = {}
         self.items = self.get_items()
+        # create a stopping criterion that will make tests stop after numqns items
+        self.stopper = MaxItemStopper(4) if numqns is None else MaxItemStopper(numqns)
 
     def update(self):
         '''Updates theta and returns item_index'''
@@ -47,10 +49,10 @@ class Student(object):
         # given the answers they have already given to the previous dummy items
         item_index = selector.select(items=self.items, administered_items=self.AI, \
            est_theta=self.theta)
-        
-        self.theta = new_theta
 
-        return item_index + 1
+        self.theta = new_theta
+        if item_index is not None:
+            return item_index + 1
 
     def get_next_question(self):
         '''Get the next Question to be administered to the Student'''
@@ -62,12 +64,12 @@ class Student(object):
 
         item_index = self.update()
 
-        if not self.stop():
+        if not self.stop() and item_index:
             return item_index.item()
 
     def stop(self):
         '''Get boolean value whether the test should stop'''
-        return stopper.stop(administered_items=self.items[self.AI], theta=self.theta)
+        return self.stopper.stop(administered_items=self.items[self.AI], theta=self.theta)
 
     def get_items(self):
         '''Retrieve Question Item Bank from Database'''
@@ -77,19 +79,28 @@ class Student(object):
         get_guess = lambda x:x.guessing
         get_upp = lambda x:x.upper
         get_params = [get_dis, get_diff, get_guess, get_upp]
-        items = [[get(qn) for get in get_params] for qn in questions]
+        items = []
+        i=0
+        for qn in questions:
+            items.append([get(qn) for get in get_params])
+            self.d[qn.id]=i
+            i+=1
+        
+        self.AI = [self.d[qnID] for qnID in self.AI]
         return numpy.array(items)
 
     def get_questions(self):
         if self.topic == 1:
             return Question.query.filter(Question.user.has(admin=True)).all()
         else:
-            return Question.query.filter(Question.user.has(admin=True)).filter_by(topicID=self.topic).all()
+            return Question.query.filter_by(topicID=self.topic).all()
 
     def get_question_options(self):
         '''Retrieve Question and Option from Database, for tailored testing'''
         # Get the Question
         qnid = self.get_next_question()
+        if qnid is None:
+            return None, None
         question = Question.query.filter_by(id=qnid).first()
         qn_txt = question.question
 

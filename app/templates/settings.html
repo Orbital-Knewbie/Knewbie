@@ -1,6 +1,6 @@
 ﻿{% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="../static/content/settingstyle.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='/content/settingstyle.css') }}">
 {% endblock %}
 
 {% block message %}
@@ -30,6 +30,10 @@
                                     {{ form.image(class_="create-btn") }}
                                 </div>
                                 {% if current_user.urole == 'student' %}
+                                <!--<form action="{{ url_for('main.settings_knewbie_id') }}" method="post" class="#">
+                                    {{ knewbieForm.hidden_tag() }}
+                                    {{ knewbieForm.submit() }}
+                                </form>-->
                                 <div>
                                     <a href="{{ url_for('main.settings_knewbie_id') }}" class="home-btn">Request A New Knewbie ID</a>
                                 </div>
@@ -81,8 +85,9 @@
         </section>
 
         <section id="account">
-            <h1 style="text-align: center; padding-top: 3rem;">Change Password</h1>
-            <form>
+            <h1 style="text-align: center; padding-top: 1rem;">Change Password</h1>
+            <form action="" method="post">
+                {{ pwForm.hidden_tag() }}
                 <ul>
                     <li>
                         <fieldset class="settings-input">
@@ -96,7 +101,7 @@
                     <li>
                         <fieldset class="settings-input">
                             <div>
-                                <input required type="password" />
+                                {{ pwForm.password }}
                                 <label>Current Password</label>
                                 <hr />
                             </div>
@@ -105,7 +110,7 @@
                     <li>
                         <fieldset class="settings-input">
                             <div>
-                                <input required type="password" />
+                                {{ pwForm.newPassword }}
                                 <label>New Password</label>
                                 <hr />
                             </div>
@@ -115,19 +120,31 @@
                     <li>
                         <fieldset class="settings-input">
                             <div>
-                                <input required type="password" />
+                                {{ pwForm.confirmPassword }}
                                 <label>Confirm Password</label>
                                 <hr />
                             </div>
                         </fieldset>
                     </li>
 
-                    <h1 style="text-align: center; padding-top: 3rem; width: 100vw; position: relative; margin: 0 auto;">Change Email Address</h1>
+                    <li class="large padding">
+                        <fieldset class="settings-button center">
+                            <div>
+                                {{ emailForm.submit(class_="save") }}
+                            </div>
+                        </fieldset>
+                    </li>
+                </ul>
+            </form>
 
+            <h1 style="text-align: center; padding-top: 1rem; width: 100vw; position: relative; margin: 0 auto;">Change Email Address</h1>
+            <form action="" method="post">
+                {{ emailForm.hidden_tag() }}
+                <ul>
                     <li>
                         <fieldset class="settings-input">
                             <div>
-                                <input required type="email" />
+                                {{ emailForm.email }}
                                 <label>New Email</label>
                                 <hr />
                             </div>
@@ -137,7 +154,7 @@
                     <li>
                         <fieldset class="settings-input">
                             <div>
-                                <input required type="email" />
+                                {{ emailForm.confirmEmail }}
                                 <label>Confirm Email</label>
                                 <hr />
                             </div>
@@ -147,7 +164,7 @@
                     <li class="large padding">
                         <fieldset class="settings-button center">
                             <div>
-                                <input class="save" type="submit" value="Save" />
+                                {{ emailForm.submit(class_="save") }}
                             </div>
                         </fieldset>
                         <div class="zone">

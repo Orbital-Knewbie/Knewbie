@@ -11,6 +11,10 @@
         {{ form.email(size=32, placeholder="Email") }}
         {{ render_error(form.email) }}
     </div>
+    <div class="input-field">
+        {{ form.password(size=32, placeholder='Enter Password') }}
+        {{ render_error(form.password) }}
+    </div>
     <p>All information associated with your account will be deleted and the action is irrevocable.</p>
     <p>To confirm deactivation, enter your email.</p>
     {{ form.submit(class_="deact-btn") }}
