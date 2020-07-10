@@ -19,7 +19,7 @@
     <main class="content">
         <section id="profile">
             <h1 style="text-align: center; padding-top: 5rem;">Update Details</h1>
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="{{ url_for('main.settings') }}" method="post" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
                 <ul>
                     <li class="large padding avatar">
@@ -30,10 +30,6 @@
                                     {{ form.image(class_="create-btn") }}
                                 </div>
                                 {% if current_user.urole == 'student' %}
-                                <!--<form action="{{ url_for('main.settings_knewbie_id') }}" method="post" class="#">
-                                    {{ knewbieForm.hidden_tag() }}
-                                    {{ knewbieForm.submit() }}
-                                </form>-->
                                 <div>
                                     <a href="{{ url_for('main.settings_knewbie_id') }}" class="home-btn">Request A New Knewbie ID</a>
                                 </div>
@@ -86,7 +82,7 @@
 
         <section id="account">
             <h1 style="text-align: center; padding-top: 1rem;">Change Password</h1>
-            <form action="" method="post">
+            <form action="{{ url_for('main.change_pw') }}" method="post">
                 {{ pwForm.hidden_tag() }}
                 <ul>
                     <li>
@@ -130,7 +126,7 @@
                     <li class="large padding">
                         <fieldset class="settings-button center">
                             <div>
-                                {{ emailForm.submit(class_="save") }}
+                                {{ pwForm.submit(class_="save") }}
                             </div>
                         </fieldset>
                     </li>
@@ -138,7 +134,7 @@
             </form>
 
             <h1 style="text-align: center; padding-top: 1rem; width: 100vw; position: relative; margin: 0 auto;">Change Email Address</h1>
-            <form action="" method="post">
+            <form action="{{ url_for('main.change_email') }}" method="post">
                 {{ emailForm.hidden_tag() }}
                 <ul>
                     <li>

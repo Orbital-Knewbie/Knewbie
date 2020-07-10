@@ -11,6 +11,7 @@ from app.models import *
 from app.main.forms import *
 from app.main.profile import *
 from app.main.email import *
+from app.auth.email import get_confirm_url, send_conf_email
 from app.decorator import check_confirmed
 
 import json
@@ -157,17 +158,18 @@ def change_email():
 
     if emailForm.validate_on_submit():
         user = User.query.filter_by(email=emailForm.email.data).first()
-        if emailForm.confirmEmail.data == emailForm.email.data and user is None:
+        if user is None:
             current_user.email = emailForm.email.data
+            confirm_url = get_confirm_url(user)
+            send_conf_email(user, confirm_url)
             db.session.commit()
-            flash('Your profile has been successfully updated!', 'success')
-        elif user is None and emailForm.confirmEmail.data != emailForm.email.data:
-            flash('The entered email addresses do not match!')
+            flash('A confirmation email has been sent via email. Please verify for the change to take place.', 'success')
+            return redirect(url_for('auth.unconfirmed'))
         elif user is not None:
             flash('Enter a new email address if you want to update it, otherwise leave the fields blank!')
-        return redirect(url_for('main.settings'))
+            return redirect(url_for('main.settings'))
 
-@bp.route('/settings/update/password', methods=['POST'])
+@bp.route('/settings/password', methods=['POST'])
 @login_required
 def change_pw():
     """Routing to change PW from settings"""
@@ -177,16 +179,15 @@ def change_pw():
     emailForm = UpdateEmailForm(prefix='email')
 
     if pwForm.validate_on_submit():
-        user = User.query.filter_by(email=emailForm.email.data).first()
-        if user is None or not user.check_password(pwForm.password.data):
-            flash('Invalid current password, please try again')
+        user = User.query.filter_by(email=current_user.email).first()
+        if not user.check_password(pwForm.password.data):
+            flash('Invalid current password, please try again', 'success')
+            return redirect(url_for('main.settings'))
+        elif user.check_password(pwForm.newPassword.data):
+            flash('You cannot reuse your old password. Please choose a different password.', 'success')
             return redirect(url_for('main.settings'))
         else:
-            if pwForm.newPassword.data != pwForm.confirmPassword.data:
-                flash('New passwords do not match, please try again')
-                return redirect(url_for('main.settings'))
-            else:
-                user.set_password(pwForm.confirmPassword.data)
-                db.session.commit()
-                flash('Your profile has been successfully updated!', 'success')
+            user.set_password(pwForm.confirmPassword.data)
+            db.session.commit()
+            flash('Your profile has been successfully updated!', 'success')
     return redirect(url_for('main.settings'))
