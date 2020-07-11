@@ -1,6 +1,5 @@
 from flask import current_app, render_template, url_for, redirect, flash
 from flask_mail import Message
-from flask_login import current_user
 from app import db, mail
 from app.models import User
 from app.auth.token import generate_confirmation_token
@@ -11,11 +10,11 @@ from app.email import send_email
 def send_conf_email(user, confirm_url):
     send_email('[Knewbie] Confirmation',
                sender=current_app.config['ADMINS'][0],
-               recipients=[current_user.email],
+               recipients=[user.email],
                text_body=render_template('email/activate.txt',
-                                         name=current_user.firstName, confirm_url=confirm_url),
+                                         name=user.firstName, confirm_url=confirm_url),
                html_body=render_template('email/activate.html',
-                                         name=current_user.firstName, confirm_url=confirm_url))
+                                         name=user.firstName, confirm_url=confirm_url))
 
 
 
@@ -38,7 +37,7 @@ def send_deactivate_email(user):
     )
 
 def get_confirm_url(user):
-    token = generate_confirmation_token(current_user.email)
+    token = generate_confirmation_token(user.email)
     confirm_url = url_for('auth.confirm_email', token=token, _external=True)
     return confirm_url
 

@@ -179,15 +179,14 @@ def change_pw():
     emailForm = UpdateEmailForm(prefix='email')
 
     if pwForm.validate_on_submit():
-        user = User.query.filter_by(email=current_user.email).first()
-        if not user.check_password(pwForm.password.data):
+        if not current_user.check_password(pwForm.password.data):
             flash('Invalid current password, please try again', 'success')
             return redirect(url_for('main.settings'))
-        elif user.check_password(pwForm.newPassword.data):
+        elif current_user.check_password(pwForm.newPassword.data):
             flash('You cannot reuse your old password. Please choose a different password.', 'success')
             return redirect(url_for('main.settings'))
         else:
-            user.set_password(pwForm.confirmPassword.data)
+            current_user.set_password(pwForm.confirmPassword.data)
             db.session.commit()
             flash('Your profile has been successfully updated!', 'success')
     return redirect(url_for('main.settings'))
