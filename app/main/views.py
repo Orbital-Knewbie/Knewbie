@@ -160,8 +160,8 @@ def change_email():
         user = User.query.filter_by(email=emailForm.email.data).first()
         if user is None:
             current_user.email = emailForm.email.data
-            confirm_url = get_confirm_url(user)
-            send_conf_email(user, confirm_url)
+            confirm_url = get_confirm_url(current_user)
+            send_conf_email(current_user, confirm_url)
             db.session.commit()
             flash('A confirmation email has been sent via email. Please verify for the change to take place.', 'success')
             return redirect(url_for('auth.unconfirmed'))
