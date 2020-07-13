@@ -177,16 +177,15 @@ def change_pw():
     knewbieForm = ChangeKnewbieForm(prefix='knewbie')
     pwForm = UpdatePasswordForm(prefix='pw')
     emailForm = UpdateEmailForm(prefix='email')
-
+    
     if pwForm.validate_on_submit():
         if not current_user.check_password(pwForm.password.data):
-            flash('Invalid current password, please try again', 'success')
-            return redirect(url_for('main.settings'))
+            flash('Invalid current password, please try again')
         elif current_user.check_password(pwForm.newPassword.data):
             flash('You cannot reuse your old password. Please choose a different password.', 'success')
-            return redirect(url_for('main.settings'))
         else:
             current_user.set_password(pwForm.confirmPassword.data)
             db.session.commit()
             flash('Your profile has been successfully updated!', 'success')
-    return redirect(url_for('main.settings'))
+    image_file = get_image_file(current_user)
+    return render_template('settings.html', title=' | Settings', image_file=image_file, form=form, knewbieForm=knewbieForm, pwForm=pwForm, emailForm=emailForm)

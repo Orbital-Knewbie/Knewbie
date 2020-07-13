@@ -178,5 +178,18 @@ class AuthTest(BaseTest):
         self.assertIn(b'Field must be at least 8 characters long.', rv.data)
         self.assertIn(b'Create A Student Account', rv.data)
 
+    def test_reset_password(self):
+        rv = self.app.post(url_for('auth.request_reset_password'), data={'email':'testes@test.com'}, follow_redirects=True)
+        self.assertEqual(rv.status_code, 200)
+        self.assertIn(b'An email has been sent with instructions to reset your password.', rv.data)
+        self.assertIn(b'Knowledge is Power. Even if you are a Noobie.', rv.data)
+
+    def test_reset_password_no_email(self):
+        rv = self.app.post(url_for('auth.request_reset_password'), data={'email':'lollol@test.com'}, follow_redirects=True)
+        self.assertEqual(rv.status_code, 200)
+        self.assertIn(b'There is no account with the email you have entered. \
+            Please ensure you have entered the correct email address or create a new account.', rv.data)
+        self.assertIn(b'Reset Password', rv.data)
+
 if __name__ == '__main__':
     unittest.main()

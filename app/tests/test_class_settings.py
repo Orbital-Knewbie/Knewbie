@@ -45,6 +45,55 @@ class ClassQuizTest(BaseTest):
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'new quiz', rv.data)
 
+    def test_reattempt_tailored(self):
+        with self.app:
+            self.login('testes@test.com', 'testtest')
+            rv = self.app.post(url_for('quiz.reattempt'), follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'TAILORED QUIZ', rv.data)
+
+    def test_reattempt_edu(self):
+        q = Quiz.query.first()
+        g = Group.query.first()
+        g.quizzes.append(q)
+        db.session.commit()
+        with self.app:
+            self.login('testes@test.com', 'testtest')
+            rv = self.app.post(url_for('quiz.reattempt_edu', quizID=1), follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'testquiz', rv.data)
+
+    def test_edit_class_name(self):
+        with self.app:
+            self.login('edutest@test.com', 'strongtest')
+            rv = self.app.post(url_for('group.edit_class_name', groupID=1), data={'name-title':'new class name'}, follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'Class Name Changed', rv.data)
+            self.assertIn(b'new class name', rv.data)
+            g = Group.query.filter_by(id=1).first()
+            self.assertEqual(g.name, 'new class name')
+
+    def test_update_class_code(self):
+        with self.app:
+            self.login('edutest@test.com', 'strongtest')
+            g = Group.query.filter_by(id=1).first()
+            self.assertEqual(g.classCode, '654321')
+            rv = self.app.post(url_for('group.update_class_code', groupID=1), follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertNotEqual(g.classCode, '654321')
+            self.assertIn(b'Your class code has been successfully updated!', rv.data)
+
+    def test_get_class_settings(self):
+        with self.app:
+            self.login('edutest@test.com', 'strongtest')
+            rv = self.app.get(url_for('group.class_settings', groupID=1), follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            
+            self.logout()
+            self.login('testes@test.com', 'testtest')
+            rv = self.app.get(url_for('group.class_settings', groupID=1), follow_redirects=True)
+            self.assertEqual(rv.status_code, 403)
+
 
 if __name__ == '__main__':
     unittest.main()
