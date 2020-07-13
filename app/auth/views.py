@@ -111,9 +111,6 @@ def request_reset_password():
     form = ResetPasswordForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email = form.email.data).first()
-        if user is None:
-            flash('Invalid email. Please enter a valid email address', 'info')
-            return redirect(url_for('main.request_reset_password'))
         send_reset_email(user)
         flash('An email has been sent with instructions to reset your password.', 'info')
         return redirect(url_for('main.home'))
