@@ -170,6 +170,11 @@
     <Content Include="app\static\resources\images\Logo.svg" />
     <Content Include="app\static\content\style.css" />
     <Content Include="app\templates\auth\changepassword.html" />
+    <Content Include="app\templates\auth\newemail.html" />
+    <Content Include="app\templates\auth\resetemail.html" />
+    <Content Include="app\templates\email\resetemail.html" />
+    <Content Include="app\templates\email\resetemail.txt" />
+    <Content Include="app\templates\errors\error.html" />
     <Content Include="app\templates\group\classquiz.html" />
     <Content Include="app\templates\quiz\createqn.html" />
     <Content Include="app\templates\quiz\previewquiz.html" />

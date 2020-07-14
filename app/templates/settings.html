@@ -81,7 +81,7 @@
         </section>
 
         <section id="account">
-            <h1 style="text-align: center; padding-top: 1rem;">Change Password</h1>
+            <h1 style="text-align: center; padding-top: 3rem;">Change Password</h1>
             <form action="{{ url_for('main.change_pw') }}" method="post">
                 {{ pwForm.hidden_tag() }}
                 <ul>
@@ -133,37 +133,15 @@
                 </ul>
             </form>
 
-            <h1 style="text-align: center; padding-top: 1rem; width: 100vw; position: relative; margin: 0 auto;">Change Email Address</h1>
+            <h1 style="text-align: center; padding-top: 3rem; width: 100vw; position: relative; margin: 0 auto;">Change Email Address</h1>
             <form action="{{ url_for('main.change_email') }}" method="post">
                 {{ emailForm.hidden_tag() }}
                 <ul>
-                    <li>
-                        <fieldset class="settings-input">
-                            <div>
-                                {{ emailForm.email }}
-                                <label>New Email</label>
-                                <hr />
-                            </div>
-                        </fieldset>
-                    </li>
-
-                    <li>
-                        <fieldset class="settings-input">
-                            <div>
-                                {{ emailForm.confirmEmail }}
-                                <label>Confirm Email</label>
-                                <hr />
-                            </div>
-                        </fieldset>
-                    </li>
-
                     <li class="large padding">
                         <fieldset class="settings-button center">
-                            <div>
-                                {{ emailForm.submit(class_="save") }}
-                            </div>
+                            <a href="{{ url_for('auth.reset_email') }}" class="email-btn" id="signupnow">Update and Link new Email</a>
                         </fieldset>
-                        <div class="zone">
+                        <div class="zone" style="padding-top: 3rem;">
                             <p> Danger Zone <p />
                             <hr />
                             <a href="{{ url_for('auth.request_deactivate') }}" class="deact-btn">Deactivate Account</a>

@@ -132,6 +132,37 @@ def reset_password(token):
         return redirect(url_for('auth.login'))
     return render_template('auth/changepassword.html', title=' | Reset Password', form = form)
 
+# Routes to reset email
+@bp.route("/settings/email", methods=['GET', 'POST'])
+@login_required
+def reset_email():
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email = form.email.data).first()
+        send_new_email(user)
+        flash('An email has been sent with instructions to reset your email.', 'info')
+        return redirect(url_for('main.settings'))
+    return render_template('auth/resetemail.html', title=' | Update Email', form=form)
+
+@bp.route("/resetpassword/<token>", methods=['GET', 'POST'])
+@login_required
+def new_email(token):
+    user = User.verify_reset_token(token)
+    if not user:
+        flash('That is an invalid or expired token', 'warning')
+        return redirect(url_for('auth.reset_email'))
+    form = NewEmailForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=email.data).first()
+        if user is not None:
+            flash('Email is the same as the registered email. Please use a different email address.')
+        else:
+            current_user.email = form.email.data
+            db.session.commit()
+            flash('Your email has been successfully updated! You can now login with your new email.')
+        return redirect(url_for('main.settings'))
+    return render_template('auth/newemail.html', title=' | Update Email', form = form)
+
 # Routes to deactivate account
 @bp.route("/deactivate", methods=['GET', 'POST'])
 @login_required
