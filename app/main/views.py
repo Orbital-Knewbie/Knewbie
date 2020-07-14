@@ -115,7 +115,6 @@ def settings():
     form = UpdateProfileForm(prefix='profile')
     knewbieForm = ChangeKnewbieForm(prefix='knewbie')
     pwForm = UpdatePasswordForm(prefix='pw')
-    emailForm = UpdateEmailForm(prefix='email')
 
     if form.validate_on_submit():            
         if form.image.data:
@@ -147,28 +146,6 @@ def settings_knewbie_id():
         flash('Your profile has been successfully updated!', 'success')
     return redirect(url_for('main.settings'))
 
-@bp.route('/settings/email', methods=['POST'])
-@login_required
-def change_email():
-    """Routing to change email from settings"""   
-    form = UpdateProfileForm(prefix='profile')
-    knewbieForm = ChangeKnewbieForm(prefix='knewbie')
-    pwForm = UpdatePasswordForm(prefix='pw')
-    emailForm = UpdateEmailForm(prefix='email')
-
-    if emailForm.validate_on_submit():
-        user = User.query.filter_by(email=emailForm.email.data).first()
-        if user is None:
-            current_user.email = emailForm.email.data
-            confirm_url = get_confirm_url(current_user)
-            send_conf_email(current_user, confirm_url)
-            db.session.commit()
-            flash('A confirmation email has been sent via email. Please verify for the change to take place.', 'success')
-            return redirect(url_for('auth.unconfirmed'))
-        elif user is not None:
-            flash('Enter a new email address if you want to update it, otherwise leave the fields blank!')
-            return redirect(url_for('main.settings'))
-
 @bp.route('/settings/password', methods=['POST'])
 @login_required
 def change_pw():
@@ -176,8 +153,7 @@ def change_pw():
     form = UpdateProfileForm(prefix='profile')
     knewbieForm = ChangeKnewbieForm(prefix='knewbie')
     pwForm = UpdatePasswordForm(prefix='pw')
-    emailForm = UpdateEmailForm(prefix='email')
-    
+
     if pwForm.validate_on_submit():
         if not current_user.check_password(pwForm.password.data):
             flash('Invalid current password, please try again')
@@ -188,4 +164,4 @@ def change_pw():
             db.session.commit()
             flash('Your profile has been successfully updated!', 'success')
     image_file = get_image_file(current_user)
-    return render_template('settings.html', title=' | Settings', image_file=image_file, form=form, knewbieForm=knewbieForm, pwForm=pwForm, emailForm=emailForm)
+    return render_template('settings.html', title=' | Settings', image_file=image_file, form=form, knewbieForm=knewbieForm, pwForm=pwForm)

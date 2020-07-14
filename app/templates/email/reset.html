@@ -108,12 +108,14 @@
     <div class="email-container">
         <p class="bold-text">Dear {{name}}!</p>
         <div class="bottom">
+            {% block link %}
             <p class="bottom-text">
                 To reset your password, please click on the following button. <br />
                 The link will expire in 10 minutes. If you did not make this request, simply ignore this email.<br />
                 Thank you.
             </p>
             <a href="{{url_for('auth.reset_password', token = token, _external = True)}}" class="btn">Click here!</a>
+            {% endblock %}
             <br>
             <p class="sign-off">
                 Take care and enjoy learning!<br />

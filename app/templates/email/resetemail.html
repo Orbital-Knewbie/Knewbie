@@ -1,0 +1,9 @@
+﻿{% extends "email/reset.html" %}
+{% block link %}
+<p class="bottom-text">
+    To update your email, please click on the following button. <br />
+    The link will expire in 10 minutes. If you did not make this request, simply ignore this email.<br />
+    Thank you.
+</p>
+<a href="{{url_for('auth.new_email', token = token, _external = True)}}" class="btn">Click here!</a>
+{% endblock %}

@@ -6,14 +6,14 @@
 {% block content %}
 <form class="login-form" action="" method="post" novalidate>
     {{ form.hidden_tag() }}
-    <h1>Reset Password</h1>
+    <h1>Update Email</h1>
     <div class="input-field">
-        {{ form.password(size=32, placeholder='New Password') }}
-        {{ render_error(form.password) }}
+        {{ form.email(size=32, placeholder='New Email') }}
+        {{ render_error(form.email) }}
     </div>
     <div class="input-field">
-        {{ form.password2(size=32, placeholder='Confirm Password') }}
-        {{ render_error(form.password2) }}
+        {{ form.email2(size=32, placeholder='Confirm Email') }}
+        {{ render_error(form.email2) }}
     </div>
     {{ form.submit(class_="login-btn") }}
 </form>
