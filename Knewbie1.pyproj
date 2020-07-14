@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="app\static\content\classsettingsstyle.css" />
     <Content Include="app\static\content\forumstyle.css" />
     <Content Include="app\static\content\leaderboardstyle.css" />
     <Content Include="app\static\content\poststyle.css" />
@@ -179,6 +180,7 @@
     <Content Include="app\templates\email\resetemail.txt" />
     <Content Include="app\templates\errors\error.html" />
     <Content Include="app\templates\group\classquiz.html" />
+    <Content Include="app\templates\group\classsettings.html" />
     <Content Include="app\templates\quiz\createqn.html" />
     <Content Include="app\templates\quiz\previewquiz.html" />
     <Content Include="app\templates\group\deleteclass.html" />

@@ -31,6 +31,10 @@
                                     {{ form.image(class_="create-btn") }}
                                 </div>
                                 {% if current_user.urole == 'student' %}
+                                <form action="{{ url_for('main.settings_knewbie_id') }}" method="post">
+                                    {{ knewbieForm.hidden_tag() }}
+                                    {{ knewbieForm.submit(class_="create-btn") }}
+                                </form>
                                 <div>
                                     <a href="{{ url_for('main.settings_knewbie_id') }}" class="home-btn">Request A New Knewbie ID</a>
                                 </div>

@@ -10,6 +10,7 @@
         {% if current_user.urole == 'student' %}
         <p>Knewbie ID: {{ current_user.knewbie_id }} </p>
         {% endif %}
+        <h2> {{ group.name }}</h2>
         <h2>Class code: {{ group.classCode }}</h2>
     </div>
     <a href="#" style="margin-top: 2rem;"><i class="fas fa-bell"></i><span>Notifications</span></a>
@@ -19,8 +20,7 @@
     {% if current_user.urole == 'educator' %}
     <div class="separator"></div>
     <a href="{{ url_for('group.edit_participants', groupID=group.id) }}"><i class="fas fa-users"></i><span>Edit Participants</span></a>
-    <a href="{{ url_for('group.class_settings', groupID=group.id) }}"><i class="fas fa-font"></i><span>Edit Class Settings</span></a>
-    <!--<a href="{{ url_for('group.delete_class', groupID=group.id) }}"><i class="fas fa-trash"></i><span>Delete Class</span></a>-->
+    <a href="{{ url_for('group.class_settings', groupID=group.id) }}"><i class="fas fa-cogs"></i><span>Class Settings</span></a>
     {% endif %}
 </div>
 {% endblock %}
