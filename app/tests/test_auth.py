@@ -36,7 +36,7 @@ class AuthTest(BaseTest):
             rv = self.app.get(url_for('main.settings'), follow_redirects=True)
             self.assertEqual(rv.status_code, 200)
             self.assertIn(b'New Password', rv.data)
-            self.assertIn(b'Confirm Email', rv.data)
+            self.assertIn(b'Change Email Address', rv.data)
             self.assertIn(b'Danger Zone', rv.data)
 
     def test_update_profile(self):
