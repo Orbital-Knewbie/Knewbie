@@ -129,7 +129,7 @@ def settings():
         form.firstName.data = current_user.firstName
         form.lastName.data = current_user.lastName
     image_file = get_image_file(current_user)
-    return render_template('settings.html', title=' | Settings', image_file=image_file, form=form, knewbieForm=knewbieForm, pwForm=pwForm, emailForm=emailForm)
+    return render_template('settings.html', title=' | Settings', image_file=image_file, form=form, knewbieForm=knewbieForm, pwForm=pwForm)
 
 @bp.route('/settings/knewbieID', methods=['POST'])
 @login_required

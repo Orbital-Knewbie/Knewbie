@@ -144,7 +144,7 @@ def reset_email():
         return redirect(url_for('main.settings'))
     return render_template('auth/resetemail.html', title=' | Update Email', form=form)
 
-@bp.route("/resetpassword/<token>", methods=['GET', 'POST'])
+@bp.route("/newemail/<token>", methods=['GET', 'POST'])
 @login_required
 def new_email(token):
     user = User.verify_reset_token(token)
@@ -153,7 +153,7 @@ def new_email(token):
         return redirect(url_for('auth.reset_email'))
     form = NewEmailForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=email.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
         if user is not None:
             flash('Email is the same as the registered email. Please use a different email address.')
         else:
