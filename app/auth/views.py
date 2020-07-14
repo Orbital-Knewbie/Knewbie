@@ -153,9 +153,9 @@ def new_email(token):
         return redirect(url_for('auth.reset_email'))
     form = NewEmailForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=email.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
         if user is not None:
-            flash('Email is the same as the registered email. Please use a different email address.')
+            flash('Please use a different email address.')
         else:
             current_user.email = form.email.data
             db.session.commit()
