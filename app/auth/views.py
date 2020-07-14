@@ -144,7 +144,7 @@ def reset_email():
         return redirect(url_for('main.settings'))
     return render_template('auth/resetemail.html', title=' | Update Email', form=form)
 
-@bp.route("/resetpassword/<token>", methods=['GET', 'POST'])
+@bp.route("/newemail/<token>", methods=['GET', 'POST'])
 @login_required
 def new_email(token):
     user = User.verify_reset_token(token)
