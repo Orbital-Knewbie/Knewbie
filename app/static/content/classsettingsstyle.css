@@ -1,0 +1,131 @@
+.heading {
+    --start: 15%;
+    height: 130px;
+    top: 0;
+    background-image: repeating-radial-gradient(circle at var(--start), transparent 0%, transparent 10%, rgba(238, 238, 238, 0.33) 10%, rgba(238, 238, 238, 0.33) 17%), linear-gradient(to right, var(--GREY), var(--OFFWHITE));
+    color: var(--LIGHTPURPLE);
+    position: absolute;
+    overflow: hidden;
+    z-index: 2;
+    box-shadow: 3px 0 1rem rgba(0, 0, 0, 0.9);
+}
+
+.title {
+    position: relative;
+    padding-left: 250px;
+    z-index: 3;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5rem;
+}
+
+.home-btn {
+  display: inline-block;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: var(--OFFWHITE);
+  background-color: red;
+  padding: 1rem 4rem;
+  margin-left: 50%;
+  margin-top: 2rem;
+  border-radius: .4rem;
+  box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
+  position: relative;
+  transform: translateX(-50%);
+}
+
+.home-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: inherit;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.home-btn:hover::after {
+  transform: scaleX(1.2) scaleY(1.4);
+  opacity: 0;
+  transition: all .5s;
+}
+
+.home-btn:active {
+    transform: translateY(1.5px) translateX(-50%);
+}
+
+.home-btn i {
+    padding: 0 1rem;
+    transform: translateX(-1rem);
+}
+
+.edit-btn {
+    display: inline-block;
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding: 1rem 4rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border: none;
+    border-radius: .4rem;
+    background: var(--LIGHTPURPLE);
+    color: var(--OFFWHITE);
+    box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
+    outline: none;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+.edit-btn:hover {
+    background: var(--OFFWHITE);
+    border: 1px solid var(--LIGHTPURPLE);
+    color: var(--LIGHTPURPLE);
+}
+
+.edit-btn:active {
+    transform: scale(0.95);
+}
+
+.input-field {
+    color: var(--LIGHTPURPLE);
+    outline: none;
+    display: block;
+    margin-top: 4rem;
+    margin-bottom: 1rem;
+}
+
+.input-field input {
+    padding: 1rem;
+    text-align: center;
+    font-size: 2rem;
+    outline: none;
+    color: var(--LIGHTPURPLE);
+    border: none;
+    background: none;
+    border-bottom: 3px solid var(--LIGHTPURPLE);
+}
+
+.input-field input::placeholder {
+    color: var(--LIGHTPURPLE);
+    opacity: 0.6;
+}
+
+h1 {
+    color: var(--LIGHTPURPLE);
+    text-align: center;
+    margin-top: 5rem;
+    font-size: 2.5rem;
+}
+
+form {
+    text-align: center;
+}

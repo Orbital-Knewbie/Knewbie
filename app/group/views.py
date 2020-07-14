@@ -186,7 +186,7 @@ def class_settings(groupID):
     image_file = get_image_file(current_user)
     nameForm = EditNameForm(prefix='name')
     codeForm = UpdateCodeForm(prefix='code')
-    return redirect(url_for('group.edit_participants', groupID=groupID))
+    return render_template('group/classsettings.html', title=' | Class Settings', group=group, groupID=groupID, image_file=image_file, nameForm=nameForm, codeForm=codeForm)
 
 
 @bp.route('/<int:groupID>/edit', methods=['POST'])
