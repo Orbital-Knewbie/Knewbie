@@ -20,6 +20,19 @@
     <main class="content">
         <section id="profile">
             <h1 style="text-align: center; padding-top: 5rem;">Update Details</h1>
+            {% if current_user.urole == 'student' %}
+            <form action="{{ url_for('main.settings_knewbie_id') }}" method="post">
+                {{ knewbieForm.hidden_tag() }}
+                <ul>
+                    <li class="large padding">
+                        <fieldset class="settings-button center">
+                            <div>
+                                {{ knewbieForm.submit(class_="save") }}
+                            </div>
+                        </fieldset>
+                    </li>
+                </ul>
+            </form>
             <form action="{{ url_for('main.settings') }}" method="post" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
                 <ul>
@@ -77,19 +90,7 @@
                     {% endwith %}
                 </ul>
             </form>
-            {% if current_user.urole == 'student' %}
-            <form action="{{ url_for('main.settings_knewbie_id') }}" method="post">
-                {{ knewbieForm.hidden_tag() }}
-                <ul>
-                    <li class="large padding">
-                        <fieldset class="settings-button center">
-                            <div>
-                                {{ knewbieForm.submit(class_="save") }}
-                            </div>
-                        </fieldset>
-                    </li>
-                </ul>
-            </form>
+
             {% endif %}
         </section>
 

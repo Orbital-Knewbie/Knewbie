@@ -6,7 +6,7 @@
 {% block content %}
 <div class="create-class-wrapper">
     <div class="create-container">
-        <form action="" method="post" class="create-form">
+        <form action="" method="post" class="create-form" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             {% if edit %}
             <h1>Edit Question</h1>

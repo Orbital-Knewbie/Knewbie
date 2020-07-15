@@ -89,6 +89,8 @@ def createqn(quizID):
         #Commit inputs to database
         options = (form.op1.data, form.op2.data, form.op3.data, form.op4.data)
         question = add_question(current_user, form.qn.data, options, form.corrOp.data, form.topic.data)
+        if form.img.data:
+            image = update_qn_image(form.img.data)
         add_question_quiz(quiz, question)
         flash('Question added')
         if form.complete.data:
