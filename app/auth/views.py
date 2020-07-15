@@ -160,7 +160,7 @@ def new_email(token):
             current_user.email = form.email.data
             db.session.commit()
             flash('Your email has been successfully updated! You can now login with your new email.')
-        return redirect(url_for('main.settings'))
+            return redirect(url_for('main.settings'))
     return render_template('auth/newemail.html', title=' | Update Email', form = form)
 
 # Routes to deactivate account
