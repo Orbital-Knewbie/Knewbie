@@ -123,6 +123,7 @@
     </Compile>
     <Compile Include="migrations\env.py" />
     <Compile Include="migrations\versions\93617144d712_init_db.py" />
+    <Compile Include="migrations\versions\9bf74eda21d2_question_image.py" />
     <Compile Include="run.py" />
     <Compile Include="app\tests\test_users.py">
       <SubType>Code</SubType>
