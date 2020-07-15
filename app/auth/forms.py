@@ -48,7 +48,7 @@ class NewPasswordForm(FlaskForm):
     submit = SubmitField('Update Password')
 
 class NewEmailForm(FlaskForm):
-    email = StringField('Password', validators=[DataRequired(), Email()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
     email2 = StringField(
-        'Repeat Password', validators=[DataRequired(), EqualTo('email')])
+        'Confirm Email', validators=[DataRequired(), EqualTo('email')])
     submit = SubmitField('Update Email')
