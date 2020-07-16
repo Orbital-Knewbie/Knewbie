@@ -25,7 +25,7 @@
             <div class="card">
                 <div class="card-background"></div>
                 <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
-                <h2>Class {{ class.name }}</h2>
+                <h2>{{ class.name }}</h2>
                 <a href="{{ url_for('forum.forum', groupID=class.id) }}" class="btn">View Class</a>
             </div>
             {% endfor %}
@@ -99,7 +99,7 @@
             <div class="card">
                 <div class="card-background"></div>
                 <img src="{{ url_for('static', filename='resources/images/' + ('Student', 'Teacher', 'Contact') | random + '.svg') }} " class="quiz-symbol">
-                <h2>Quiz {{ quiz.name }}</h2>
+                <h2>{{ quiz.name }}</h2>
                 <a href="{{ url_for('quiz.preview_quiz', quizID=quiz.id) }}" class="btn">Preview Quiz</a>
             </div>
             {% endfor %}

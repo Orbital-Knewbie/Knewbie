@@ -1,3 +1,4 @@
+from flask import url_for, current_app
 from app import db
 from app.models import Question, Option, Response, Proficiency, Topic, Group, User, Quiz
 from app.quiz.cat import Student
@@ -8,7 +9,7 @@ from catsim.cat import generate_item_bank
 from random import choice, shuffle
 from datetime import datetime
 
-import glob, os, json
+import glob, os, json, secrets
 
 
 def add_qn(org_qns):
@@ -372,6 +373,10 @@ def remove_quiz_responses(user, quiz):
         db.session.delete(r)
     db.session.commit()
 
+def get_qn_image(question):
+    image_uri = question.image_file
+    return url_for('static', filename='resources/images/quiz/' + image_uri)
+
 def update_qn_image(form_image):
     """To rename & resize image"""
     #rename image
@@ -380,9 +385,4 @@ def update_qn_image(form_image):
     image_filename = random_hex + f_ext
     image_path = os.path.join(current_app.root_path, url_for('static', filename='resources/images/quiz'), image_filename)
     
-    # resize image
-    img_size = (400, 400)
-    new_image = Image.open(form_image)
-    new_image.thumbnail(img_size)  
-    new_image.save(image_path)
     return image_filename
