@@ -12,6 +12,7 @@ body {
     font-family: 'Lato', sans-serif;
     color: var(--LIGHTPURPLE);
     margin: 0;
+    z-index: -5;
 }
 
 .line {
@@ -33,6 +34,7 @@ footer {
     text-align: center;
     position: absolute;
     top: 0;
+    z-index: 1;
 }
 
 .error-num {
@@ -41,6 +43,7 @@ footer {
     position: relative;
     top: 40%;
     transform: translateY(-40%);
+    z-index: 5;
 }
 
 .error-num h2 {
@@ -100,8 +103,7 @@ span {
   border-radius: .4rem;
   box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.3);
   position: relative;
-  z-index: 1;
-  margin-top: 35rem;
+  z-index: 10;
 }
 
 .home-btn::after {
@@ -133,6 +135,7 @@ span {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    z-index: -1;
 }
 
 .animation-area li {
@@ -157,8 +160,8 @@ span {
     left: 12%;
     width: 30px;
     height: 30px;
+    top: -55px;
     border-radius: 50%;
-    animation-delay: 1.5s;
     animation-duration: 12s;
 }
 
@@ -181,6 +184,7 @@ span {
     left: 58%;
     width: 40px;
     height: 40px;
+    top: -25px;
     border-radius: 50%;
     animation-delay: 0s;
 }
