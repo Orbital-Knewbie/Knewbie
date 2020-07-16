@@ -9,6 +9,8 @@ from catsim.cat import generate_item_bank
 from random import choice, shuffle
 from datetime import datetime
 
+from PIL import Image
+
 import glob, os, json, secrets
 
 
@@ -384,5 +386,9 @@ def update_qn_image(form_image):
     _, f_ext = os.path.splitext(form_image.filename)
     image_filename = random_hex + f_ext
     image_path = os.path.join(current_app.root_path, url_for('static', filename='resources/images/quiz'), image_filename)
+
+    #save image
+    new_image = Image.open(form_image)
+    new_image.save(image_path)
     
     return image_filename
