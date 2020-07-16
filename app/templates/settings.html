@@ -33,6 +33,7 @@
                     </li>
                 </ul>
             </form>
+            {% endif %}
             <form action="{{ url_for('main.settings') }}" method="post" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
                 <ul>
@@ -91,7 +92,6 @@
                 </ul>
             </form>
 
-            {% endif %}
         </section>
 
         <section id="account">

@@ -8,6 +8,7 @@ from catsim.cat import generate_item_bank
 
 from random import choice, shuffle
 from datetime import datetime
+from PIL import Image
 
 from PIL import Image
 
@@ -312,10 +313,11 @@ def get_questions_quiz(quiz, pre_shuffle=False):
         qnID = question.id
         qn_txt = question.question
         options = question.options
+        img = question.image_file
         if pre_shuffle:
             shuffle(options)
         opt_txt = {option.id : option.option for option in options}
-        d[qnID] = {'question' : qn_txt, 'options' : opt_txt, 'answer' : question.answerID}
+        d[qnID] = {'question' : qn_txt, 'options' : opt_txt, 'answer' : question.answerID, 'image' : img}
     return d
 
 def get_question(user, quiz, n, pre_shuffle=False):
@@ -375,9 +377,9 @@ def remove_quiz_responses(user, quiz):
         db.session.delete(r)
     db.session.commit()
 
-def get_qn_image(question):
-    image_uri = question.image_file
-    return url_for('static', filename='resources/images/quiz/' + image_uri)
+#def get_qn_image(question):
+#    image_uri = question.image_file
+#    return url_for('static', filename='resources/images/quiz/' + image_uri)
 
 def update_qn_image(form_image):
     """To rename & resize image"""
