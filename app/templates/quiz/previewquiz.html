@@ -18,6 +18,11 @@
             {{ delQnForm.submit(class_="delete-btn float", placeholder="Delete Question") }}
         </form>
         <a href="{{ url_for('quiz.editqn', qnID=qnID) }}" class="edit-btn float"> Edit </a>
+
+        {% if questions[qnID]['image'] %}
+        <img src="{{ url_for('static', filename='resources/images/quiz')}}/{{ questions[qnID]['image'] }}" class="pic" alt="">
+        {% endif %}
+
         <ol class="preview-qn">
             {% for optID, opt in questions[qnID]['options'].items() %}
             <li class="options-container" id="options-container">

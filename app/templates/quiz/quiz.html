@@ -12,6 +12,10 @@
         {% endif %}
         <h2 id="question">{{question}}</h2>
 
+        {% if question.image_file %}
+        <img src="{{ url_for('static, filename='resources/images/quiz')}}/{{ question.image_file }}" class="pic" alt="">
+        {% endif %}
+
         {% if edu %}
         <form action="{{ url_for('quiz.edu_quiz', quizID=quiz.id, qnNum=qnNum) }}" method="post">
         {% else %}

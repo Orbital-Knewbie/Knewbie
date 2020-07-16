@@ -71,10 +71,9 @@ def preview_quiz(quizID):
         return render_template('errors/error403.html'), 403
     quiz = validate_quiz_link(current_user, quizID)
     questions = get_questions_quiz(quiz)
-    image_file = get_qn_image(questions)
     delQuizForm = DeleteForm(prefix='quiz')
     delQnForm = DeleteForm(prefix='qn')
-    return render_template('quiz/previewquiz.html', title=' | Create Class', questions=questions, quiz=quiz, delQuizForm=delQuizForm, delQnForm=delQnForm, image_file=image_file)
+    return render_template('quiz/previewquiz.html', title=' | Create Class', questions=questions, quiz=quiz, delQuizForm=delQuizForm, delQnForm=delQnForm)
 
 @bp.route('/<int:quizID>/question', methods=['GET', 'POST'])
 @login_required
@@ -91,14 +90,14 @@ def createqn(quizID):
         options = (form.op1.data, form.op2.data, form.op3.data, form.op4.data)
         question = add_question(current_user, form.qn.data, options, form.corrOp.data, form.topic.data)
         if form.img.data:
-            quiz.image_file = update_qn_image(form.img.data)
+            question.image_file = update_qn_image(form.img.data)
         add_question_quiz(quiz, question)
         flash('Question added')
         if form.complete.data:
             return redirect(url_for('quiz.createquizsuccess', quizID=quizID))
         return redirect(url_for('quiz.createqn', quizID=quizID))
 
-    return render_template('quiz/createqn.html', title=' | Create Quiz', form=form, quiz=quiz,delQuizForm=delQuizForm, delQnForm=delQnForm, image_file=image_file)
+    return render_template('quiz/createqn.html', title=' | Create Quiz', form=form, quiz=quiz,delQuizForm=delQuizForm, delQnForm=delQnForm)
 
 @bp.route('/<int:quizID>/question/<int:qnID>/delete', methods=['POST'])
 @login_required
