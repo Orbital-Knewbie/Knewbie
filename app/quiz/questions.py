@@ -377,17 +377,13 @@ def remove_quiz_responses(user, quiz):
         db.session.delete(r)
     db.session.commit()
 
-#def get_qn_image(question):
-#    image_uri = question.image_file
-#    return url_for('static', filename='resources/images/quiz/' + image_uri)
-
 def update_qn_image(form_image):
     """To rename & resize image"""
     #rename image
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_image.filename)
     image_filename = random_hex + f_ext
-    image_path = os.path.join(current_app.root_path, url_for('static', filename='resources/images/quiz'), image_filename)
+    image_path = os.path.join(current_app.root_path, 'static', 'resources', 'images', 'quiz', image_filename)
 
     #save image
     new_image = Image.open(form_image)
