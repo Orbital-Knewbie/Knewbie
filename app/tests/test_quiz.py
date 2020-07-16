@@ -118,5 +118,12 @@ class QuizTest(BaseTest):
             self.assertIn(b'testquiz', rv.data)
             self.assertIn(b'Score:', rv.data)
 
+    def test_create_quiz_same_name(self):
+        with self.app:
+            self.login('edutest@test.com', 'strongtest')
+            rv = self.app.post(url_for('quiz.createquiz'), data={'quiz-title':'testquiz'}, follow_redirects=True)
+            self.assertEqual(rv.status_code, 200)
+            self.assertIn(b'You have already created a Quiz with this name. Please choose a different name.', rv.data)
+
 if __name__ == '__main__':
     unittest.main()

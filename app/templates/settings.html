@@ -1,6 +1,7 @@
-﻿{% extends "base.html" %}
+﻿{% from "_formhelpers.html" import render_error %}
+{% extends "base.html" %}
 {% block style %}
-<link rel="stylesheet" href="{{ url_for('static', filename='/content/settingstyle.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='content/settingstyle.css') }}">
 {% endblock %}
 
 {% block message %}
@@ -19,7 +20,7 @@
     <main class="content">
         <section id="profile">
             <h1 style="text-align: center; padding-top: 5rem;">Update Details</h1>
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="{{ url_for('main.settings') }}" method="post" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
                 <ul>
                     <li class="large padding avatar">
@@ -29,15 +30,7 @@
                                 <div class="image-btn" style="margin-bottom: 1rem;">
                                     {{ form.image(class_="create-btn") }}
                                 </div>
-                                {% if current_user.urole == 'student' %}
-                                <!--<form action="{{ url_for('main.settings_knewbie_id') }}" method="post" class="#">
-                                    {{ knewbieForm.hidden_tag() }}
-                                    {{ knewbieForm.submit() }}
-                                </form>-->
-                                <div>
-                                    <a href="{{ url_for('main.settings_knewbie_id') }}" class="home-btn">Request A New Knewbie ID</a>
-                                </div>
-                                {% endif %}
+
                             </fieldset>
                         </div>
                     </li>
@@ -49,6 +42,7 @@
                                 <label>First Name</label>
                                 <hr />
                             </div>
+                            {{ render_error(form.firstName) }}
                         </fieldset>
                     </li>
 
@@ -59,6 +53,7 @@
                                 <label>Last Name</label>
                                 <hr />
                             </div>
+                            {{ render_error(form.lastName) }}
                         </fieldset>
                     </li>
                     <li>
@@ -82,11 +77,25 @@
                     {% endwith %}
                 </ul>
             </form>
+            {% if current_user.urole == 'student' %}
+            <form action="{{ url_for('main.settings_knewbie_id') }}" method="post">
+                {{ knewbieForm.hidden_tag() }}
+                <ul>
+                    <li class="large padding">
+                        <fieldset class="settings-button center">
+                            <div>
+                                {{ knewbieForm.submit(class_="save") }}
+                            </div>
+                        </fieldset>
+                    </li>
+                </ul>
+            </form>
+            {% endif %}
         </section>
 
         <section id="account">
-            <h1 style="text-align: center; padding-top: 1rem;">Change Password</h1>
-            <form action="" method="post">
+            <h1 style="text-align: center; padding-top: 3rem;">Change Password</h1>
+            <form action="{{ url_for('main.change_pw') }}" method="post">
                 {{ pwForm.hidden_tag() }}
                 <ul>
                     <li>
@@ -105,6 +114,7 @@
                                 <label>Current Password</label>
                                 <hr />
                             </div>
+                            {{ render_error(pwForm.password) }}
                         </fieldset>
                     </li>
                     <li>
@@ -114,6 +124,7 @@
                                 <label>New Password</label>
                                 <hr />
                             </div>
+                            {{ render_error(pwForm.newPassword) }}
                         </fieldset>
                     </li>
 
@@ -124,57 +135,33 @@
                                 <label>Confirm Password</label>
                                 <hr />
                             </div>
+                            {{ render_error(pwForm.confirmPassword) }}
                         </fieldset>
                     </li>
 
                     <li class="large padding">
                         <fieldset class="settings-button center">
                             <div>
-                                {{ emailForm.submit(class_="save") }}
+                                {{ pwForm.submit(class_="save") }}
                             </div>
                         </fieldset>
                     </li>
                 </ul>
             </form>
 
-            <h1 style="text-align: center; padding-top: 1rem; width: 100vw; position: relative; margin: 0 auto;">Change Email Address</h1>
-            <form action="" method="post">
-                {{ emailForm.hidden_tag() }}
+            <h1 style="text-align: center; padding-top: 3rem; width: 100vw; position: relative; margin: 0 auto;">Change Email Address</h1>
                 <ul>
-                    <li>
-                        <fieldset class="settings-input">
-                            <div>
-                                {{ emailForm.email }}
-                                <label>New Email</label>
-                                <hr />
-                            </div>
-                        </fieldset>
-                    </li>
-
-                    <li>
-                        <fieldset class="settings-input">
-                            <div>
-                                {{ emailForm.confirmEmail }}
-                                <label>Confirm Email</label>
-                                <hr />
-                            </div>
-                        </fieldset>
-                    </li>
-
                     <li class="large padding">
                         <fieldset class="settings-button center">
-                            <div>
-                                {{ emailForm.submit(class_="save") }}
-                            </div>
+                            <a href="{{ url_for('auth.reset_email') }}" class="email-btn" id="signupnow">Update and Link new Email</a>
                         </fieldset>
-                        <div class="zone">
+                        <div class="zone" style="padding-top: 3rem;">
                             <p> Danger Zone <p />
                             <hr />
                             <a href="{{ url_for('auth.request_deactivate') }}" class="deact-btn">Deactivate Account</a>
                         </div>
                     </li>
                 </ul>
-            </form>
         </section>
 
         <section class="upcoming" id="privacy">

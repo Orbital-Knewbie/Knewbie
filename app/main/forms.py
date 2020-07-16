@@ -27,24 +27,10 @@ class UpdateProfileForm(FlaskForm):
     knewbie_id = SubmitField('Request A Knewbie ID')
     submit = SubmitField('Save')
 
-class UpdateEmailForm(FlaskForm, EmailFormMixin):
-    confirmEmail = StringField('Email', validators=[DataRequired(), Email()])
-    #def validate_email(self, email):
-    #    if email.data == current_user.email:
-    #        user = User.query.filter_by(email=email.data).first()
-    #        if user is not None:
-    #            raise ValidationError('Email is the same as the registered email. Please use a different email address.')
-    submit = SubmitField('Save')
-
 class UpdatePasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
-    newPassword = PasswordField('Password', validators=[DataRequired()])
-    confirmPassword = PasswordField('Password', validators=[DataRequired()])
-    #def validate_password(self, password_hash):
-    #    if not current_user.check_password(password):
-    #        user = User.query.filter_by(password_hash=confirmPassword.data).first()
-    #        if user is not None:
-    #            raise ValidationError('You cannot reuse your old password. Please choose a different password.')
+    newPassword = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
+    confirmPassword = PasswordField('Password', validators=[DataRequired(), Length(min=8), EqualTo('newPassword', message='Password does not match')])
     submit = SubmitField('Save')
 
 class StringFormMixin():

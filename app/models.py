@@ -3,7 +3,7 @@ from flask_login import UserMixin
 from app import db, login
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
+from sqlalchemy.ext.hybrid import hybrid_property
 
 usergroup = db.Table('usergroup', \
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True), \
@@ -77,7 +77,7 @@ class Question(db.Model):
     #answer = db.relationship('Answer', backref=db.backref('question', uselist=False))
     responses = db.relationship('Response', backref='question')
     userID = db.Column(db.Integer, db.ForeignKey('user.id'))
-
+    image_file = db.Column(db.String(20))
     #type = db.Column(db.String(16), index=True, unique=True)
 
 class Option(db.Model):

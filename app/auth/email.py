@@ -27,6 +27,15 @@ def send_reset_email(user):
                html_body=render_template('email/reset.html', name=user.firstName, token=token)
     )
 
+def send_new_email(user):
+    token = user.reset_token()
+    send_email('[Knewbie] Email Update Request', 
+               sender=current_app.config['ADMINS'][0],
+               recipients=[user.email],
+               text_body=render_template('email/resetemail.txt', name=user.firstName, token=token),
+               html_body=render_template('email/resetemail.html', name=user.firstName, token=token)
+    )
+
 def send_deactivate_email(user):
     token = user.reset_token()
     send_email('[Knewbie] Deactivate Account Request', 

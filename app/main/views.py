@@ -11,6 +11,7 @@ from app.models import *
 from app.main.forms import *
 from app.main.profile import *
 from app.main.email import *
+from app.auth.email import get_confirm_url, send_conf_email
 from app.decorator import check_confirmed
 
 import json
@@ -114,7 +115,6 @@ def settings():
     form = UpdateProfileForm(prefix='profile')
     knewbieForm = ChangeKnewbieForm(prefix='knewbie')
     pwForm = UpdatePasswordForm(prefix='pw')
-    emailForm = UpdateEmailForm(prefix='email')
 
     if form.validate_on_submit():            
         if form.image.data:
@@ -129,7 +129,7 @@ def settings():
         form.firstName.data = current_user.firstName
         form.lastName.data = current_user.lastName
     image_file = get_image_file(current_user)
-    return render_template('settings.html', title=' | Settings', image_file=image_file, form=form, knewbieForm=knewbieForm, pwForm=pwForm, emailForm=emailForm)
+    return render_template('settings.html', title=' | Settings', image_file=image_file, form=form, knewbieForm=knewbieForm, pwForm=pwForm)
 
 @bp.route('/settings/knewbieID', methods=['POST'])
 @login_required
@@ -146,47 +146,22 @@ def settings_knewbie_id():
         flash('Your profile has been successfully updated!', 'success')
     return redirect(url_for('main.settings'))
 
-@bp.route('/settings/update/email', methods=['POST'])
-@login_required
-def change_email():
-    """Routing to change email from settings"""   
-    form = UpdateProfileForm(prefix='profile')
-    knewbieForm = ChangeKnewbieForm(prefix='knewbie')
-    pwForm = UpdatePasswordForm(prefix='pw')
-    emailForm = UpdateEmailForm(prefix='email')
-
-    if emailForm.validate_on_submit():
-        user = User.query.filter_by(email=emailForm.email.data).first()
-        if emailForm.confirmEmail.data == emailForm.email.data and user is None:
-            current_user.email = emailForm.email.data
-            db.session.commit()
-            flash('Your profile has been successfully updated!', 'success')
-        elif user is None and emailForm.confirmEmail.data != emailForm.email.data:
-            flash('The entered email addresses do not match!')
-        elif user is not None:
-            flash('Enter a new email address if you want to update it, otherwise leave the fields blank!')
-        return redirect(url_for('main.settings'))
-
-@bp.route('/settings/update/password', methods=['POST'])
+@bp.route('/settings/password', methods=['POST'])
 @login_required
 def change_pw():
     """Routing to change PW from settings"""
     form = UpdateProfileForm(prefix='profile')
     knewbieForm = ChangeKnewbieForm(prefix='knewbie')
     pwForm = UpdatePasswordForm(prefix='pw')
-    emailForm = UpdateEmailForm(prefix='email')
 
     if pwForm.validate_on_submit():
-        user = User.query.filter_by(email=emailForm.email.data).first()
-        if user is None or not user.check_password(pwForm.password.data):
+        if not current_user.check_password(pwForm.password.data):
             flash('Invalid current password, please try again')
-            return redirect(url_for('main.settings'))
+        elif current_user.check_password(pwForm.newPassword.data):
+            flash('You cannot reuse your old password. Please choose a different password.', 'success')
         else:
-            if pwForm.newPassword.data != pwForm.confirmPassword.data:
-                flash('New passwords do not match, please try again')
-                return redirect(url_for('main.settings'))
-            else:
-                user.set_password(pwForm.confirmPassword.data)
-                db.session.commit()
-                flash('Your profile has been successfully updated!', 'success')
-    return redirect(url_for('main.settings'))
+            current_user.set_password(pwForm.confirmPassword.data)
+            db.session.commit()
+            flash('Your profile has been successfully updated!', 'success')
+    image_file = get_image_file(current_user)
+    return render_template('settings.html', title=' | Settings', image_file=image_file, form=form, knewbieForm=knewbieForm, pwForm=pwForm)

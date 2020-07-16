@@ -33,7 +33,7 @@ class DeactivateForm(FlaskForm, EmailFormMixin):
     submit = SubmitField('DEACTIVATE')
 
 class ResetPasswordForm(FlaskForm, EmailFormMixin):
-    submit = SubmitField('Reset Password')
+    submit = SubmitField('Reset')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
@@ -46,3 +46,9 @@ class NewPasswordForm(FlaskForm):
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Update Password')
+
+class NewEmailForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    email2 = StringField(
+        'Confirm Email', validators=[DataRequired(), EqualTo('email')])
+    submit = SubmitField('Update Email')

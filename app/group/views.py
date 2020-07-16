@@ -186,7 +186,7 @@ def class_settings(groupID):
     image_file = get_image_file(current_user)
     nameForm = EditNameForm(prefix='name')
     codeForm = UpdateCodeForm(prefix='code')
-    return redirect(url_for('group.edit_participants', groupID=groupID))
+    return render_template('group/classsettings.html', title=' | Class Settings', group=group, image_file=image_file, nameForm=nameForm, codeForm=codeForm)
 
 
 @bp.route('/<int:groupID>/edit', methods=['POST'])
@@ -211,6 +211,7 @@ def update_class_code(groupID):
     """Routing to update Class Code"""
     if not current_user.check_educator():
         return render_template('errors/error403.html'), 403
+    group = validate_group_link(current_user, groupID)
     nameForm = EditNameForm(prefix='name')
     codeForm = UpdateCodeForm(prefix='code')
     if codeForm.validate_on_submit():

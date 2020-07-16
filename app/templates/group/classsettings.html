@@ -1,0 +1,34 @@
+﻿{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='content/classsettingsstyle.css') }}">
+{% endblock %}
+{% block content %}
+{% include "sidebar.html" %}
+<div style="margin-left: 250px;">
+    <header class="heading">
+        <h1 class="title"><span>Class Settings</span></h1>
+    </header>
+    <div style="margin-top: 150px;">
+        <h1>Edit Class Name</h1>
+        <form action="{{ url_for('group.adduserclass', groupID=group.id) }}" method="post">
+            {{ nameForm.hidden_tag() }}
+            <div class="input-field">
+                {{ nameForm.title(size=32, class_="input", value=group.name) }}
+            </div>
+            {{ nameForm.submit(class_="edit-btn") }}
+        </form>
+    </div>
+
+    <div>
+        <h1>Change Class Code</h1>
+        <form action="{{ url_for('group.adduserclass', groupID=group.id) }}" method="post">
+            {{ codeForm.hidden_tag() }}
+            {{ codeForm.submit(class_="edit-btn") }}
+        </form>
+    </div>
+
+    <div>
+        <h1 style="color: red;">Delete Class</h1>
+        <a href="{{ url_for('group.delete_class', groupID=group.id) }}" class="home-btn"><i class="fas fa-trash"></i><span>Delete Class</span></a>
+    </div>
+</div>
+{% endblock %}
