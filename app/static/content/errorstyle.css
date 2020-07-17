@@ -226,29 +226,29 @@ span {
 
 @keyframes stroke {
     from {
-    box-shadow: inset -3px 0px 0px #f06292;
+        box-shadow: inset -3px 0px 0px #f06292;
     }
 
     to {
-    box-shadow: inset -3px 0px 0px transparent;
+        box-shadow: inset -3px 0px 0px transparent;
     }
 }
 
 @media (max-width: 550px) {
     .fof h2 {
-    font-size: 3rem;
-    letter-spacing: 3px;
-    padding-top: 2rem;
+        font-size: 3rem;
+        letter-spacing: 3px;
+        padding-top: 2rem;
     }
 
     h1 {
-    font-size: 5rem;
-    letter-spacing: 8px;
+        font-size: 5rem;
+        letter-spacing: 8px;
     }
 
     p {
-    font-size: 1.5rem;
-    padding-top: 2rem;
+        font-size: 1.5rem;
+        padding-top: 2rem;
     }
 
     span {

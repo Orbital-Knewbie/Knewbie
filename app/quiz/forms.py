@@ -16,7 +16,7 @@ class QuestionForm(FlaskForm):
     op4 = StringField('Option 4', validators=[DataRequired()])
     corrOp = SelectField('Correct Option', choices=[(0, 'Select Correct Option'), \
         (1, 'Option 1'), (2, 'Option 2'), (3, 'Option 3'), (4, 'Option 4')], validators=[DataRequired()], coerce=int)
-    img = MultipleFileField('Attach Image')
+    img = FileField('Attach Image', validators=[FileAllowed(['jpeg', 'svg', 'jpg', 'png'], 'File Type not allowed, only image file types permitted!')])
     submit = SubmitField('Save and Add New Question')
     complete = SubmitField('Save and Complete Quiz')
 
