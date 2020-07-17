@@ -10,8 +10,6 @@ from random import choice, shuffle
 from datetime import datetime
 from PIL import Image
 
-from PIL import Image
-
 import glob, os, json, secrets
 
 
