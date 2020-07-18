@@ -44,9 +44,10 @@ html, body {
 
 .options-container span:hover {
     cursor: pointer;
-    box-shadow: 0 0.2rem 1rem 0 var(--LIGHTPURPLE);
+    box-shadow: 0 0.2rem 1rem 0 var(--ORANGE);
     transform: translateY(-0.1rem);
-    transition: transform 0.2s;
+    transition: 0.3s;
+    padding: 1rem;
 }
 
 .options-prefix {
@@ -74,10 +75,13 @@ label input {
     padding: 1.5rem;
 }
 
-label input:checked ~ span {
-    box-shadow: 0 0.2rem 1rem 0 var(--LIGHTPURPLE);
+input:checked  ~ span {
+    box-shadow: 0 0.2rem 1rem 0 var(--ORANGE);
     transform: translateY(-0.1rem);
-    transition: transform 0.2s;
+    transition: 0.2s;
+    background: var(--YELLOW);
+    color: var(--NAVY);
+    padding: 1rem;
 }
 
 .delete-btn {

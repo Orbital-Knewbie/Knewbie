@@ -185,12 +185,12 @@ bottom-text p {
 }
 
 .bottom-text a {
-    color: var(--LIGHTPURPLE);
+    color: var(--ORANGE);
     text-decoration: none;
 }
 
 .bottom-text a:hover {
-    color: var(--PURPLE);
+    color: var(--NAVY);
 }
 
 /* BACKGROUND IMAGE */
@@ -215,7 +215,7 @@ bottom-text p {
 .query h1 {
   margin-bottom: 5rem;
   font-size: 4rem;
-  color: var(--PURPLE);
+  color: var(--ORANGE);
   font-family: 'Lato', sans-serif;
 }
 
