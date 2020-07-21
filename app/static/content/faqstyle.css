@@ -87,7 +87,7 @@ section:before {
     align-items: center;
     justify-content: space-between;
     font-size: 2rem;
-    color: var(--GREY);
+    color: var(--YELLOW);
     opacity: 0.7;
     text-decoration: none;
     background-color: var(--PURPLE);
@@ -96,9 +96,9 @@ section:before {
 }
 
 .accordion-link i {
-    color: var(--GREY);
+    color: var(--YELLOW);
     padding: 0.5rem;
-    opacity: 0.4;
+/*    opacity: 0.4;*/
 }
 
 .faq-ans {
@@ -118,7 +118,7 @@ section:before {
     position: absolute;
     width: 0.2rem;
     height: 100%;
-    background-color: var(--LIGHTPURPLE);
+    background-color: var(--ORANGE);
     top: 50%;
     left: 0;
     transform: translateY(-50%);

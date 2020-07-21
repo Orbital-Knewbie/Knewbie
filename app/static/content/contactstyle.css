@@ -97,7 +97,7 @@ body
 }
 
 .contact-container .contact-form form .contact-form-input input[type="submit"]:hover {
-    background: var(--LIGHTPURPLE);
+    background: var(--ORANGE);
     border: 1px solid var(--OFFWHITE);
     color: var(--OFFWHITE);
 }
@@ -125,7 +125,7 @@ body
 .contact-container .contact-form form .contact-form-input input:valid ~span,
 .contact-container .contact-form form .contact-form-input textarea:valid ~ span {
     transform: translateY(-28px);
-    color: var(--OFFWHITE);
+    color: var(--YELLOW);
     opacity: 1;
     font-size: 0.9rem;
 }
@@ -134,7 +134,7 @@ body
 .contact-container .contact-form form .contact-form-input textarea:focus,
 .contact-container .contact-form form .contact-form-input input:valid,
 .contact-container .contact-form form .contact-form-input textarea:valid {
-    border-bottom-color: var(--OFFWHITE); 
+    border-bottom-color: var(--YELLOW); 
 }
 
 .contact-container .contact-form-img {
