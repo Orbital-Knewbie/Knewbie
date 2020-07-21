@@ -3,9 +3,8 @@
 package View {
 Interface render_template <<Interface>>
 Class base
-Class NavBar
 Class WebPage
-
+Class sidebar
 
 }
 
@@ -17,10 +16,10 @@ package Model{
 
 Model --> render_template
 render_template --> Controller
-render_template --> base
-base -r> NavBar
+Controller --> base
+base -l> sidebar
+sidebar --> WebPage
 base --> WebPage
-NavBar --> WebPage
 
 
 @enduml
