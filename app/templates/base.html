@@ -57,11 +57,14 @@
             <ul class="list">
                 {% if current_user.is_authenticated %}
                 <li class="navitem"><a href="{{ url_for('main.dashboard') }}" class="link">Home</a></li>
-                <li class="navitem"><a href="{{ url_for('main.dashboard', _anchor='viewclass') }}" class="link">View Classes</a></li>
-                <li class="navitem"><a href="{{ url_for('main.settings',) }}" class="link">Settings</a></li>
-                <li class="navitem"><a href="{{ url_for('auth.logout') }}" class="link">Sign Out</a></li>
                 {% else %}
                 <li class="navitem"><a href="{{ url_for('main.home') }}" class="link">Home</a></li>
+                {% endif %}
+                <li class="navitem"><a href="{{ url_for('main.faq') }}" class="link">FAQ</a></li>
+                <li class="navitem"><a href="{{ url_for('main.contact') }}" class="link">Contact</a></li>
+                {% if current_user.is_authenticated %}
+                <li class="navitem"><a href="{{ url_for('main.settings',) }}" class="link">Settings</a></li>
+                <li class="navitem"><a href="{{ url_for('auth.logout') }}" class="link">Sign Out</a></li>
                 {% endif %}
             </ul>
         </nav>
