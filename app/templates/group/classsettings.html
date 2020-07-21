@@ -9,7 +9,7 @@
     </header>
     <div style="margin-top: 150px;">
         <h1>Edit Class Name</h1>
-        <form action="{{ url_for('group.adduserclass', groupID=group.id) }}" method="post">
+        <form action="{{ url_for('group.edit_class_name', groupID=group.id) }}" method="post">
             {{ nameForm.hidden_tag() }}
             <div class="input-field">
                 {{ nameForm.title(size=32, class_="input", value=group.name) }}
@@ -20,7 +20,7 @@
 
     <div>
         <h1>Change Class Code</h1>
-        <form action="{{ url_for('group.adduserclass', groupID=group.id) }}" method="post">
+        <form action="{{ url_for('group.update_class_code', groupID=group.id) }}" method="post">
             {{ codeForm.hidden_tag() }}
             {{ codeForm.submit(class_="edit-btn") }}
         </form>
