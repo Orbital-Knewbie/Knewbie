@@ -3,6 +3,11 @@ package Controller {
 Class Questions
 Class Email
 Class Forum
+Class Auth
+Class Group
+Class Main
+Class Quiz
+Class Errors
 Interface Routes <<Interface>>
 }
 
@@ -18,8 +23,19 @@ HiddenOutside ..> Routes
 Routes --> Questions
 Routes --> Email
 Routes --> Forum
+Routes --> Auth
+Routes --> Group
+Routes --> Main
+Routes --> Quiz
+Routes --> Errors
+
 Questions --> Model
 Email --> Model
 Forum --> Model
+Auth --> Model
+Group --> Model
+Main --> Model
+Quiz --> Model
+
 Routes --> View
 @enduml

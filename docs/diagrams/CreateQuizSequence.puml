@@ -1,0 +1,126 @@
+@startuml
+Actor User as user
+Participant ":View" as view
+box Controller
+participant ":Route" as Route
+participant ":views.py" as views
+participant ":validate" as validate
+participant ":Questions" as qns
+end box
+box Model
+Participant ":Model" as model
+end box
+Participant ":database" as database
+
+
+user --> view : Click "Create" Quiz
+activate view
+
+view --> Route : execute("Create Quiz", name="New Quiz")
+activate Route
+
+Route --> views : createquiz()
+activate views
+
+views --> validate : validateOnSubmit()
+activate validate
+
+validate --> views
+deactivate validate
+
+views --> qns
+activate qns
+
+qns --> model : add_quiz(name="New Quiz")
+activate model
+
+model --> qns : Quiz(name="New Quiz")
+deactivate model
+
+qns --> database : db.session.add(quiz)
+activate database
+
+database --> database : Save to File
+activate database
+deactivate database
+
+database --> qns : db.session.commit()
+deactivate database
+
+qns --> views : createqn(quiz=quiz)
+deactivate qns
+
+views --> Route : /quiz/createqn
+deactivate views
+
+Route --> view : createqn.html
+deactivate Route
+
+view --> user
+deactivate view
+
+
+
+user --> view : Click "Save Question and Complete Quiz"
+activate view
+
+view --> Route : execute("Add QuestionQuiz",quiz=quiz,qn=qn)
+activate Route
+
+Route --> views : createqn(quiz)
+activate views
+
+views --> validate : validateOnSubmit()
+activate validate
+
+validate --> views
+deactivate validate
+
+views --> qns
+activate qns
+
+qns --> model : add_question(qn=form.data)
+activate model
+
+model --> qns : qn=Question(qn=form.data)
+deactivate model
+
+qns --> database : db.session.add(qn)
+activate database
+
+database --> database : Save to File
+activate database
+deactivate database
+
+database --> qns : db.session.commit()
+deactivate database
+
+qns --> model : add_question_quiz(quiz=quiz, qn=qn)
+activate model
+
+model --> qns
+deactivate model
+
+qns --> database : quiz.questions.append(qn)
+activate database
+
+database --> database : Save to File
+activate database
+deactivate database
+
+database --> qns : db.session.commit()
+deactivate database
+
+qns --> views : createquizsuccess(quiz=quiz)
+deactivate qns
+
+views --> Route : /quiz/success
+deactivate views
+
+Route --> view : createquizsuccess.html
+deactivate Route
+
+view --> user
+deactivate view
+
+@enduml

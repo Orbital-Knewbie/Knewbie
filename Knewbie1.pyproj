@@ -122,8 +122,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="migrations\env.py" />
-    <Compile Include="migrations\versions\93617144d712_init_db.py" />
-    <Compile Include="migrations\versions\9bf74eda21d2_question_image.py" />
+    <Compile Include="migrations\versions\30d33d3cefe3_init_db.py" />
     <Compile Include="run.py" />
     <Compile Include="app\tests\test_users.py">
       <SubType>Code</SubType>
@@ -227,7 +226,6 @@
     <Content Include="docs\diagrams\ControllerSequence.png" />
     <Content Include="docs\diagrams\ControllerSequence.puml" />
     <Content Include="docs\diagrams\Controller.png" />
-    <Content Include="docs\DeveloperGuide.md" />
     <Content Include="docs\diagrams\Controller.puml" />
     <Content Include="docs\diagrams\Database.png" />
     <Content Include="docs\diagrams\Form.png" />
@@ -240,6 +238,7 @@
     <Content Include="docs\diagrams\ContactSequence.puml" />
     <Content Include="docs\diagrams\AdaptiveFlowchart.puml" />
     <Content Include="docs\diagrams\QuizEntity.puml" />
+    <Content Include="docs\diagrams\CreateQuizSequence.puml" />
     <Content Include="docs\diagrams\UserEntity.png" />
     <Content Include="docs\diagrams\UserEntity.puml" />
     <Content Include="docs\diagrams\View.png" />
@@ -271,15 +270,11 @@
     <Content Include="docs\images\UniqueID.png" />
     <Content Include="docs\images\UniqueIDhome.png" />
     <Content Include="docs\images\ViewClass.png" />
-    <Content Include="docs\InstallationGuide.md" />
-    <Content Include="docs\DevPractices.md" />
-    <Content Include="docs\UserGuide-Educator.md" />
     <Content Include="migrations\alembic.ini" />
     <Content Include="migrations\README" />
     <Content Include="migrations\script.py.mako" />
     <Content Include="README.md" />
     <Content Include="requirements.txt" />
-    <Content Include="docs\UserGuide-Students.md" />
     <Content Include="Procfile" />
     <Content Include=".travis.yml" />
   </ItemGroup>

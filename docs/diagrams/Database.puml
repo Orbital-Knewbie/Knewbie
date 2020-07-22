@@ -12,6 +12,9 @@ password_hash
 urole
 confirmed
 confirmed_on
+knewbie_id
+curr_theta
+image_file
 }
 
 entity Response {
@@ -31,6 +34,7 @@ difficulty
 guessing
 upper
 topicID
+image_file
 }
 
 entity Option {
