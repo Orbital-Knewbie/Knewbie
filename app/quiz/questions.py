@@ -134,6 +134,8 @@ def update_proficiency(user, topicID=1):
 
 def add_proficiency(user):
     '''Add timestamped proficiency entity, done every completed quiz'''
+    if Proficiency.query.filter_by(userID=user.id, theta=user.curr_theta).first(): 
+        return
     prof, student = get_student_cat(user)
     new_prof = Proficiency(userID=user.id, timestamp=datetime.now(), 
                            theta=student.theta, topicID=1)

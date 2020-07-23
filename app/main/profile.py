@@ -35,7 +35,7 @@ def get_proficiencies(user):
     '''Return list of (timestamp, proficiency) in chronological order'''
     profs = Proficiency.query.filter_by(userID=user.id,topicID=1). \
         order_by(Proficiency.timestamp.asc()).all()
-    return [[prof.timestamp for prof in profs], [prof.theta for prof in profs]]
+    return [[prof.timestamp.strftime('%d/%m/%Y') for prof in profs], [prof.theta for prof in profs]]
 
 def get_level_proficiency(user):
     '''Returns a list of proficiency levels for each difficulty range
@@ -53,7 +53,7 @@ def get_level_proficiency(user):
         if not diff:
             prof_lvl.append(0)
         else:
-            correct = tuple(filter(lambda x: x.is_correct(), diff))
+            correct = tuple(filter(lambda x: x.is_correct, diff))
             prof_lvl.append(len(correct)/len(diff))
     return prof_lvl
 
@@ -68,7 +68,7 @@ def get_topic_proficiencies(user):
         if not curr_prof:
             prof_lvl.append((topic.name, 0))
         else:
-            correct = tuple(filter(lambda x:x.is_correct(), curr_prof))
+            correct = tuple(filter(lambda x:x.is_correct, curr_prof))
             prof_lvl.append((topic.name, len(correct)/len(curr_prof)))
     return prof_lvl
 

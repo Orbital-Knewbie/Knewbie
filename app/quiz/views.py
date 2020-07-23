@@ -159,6 +159,7 @@ def quiz(attempt=None):
 
     # If enough questions already attempted, go to result
     if student.stop():
+        add_proficiency(current_user)
         return redirect(url_for('quiz.result'))
 
     # If attempting the quiz, get the next unanswered question to display
