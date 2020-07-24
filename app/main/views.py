@@ -66,16 +66,6 @@ def progressreport(knewbieID=None):
     overall_prof = get_proficiencies(user)
     return render_template('report.html', title=' | Progress Report', user=user, diff_prof=diff_prof, topical_prof=topical_prof, overall_prof=overall_prof)
 
-#Get data from database to be used in chart.js
-#@bp.route('/progressreport/<knewbieID>/get_data')
-#def get_data(knewbieID):
-#    user = User.query.filter_by(knewbie_id=knewbieID).first()
-#    diff_prof = get_level_proficiency(user)
-#    topical_prof = get_topic_proficiencies(user)
-#    overall_prof = get_proficiencies(user)
-#    print(diff_prof, topical_prof, overall_prof)
-#    return jsonify({'payload':({'topical_prof':topical_prof, 'diff_prof':diff_prof, 'overall_prof':overall_prof})})
-
 @bp.route('/faq')
 def faq():
     """Renders the faq page."""

@@ -1,7 +1,6 @@
 ﻿{% extends "base.html" %}
 {% block style %}
 <link rel="stylesheet" href="{{ url_for('static', filename='content/reportstyle.css') }}">
-<meta id="my-data" topic="{{topical_prof | tojson}}" diff="{{diff_prof| tojson}}" overall="{{overall_prof| tojson}}">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 {% endblock %}
 
@@ -28,25 +27,9 @@
     Chart.defaults.global.defaultFontSize = 18;
     Chart.defaults.global.defaultFontColor = '#420341';
 
-    //var topical_prof = JSON.parse(document.querySelector("meta[id='my-data']").getAttribute("topic"));
     var topical_prof = [10, 20, 30, 50, 60, 40];
-    var difficulty_prof = JSON.parse(document.querySelector("meta[id='my-data']").getAttribute("diff"));
-    //var difficulty_prof = [1.0, 1.0, 1.0];
-    //var overall_prof = JSON.parse(document.querySelector("meta[id='my-data']").getAttribute("overall"));
-    var overall_prof = [['2020-06-06'], [0.78]];
-
-
-    //$.ajax({
-    //    url: "/get_data",
-    //    type: "get",
-    //    data: { vals: '' },
-    //    success: function (response) {
-    //        full_data = JSON.parse(response.payload);
-    //        topical_prof = full_data['topical_prof'];
-    //        difficulty_prof = full_data['diff_prof'];
-    //        overall_prof = full_data['overall_prof'];
-    //    }
-    //});
+    var difficulty_prof = {{ diff_prof | tojson }};
+    var overall_prof = {{ overall_prof | tojson }};
 
 
     var lineChart = new Chart(myChart, {
@@ -75,7 +58,7 @@
         options: {
             title: {
                 display: true,
-                text: "John Doe's Progress Report",
+                text: "{{ current_user.firstName }} {{ current_user.lastName }}'s Progress Report",
                 fontSize: 25
             },
             legend: {
