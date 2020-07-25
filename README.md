@@ -5,7 +5,7 @@
 Knewbie is a Web Application built using Flask and makes use of machine learning (Computerized Adaptive Testing) to provide tailored educational content.
 
 ## For Users
-You can try out the web application at this link!
+You can try out the web application at [this link](https://flask-knewbie.herokuapp.com/)!
 
 ### User Guides
 Please refer to the appropriate [User Guide (Student)](https://github.com/Orbital-Knewbie/Knewbie/wiki/Student's-User-Guide) or [User Guide (Educator)](https://github.com/Orbital-Knewbie/Knewbie/wiki/Educator's-User-Guide) if you need help using the application.
