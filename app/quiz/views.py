@@ -158,14 +158,18 @@ def quiz(attempt=None):
     prof, student = get_student_cat(current_user, 1, attempt)
 
     # If enough questions already attempted, go to result
-    if student.stop():
-        add_proficiency(current_user)
+    try:
+        if student.stop():
+            add_proficiency(current_user)
+            return redirect(url_for('quiz.result'))
+    except ValueError:
         return redirect(url_for('quiz.result'))
 
     # If attempting the quiz, get the next unanswered question to display
     if request.method == 'GET':
         question, options = student.get_question_options()
         if question is None:
+            flash('Sorry, no more questions!')
             return redirect(url_for('quiz.result'))
         return render_template('quiz/quiz.html', question=question, options=options, attempt=attempt)
 
