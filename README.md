@@ -4,7 +4,7 @@
 # Knewbie
 Knewbie is a Web Application built using Flask and makes use of machine learning (Computerized Adaptive Testing) to provide tailored educational content.
 
-Knewbie was 1 of 6 projects selected by the School of Computing (SoC) communication office, National University of Singapore (NUS) and was [featured on the various social media accounts](https://www.linkedin.com/feed/update/urn:li:activity:6703488818370215936/).
+From a total of 383 projects, Knewbie was 1 of 6 projects selected by the School of Computing (SoC) communication office, National University of Singapore (NUS) and was [featured on the various social media accounts](https://www.linkedin.com/feed/update/urn:li:activity:6703488818370215936/).
 
 ## For Users
 You can try out the web application at [this link](https://flask-knewbie.herokuapp.com/)!
