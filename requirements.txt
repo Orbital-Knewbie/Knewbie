@@ -34,7 +34,7 @@ nose2==0.9.2
 numexpr==2.7.1
 numpy==1.18.5
 packaging==20.4
-Pillow==7.1.2
+Pillow==9.0.0
 plantuml==0.3.0
 pluggy==0.13.1
 psycopg2-binary==2.8.5
