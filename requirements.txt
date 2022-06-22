@@ -32,7 +32,7 @@ matplotlib==3.2.1
 more-itertools==8.4.0
 nose2==0.9.2
 numexpr==2.7.1
-numpy==1.18.5
+numpy==1.22.0
 packaging==20.4
 Pillow==7.1.2
 plantuml==0.3.0
